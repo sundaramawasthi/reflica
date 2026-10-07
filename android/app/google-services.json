@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "53064442729",
+    "firebase_url": "https://reflica-593b4-default-rtdb.firebaseio.com",
+    "project_id": "reflica-593b4",
+    "storage_bucket": "reflica-593b4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53064442729:android:d52f445c0e45941aed93f8",
+        "android_client_info": {
+          "package_name": "com.reflicaa.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53064442729-s5slk65eo1mbmfeoo688l4qhfghelkd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reflicaa.app",
+            "certificate_hash": "214ffa710b2d7c08fe8e236db21acd38624512e4"
+          }
+        },
+        {
+          "client_id": "53064442729-mnva30m81sr31010lss08uidrlcpshen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4ygY5i4MKPUQ9pR-T1daTRgXmOrqq7dU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53064442729-mnva30m81sr31010lss08uidrlcpshen.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

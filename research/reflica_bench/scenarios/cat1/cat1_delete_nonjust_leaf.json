@@ -1,0 +1,62 @@
+{
+  "scenario_id": "cat1_delete_nonjust_leaf_001",
+  "category": 1,
+  "subcategory": null,
+  "template_id": "T1.5",
+  "operation": "DELETE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "plan_root", "type": "plan", "attributes": {"status": "active"}},
+        {"id": "task_P", "type": "task", "attributes": {"name": "Buy whiteboard"}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "plan_root", "target": "task_P", "type": "informs"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {
+          "plan_root": ["status"]
+        }
+      }
+    },
+    "event": {
+      "operation": "DELETE",
+      "target_kind": "node",
+      "target_id": "task_P"
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "plan_root": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"status": "active"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "task_P": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {"name": "Buy whiteboard"},
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T1.5 DELETE of a leaf (task_P) that no rule references and that is reached only via a non-propagating 'informs' edge. plan_root stays stable."
+}

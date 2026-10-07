@@ -1,0 +1,75 @@
+{
+  "scenario_id": "cat1_relchange_nonprop_001",
+  "category": 1,
+  "subcategory": null,
+  "template_id": "T1.6",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "doc_A", "type": "document", "attributes": {"title": "spec v1"}},
+        {"id": "doc_B", "type": "document", "attributes": {"title": "notes"}},
+        {"id": "task_K", "type": "task", "attributes": {"status": "open"}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "doc_A", "target": "doc_B", "type": "informs"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {
+          "task_K": ["status"]
+        }
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {
+        "edge_id": "E1",
+        "old_type": "informs",
+        "new_type": "references"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "doc_A": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"title": "spec v1"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "doc_B": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"title": "notes"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "task_K": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"status": "open"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T1.6 RELATIONSHIP_CHANGE retyping a non-propagating 'informs' edge to another non-propagating 'references' type. No node state changes."
+}

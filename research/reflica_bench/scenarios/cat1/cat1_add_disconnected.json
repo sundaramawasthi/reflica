@@ -1,0 +1,72 @@
+{
+  "scenario_id": "cat1_add_disconnected_001",
+  "category": 1,
+  "subcategory": null,
+  "template_id": "T1.4",
+  "operation": "ADD",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "task_A", "type": "task", "attributes": {"name": "Draft slides"}},
+        {"id": "task_B", "type": "task", "attributes": {"name": "Prepare demo"}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "task_A", "target": "task_B", "type": "informs"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "ADD",
+      "target_kind": "node",
+      "new_node": {
+        "id": "note_X",
+        "type": "note",
+        "attributes": {"text": "unrelated reminder"}
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "task_A": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"name": "Draft slides"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "task_B": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {"name": "Prepare demo"},
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "note_X": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {"text": "unrelated reminder"},
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T1.4 ADD of a disconnected node; no edges introduced; nothing else should move."
+}
