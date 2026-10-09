@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat4_shared_premise_delete_negative_001",
+  "source_sha256": "2d13a22760d7df8a5b791836b14c26d50774db80622ee07584d9dc8bedaff89d",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\".\n- B (resource): name = \"B\".\n- S (resource): name = \"S\".\n- E4: status = true.\nLinks:\n- A → E4 (supports).\n- B → E4 (supports).\n- S → E4 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E4: status.\n- status of E4 is true when at least one holds: (A exists with an influencing link into E4 and S exists with an influencing link into E4) OR (B exists with an influencing link into E4 and S exists with an influencing link into E4); otherwise false.",
+    "change_text": "Update: S has been removed."
+  },
+  "alias_map": {
+    "A": "premise_A",
+    "B": "premise_B",
+    "S": "shared_S",
+    "E4": "conclusion_C"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat5_threshold_partial_partial_001",
+  "source_sha256": "c685f2d1e3d40c690a2259d08a341b2c35fe7616fae80a11ffbf51818597cf8c",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; beds = 30.\n- E2: required = 40; available = 30; coverage = 0.75; shortfall = 10; margin = -10; status = \"PARTIAL\".\n- weekly report (report): name = \"weekly report\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\n- A → weekly report (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E2 = [beds of A, counted only while A has an influencing link into E2; otherwise 0].\n- coverage of E2 = (available of E2 ÷ required of E2).\n- shortfall of E2 = the larger of (0, (required of E2 − available of E2)).\n- margin of E2 = (available of E2 − required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: beds of A is now 20."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "weekly report": "report_R",
+    "office wifi": "unrelated_U"
+  }
+}

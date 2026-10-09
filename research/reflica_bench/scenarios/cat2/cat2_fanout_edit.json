@@ -1,0 +1,94 @@
+{
+  "scenario_id": "cat2_fanout_edit_001",
+  "category": 2,
+  "subcategory": null,
+  "template_id": "T2.2",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "feed_X", "type": "resource", "attributes": {"status": "ok"}},
+        {"id": "task_B1", "type": "task", "attributes": {"status_mirror": "ok"}},
+        {"id": "task_B2", "type": "task", "attributes": {"status_mirror": "ok"}},
+        {"id": "task_B3", "type": "task", "attributes": {"status_mirror": "ok"}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "feed_X", "target": "task_B1", "type": "supports"},
+        {"edge_id": "E2", "source": "feed_X", "target": "task_B2", "type": "supports"},
+        {"edge_id": "E3", "source": "feed_X", "target": "task_B3", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {
+          "feed_X": ["status"],
+          "task_B1": ["status_mirror"],
+          "task_B2": ["status_mirror"],
+          "task_B3": ["status_mirror"]
+        }
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {"from_node": "feed_X", "from_attribute": "status", "to_node": "task_B1", "to_attribute": "status_mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "feed_X", "attribute": "status"}], "output_name": "status_mirror"},
+             "human": "task_B1.status_mirror = feed_X.status"},
+            {"from_node": "feed_X", "from_attribute": "status", "to_node": "task_B2", "to_attribute": "status_mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "feed_X", "attribute": "status"}], "output_name": "status_mirror"},
+             "human": "task_B2.status_mirror = feed_X.status"},
+            {"from_node": "feed_X", "from_attribute": "status", "to_node": "task_B3", "to_attribute": "status_mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "feed_X", "attribute": "status"}], "output_name": "status_mirror"},
+             "human": "task_B3.status_mirror = feed_X.status"}
+          ]
+        }
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "feed_X",
+      "attribute": "status",
+      "new_value": "degraded"
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "feed_X": {
+        "outcome_label": "MUST_CHANGE", "state_change": true,
+        "attribute_values": {"status": "degraded"}, "in_affected_set": true,
+        "determinability": "DETERMINABLE", "pathology_codes": []
+      },
+      "task_B1": {
+        "outcome_label": "MUST_CHANGE", "state_change": true,
+        "attribute_values": {"status_mirror": "degraded"}, "in_affected_set": true,
+        "determinability": "DETERMINABLE", "pathology_codes": []
+      },
+      "task_B2": {
+        "outcome_label": "MUST_CHANGE", "state_change": true,
+        "attribute_values": {"status_mirror": "degraded"}, "in_affected_set": true,
+        "determinability": "DETERMINABLE", "pathology_codes": []
+      },
+      "task_B3": {
+        "outcome_label": "MUST_CHANGE", "state_change": true,
+        "attribute_values": {"status_mirror": "degraded"}, "in_affected_set": true,
+        "determinability": "DETERMINABLE", "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "status": "discrete",
+      "status_mirror": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T2.2 fan-out EDIT. feed_X status change propagates to three dependents in parallel."
+}

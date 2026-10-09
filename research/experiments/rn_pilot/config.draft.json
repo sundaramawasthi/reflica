@@ -1,0 +1,69 @@
+{
+ "experiment": "rn_pilot",
+ "status": "DRAFT \u2014 provider/models chosen by user 2026-10-08; ids to be verified against the key's model list before freezing",
+ "benchmark_version": "0.2.0",
+ "render_version": "rn-template-1.0.0",
+ "scenarios": "rn.PILOT_IDS (16)",
+ "model_id": "moonshotai/kimi-k3",
+ "temperature": 0,
+ "seed": 20261008,
+ "seed_behaviour": "UNVERIFIED \u2014 measure",
+ "max_output_tokens": 16384,
+ "repeats_per_call": 3,
+ "prompts": {
+  "b1_full_regeneration.v1.txt": "7466652fad46688b",
+  "b2_delta.v1.txt": "4b8c83db52552fcc",
+  "extractor.v1.txt": "03207dbe5b9bbeb6",
+  "common_reasons.txt": "fcc50a8a70379bb0"
+ },
+ "schemas": {
+  "extractor_output.schema.v1.json": "27c3c1ec0d01a5c2",
+  "revision_output.schema.v1.json": "b19ffb3a079a8f91"
+ },
+ "conditions": [
+  "B1 full regeneration",
+  "B2 delta",
+  "A: gold extraction -> B4b/B5 \u2014 downstream sanity check ONLY, never evidence of extractor accuracy",
+  "B: LLM extraction (shared, identical output to both) -> B4b/B5 \u2014 extraction + revision experiment",
+  "B6 oracle scope (diagnostic)"
+ ],
+ "reason_to_code": {
+  "missing_information": "P1",
+  "conflicting_information": "P2",
+  "unclear_relationship": "P3",
+  "circular_dependency": "P4",
+  "conflicting_rules": "P5",
+  "non_numeric_value": "P6",
+  "unit_mismatch": "P7",
+  "contradicts_current_state": "P8a",
+  "invalid_target": "P8b",
+  "unclear_which_entity": "P9",
+  "no_unique_best_choice": "P10"
+ },
+ "decision_to_label": {
+  "changed": "MUST_CHANGE",
+  "not_changed": "MUST_STAY_STABLE",
+  "cannot_answer": "UNCERTAIN",
+  "needs_human_review": "REQUIRES_REEVALUATION"
+ },
+ "timestamp": "set at freeze",
+ "conditions_doc": "CONDITIONS.md",
+ "provider": "NVIDIA API catalog (build.nvidia.com, free trial tier), OpenAI-compatible endpoint",
+ "role_primary": "primary experiment model",
+ "secondary_model_id": "nvidia/nemotron-3-ultra-550b-a55b",
+ "role_secondary": "replication / robustness run with identical prompts",
+ "temperature_note": "locked design value (vendor samples use 1); if the API rejects 0 for a model, stop and report \u2014 no silent change",
+ "reasoning_setting": "ON for both, fixed: kimi-k3 reasoning_effort='high'; nemotron enable_thinking=true. Chosen (user delegated) because extraction into strict JSON benefits from reasoning and both models get comparable treatment; reasoning text is discarded, only final content is parsed.",
+ "served_model_check": "response 'model' must equal model_id, else abort",
+ "provider_key": "nvidia",
+ "model_params": {
+  "moonshotai/kimi-k3": {
+   "reasoning_effort": "high"
+  },
+  "nvidia/nemotron-3-ultra-550b-a55b": {
+   "chat_template_kwargs": {
+    "enable_thinking": true
+   }
+  }
+ }
+}

@@ -1,0 +1,274 @@
+{
+  "scenario_id": "cat6b_relchange_infeasible_001",
+  "category": 6,
+  "subcategory": "C6-B",
+  "template_id": "T6.7",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "S1",
+          "type": "resource",
+          "attributes": {
+            "name": "S1",
+            "capacity": 60,
+            "delivery_days": 5,
+            "cost": 9000
+          }
+        },
+        {
+          "id": "S2",
+          "type": "resource",
+          "attributes": {
+            "name": "S2",
+            "capacity": 50,
+            "delivery_days": 6,
+            "cost": 8000
+          }
+        },
+        {
+          "id": "S3",
+          "type": "resource",
+          "attributes": {
+            "name": "S3",
+            "capacity": 40,
+            "delivery_days": 4,
+            "cost": 6000
+          }
+        },
+        {
+          "id": "S4",
+          "type": "resource",
+          "attributes": {
+            "name": "S4",
+            "capacity": 70,
+            "delivery_days": 9,
+            "cost": 10000
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "status": "FEASIBLE",
+            "feasible_count": 2,
+            "selected": [
+              "S1",
+              "S3"
+            ],
+            "selected_value": 15000
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "S1",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "S2",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E3",
+          "source": "S3",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E4",
+          "source": "S4",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [],
+          "status_functions": {}
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {
+            "demand_C": {
+              "constraints": [
+                {
+                  "attribute": "capacity",
+                  "agg": "sum",
+                  "op": "ge",
+                  "value": 100
+                },
+                {
+                  "attribute": "delivery_days",
+                  "agg": "max",
+                  "op": "le",
+                  "value": 7
+                },
+                {
+                  "attribute": "cost",
+                  "agg": "sum",
+                  "op": "le",
+                  "value": 20000
+                }
+              ],
+              "objective": {
+                "attribute": "cost",
+                "agg": "sum",
+                "sense": "min"
+              },
+              "status_attribute": "status",
+              "feasible_label": "FEASIBLE",
+              "infeasible_label": "INFEASIBLE",
+              "human": "subset with sum capacity >= 100, max delivery <= 7 days, sum cost <= 20000"
+            }
+          }
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {
+        "edge_id": "E1",
+        "old_type": "supports",
+        "new_type": "informs"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "feasible_combinations": [],
+      "optimal_combination": {
+        "demand_C": {
+          "members": null,
+          "objective_value": null
+        }
+      },
+      "compensation_viable": false
+    },
+    "nodes": {
+      "S1": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S1",
+          "capacity": 60,
+          "delivery_days": 5,
+          "cost": 9000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S2": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S2",
+          "capacity": 50,
+          "delivery_days": 6,
+          "cost": 8000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S3": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S3",
+          "capacity": 40,
+          "delivery_days": 4,
+          "cost": 6000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S4": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S4",
+          "capacity": 70,
+          "delivery_days": 9,
+          "cost": 10000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {
+          "status": "INFEASIBLE",
+          "feasible_count": 0,
+          "selected": null,
+          "selected_value": null
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "cost": "continuous_unbounded_positive",
+      "delivery_days": "continuous_unbounded_positive",
+      "feasible_count": "continuous_unbounded_positive",
+      "name": "discrete",
+      "selected": "discrete",
+      "selected_value": "continuous_unbounded_positive",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T6.7 S1 stops contributing; no remaining subset meets all three constraints."
+}

@@ -29,3 +29,27 @@ def scenarios_dir() -> Path:
 
 def cat1_dir() -> Path:
     return scenarios_dir() / "cat1"
+
+
+def cat2_dir() -> Path:
+    return scenarios_dir() / "cat2"
+
+
+def cat3_dir() -> Path:
+    return scenarios_dir() / "cat3"
+
+
+def cat4_dir() -> Path:
+    return scenarios_dir() / "cat4"
+
+
+def cat5_dir() -> Path:
+    return scenarios_dir() / "cat5"
+
+
+def cat6_dir() -> Path:
+    return scenarios_dir() / "cat6"
+
+
+def cat7_dir() -> Path:
+    return scenarios_dir() / "cat7"

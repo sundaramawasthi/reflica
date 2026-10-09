@@ -1,0 +1,95 @@
+{
+ "experiment": "rn_pilot",
+ "status": "FROZEN v1.6 2026-10-09; 6-call validation then pilot after user approval",
+ "benchmark_version": "0.2.0",
+ "render_version": "rn-template-1.0.0",
+ "scenarios": "rn.PILOT_IDS (16)",
+ "model_id": "openai/gpt-oss-20b",
+ "temperature": 0,
+ "seed": 20261008,
+ "seed_behaviour": "UNVERIFIED \u2014 measure",
+ "max_output_tokens": 16384,
+ "repeats_per_call": 3,
+ "prompts": {
+  "b1_full_regeneration.v1.1.txt": "88922e5dd31c2bab7057a7d83fd6384ca3af547aff441022184451c65075a9ce",
+  "b2_delta.v1.1.txt": "059a1b9880a1ca26b7cb9df91c5d383c4da3233c6cd6cf14aded6fe771764edd",
+  "extractor.v1.1.txt": "2477e7b036ac4022fb8ee88bd3d26400d68f0c660b2610a12a0f4211286e305d",
+  "common_reasons.txt": "fcc50a8a70379bb0c5c8e4abbab0fd54a8f0c431220f0cd97aeed3a32476b61f"
+ },
+ "schemas": {
+  "extractor_output.schema.v1.4.json": "23677cb13049bfe0cb1f6f0cdfd56f639715edb85940d959eb2062fdc46b86de",
+  "revision_output.schema.v1.json": "b19ffb3a079a8f91ae36522b1018db85d8f2bdc15ae978cdc1043853329e000a"
+ },
+ "conditions": [
+  "B1 full regeneration",
+  "B2 delta",
+  "A: gold extraction -> B4b/B5 \u2014 downstream sanity check ONLY, never evidence of extractor accuracy",
+  "B: LLM extraction (shared, identical output to both) -> B4b/B5 \u2014 extraction + revision experiment",
+  "B6 oracle scope (diagnostic)"
+ ],
+ "reason_to_code": {
+  "missing_information": "P1",
+  "conflicting_information": "P2",
+  "unclear_relationship": "P3",
+  "circular_dependency": "P4",
+  "conflicting_rules": "P5",
+  "non_numeric_value": "P6",
+  "unit_mismatch": "P7",
+  "contradicts_current_state": "P8a",
+  "invalid_target": "P8b",
+  "unclear_which_entity": "P9",
+  "no_unique_best_choice": "P10"
+ },
+ "decision_to_label": {
+  "changed": "MUST_CHANGE",
+  "not_changed": "MUST_STAY_STABLE",
+  "cannot_answer": "UNCERTAIN",
+  "needs_human_review": "REQUIRES_REEVALUATION"
+ },
+ "conditions_doc": "CONDITIONS.md",
+ "provider": "NVIDIA API catalog (build.nvidia.com, free trial tier), OpenAI-compatible endpoint",
+ "role_primary": "primary/frozen experiment model (user choice 2026-10-09, before any pilot data)",
+ "secondary_model_id": null,
+ "temperature_note": "locked design value (vendor samples use 1); if the API rejects 0 for a model, stop and report \u2014 no silent change",
+ "reasoning_setting": "provider default reasoning for gpt-oss-20b (no extra parameter sent); reasoning text discarded",
+ "served_model_check": "response 'model' must equal model_id, else abort",
+ "provider_key": "nvidia",
+ "model_params": {
+  "openai/gpt-oss-20b": {}
+ },
+ "future_replication_model": "moonshotai/kimi-k3 (not run now)",
+ "max_output_tokens_note": "raised 4000 -> 16384 in v1.3 (user-approved): typed output + reasoning truncated 2/3 cat5 calls at 4000; 16384 = NVIDIA's documented example value. No other length manipulation.",
+ "probe_2026-10-08": {
+  "nvidia/nemotron-3-ultra-550b-a55b": "usable, served id identical",
+  "moonshotai/kimi-k3": "HTTP 504 x2"
+ },
+ "client": "stdlib urllib OpenAI-compatible chat/completions, stream=false, python 3.14.3",
+ "client_fingerprint": "5f46a2daca08f694809cc49596b30c5d9d1ef3f70d607494eb652ab618ba83fc",
+ "runner_fingerprint": "f5a6b25355b8245e00186b6cc9808d47c1897b2427d475faeec37cda7d994daf",
+ "benchmark_manifest_sha256": "27b6ea09986157677bfa5feaac05c125a52d5b5cc4f761e8e831d0092b3b6915",
+ "frozen_at": "2026-10-08",
+ "runner_changes": [
+  "2026-10-08: fixed NameError (_is_json defined after __main__) that crashed the first repeatability run after 3 calls; raw responses now logged per call. Runner-only bug fix \u2014 model, prompts, schemas, settings unchanged.",
+  "2026-10-08 v1.1: schema delivered in prompt; per-call schema validation via MethodInputStructured.",
+  "2026-10-08 v1.2: extractor schema switched to typed ExtractionOutput; per-call downstream check (parse -> lint -> B4b)."
+ ],
+ "config_version": "1.6",
+ "extractor_prompt": "extractor.v1.1.txt",
+ "schema_delivery": "exact schema JSON appended to each prompt ({output_schema}); no guided decoding, no other prompt change",
+ "changelog": [
+  "v1.0: schema referenced but never sent (setup defect) \u2014 results archived in runs/v1.0_repeatability/, invalid for model evaluation.",
+  "v1.1: only change = exact schema appended to prompts; model/settings/benchmark/metrics unchanged.",
+  "v1.2: interface defect fixed \u2014 free-form `rules` replaced by the benchmark's typed formula grammar, field descriptions added (e.g. target_scope). Prompt text unchanged (extractor.v1.1.txt). All 63 gold inputs round-trip through the schema with identical B4b results.",
+  "v1.3: (1) max_output_tokens 4000 -> 16384; (2) explicit null in typed 'not given' fields (when_linked, role, Ref/Src default, human) represented as omitted at the schema->downstream boundary (NULL_MEANS_ABSENT), tested; B4b unchanged.",
+  "v1.4 (pre-pilot interface correction): {\"$unknown\": ...} accepted ONLY as a Ref/Src fallback and represented as an omitted fallback at the conversion boundary (renderer 'undefined' / prompt '$unknown' / grammar-by-omission inconsistency seen in v1.3). Not accepted elsewhere in formulas; attributes untouched; B4b unchanged.",
+  "v1.5: primary model switched by user from nvidia/nemotron-3-ultra-550b-a55b to nvidia/nemotron-3.5-lightning-30b-a3b before any pilot data. Everything else (prompts, schema v1.4, temperature 0, seed, thinking on, 16384 tokens, benchmark, metrics) unchanged. Revalidated with the 6-call check.",
+  "v1.6: primary model switched by user to openai/gpt-oss-20b (NVIDIA endpoint) after Lightning returned HTTP 504; before any pilot data. Everything else unchanged."
+ ],
+ "extractor_schema": "extractor_output.schema.v1.4.json (reflica_bench/extraction_schema.py: ExtractionOutput)",
+ "extraction_schema_module_fingerprint": "fa4c8bb2fdd9516a376b5bec5dd78355bc3df28132a0da0aa7294eaa50669966",
+ "previous_primary": "nvidia/nemotron-3-ultra-550b-a55b (validated through v1.4; kept as candidate replication model)",
+ "probe_2026-10-09": {
+  "openai/gpt-oss-20b": "usable, served id identical, ~1.6 s",
+  "nvidia/nemotron-3.5-lightning-30b-a3b": "HTTP 504 on first validation call"
+ }
+}

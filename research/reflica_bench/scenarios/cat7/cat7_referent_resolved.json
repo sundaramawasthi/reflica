@@ -1,0 +1,300 @@
+{
+  "scenario_id": "cat7_referent_resolved_001",
+  "category": 7,
+  "subcategory": "false_ambiguous",
+  "template_id": "T7.15",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "sup_north",
+          "type": "resource",
+          "attributes": {
+            "name": "Supplier A",
+            "capacity": 60
+          }
+        },
+        {
+          "id": "sup_south",
+          "type": "resource",
+          "attributes": {
+            "name": "Supplier A",
+            "capacity": 40
+          }
+        },
+        {
+          "id": "plant_north",
+          "type": "conclusion",
+          "attributes": {
+            "required": 100,
+            "coverage": 0.6,
+            "status": "PARTIAL"
+          }
+        },
+        {
+          "id": "plant_south",
+          "type": "conclusion",
+          "attributes": {
+            "required": 100,
+            "coverage": 0.4,
+            "status": "PARTIAL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "sup_north",
+          "target": "plant_north",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "sup_south",
+          "target": "plant_south",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "plant_north",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "src": "sup_north.capacity"
+                  },
+                  {
+                    "ref": "plant_north.required"
+                  }
+                ]
+              },
+              "human": "coverage = A.capacity / required",
+              "role": "ratio"
+            },
+            {
+              "node": "plant_south",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "src": "sup_south.capacity"
+                  },
+                  {
+                    "ref": "plant_south.required"
+                  }
+                ]
+              },
+              "human": "coverage = A.capacity / required",
+              "role": "ratio"
+            }
+          ],
+          "status_functions": {
+            "plant_north": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "plant_north.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "plant_north.coverage"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if coverage >= 1; INVALID if coverage <= 0; else PARTIAL"
+            },
+            "plant_south": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "plant_south.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "plant_south.coverage"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if coverage >= 1; INVALID if coverage <= 0; else PARTIAL"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_ref": "Supplier A",
+      "target_scope": "plant_south",
+      "attribute": "capacity",
+      "new_value": 20
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "sup_north": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "Supplier A",
+          "capacity": 60
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "sup_south": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "Supplier A",
+          "capacity": 20
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "plant_north": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "required": 100,
+          "coverage": 0.6,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "plant_south": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "required": 100,
+          "coverage": 0.2,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "name": "discrete",
+      "required": "continuous_unbounded_positive",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T7.15 negative control: the event is scoped to plant_south, so only sup_south matches."
+}

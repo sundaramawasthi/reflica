@@ -1,0 +1,250 @@
+{
+  "scenario_id": "cat5_cost_edit_001",
+  "category": 5,
+  "subcategory": "partial_satisfaction",
+  "template_id": "T5.3",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "supplier_A",
+          "type": "resource",
+          "attributes": {
+            "name": "A",
+            "unit_cost": 50
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "quantity": 100,
+            "budget": 5600,
+            "total_cost": 5000,
+            "budget_margin": 600,
+            "budget_coverage": 1,
+            "status": "FULL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "supplier_A",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "total_cost",
+              "machine": {
+                "op": "mul",
+                "args": [
+                  {
+                    "src": "supplier_A.unit_cost"
+                  },
+                  {
+                    "ref": "demand_C.quantity"
+                  }
+                ]
+              },
+              "human": "total_cost = A.unit_cost * quantity"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "budget_margin",
+              "machine": {
+                "op": "sub",
+                "args": [
+                  {
+                    "ref": "demand_C.budget"
+                  },
+                  {
+                    "ref": "demand_C.total_cost"
+                  }
+                ]
+              },
+              "human": "budget_margin = budget - total_cost",
+              "role": "gap"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "budget_coverage",
+              "machine": {
+                "op": "min",
+                "args": [
+                  1,
+                  {
+                    "op": "div",
+                    "args": [
+                      {
+                        "ref": "demand_C.budget"
+                      },
+                      {
+                        "ref": "demand_C.total_cost"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "budget_coverage = min(1, budget / total_cost)",
+              "role": "ratio"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.budget_margin"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "demand_C.budget_coverage"
+                      },
+                      0.5
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if margin >= 0; INVALID if coverage <= 0.5; else PARTIAL"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "supplier_A",
+      "attribute": "unit_cost",
+      "new_value": 70
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "supplier_A": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "A",
+          "unit_cost": 70
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {
+          "quantity": 100,
+          "budget": 5600,
+          "total_cost": 7000,
+          "budget_margin": -1400,
+          "budget_coverage": 0.8,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "budget": "continuous_unbounded_positive",
+      "budget_coverage": "continuous_bounded",
+      "budget_margin": "signed_continuous",
+      "name": "discrete",
+      "quantity": "continuous_unbounded_positive",
+      "status": "discrete",
+      "total_cost": "continuous_unbounded_positive",
+      "unit_cost": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T5.3 unit cost 50->70: total 5000->7000 vs budget 5600, FULL->PARTIAL."
+}

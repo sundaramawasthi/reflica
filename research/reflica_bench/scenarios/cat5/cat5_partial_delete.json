@@ -1,0 +1,249 @@
+{
+  "scenario_id": "cat5_partial_delete_001",
+  "category": 5,
+  "subcategory": "partial_satisfaction",
+  "template_id": "T5.6",
+  "operation": "DELETE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "supplier_A",
+          "type": "resource",
+          "attributes": {
+            "name": "A",
+            "capacity": 50
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "own_stock": 30,
+            "required": 100,
+            "available": 80,
+            "coverage": 0.8,
+            "shortfall": 20,
+            "status": "PARTIAL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "supplier_A",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "available",
+              "machine": {
+                "op": "add",
+                "args": [
+                  {
+                    "ref": "demand_C.own_stock"
+                  },
+                  {
+                    "src": "supplier_A.capacity",
+                    "default": 0
+                  }
+                ]
+              },
+              "human": "available = own_stock + A.capacity (0 if unlinked)"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "ref": "demand_C.available"
+                  },
+                  {
+                    "ref": "demand_C.required"
+                  }
+                ]
+              },
+              "human": "coverage = available / required",
+              "role": "ratio"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "shortfall",
+              "machine": {
+                "op": "max",
+                "args": [
+                  0,
+                  {
+                    "op": "sub",
+                    "args": [
+                      {
+                        "ref": "demand_C.required"
+                      },
+                      {
+                        "ref": "demand_C.available"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "shortfall = max(0, required - available)",
+              "role": "gap"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if coverage >= 1; INVALID if coverage <= 0; else PARTIAL"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "DELETE",
+      "target_kind": "node",
+      "target_id": "supplier_A"
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "supplier_A": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {
+          "name": "A",
+          "capacity": 50
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "own_stock": 30,
+          "required": 100,
+          "available": 30,
+          "coverage": 0.3,
+          "shortfall": 70,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "available": "continuous_unbounded_positive",
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "name": "discrete",
+      "own_stock": "continuous_unbounded_positive",
+      "required": "continuous_unbounded_positive",
+      "shortfall": "continuous_unbounded_positive",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T5.6 delete supplier A; C survives on own stock at 30% (PARTIAL->PARTIAL)."
+}

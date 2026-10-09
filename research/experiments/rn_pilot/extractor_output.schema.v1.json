@@ -1,0 +1,398 @@
+{
+ "$defs": {
+  "Edge": {
+   "additionalProperties": false,
+   "properties": {
+    "edge_id": {
+     "title": "Edge Id",
+     "type": "string"
+    },
+    "source": {
+     "title": "Source",
+     "type": "string"
+    },
+    "target": {
+     "title": "Target",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/EdgeType"
+    },
+    "justification_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Justification Id"
+    },
+    "weight": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weight"
+    }
+   },
+   "required": [
+    "edge_id",
+    "source",
+    "target",
+    "type"
+   ],
+   "title": "Edge",
+   "type": "object"
+  },
+  "EdgeChange": {
+   "additionalProperties": false,
+   "properties": {
+    "edge_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Edge Id"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source"
+    },
+    "target": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target"
+    },
+    "old_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EdgeType"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "new_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EdgeType"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "candidate_types": {
+     "anyOf": [
+      {
+       "items": {
+        "$ref": "#/$defs/EdgeType"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Candidate Types"
+    }
+   },
+   "title": "EdgeChange",
+   "type": "object"
+  },
+  "EdgeType": {
+   "enum": [
+    "requires",
+    "supports",
+    "causes",
+    "blocks",
+    "enables",
+    "derived_from",
+    "informs",
+    "references"
+   ],
+   "title": "EdgeType",
+   "type": "string"
+  },
+  "Event": {
+   "additionalProperties": false,
+   "properties": {
+    "operation": {
+     "$ref": "#/$defs/Operation"
+    },
+    "target_kind": {
+     "$ref": "#/$defs/TargetKind"
+    },
+    "target_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target Id"
+    },
+    "target_ref": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target Ref"
+    },
+    "target_scope": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target Scope"
+    },
+    "attribute": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Attribute"
+    },
+    "new_value": {
+     "anyOf": [
+      {},
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "New Value"
+    },
+    "edge_change": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EdgeChange"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "new_node": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Node"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "operation",
+    "target_kind"
+   ],
+   "title": "Event",
+   "type": "object"
+  },
+  "Graph": {
+   "additionalProperties": false,
+   "properties": {
+    "nodes": {
+     "items": {
+      "$ref": "#/$defs/Node"
+     },
+     "title": "Nodes",
+     "type": "array"
+    },
+    "edges": {
+     "items": {
+      "$ref": "#/$defs/Edge"
+     },
+     "title": "Edges",
+     "type": "array"
+    }
+   },
+   "title": "Graph",
+   "type": "object"
+  },
+  "Node": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "type": {
+     "default": "generic",
+     "title": "Type",
+     "type": "string"
+    },
+    "attributes": {
+     "additionalProperties": true,
+     "title": "Attributes",
+     "type": "object"
+    },
+    "state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "State"
+    },
+    "provenance": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Provenance"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "confidence": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Confidence"
+    }
+   },
+   "required": [
+    "id"
+   ],
+   "title": "Node",
+   "type": "object"
+  },
+  "Operation": {
+   "enum": [
+    "ADD",
+    "EDIT",
+    "DELETE",
+    "RELATIONSHIP_CHANGE"
+   ],
+   "title": "Operation",
+   "type": "string"
+  },
+  "Provenance": {
+   "additionalProperties": false,
+   "properties": {
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source"
+    },
+    "timestamp": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Timestamp"
+    }
+   },
+   "title": "Provenance",
+   "type": "object"
+  },
+  "TargetKind": {
+   "enum": [
+    "node",
+    "edge"
+   ],
+   "title": "TargetKind",
+   "type": "string"
+  }
+ },
+ "additionalProperties": false,
+ "description": "R-S representation delivered to a baseline.\n\nProduced by the mechanical sanitiser from CanonicalInput: all RuleBlocks\nwith declared_input=False are stripped, and the `declared_input` flag\nitself is removed. See invariants A.1 and A.2.",
+ "properties": {
+  "graph": {
+   "$ref": "#/$defs/Graph"
+  },
+  "rules": {
+   "additionalProperties": true,
+   "title": "Rules",
+   "type": "object"
+  },
+  "event": {
+   "$ref": "#/$defs/Event"
+  }
+ },
+ "required": [
+  "graph",
+  "rules",
+  "event"
+ ],
+ "title": "MethodInputStructured",
+ "type": "object"
+}

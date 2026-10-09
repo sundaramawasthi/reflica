@@ -1,0 +1,13 @@
+{
+  "source_scenario_id": "cat1_edit_attribute_irrelevance_001",
+  "source_sha256": "c9c73e84fa2e03056d0adb86b3256d098089495c9deec96e4640566b94838fa9",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (resource): capacity = 100; notes = \"primary supplier for order X\".\n- E2 (resource): capacity = 60; notes = \"backup\".\nLinks:\n- E1 → E2 (references).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: capacity.\n- Rules depend on these attributes of E2: capacity.",
+    "change_text": "Update: notes of E1 is now \"primary supplier for order X (reviewed 2026-10-07)\"."
+  },
+  "alias_map": {
+    "E1": "supplier_A",
+    "E2": "supplier_B"
+  }
+}

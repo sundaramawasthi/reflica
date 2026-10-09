@@ -1,0 +1,87 @@
+{
+  "scenario_id": "cat2_pair_edit_001",
+  "category": 2,
+  "subcategory": null,
+  "template_id": "T2.1",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "supplier_A", "type": "resource", "attributes": {"capacity": 100}},
+        {"id": "task_T", "type": "task", "attributes": {"available_capacity": 100}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "supplier_A", "target": "task_T", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {
+          "supplier_A": ["capacity"],
+          "task_T": ["available_capacity"]
+        }
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {
+              "from_node": "supplier_A",
+              "from_attribute": "capacity",
+              "to_node": "task_T",
+              "to_attribute": "available_capacity",
+              "machine": {
+                "operator": "copy",
+                "inputs": [{"node": "supplier_A", "attribute": "capacity"}],
+                "output_name": "available_capacity"
+              },
+              "human": "task_T.available_capacity = supplier_A.capacity"
+            }
+          ]
+        }
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "supplier_A",
+      "attribute": "capacity",
+      "new_value": 60
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "supplier_A": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {"capacity": 60},
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "task_T": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {"available_capacity": 60},
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "available_capacity": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T2.1 pair EDIT. supplier_A.capacity 100->60 propagates to task_T.available_capacity via supports edge."
+}

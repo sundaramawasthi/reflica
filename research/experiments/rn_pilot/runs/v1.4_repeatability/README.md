@@ -1,0 +1,1 @@
+# v1.4 three-call Cat 7 check (2026-10-09) on nemotron-3-ultra-550b-a55b: 3/3 schema-valid, parsed, formula-valid, B4b-executable; no truncation (max 4,268); event identical across repeats. Final validation of Ultra before the user switched the primary model.

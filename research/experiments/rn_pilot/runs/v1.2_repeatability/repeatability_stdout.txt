@@ -1,0 +1,157 @@
+{
+ "provider": "nvidia",
+ "temperature": 0,
+ "seed": 20261008,
+ "run_at": "2026-10-08T18:09:51+00:00",
+ "cases": [
+  {
+   "model": "nvidia/nemotron-3-ultra-550b-a55b",
+   "scenario": "cat5_threshold_partial_partial_001",
+   "output_sha256": [
+    "fa45fd2ad077078b",
+    "656c41381ce3a67e",
+    "f4dfee258611b165"
+   ],
+   "identical": false,
+   "valid_json": false,
+   "schema_valid": [
+    false,
+    false,
+    true
+   ],
+   "schema_error_counts": [
+    1,
+    1,
+    0
+   ],
+   "downstream": [
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: EOF while parsing an object at line 125 column 42 [type=json_inv"
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: EOF while parsing a string at line 131 column 37 [type=json_inva"
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": false,
+     "n_computations": 4,
+     "n_status_functions": 1,
+     "error": "b4b: TypeError: 'NoneType' object is not iterable"
+    }
+   ],
+   "calls": [
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "length",
+     "out_tokens": 4000,
+     "retries": 1,
+     "latency_s": 85.2
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "length",
+     "out_tokens": 4000,
+     "retries": 1,
+     "latency_s": 124.8
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3492,
+     "retries": 1,
+     "latency_s": 127.1
+    }
+   ]
+  },
+  {
+   "model": "nvidia/nemotron-3-ultra-550b-a55b",
+   "scenario": "cat7_ambiguous_referent_001",
+   "output_sha256": [
+    "9ac09049150eda29",
+    "fd6f73997210de4b",
+    "a73b8f28a1cf1b19"
+   ],
+   "identical": false,
+   "valid_json": true,
+   "schema_valid": [
+    true,
+    true,
+    true
+   ],
+   "schema_error_counts": [
+    0,
+    0,
+    0
+   ],
+   "downstream": [
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    }
+   ],
+   "calls": [
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3467,
+     "retries": 0,
+     "latency_s": 149.7
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3518,
+     "retries": 0,
+     "latency_s": 140.8
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3943,
+     "retries": 0,
+     "latency_s": 123.8
+    }
+   ]
+  }
+ ],
+ "all_identical": false
+}

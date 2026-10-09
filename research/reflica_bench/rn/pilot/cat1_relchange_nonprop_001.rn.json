@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat1_relchange_nonprop_001",
+  "source_sha256": "b0c5b13e754edbf5cdb36b5ee52179464614ff1117187ecff00770ab4ffe1d19",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (document): title = \"spec v1\".\n- E2 (document): title = \"notes\".\n- E3 (task): status = \"open\".\nLinks:\n- E1 → E2 (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E3: status.",
+    "change_text": "Update: the link E1 → E2 is now references (was informs)."
+  },
+  "alias_map": {
+    "E1": "doc_A",
+    "E2": "doc_B",
+    "E3": "task_K"
+  }
+}

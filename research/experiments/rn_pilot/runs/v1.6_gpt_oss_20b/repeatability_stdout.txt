@@ -1,0 +1,137 @@
+{
+ "provider": "nvidia",
+ "temperature": 0,
+ "seed": 20261008,
+ "run_at": "2026-10-08T19:01:10+00:00",
+ "cases": [
+  {
+   "model": "openai/gpt-oss-20b",
+   "scenario": "cat5_threshold_partial_partial_001",
+   "output_sha256": [
+    "84f9f0bf4b19562f",
+    "ba4185740c3bec91",
+    "9c700ac217472f7a"
+   ],
+   "identical": false,
+   "valid_json": false,
+   "schema_valid": [
+    false,
+    false,
+    false
+   ],
+   "schema_error_counts": [
+    1,
+    1,
+    1
+   ],
+   "downstream": [
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    }
+   ],
+   "calls": [
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 2202,
+     "retries": 0,
+     "latency_s": 29.6
+    },
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 3552,
+     "retries": 0,
+     "latency_s": 46.2
+    },
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 2790,
+     "retries": 0,
+     "latency_s": 39.3
+    }
+   ]
+  },
+  {
+   "model": "openai/gpt-oss-20b",
+   "scenario": "cat7_ambiguous_referent_001",
+   "output_sha256": [
+    "cf43b7b7b976bcfd",
+    "7b93a1fcc40bc5da",
+    "7bd3759276635d15"
+   ],
+   "identical": false,
+   "valid_json": false,
+   "schema_valid": [
+    false,
+    false,
+    false
+   ],
+   "schema_error_counts": [
+    1,
+    1,
+    1
+   ],
+   "downstream": [
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 1 validation error for ExtractionOutput\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_valu"
+    }
+   ],
+   "calls": [
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 2427,
+     "retries": 0,
+     "latency_s": 63.5
+    },
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 2664,
+     "retries": 0,
+     "latency_s": 48.6
+    },
+    {
+     "served": "openai/gpt-oss-20b",
+     "finish": "stop",
+     "out_tokens": 2817,
+     "retries": 0,
+     "latency_s": 30.3
+    }
+   ]
+  }
+ ],
+ "all_identical": false
+}

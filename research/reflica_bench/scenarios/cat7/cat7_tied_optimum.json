@@ -1,0 +1,296 @@
+{
+  "scenario_id": "cat7_tied_optimum_001",
+  "category": 7,
+  "subcategory": "ambiguous",
+  "template_id": "T7.10",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "S1",
+          "type": "resource",
+          "attributes": {
+            "name": "S1",
+            "capacity": 60,
+            "delivery_days": 5,
+            "cost": 9000
+          }
+        },
+        {
+          "id": "S2",
+          "type": "resource",
+          "attributes": {
+            "name": "S2",
+            "capacity": 50,
+            "delivery_days": 6,
+            "cost": 8000
+          }
+        },
+        {
+          "id": "S3",
+          "type": "resource",
+          "attributes": {
+            "name": "S3",
+            "capacity": 40,
+            "delivery_days": 4,
+            "cost": 6000
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "status": "FEASIBLE",
+            "feasible_count": 2,
+            "selected": [
+              "S1",
+              "S3"
+            ],
+            "selected_value": 15000
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "S1",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "S2",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E3",
+          "source": "S3",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [],
+          "status_functions": {}
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {
+            "demand_C": {
+              "constraints": [
+                {
+                  "attribute": "capacity",
+                  "agg": "sum",
+                  "op": "ge",
+                  "value": 100
+                },
+                {
+                  "attribute": "delivery_days",
+                  "agg": "max",
+                  "op": "le",
+                  "value": 7
+                },
+                {
+                  "attribute": "cost",
+                  "agg": "sum",
+                  "op": "le",
+                  "value": 20000
+                }
+              ],
+              "objective": {
+                "attribute": "cost",
+                "agg": "sum",
+                "sense": "min"
+              },
+              "status_attribute": "status",
+              "feasible_label": "FEASIBLE",
+              "infeasible_label": "INFEASIBLE",
+              "human": "subset with sum capacity >= 100, max delivery <= 7 days, sum cost <= 20000"
+            }
+          }
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "S3",
+      "attribute": "cost",
+      "new_value": 8000
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "pathology_codes": [
+        "P10"
+      ],
+      "feasible_combinations": [
+        [
+          "S1",
+          "S2"
+        ],
+        [
+          "S1",
+          "S3"
+        ]
+      ],
+      "optimal_combination": {
+        "demand_C": {
+          "members": null,
+          "objective_value": 17000,
+          "ties": [
+            [
+              "S1",
+              "S2"
+            ],
+            [
+              "S1",
+              "S3"
+            ]
+          ]
+        }
+      },
+      "consistent_completions": [
+        {
+          "choice": {
+            "P10:demand_C": [
+              "S1",
+              "S2"
+            ]
+          },
+          "differs": {
+            "demand_C.selected": [
+              "S1",
+              "S2"
+            ]
+          }
+        },
+        {
+          "choice": {
+            "P10:demand_C": [
+              "S1",
+              "S3"
+            ]
+          },
+          "differs": {
+            "demand_C.selected": [
+              "S1",
+              "S3"
+            ]
+          }
+        }
+      ]
+    },
+    "nodes": {
+      "S1": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S1",
+          "capacity": 60,
+          "delivery_days": 5,
+          "cost": 9000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S2": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S2",
+          "capacity": 50,
+          "delivery_days": 6,
+          "cost": 8000
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S3": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S3",
+          "capacity": 40,
+          "delivery_days": 4,
+          "cost": 8000
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "status": "FEASIBLE",
+          "feasible_count": 2,
+          "selected": null,
+          "selected_value": 17000
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P10"
+        ]
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "cost": "continuous_unbounded_positive",
+      "delivery_days": "continuous_unbounded_positive",
+      "feasible_count": "continuous_unbounded_positive",
+      "name": "discrete",
+      "selected": "discrete",
+      "selected_value": "continuous_unbounded_positive",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T7.10 P10: S3 cost 6000->8000 ties {S1,S2} and {S1,S3} at 17000; no tie-break declared."
+}

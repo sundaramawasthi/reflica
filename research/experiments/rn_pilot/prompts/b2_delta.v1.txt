@@ -1,0 +1,14 @@
+SYSTEM: You maintain a plan. You receive the plan and one update. Apply every rule
+exactly as written. Do not invent values.
+
+USER:
+PLAN:
+{plan_text}
+
+UPDATE:
+{change_text}
+
+Return ONLY the entities whose attributes change, with their new values, plus
+any entity you must abstain on, as JSON matching the schema. Every entity you do
+not list is treated as not_changed with its current values.
+{common_reasons}

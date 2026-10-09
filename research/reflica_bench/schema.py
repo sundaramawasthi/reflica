@@ -167,9 +167,116 @@ class Rules(BaseModel):
         default_factory=lambda: RuleBlock(declared_input=True, entries={})
     )
 
-    # From Cat 2 onward: justifications, satisfaction_functions,
-    # aggregation_functions, fixed_point_semantics, resolution_rules, defaults.
-    # Omitted here; add fields as later categories are implemented.
+    # Cat 2: single-hop propagation rules. Declarative mapping from a source
+    # attribute on some node to a target attribute on a direct dependent,
+    # mediated by a propagating edge between the two. A rule fires iff the
+    # post-event graph still contains at least one propagating edge from
+    # from_node to to_node. On loss of such an edge (DELETE / retype
+    # propagating → non-propagating), the target_attribute becomes None,
+    # modelling an "unlinked" state.
+    #
+    # entries shape (locked for Cat 2):
+    #   {
+    #     "rules": [
+    #       {
+    #         "from_node": "<node_id>",
+    #         "from_attribute": "<attr>",
+    #         "to_node": "<node_id>",
+    #         "to_attribute": "<attr>",
+    #         "machine": {"operator": "copy",
+    #                     "inputs": [{"node": "<node_id>", "attribute": "<attr>"}],
+    #                     "output_name": "<attr>"},
+    #         "human": "to_attribute = copy(from_attribute)"
+    #       },
+    #       ...
+    #     ]
+    #   }
+    #
+    # From Cat 3 onward this block is extended with depth-> 1 chains; from
+    # Cat 4 onward justifications become a separate block; Cat 5/6 add
+    # satisfaction_functions / aggregation_functions.
+    propagation_rules: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={"rules": []})
+    )
+
+    # Cat 4: OR-aggregated justifications per conclusion. A justification is
+    # a set of premise node IDs; a conclusion holds iff at least one of its
+    # justifications is intact; a justification is intact iff every premise
+    # exists in the post-event graph AND each premise has a propagating
+    # edge to the conclusion. The conclusion carries a status attribute
+    # (default `status`, true/false) computed from the OR aggregation.
+    #
+    # entries shape (locked for Cat 4):
+    #   {
+    #     "conclusions": {
+    #       "<conclusion_id>": {
+    #         "status_attribute": "status",
+    #         "true_value": true,
+    #         "false_value": false,
+    #         "justifications": [["<premise_id>", ...], ["<premise_id>", ...]]
+    #       }
+    #     }
+    #   }
+    justifications: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={"conclusions": {}})
+    )
+
+    # Cat 5 / 6-A / 7: declared attribute arithmetic + status mapping.
+    # Grammar of `machine` expressions is documented in gt_engine.py.
+    #
+    #   {
+    #     "computations": [
+    #       {"node": "<id>", "attribute": "<attr>", "machine": <expr>,
+    #        "human": "coverage = available / required",
+    #        "role": "aggregate|gap|ratio" (optional),
+    #        "when_linked": ["<id>", ...] (optional; rule active only while
+    #                        every listed node has a propagating edge in)}
+    #     ],
+    #     "status_functions": {
+    #       "<id>": {"status_attribute": "status",
+    #                "mapping": [{"label": "FULL", "when": <expr>}, ...,
+    #                            {"label": "INVALID", "when": "otherwise"}],
+    #                "human": "..."}
+    #     }
+    #   }
+    satisfaction_functions: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(
+            declared_input=True, entries={"computations": [], "status_functions": {}}
+        )
+    )
+
+    # Cat 6-B / Cat 7 P10: choose a subset of the sources linked into a
+    # conclusion. At most one problem per scenario.
+    #
+    #   {"problems": {"<id>": {
+    #       "constraints": [{"attribute", "agg": "sum|max|min", "op", "value"}],
+    #       "objective": {"attribute", "agg", "sense": "min|max"} | null,
+    #       "status_attribute": "status", "feasible_label": "FEASIBLE",
+    #       "infeasible_label": "INFEASIBLE", "human": "..."}}}
+    combination_selection: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={"problems": {}})
+    )
+
+    # Cat 7 P2: independent claims about one attribute.
+    #   {"claims": {"N.a": [{"source": "...", "value": v}]},
+    #    "resolution": {"N.a": {"policy": "prefer_source", "source": "graph|..."}}}
+    # The node's own attribute value counts as the claim of source "graph".
+    evidence: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={})
+    )
+
+    # Cat 7 P7: unit conversion factors to a common base. A numeric
+    # attribute `a` is in the unit named by sibling attribute `a_unit`.
+    #   {"factors": {"kg": 1, "tonne": 1000}}
+    units: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={})
+    )
+
+    # Cat 7 P4: finite domains for attributes that may sit on a cycle, so
+    # the fixed points can be enumerated.  {"domains": {"N.a": [true, false]}}
+    fixed_point_semantics: RuleBlock = Field(
+        default_factory=lambda: RuleBlock(declared_input=True, entries={})
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -183,6 +290,8 @@ class EdgeChange(BaseModel):
     target: str | None = None
     old_type: EdgeType | None = None
     new_type: EdgeType | None = None
+    # Cat 7 P3: the edge type is not stated; any of these may be meant.
+    candidate_types: list[EdgeType] | None = None
 
 
 class Event(BaseModel):
@@ -190,6 +299,10 @@ class Event(BaseModel):
     operation: Operation
     target_kind: TargetKind
     target_id: str | None = None  # node_id or edge_id depending on target_kind
+    # Cat 7 P9: the event names its target by `name` attribute instead of id;
+    # `target_scope` (a node id) narrows matches to nodes that reach it.
+    target_ref: str | None = None
+    target_scope: str | None = None
     attribute: str | None = None
     new_value: Any | None = None
     edge_change: EdgeChange | None = None
@@ -226,8 +339,12 @@ class MethodInputStructured(BaseModel):
 
 
 class MethodInputNaturalLanguage(BaseModel):
+    """R-N representation delivered to a method: prose only. Never carries
+    ids, labels, expected changes or ground truth (see rn.check_leakage)."""
+
     model_config = ConfigDict(extra="forbid")
-    description: str
+    plan_text: str
+    change_text: str
 
 
 class MethodInput(BaseModel):
@@ -257,6 +374,9 @@ class ScenarioGroundTruth(BaseModel):
     optimal_combination: dict[str, Any] | None = None
     fixed_point_analysis: dict[str, Any] = Field(default_factory=dict)
     consistent_completions: list[dict[str, Any]] = Field(default_factory=list)
+    # Cat 6: after a loss-type event on a satisfied requirement, can the
+    # remaining sources still satisfy it? None when the question does not apply.
+    compensation_viable: bool | None = None
 
 
 class GroundTruth(BaseModel):

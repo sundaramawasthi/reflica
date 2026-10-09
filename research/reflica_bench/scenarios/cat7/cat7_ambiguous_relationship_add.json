@@ -1,0 +1,236 @@
+{
+  "scenario_id": "cat7_ambiguous_relationship_add_001",
+  "category": 7,
+  "subcategory": "ambiguous",
+  "template_id": "T7.3",
+  "operation": "ADD",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "supplier_A",
+          "type": "resource",
+          "attributes": {
+            "name": "Supplier A",
+            "capacity": 50
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "own_stock": 30,
+            "required": 100,
+            "coverage": 0.3,
+            "status": "PARTIAL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": []
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "op": "add",
+                    "args": [
+                      {
+                        "ref": "demand_C.own_stock"
+                      },
+                      {
+                        "src": "supplier_A.capacity",
+                        "default": 0
+                      }
+                    ]
+                  },
+                  {
+                    "ref": "demand_C.required"
+                  }
+                ]
+              },
+              "human": "coverage = (own_stock + A.capacity) / required",
+              "role": "ratio"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if coverage >= 1; INVALID if coverage <= 0; else PARTIAL"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "ADD",
+      "target_kind": "edge",
+      "edge_change": {
+        "source": "supplier_A",
+        "target": "demand_C",
+        "candidate_types": [
+          "supports",
+          "informs"
+        ]
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "pathology_codes": [
+        "P3"
+      ],
+      "consistent_completions": [
+        {
+          "choice": {
+            "P3:supplier_A->demand_C": "supports"
+          },
+          "differs": {
+            "demand_C.coverage": 0.8
+          }
+        },
+        {
+          "choice": {
+            "P3:supplier_A->demand_C": "informs"
+          },
+          "differs": {
+            "demand_C.coverage": 0.3
+          }
+        }
+      ]
+    },
+    "nodes": {
+      "supplier_A": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "Supplier A",
+          "capacity": 50
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "own_stock": 30,
+          "required": 100,
+          "coverage": null,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P3"
+        ]
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "name": "discrete",
+      "own_stock": "continuous_unbounded_positive",
+      "required": "continuous_unbounded_positive",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T7.3 P3: new link may be supports (coverage 0.8) or informs (0.3)."
+}

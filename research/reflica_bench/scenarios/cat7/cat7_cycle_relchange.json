@@ -1,0 +1,265 @@
+{
+  "scenario_id": "cat7_cycle_relchange_001",
+  "category": 7,
+  "subcategory": "ambiguous",
+  "template_id": "T7.4",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "team_X",
+          "type": "team",
+          "attributes": {
+            "solo_commit": true,
+            "committed": true
+          }
+        },
+        {
+          "id": "team_Y",
+          "type": "team",
+          "attributes": {
+            "committed": true
+          }
+        },
+        {
+          "id": "launch_C",
+          "type": "conclusion",
+          "attributes": {
+            "ready": true,
+            "status": "FULL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "team_X",
+          "target": "team_Y",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "team_Y",
+          "target": "team_X",
+          "type": "informs"
+        },
+        {
+          "edge_id": "E3",
+          "source": "team_Y",
+          "target": "launch_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "team_X",
+              "attribute": "committed",
+              "machine": {
+                "src": "team_Y.committed",
+                "default": {
+                  "ref": "team_X.solo_commit"
+                }
+              },
+              "human": "X commits iff Y commits (else own plan)"
+            },
+            {
+              "node": "team_Y",
+              "attribute": "committed",
+              "machine": {
+                "src": "team_X.committed",
+                "default": false
+              },
+              "human": "Y commits iff X commits"
+            },
+            {
+              "node": "launch_C",
+              "attribute": "ready",
+              "machine": {
+                "src": "team_Y.committed",
+                "default": false
+              },
+              "human": "launch ready iff Y commits"
+            }
+          ],
+          "status_functions": {
+            "launch_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "and",
+                    "args": [
+                      {
+                        "ref": "launch_C.ready"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if ready else INVALID"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {
+          "domains": {
+            "team_X.committed": [
+              true,
+              false
+            ],
+            "team_Y.committed": [
+              true,
+              false
+            ]
+          }
+        }
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {
+        "edge_id": "E2",
+        "old_type": "informs",
+        "new_type": "supports"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "pathology_codes": [
+        "P4"
+      ],
+      "fixed_point_analysis": {
+        "team_X.committed|team_Y.committed": {
+          "fixed_points": [
+            {
+              "team_X.committed": true,
+              "team_Y.committed": true
+            },
+            {
+              "team_X.committed": false,
+              "team_Y.committed": false
+            }
+          ]
+        }
+      }
+    },
+    "nodes": {
+      "team_X": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "solo_commit": true,
+          "committed": null
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P4"
+        ]
+      },
+      "team_Y": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "committed": null
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P4"
+        ]
+      },
+      "launch_C": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "ready": null,
+          "status": null
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P4"
+        ]
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "committed": "discrete",
+      "name": "discrete",
+      "ready": "discrete",
+      "solo_commit": "discrete",
+      "status": "discrete"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T7.4 P4: mutual commitment cycle has two fixed points (both commit / neither commits)."
+}

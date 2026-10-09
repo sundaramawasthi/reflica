@@ -1,0 +1,61 @@
+{
+  "scenario_id": "cat3_add_edge_cascade_001",
+  "category": 3,
+  "subcategory": null,
+  "template_id": "T3.7",
+  "operation": "ADD",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "src_X",    "type": "resource", "attributes": {"state": "ready"}},
+        {"id": "node_N1",  "type": "stage", "attributes": {"mirror": null}},
+        {"id": "node_N2",  "type": "stage", "attributes": {"mirror": null}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "node_N1", "target": "node_N2", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {"src_X": ["state"], "node_N1": ["mirror"], "node_N2": ["mirror"]}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {"from_node": "src_X",   "from_attribute": "state",  "to_node": "node_N1", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "src_X",   "attribute": "state"}],  "output_name": "mirror"},
+             "human": "node_N1.mirror = src_X.state"},
+            {"from_node": "node_N1", "from_attribute": "mirror", "to_node": "node_N2", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "node_N1", "attribute": "mirror"}], "output_name": "mirror"},
+             "human": "node_N2.mirror = node_N1.mirror"}
+          ]
+        }
+      }
+    },
+    "event": {
+      "operation": "ADD",
+      "target_kind": "edge",
+      "edge_change": {"source": "src_X", "target": "node_N1", "new_type": "supports"}
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "src_X":   {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"state": "ready"}, "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N1": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "ready"}, "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N2": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "ready"}, "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {"state": "discrete", "mirror": "discrete"},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T3.7 ADD propagating edge creating a multi-hop cascade. Adding supports edge src_X->N1 fires R1 (N1 null->ready) and then R2 (N2 null->ready)."
+}

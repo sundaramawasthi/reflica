@@ -1,0 +1,62 @@
+{
+  "scenario_id": "cat3_relchange_cascade_001",
+  "category": 3,
+  "subcategory": null,
+  "template_id": "T3.8",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "src_X",    "type": "resource", "attributes": {"state": "ok"}},
+        {"id": "node_N1",  "type": "stage", "attributes": {"mirror": null}},
+        {"id": "node_N2",  "type": "stage", "attributes": {"mirror": null}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "src_X",   "target": "node_N1", "type": "informs"},
+        {"edge_id": "E2", "source": "node_N1", "target": "node_N2", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {"src_X": ["state"], "node_N1": ["mirror"], "node_N2": ["mirror"]}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {"from_node": "src_X",   "from_attribute": "state",  "to_node": "node_N1", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "src_X",   "attribute": "state"}],  "output_name": "mirror"},
+             "human": "node_N1.mirror = src_X.state"},
+            {"from_node": "node_N1", "from_attribute": "mirror", "to_node": "node_N2", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "node_N1", "attribute": "mirror"}], "output_name": "mirror"},
+             "human": "node_N2.mirror = node_N1.mirror"}
+          ]
+        }
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {"edge_id": "E1", "old_type": "informs", "new_type": "supports"}
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "src_X":   {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"state": "ok"}, "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N1": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "ok"}, "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N2": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "ok"}, "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {"state": "discrete", "mirror": "discrete"},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T3.8 RELATIONSHIP_CHANGE creating cascade. Retyping src_X->N1 informs->supports makes R1 fire, which populates N1 (null->ok), which cascades to N2 (null->ok)."
+}

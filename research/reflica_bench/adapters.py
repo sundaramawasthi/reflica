@@ -25,6 +25,7 @@ from .linter import (
     sanitise_rules_for_method,
 )
 from .schema import (
+    MethodInputNaturalLanguage,
     MethodInputStructured,
     Regime,
     Scenario,
@@ -42,6 +43,7 @@ class AdapterOutput:
     structured: MethodInputStructured | None
     oracle_canonical: Any | None  # kept as `Any` to avoid Scenario leakage via type
     metadata: dict[str, str]
+    natural_language: MethodInputNaturalLanguage | None = None
 
 
 class InputAdapter(Protocol):
@@ -103,4 +105,29 @@ class OracleEvaluatorAdapter:
             structured=None,
             oracle_canonical=scenario.canonical_input,
             metadata=method_metadata(scenario, run_id),
+        )
+
+
+# ---------------------------------------------------------------------------
+# NaturalLanguageAdapter_v1 — R-N regime
+# ---------------------------------------------------------------------------
+
+class NaturalLanguageAdapter_v1:
+    """Delivers ONLY plan_text + change_text. The alias map and source id stay
+    evaluator-side. Re-runs the leakage check on every adapt() call."""
+
+    name: str = "NaturalLanguageAdapter_v1"
+    version: str = "1.0.0"
+
+    def adapt(self, rn, scenario: Scenario, run_id: str) -> AdapterOutput:
+        from .rn import check_leakage
+
+        problems = check_leakage(rn, scenario)
+        if problems:
+            raise LintError(f"R-N leakage in {rn.source_scenario_id}: {problems}")
+        return AdapterOutput(
+            structured=None,
+            oracle_canonical=None,
+            metadata={"operation": scenario.operation.value, "regime": "R-N", "run_id": run_id},
+            natural_language=rn.method_input,
         )

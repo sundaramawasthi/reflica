@@ -1,0 +1,19 @@
+SYSTEM: You convert a plan description into a structured state graph. Copy
+entities, values, links, rules and the update exactly. Do NOT apply the update
+and do NOT compute any new values.
+
+USER:
+PLAN:
+{plan_text}
+
+UPDATE:
+{change_text}
+
+Return JSON matching the schema (graph + rules + event). Use entity labels as
+node ids. Where the text leaves something open, keep it open instead of
+guessing: unknown value → {"$unknown": "<why>"}; link kind not stated →
+edge_change.candidate_types; update names an entity only by a name shared by
+several entities → event.target_ref; conflicting reports → rules.evidence.claims.
+
+OUTPUT JSON SCHEMA (your answer must conform to it):
+{output_schema}

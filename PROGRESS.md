@@ -65,7 +65,7 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 **Where it fits:** sub-component of **Capability C — Change / Revision Engine**. Not Reflica itself.
 
-### 7 benchmark categories (all locked 2026-10-07)
+### 7 benchmark categories (all locked 2026-10-07; all implemented 2026-10-08, 100 tests passing)
 1. Irrelevant change / no propagation
 2. Direct dependency / single hop
 3. Multi-hop propagation
@@ -289,22 +289,58 @@ Notification kinds: `planCreated | planUpdated | planDeleted | nodeAdded | nodeU
 
 ---
 
-## Stage 0+ → Stage 1 roadmap
+## Roadmap — tracked against the 10-step user flow
 
-**Stage 0+ (done)** — scaffolding, 7-mode input intake, live persistence, mind-map rendering, editor, notifications, auth, offline-safe delete, mobile responsiveness, pro home page with 6 sections.
+Reflica's full user flow has **10 steps** (locked 2026-10-08). The product's current coverage:
 
-**Stage 1 (next):**
-- [ ] Gemini extractor via `firebase_ai` from text → structured JSON matching `Plan`/`PlanNode`/`PlanEdge`.
+| # | Step | Covered now | Stage |
+|---|---|---|---|
+| 1 | **INPUT** — text · voice · documents · images · video · camera · (later: workspace extensions) | ✅ 6 of 7 modes, extensions later | Stage 0+ |
+| 2 | **READ** — LLM extracts tasks, people, resources, deadlines, links | ⬜ (deterministic seed graph as placeholder) | **Stage 1** |
+| 3 | **CONFIRM** — user checks the map, AI marks and asks about unsure parts | ⬜ | Stage 1 |
+| 4 | **STORE** — typed graph (fact / observation / prediction / hypothesis / assumption) + confidence + source | ✅ | Stage 0+ |
+| 5 | **CHANGE** — a change arrives (typed, spoken, or auto) | ✅ via editor | Stage 0+ |
+| 6 | **SEARCH** — graph search finds everything connected | ⬜ | Stage 2 |
+| 7 | **UPDATE (B5)** — attribute-aware revision with ATMS + CSP + fixed-point stopping | ⬜ (this is the M.Tech thesis) | Stage 2 |
+| 8 | **EXPLAIN** — "Cause: X. Effects: A, B, C. No change: D, E." | ⬜ | Stage 2 |
+| 9 | **APPROVE** — human accepts or rejects | ⬜ | Stage 2 |
+| 10 | **ALERT** — shown in app, inside user's tool, or posted back via API | ✅ (in-app audit trail via notifications) | Stage 0+; expand in Stage 3 |
+
+### Stage 0+ (done — product foundation)
+Scaffolding · 7-mode input intake · live persistence · mind-map rendering · editor · notifications · auth · offline-safe delete · mobile responsiveness · pro home page with 6 sections.
+
+### Stage 1 (next — bring in the LLM)
+- [ ] Gemini extractor via `firebase_ai`: text → structured JSON matching `Plan` / `PlanNode` / `PlanEdge`.
 - [ ] Document extraction (PDF/DOCX text) → same extractor.
-- [ ] Vision model for images (future).
+- [ ] Vision model for images (basic).
+- [ ] **Confirmation step** — show the extracted map to the user with "unsure" markers; let them accept or revise before saving.
 - [ ] **Reporting on nodes** — planned vs actual, deviation detection, impact propagation.
-- [ ] Build the Python research workspace (NetworkX/OR-Tools) for the M.Tech thesis — separate repo.
+- [ ] Build the Python research workspace (NetworkX / OR-Tools) for the M.Tech thesis — **separate repo**.
 
-**Stage 2:**
-- [ ] Collaboration + role-based visibility (government / institutional).
+### Stage 2 (the Change Engine — ties into the thesis)
+- [ ] Change intake (typed, spoken, or structured delta from an API).
+- [ ] Graph search over typed edges (BFS/DFS).
+- [ ] First version of **B5** (attribute-aware revision) wired into the product.
+- [ ] **Explain** output: cause → effects → no-change breakdown, surfaced in the plan detail.
+- [ ] **Approve** step: human accepts/rejects each proposed change before it commits.
 - [ ] Scenarios (what-if branches).
 - [ ] Combined `/graph` view across plans.
 - [ ] Audit log + export.
+
+### Stage 3 (reach into the user's workspace)
+- [ ] **Workspace extensions** (one at a time — Calendar or Excel first):
+  Google Calendar / Outlook · Excel · VS Code · Word · Jira / Trello · Gmail / Teams / Slack · Power BI / Data Studio.
+  Each extension watches a scoped data source (with explicit user permission), sends only the delta to Reflica, and renders the alert back inside the same tool.
+- [ ] **API / webhooks** so third-party systems can push changes and receive effects.
+- [ ] **Local-install package** (small local LLM + offline-first) for defence / government / sensitive deployments.
+- [ ] Role-based visibility and collaboration (government / institutional use).
+
+### Delivery modes
+
+Reflica ships as **three products that share one engine**:
+- **App** — individuals, small teams. ✅ (current Flutter app covers this)
+- **API / plug-in** — companies, banks (their software sends changes, gets effects back). Stage 3.
+- **Local install** — defence, government (own computers, no internet, secure). Stage 3.
 
 ---
 
@@ -326,6 +362,10 @@ Notification kinds: `planCreated | planUpdated | planDeleted | nodeAdded | nodeU
 | 2026-10-07 | **Width-reactive layouts** (not platform-reactive) | Same code produces right layout on any viewport, Android or web |
 | 2026-10-07 | **Python research workspace scaffolded** (`research/`): schema, linter, ground-truth generator, adapters, baselines B3/B4a/B4b, 4 Cat 1 floor scenarios, 18 pytest tests all passing | First executable research deliverable; no LLM baselines yet |
 | 2026-10-07 | **`PlanRepository._requireOwnerId()` replaces every `demo` fallback**; dashboard user menu adds a copy-to-clipboard `uid` chip | Fixes silent cross-device sync breakage when `currentUser` was briefly null; makes cross-device uid parity diagnosable in one tap |
+| 2026-10-07 | **Research track: Categories 2, 3, 4 implemented** with 61 passing tests; integrity audit complete; Cat 4 adds `justifications` rule block with ATMS-style preservation (B3 structurally fails preservation while B4a succeeds) | Benchmark is now at the floor of each category; next is Cat 5 (partial satisfaction, ⭐ candidate novelty) which also triggers the ground-truth / B4b independence requirement via CP-SAT. |
+| 2026-10-08 | **Research track: Categories 5, 6 (6-A + 6-B), 7 implemented** — 41 new scenarios (63 total), 100 passing tests. New `gt_engine.py` (exact Python ground truth, consistent-completion enumeration for Cat 7) and `b4b_cpsat.py` (B4b via OR-Tools CP-SAT). B4b agrees with ground truth on every Cat 5/6 scenario; on Cat 7 it detects P1/P2/P4/P5/P6 and commits on P3/P7/P8a/P8b/P9/P10. B4a catches P4/P5 but false-abstains on the dormant-cycle control. | Ground-truth / B4b circularity from the Cat 4 audit is now broken. Scenario counts are below Phase A allocation; next is B5 or literature review. |
+| 2026-10-08 | **R-N layer + pilot built (no LLM yet).** Canonical benchmark frozen at 63 (SHA-256 manifest + test). `rn.py`: deterministic template renderer (neutral labels, never reads ground truth), leakage checker (outcome/ambiguity vocabulary, P-codes, template ids, node ids, post-event-only numbers), `NaturalLanguageAdapter_v1` (prose only; alias map evaluator-side). 16 pilot R-N files, 117 tests passing. Design locked: API model at temperature 0, τ_FA 0.15, δ 0.05 non-inferiority. | Known issue: frozen `cat1_add_disconnected_001` contains the word "unrelated" → blocked from R-N until a versioned fix is approved. Next: extractor output schema + LLM integration after review. |
+| 2026-10-08 | **Benchmark v0.2.0** — hygiene fix to `cat1_add_disconnected_001` ("unrelated reminder" → "reminder note"), found by the leakage checker **before any LLM results**. v0.1.0 manifest kept (`frozen_manifest_v0.1.0.json`); all 63 now render leak-free; 118 tests. Draft pilot prompts/schemas/config in `research/experiments/rn_pilot/`. | Blocked: no API key / SDK in the environment, so the GPT-5.6 model id cannot be verified or frozen. |
 
 ---
 

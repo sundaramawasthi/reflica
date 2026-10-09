@@ -1,0 +1,62 @@
+{
+  "scenario_id": "cat4_diamond_edit_preservation_001",
+  "category": 4,
+  "subcategory": "preservation",
+  "template_id": "T4.2",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "premise_A", "type": "resource", "attributes": {"name": "A", "note": "initial"}},
+        {"id": "premise_B", "type": "resource", "attributes": {"name": "B"}},
+        {"id": "conclusion_C", "type": "conclusion", "attributes": {"status": true}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "premise_A", "target": "conclusion_C", "type": "supports"},
+        {"edge_id": "E2", "source": "premise_B", "target": "conclusion_C", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {"declared_input": true, "entries": {"conclusion_C": ["status"]}},
+      "propagation_rules": {"declared_input": true, "entries": {"rules": []}},
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {
+            "conclusion_C": {
+              "status_attribute": "status",
+              "true_value": true,
+              "false_value": false,
+              "justifications": [["premise_A"], ["premise_B"]]
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "premise_A",
+      "attribute": "note",
+      "new_value": "updated"
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "premise_A":    {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"name": "A", "note": "updated"}, "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "premise_B":    {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"name": "B"},                    "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "conclusion_C": {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"status": true},                 "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {"status": "discrete", "note": "discrete"},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T4.2 diamond EDIT preservation. Edit A.note; A still exists so both justifications intact. C stays stable."
+}

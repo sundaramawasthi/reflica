@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat5_no_crossing_control_001",
+  "source_sha256": "08dcb9cbe3139ac9276832a75ca235715f74a7d3e62bdcf0026667c838d0a84e",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; capacity = 200.\n- E2: required = 100; available = 200; coverage = 2; shortfall = 0; margin = 100; status = \"FULL\".\n- weekly report (report): name = \"weekly report\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\n- A → weekly report (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E2 = [capacity of A, counted only while A has an influencing link into E2; otherwise 0].\n- coverage of E2 = (available of E2 ÷ required of E2).\n- shortfall of E2 = the larger of (0, (required of E2 − available of E2)).\n- margin of E2 = (available of E2 − required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: capacity of A is now 150."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "weekly report": "report_R",
+    "office wifi": "unrelated_U"
+  }
+}

@@ -13,6 +13,7 @@ edge-only operations).
 
 from __future__ import annotations
 
+from ._event import resolve_target
 from ..adapters import AdapterOutput
 from ..baseline import Baseline, RevisionResult, Timer
 from ..schema import (
@@ -51,8 +52,9 @@ class B3Reachability:
                 assert ev.new_node is not None
                 seeds.append(ev.new_node.id)
             elif ev.operation == Operation.EDIT:
-                assert ev.target_id is not None
-                seeds.append(ev.target_id)
+                target = resolve_target(graph, ev)
+                if target is not None:
+                    seeds.append(target)
             elif ev.operation == Operation.DELETE and ev.target_kind == TargetKind.NODE:
                 assert ev.target_id is not None
                 seeds.append(ev.target_id)

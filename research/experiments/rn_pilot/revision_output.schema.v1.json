@@ -1,0 +1,70 @@
+{
+ "type": "object",
+ "required": [
+  "entities"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "entities": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "label",
+     "decision",
+     "confidence"
+    ],
+    "additionalProperties": false,
+    "properties": {
+     "label": {
+      "type": "string"
+     },
+     "decision": {
+      "enum": [
+       "changed",
+       "not_changed",
+       "cannot_answer",
+       "needs_human_review"
+      ]
+     },
+     "reason": {
+      "enum": [
+       "missing_information",
+       "conflicting_information",
+       "unclear_relationship",
+       "circular_dependency",
+       "conflicting_rules",
+       "non_numeric_value",
+       "unit_mismatch",
+       "contradicts_current_state",
+       "invalid_target",
+       "unclear_which_entity",
+       "no_unique_best_choice",
+       null
+      ]
+     },
+     "attributes": {
+      "type": "object"
+     },
+     "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+     }
+    }
+   }
+  },
+  "valid_combinations": {
+   "type": [
+    "array",
+    "null"
+   ],
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

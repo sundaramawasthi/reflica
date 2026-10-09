@@ -1,0 +1,5 @@
+If you cannot commit to an answer for an entity, abstain and give one reason:
+missing_information | conflicting_information | unclear_relationship |
+circular_dependency | conflicting_rules | non_numeric_value | unit_mismatch |
+contradicts_current_state | invalid_target | unclear_which_entity | no_unique_best_choice
+Use "needs_human_review" instead of "cannot_answer" when a provisional answer exists but a person should confirm it.

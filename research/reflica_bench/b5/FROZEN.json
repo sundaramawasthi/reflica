@@ -1,0 +1,11 @@
+{
+ "b5_version": "0.1.0",
+ "frozen": "2026-10-09",
+ "version_id": "fc9524a4ea38cca5",
+ "files": {
+  "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "engine.py": "9f5257207c5c9f4c98296b4e34d03e4f3b9dcda56b99b49b50b7a2042f9f2fdf",
+  "reflica.py": "e6ed63866771063045ffaba6554c765fc6f21ff4fe916a980ceb197474e9ca5a"
+ },
+ "tests": "tests/test_b5.py (75 tests)"
+}

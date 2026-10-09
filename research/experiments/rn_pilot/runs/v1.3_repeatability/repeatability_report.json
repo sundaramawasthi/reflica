@@ -1,0 +1,164 @@
+{
+ "provider": "nvidia",
+ "temperature": 0,
+ "seed": 20261008,
+ "run_at": "2026-10-08T18:25:17+00:00",
+ "cases": [
+  {
+   "model": "nvidia/nemotron-3-ultra-550b-a55b",
+   "scenario": "cat5_threshold_partial_partial_001",
+   "output_sha256": [
+    "c59871760d313a6f",
+    "0245bf36da2cdfb1",
+    "c6aa9efbdb892a1f"
+   ],
+   "identical": false,
+   "valid_json": true,
+   "schema_valid": [
+    true,
+    true,
+    true
+   ],
+   "schema_error_counts": [
+    0,
+    0,
+    0
+   ],
+   "downstream": [
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 4,
+     "n_status_functions": 1,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E2": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 3,
+     "n_status_functions": 1,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E2": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 4,
+     "n_status_functions": 1,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E2": "PARTIAL"
+     }
+    }
+   ],
+   "calls": [
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 4497,
+     "retries": 0,
+     "latency_s": 141.1
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 4228,
+     "retries": 0,
+     "latency_s": 136.2
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3657,
+     "retries": 0,
+     "latency_s": 135.0
+    }
+   ]
+  },
+  {
+   "model": "nvidia/nemotron-3-ultra-550b-a55b",
+   "scenario": "cat7_ambiguous_referent_001",
+   "output_sha256": [
+    "064683bc903fa183",
+    "fcc56934d25c1467",
+    "6d3fe35dff0e8324"
+   ],
+   "identical": false,
+   "valid_json": true,
+   "schema_valid": [
+    true,
+    true,
+    false
+   ],
+   "schema_error_counts": [
+    0,
+    0,
+    132
+   ],
+   "downstream": [
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": false,
+     "lint_ok": false,
+     "b4b_ok": false,
+     "error": "parse: 132 validation errors for ExtractionOutput\nrules.satisfaction_functions.entries.computations.0.machine.float\n  Input sho"
+    }
+   ],
+   "calls": [
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 4034,
+     "retries": 0,
+     "latency_s": 127.2
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3145,
+     "retries": 0,
+     "latency_s": 95.7
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3954,
+     "retries": 2,
+     "latency_s": 132.8
+    }
+   ]
+  }
+ ],
+ "all_identical": false
+}

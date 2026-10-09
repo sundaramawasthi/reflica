@@ -1,0 +1,19 @@
+SYSTEM: You maintain a plan. You receive the plan and one update. Apply every rule
+exactly as written. Do not invent values.
+
+USER:
+PLAN:
+{plan_text}
+
+UPDATE:
+{change_text}
+
+Return the COMPLETE state of every entity after the update as JSON matching the
+schema. For each entity give: label (exactly as written in the plan), decision
+("changed" | "not_changed" | "cannot_answer" | "needs_human_review"), every
+attribute with its value after the update, and confidence (0–1) that your answer
+for that entity is correct.
+{common_reasons}
+
+OUTPUT JSON SCHEMA (your answer must conform to it):
+{output_schema}

@@ -1,0 +1,91 @@
+{
+ "provider": "nvidia",
+ "temperature": 0,
+ "seed": 20261008,
+ "run_at": "2026-10-08T18:41:16+00:00",
+ "cases": [
+  {
+   "model": "nvidia/nemotron-3-ultra-550b-a55b",
+   "scenario": "cat7_ambiguous_referent_001",
+   "output_sha256": [
+    "31216ee35e45134f",
+    "99c226833381244e",
+    "aa09297d3807a332"
+   ],
+   "identical": false,
+   "valid_json": true,
+   "schema_valid": [
+    true,
+    true,
+    true
+   ],
+   "schema_error_counts": [
+    0,
+    0,
+    0
+   ],
+   "downstream": [
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    },
+    {
+     "parse_ok": true,
+     "lint_ok": true,
+     "b4b_ok": true,
+     "n_computations": 2,
+     "n_status_functions": 2,
+     "b4b_flags": {},
+     "b4b_status": {
+      "E3": "PARTIAL",
+      "E4": "PARTIAL"
+     }
+    }
+   ],
+   "calls": [
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3394,
+     "retries": 1,
+     "latency_s": 99.9
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 3776,
+     "retries": 0,
+     "latency_s": 88.9
+    },
+    {
+     "served": "nvidia/nemotron-3-ultra-550b-a55b",
+     "finish": "stop",
+     "out_tokens": 4268,
+     "retries": 1,
+     "latency_s": 85.8
+    }
+   ]
+  }
+ ],
+ "all_identical": false
+}

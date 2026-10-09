@@ -1,0 +1,86 @@
+{
+ "experiment": "rn_pilot",
+ "status": "FROZEN v1.1 2026-10-08 for repeatability check; pilot requires user approval",
+ "benchmark_version": "0.2.0",
+ "render_version": "rn-template-1.0.0",
+ "scenarios": "rn.PILOT_IDS (16)",
+ "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
+ "temperature": 0,
+ "seed": 20261008,
+ "seed_behaviour": "UNVERIFIED \u2014 measure",
+ "max_output_tokens": 4000,
+ "repeats_per_call": 3,
+ "prompts": {
+  "b1_full_regeneration.v1.1.txt": "88922e5dd31c2bab7057a7d83fd6384ca3af547aff441022184451c65075a9ce",
+  "b2_delta.v1.1.txt": "059a1b9880a1ca26b7cb9df91c5d383c4da3233c6cd6cf14aded6fe771764edd",
+  "extractor.v1.1.txt": "2477e7b036ac4022fb8ee88bd3d26400d68f0c660b2610a12a0f4211286e305d",
+  "common_reasons.txt": "fcc50a8a70379bb0c5c8e4abbab0fd54a8f0c431220f0cd97aeed3a32476b61f"
+ },
+ "schemas": {
+  "extractor_output.schema.v1.json": "27c3c1ec0d01a5c22157dc4d2b9cc0e6cf1f3aca0eb59c2105bca72d934b85d2",
+  "revision_output.schema.v1.json": "b19ffb3a079a8f91ae36522b1018db85d8f2bdc15ae978cdc1043853329e000a"
+ },
+ "conditions": [
+  "B1 full regeneration",
+  "B2 delta",
+  "A: gold extraction -> B4b/B5 \u2014 downstream sanity check ONLY, never evidence of extractor accuracy",
+  "B: LLM extraction (shared, identical output to both) -> B4b/B5 \u2014 extraction + revision experiment",
+  "B6 oracle scope (diagnostic)"
+ ],
+ "reason_to_code": {
+  "missing_information": "P1",
+  "conflicting_information": "P2",
+  "unclear_relationship": "P3",
+  "circular_dependency": "P4",
+  "conflicting_rules": "P5",
+  "non_numeric_value": "P6",
+  "unit_mismatch": "P7",
+  "contradicts_current_state": "P8a",
+  "invalid_target": "P8b",
+  "unclear_which_entity": "P9",
+  "no_unique_best_choice": "P10"
+ },
+ "decision_to_label": {
+  "changed": "MUST_CHANGE",
+  "not_changed": "MUST_STAY_STABLE",
+  "cannot_answer": "UNCERTAIN",
+  "needs_human_review": "REQUIRES_REEVALUATION"
+ },
+ "conditions_doc": "CONDITIONS.md",
+ "provider": "NVIDIA API catalog (build.nvidia.com, free trial tier), OpenAI-compatible endpoint",
+ "role_primary": "primary/frozen experiment model (roles swapped by user 2026-10-08: kimi-k3 returned HTTP 504 twice on the free endpoint)",
+ "secondary_model_id": null,
+ "temperature_note": "locked design value (vendor samples use 1); if the API rejects 0 for a model, stop and report \u2014 no silent change",
+ "reasoning_setting": "enable_thinking=true, fixed for every call; reasoning text discarded, only final content parsed",
+ "served_model_check": "response 'model' must equal model_id, else abort",
+ "provider_key": "nvidia",
+ "model_params": {
+  "nvidia/nemotron-3-ultra-550b-a55b": {
+   "chat_template_kwargs": {
+    "enable_thinking": true
+   }
+  }
+ },
+ "future_replication_model": "moonshotai/kimi-k3 (not run now)",
+ "max_output_tokens_note": "set by user; if thinking tokens exhaust it, finish_reason=length is reported, not silently changed",
+ "probe_2026-10-08": {
+  "nvidia/nemotron-3-ultra-550b-a55b": "usable, served id identical",
+  "moonshotai/kimi-k3": "HTTP 504 x2"
+ },
+ "client": "stdlib urllib OpenAI-compatible chat/completions, stream=false, python 3.14.3",
+ "client_fingerprint": "5f46a2daca08f694809cc49596b30c5d9d1ef3f70d607494eb652ab618ba83fc",
+ "runner_fingerprint": "e7ea1a8936e65fd9f4168158c705e168c1ce47ce0419d7981c88a7ee493ce17f",
+ "benchmark_manifest_sha256": "27b6ea09986157677bfa5feaac05c125a52d5b5cc4f761e8e831d0092b3b6915",
+ "frozen_at": "2026-10-08",
+ "runner_changes": [
+  "2026-10-08: fixed NameError (_is_json defined after __main__) that crashed the first repeatability run after 3 calls; raw responses now logged per call. Runner-only bug fix \u2014 model, prompts, schemas, settings unchanged.",
+  "2026-10-08 v1.1: schema delivered in prompt; per-call schema validation via MethodInputStructured."
+ ],
+ "config_version": "1.1",
+ "extractor_prompt": "extractor.v1.1.txt",
+ "schema_delivery": "exact schema JSON appended to each prompt ({output_schema}); no guided decoding, no other prompt change",
+ "changelog": [
+  "v1.0: schema referenced but never sent (setup defect) \u2014 results archived in runs/v1.0_repeatability/, invalid for model evaluation.",
+  "v1.1: only change = exact schema appended to prompts; model/settings/benchmark/metrics unchanged."
+ ]
+}

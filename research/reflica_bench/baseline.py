@@ -39,6 +39,7 @@ class RevisionResult:
     pathology_flags: dict[str, list[str]] | None = None
     confidence_scores: dict[str, float] | None = None
     feasible_combinations: list[list[str]] | None = None
+    search_cost: int | None = None
     explanation: Any | None = None
     unsupported_dimensions: list[str] = field(default_factory=list)
     token_cost: int = 0

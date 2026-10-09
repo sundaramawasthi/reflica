@@ -1,0 +1,320 @@
+{
+  "scenario_id": "cat6a_compensation_edit_001",
+  "category": 6,
+  "subcategory": "C6-A",
+  "template_id": "T6.5",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "S1",
+          "type": "resource",
+          "attributes": {
+            "name": "S1",
+            "capacity": 60
+          }
+        },
+        {
+          "id": "S2",
+          "type": "resource",
+          "attributes": {
+            "name": "S2",
+            "capacity": 40
+          }
+        },
+        {
+          "id": "S3",
+          "type": "resource",
+          "attributes": {
+            "name": "S3",
+            "capacity": 30
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "required": 100,
+            "total": 130,
+            "coverage": 1.3,
+            "shortfall": 0,
+            "excess": 30,
+            "status": "FEASIBLE"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "S1",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "S2",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E3",
+          "source": "S3",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "total",
+              "machine": {
+                "agg": "sum",
+                "attribute": "capacity",
+                "empty": 0
+              },
+              "human": "total = sum of linked capacities",
+              "role": "aggregate"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "ref": "demand_C.total"
+                  },
+                  {
+                    "ref": "demand_C.required"
+                  }
+                ]
+              },
+              "human": "coverage = total / required",
+              "role": "ratio"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "shortfall",
+              "machine": {
+                "op": "max",
+                "args": [
+                  0,
+                  {
+                    "op": "sub",
+                    "args": [
+                      {
+                        "ref": "demand_C.required"
+                      },
+                      {
+                        "ref": "demand_C.total"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "shortfall = max(0, required - total)",
+              "role": "gap"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "excess",
+              "machine": {
+                "op": "max",
+                "args": [
+                  0,
+                  {
+                    "op": "sub",
+                    "args": [
+                      {
+                        "ref": "demand_C.total"
+                      },
+                      {
+                        "ref": "demand_C.required"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "excess = max(0, total - required)",
+              "role": "gap"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FEASIBLE",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "BORDERLINE",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      0.9
+                    ]
+                  }
+                },
+                {
+                  "label": "INFEASIBLE",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FEASIBLE if coverage >= 1; BORDERLINE if >= 0.9; else INFEASIBLE"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "EDIT",
+      "target_kind": "node",
+      "target_id": "S1",
+      "attribute": "capacity",
+      "new_value": 35
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "compensation_viable": true
+    },
+    "nodes": {
+      "S1": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S1",
+          "capacity": 35
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S2": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S2",
+          "capacity": 40
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S3": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S3",
+          "capacity": 30
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": false,
+        "attribute_values": {
+          "required": 100,
+          "total": 105,
+          "coverage": 1.05,
+          "shortfall": 0,
+          "excess": 5,
+          "status": "FEASIBLE"
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "excess": "continuous_unbounded_positive",
+      "name": "discrete",
+      "required": "continuous_unbounded_positive",
+      "shortfall": "continuous_unbounded_positive",
+      "status": "discrete",
+      "total": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T6.5 S1 drops 60->35; S3's slack compensates (S1+S2 alone would be 75)."
+}

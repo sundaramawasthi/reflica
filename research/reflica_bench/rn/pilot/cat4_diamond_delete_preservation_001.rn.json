@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat4_diamond_delete_preservation_001",
+  "source_sha256": "dd08cfbdc471527393b5033c53bfcdfe1ac789e9d3d86d48936315a312796162",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\".\n- B (resource): name = \"B\".\n- E3: status = true.\nLinks:\n- A → E3 (supports).\n- B → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E3: status.\n- status of E3 is true when at least one holds: (A exists with an influencing link into E3) OR (B exists with an influencing link into E3); otherwise false.",
+    "change_text": "Update: A has been removed."
+  },
+  "alias_map": {
+    "A": "premise_A",
+    "B": "premise_B",
+    "E3": "conclusion_C"
+  }
+}

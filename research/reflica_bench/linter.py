@@ -46,7 +46,171 @@ def lint_scenario(scenario: Scenario) -> None:
     _lint_edge_uniqueness(scenario)
     _lint_event_target_kind(scenario)
     _lint_regime_consistency(scenario)
+    _lint_propagation_rules(scenario)
+    _lint_justifications(scenario)
+    _lint_satisfaction_functions(scenario)
+    _lint_combination_selection(scenario)
     _lint_ground_truth_coverage(scenario)
+
+
+_OPS = {"add", "sub", "mul", "div", "min", "max", "ge", "gt", "le", "lt", "eq", "and", "or", "not"}
+_AGGS = {"sum", "max", "min", "count"}
+
+
+def _lint_expr(e: Any, where: str, known: set[str]) -> None:
+    if not isinstance(e, dict):
+        if isinstance(e, (list, tuple)):
+            raise LintError(f"{where}: bare list is not an expression")
+        return
+    if "ref" in e or "src" in e:
+        key = e.get("ref", e.get("src"))
+        if not isinstance(key, str) or "." not in key:
+            raise LintError(f"{where}: reference must be 'node.attribute', got {key!r}")
+        if key.split(".", 1)[0] not in known:
+            raise LintError(f"{where}: unknown node in reference {key!r}")
+        if "default" in e:
+            _lint_expr(e["default"], where, known)
+    elif "agg" in e:
+        if e["agg"] not in _AGGS or not isinstance(e.get("attribute"), str):
+            raise LintError(f"{where}: agg needs one of {sorted(_AGGS)} and an attribute")
+    elif "case" in e:
+        branches = e["case"]
+        if not branches or branches[-1].get("when") != "otherwise":
+            raise LintError(f"{where}: case must end with an 'otherwise' branch")
+        for b in branches:
+            if b["when"] != "otherwise":
+                _lint_expr(b["when"], where, known)
+    elif "op" in e:
+        if e["op"] not in _OPS or not isinstance(e.get("args"), list):
+            raise LintError(f"{where}: unknown op {e.get('op')!r}")
+        for a in e["args"]:
+            _lint_expr(a, where, known)
+    else:
+        raise LintError(f"{where}: unrecognised expression {e}")
+
+
+def _known_nodes(scenario: Scenario) -> set[str]:
+    known = set(scenario.canonical_input.graph.node_ids())
+    if scenario.canonical_input.event.new_node is not None:
+        known.add(scenario.canonical_input.event.new_node.id)
+    return known
+
+
+def _lint_satisfaction_functions(scenario: Scenario) -> None:
+    entries = scenario.canonical_input.rules.satisfaction_functions.entries or {}
+    known = _known_nodes(scenario)
+    for i, c in enumerate(entries.get("computations", []) or []):
+        for key in ("node", "attribute", "machine", "human"):
+            if key not in c:
+                raise LintError(f"computation #{i} missing '{key}'")
+        if c["node"] not in known:
+            raise LintError(f"computation #{i}: node '{c['node']}' not in graph")
+        _lint_expr(c["machine"], f"computation #{i}", known)
+    for node, sf in (entries.get("status_functions", {}) or {}).items():
+        if node not in known:
+            raise LintError(f"status_function: node '{node}' not in graph")
+        mapping = sf.get("mapping") or []
+        if not mapping or mapping[-1].get("when") != "otherwise":
+            raise LintError(f"status_function[{node}]: mapping must end with 'otherwise'")
+        for m in mapping:
+            if "label" not in m:
+                raise LintError(f"status_function[{node}]: every entry needs a label")
+            if m["when"] != "otherwise":
+                _lint_expr(m["when"], f"status_function[{node}]", known)
+
+
+def _lint_combination_selection(scenario: Scenario) -> None:
+    problems = (scenario.canonical_input.rules.combination_selection.entries or {}).get("problems", {}) or {}
+    if len(problems) > 1:
+        raise LintError("at most one combination_selection problem per scenario")
+    known = _known_nodes(scenario)
+    for node, p in problems.items():
+        if node not in known:
+            raise LintError(f"combination problem: node '{node}' not in graph")
+        if not p.get("constraints"):
+            raise LintError(f"combination problem[{node}] needs constraints")
+        for c in p["constraints"]:
+            if c.get("agg") not in {"sum", "max", "min"} or c.get("op") not in {"ge", "gt", "le", "lt", "eq"}:
+                raise LintError(f"combination problem[{node}]: bad constraint {c}")
+
+
+def _lint_justifications(scenario: Scenario) -> None:
+    """Validate that the Cat 4 justifications block references real
+    conclusions and that each justification is a non-empty list of premise
+    ids known to the graph (or newly added by the event)."""
+    entries = scenario.canonical_input.rules.justifications.entries
+    if not isinstance(entries, dict):
+        return
+    conclusions = entries.get("conclusions", {})
+    if not isinstance(conclusions, dict):
+        raise LintError("rules.justifications.entries.conclusions must be a dict")
+
+    graph = scenario.canonical_input.graph
+    known_nodes = set(graph.node_ids())
+    ev = scenario.canonical_input.event
+    if ev.new_node is not None:
+        known_nodes.add(ev.new_node.id)
+
+    for conclusion_id, config in conclusions.items():
+        if not isinstance(config, dict):
+            raise LintError(f"justifications[{conclusion_id}] must be a dict")
+        if conclusion_id not in known_nodes:
+            raise LintError(
+                f"justifications: conclusion '{conclusion_id}' not in graph"
+            )
+        justs = config.get("justifications", [])
+        if not isinstance(justs, list) or len(justs) < 2:
+            raise LintError(
+                f"justifications[{conclusion_id}].justifications must be a list "
+                f"with ≥ 2 alternatives for Category 4"
+            )
+        for i, just in enumerate(justs):
+            if not isinstance(just, list) or len(just) == 0:
+                raise LintError(
+                    f"justifications[{conclusion_id}].justifications[{i}] must "
+                    f"be a non-empty list of premise ids"
+                )
+            for p in just:
+                if p not in known_nodes:
+                    raise LintError(
+                        f"justifications[{conclusion_id}].justifications[{i}]: "
+                        f"premise '{p}' not in graph"
+                    )
+
+
+def _lint_propagation_rules(scenario: Scenario) -> None:
+    """Validate propagation rule entries reference known nodes.
+
+    The rules are allowed to reference nodes that will be created by an ADD
+    event, so we check against the union of pre-event + event-added nodes.
+    """
+    rules = scenario.canonical_input.rules.propagation_rules.entries
+    if not isinstance(rules, dict):
+        return
+    rule_list = rules.get("rules", [])
+    if not isinstance(rule_list, list):
+        raise LintError("rules.propagation_rules.entries.rules must be a list")
+
+    graph = scenario.canonical_input.graph
+    known_nodes = set(graph.node_ids())
+    ev = scenario.canonical_input.event
+    if ev.new_node is not None:
+        known_nodes.add(ev.new_node.id)
+
+    for i, r in enumerate(rule_list):
+        if not isinstance(r, dict):
+            raise LintError(f"propagation rule #{i} must be a dict")
+        for key in ("from_node", "from_attribute", "to_node", "to_attribute"):
+            if key not in r:
+                raise LintError(f"propagation rule #{i} missing '{key}'")
+        if r["from_node"] not in known_nodes:
+            raise LintError(
+                f"propagation rule #{i}: from_node '{r['from_node']}' not in graph"
+            )
+        if r["to_node"] not in known_nodes:
+            raise LintError(
+                f"propagation rule #{i}: to_node '{r['to_node']}' not in graph"
+            )
 
 
 def _lint_identity(scenario: Scenario) -> None:
@@ -86,8 +250,10 @@ def _lint_event_target_kind(scenario: Scenario) -> None:
             if ev.edge_change is None:
                 raise LintError("ADD on an edge requires edge_change")
             ec = ev.edge_change
-            if ec.source is None or ec.target is None or ec.new_type is None:
-                raise LintError("ADD edge_change requires source, target, new_type")
+            if ec.source is None or ec.target is None:
+                raise LintError("ADD edge_change requires source and target")
+            if ec.new_type is None and len(ec.candidate_types or []) < 2:
+                raise LintError("ADD edge_change requires new_type or ≥ 2 candidate_types")
             if ec.source not in graph.node_ids():
                 raise LintError(f"ADD edge source {ec.source} not in graph")
             if ec.target not in graph.node_ids():
@@ -96,9 +262,9 @@ def _lint_event_target_kind(scenario: Scenario) -> None:
     elif ev.operation == Operation.EDIT:
         if ev.target_kind != TargetKind.NODE:
             raise LintError("EDIT currently targets nodes only (attribute edit)")
-        if ev.target_id is None:
-            raise LintError("EDIT requires target_id")
-        if ev.target_id not in graph.node_ids():
+        if ev.target_id is None and ev.target_ref is None:
+            raise LintError("EDIT requires target_id or target_ref")
+        if ev.target_id is not None and ev.target_id not in graph.node_ids():
             raise LintError(f"EDIT target node {ev.target_id} not in graph")
         if ev.attribute is None:
             raise LintError("EDIT requires an attribute name")

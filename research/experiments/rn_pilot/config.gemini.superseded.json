@@ -1,0 +1,58 @@
+{
+ "experiment": "rn_pilot",
+ "status": "SUPERSEDED 2026-10-08 before any experiment call (repeatability attempt got 503, no outputs). Provider switched to NVIDIA open-weight models: reproducible weights, matches local-install story.",
+ "benchmark_version": "0.2.0",
+ "render_version": "rn-template-1.0.0",
+ "scenarios": "rn.PILOT_IDS (16)",
+ "model_id": "gemini-3.8-flash",
+ "temperature": 0,
+ "seed": 20261008,
+ "seed_behaviour": "sent as GenerateContentConfig.seed; determinism NOT assumed \u2014 measured by repeatability.py",
+ "max_output_tokens": 16384,
+ "repeats_per_call": 3,
+ "prompts": {
+  "b1_full_regeneration.v1.txt": "7466652fad46688b6bc19fb6b9bf38e78f834721ef7952ccc6e605f3ce512e3f",
+  "b2_delta.v1.txt": "4b8c83db52552fcca6182875cb89b9470641b99b9497c1fd57871f715c8e3ffe",
+  "extractor.v1.txt": "03207dbe5b9bbeb672936d68b083765cc39b6888da482c04ea9941ba87de4934",
+  "common_reasons.txt": "fcc50a8a70379bb0c5c8e4abbab0fd54a8f0c431220f0cd97aeed3a32476b61f"
+ },
+ "schemas": {
+  "extractor_output.schema.v1.json": "27c3c1ec0d01a5c22157dc4d2b9cc0e6cf1f3aca0eb59c2105bca72d934b85d2",
+  "revision_output.schema.v1.json": "b19ffb3a079a8f91ae36522b1018db85d8f2bdc15ae978cdc1043853329e000a"
+ },
+ "conditions": [
+  "B1 full regeneration",
+  "B2 delta",
+  "A: gold extraction -> B4b/B5 \u2014 downstream sanity check ONLY, never evidence of extractor accuracy",
+  "B: LLM extraction (shared, identical output to both) -> B4b/B5 \u2014 extraction + revision experiment",
+  "B6 oracle scope (diagnostic)"
+ ],
+ "reason_to_code": {
+  "missing_information": "P1",
+  "conflicting_information": "P2",
+  "unclear_relationship": "P3",
+  "circular_dependency": "P4",
+  "conflicting_rules": "P5",
+  "non_numeric_value": "P6",
+  "unit_mismatch": "P7",
+  "contradicts_current_state": "P8a",
+  "invalid_target": "P8b",
+  "unclear_which_entity": "P9",
+  "no_unique_best_choice": "P10"
+ },
+ "decision_to_label": {
+  "changed": "MUST_CHANGE",
+  "not_changed": "MUST_STAY_STABLE",
+  "cannot_answer": "UNCERTAIN",
+  "needs_human_review": "REQUIRES_REEVALUATION"
+ },
+ "conditions_doc": "CONDITIONS.md",
+ "provider": "Google Gemini API (Free tier, project reflicaaa)",
+ "client": "google-genai==2.29.0 (official SDK)",
+ "model_selection": "user delegated choice 2026-10-08; newest stable model usable on Free tier that reports its own version (2.5-pro: 404 for new users; 3.1-pro-preview: no Free-tier quota; 3.7-flash silently served by 3.8-flash)",
+ "served_model_check": "every response's model_version must equal model_id, else abort",
+ "max_output_tokens_note": "raised from draft 4000 before any experiment call: thinking tokens count toward this limit on 3.x flash models",
+ "response_mime_type": "application/json",
+ "benchmark_manifest_sha256": "27b6ea09986157677bfa5feaac05c125a52d5b5cc4f761e8e831d0092b3b6915",
+ "frozen_at": "2026-10-08"
+}

@@ -1,0 +1,70 @@
+{
+  "scenario_id": "cat2_relchange_retype_001",
+  "category": 2,
+  "subcategory": null,
+  "template_id": "T2.6",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "supplier_A", "type": "resource", "attributes": {"capacity": 70}},
+        {"id": "task_T", "type": "task", "attributes": {"available_capacity": null}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "supplier_A", "target": "task_T", "type": "informs"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {
+          "supplier_A": ["capacity"],
+          "task_T": ["available_capacity"]
+        }
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {"from_node": "supplier_A", "from_attribute": "capacity", "to_node": "task_T", "to_attribute": "available_capacity",
+             "machine": {"operator": "copy", "inputs": [{"node": "supplier_A", "attribute": "capacity"}], "output_name": "available_capacity"},
+             "human": "task_T.available_capacity = supplier_A.capacity"}
+          ]
+        }
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {
+        "edge_id": "E1",
+        "old_type": "informs",
+        "new_type": "supports"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "supplier_A": {"outcome_label": "MUST_STAY_STABLE", "state_change": false,
+                     "attribute_values": {"capacity": 70}, "in_affected_set": false,
+                     "determinability": "DETERMINABLE", "pathology_codes": []},
+      "task_T":     {"outcome_label": "MUST_CHANGE", "state_change": true,
+                     "attribute_values": {"available_capacity": 70}, "in_affected_set": true,
+                     "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "available_capacity": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T2.6 RELATIONSHIP_CHANGE informs -> supports. task_T.available_capacity gets populated once the edge becomes propagating."
+}

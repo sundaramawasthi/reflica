@@ -1,0 +1,2 @@
+{"scenario": "cat3_early_termination_edit_001", "call": "EXTRACT", "repeat": 0, "ok": false, "error": "HTTP 500: {\"type\":\"urn:nvcf-worker-service:problem-details:internal-server-error\",\"title\":\"Internal Server Error\",\"status\":500,\"detail\":\"Internal error while making inference request\"}"}
+{"scenario": "cat3_early_termination_edit_001", "call": "EXTRACT", "repeat": 2, "ok": false, "error": "HTTP 503: {\"error\":{\"message\":\"Service temporarily overloaded\",\"type\":\"Service Unavailable\",\"code\":503}}"}

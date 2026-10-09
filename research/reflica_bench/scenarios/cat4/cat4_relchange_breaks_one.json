@@ -1,0 +1,64 @@
+{
+  "scenario_id": "cat4_relchange_breaks_one_001",
+  "category": 4,
+  "subcategory": "preservation",
+  "template_id": "T4.6",
+  "operation": "RELATIONSHIP_CHANGE",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "premise_A", "type": "resource", "attributes": {"name": "A"}},
+        {"id": "premise_B", "type": "resource", "attributes": {"name": "B"}},
+        {"id": "conclusion_C", "type": "conclusion", "attributes": {"status": true}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "premise_A", "target": "conclusion_C", "type": "supports"},
+        {"edge_id": "E2", "source": "premise_B", "target": "conclusion_C", "type": "supports"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {"declared_input": true, "entries": {"conclusion_C": ["status"]}},
+      "propagation_rules": {"declared_input": true, "entries": {"rules": []}},
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {
+            "conclusion_C": {
+              "status_attribute": "status",
+              "true_value": true,
+              "false_value": false,
+              "justifications": [["premise_A"], ["premise_B"]]
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "operation": "RELATIONSHIP_CHANGE",
+      "target_kind": "edge",
+      "edge_change": {
+        "edge_id": "E1",
+        "old_type": "supports",
+        "new_type": "informs"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "premise_A":    {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"name": "A"},    "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "premise_B":    {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"name": "B"},    "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "conclusion_C": {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"status": true}, "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {"status": "discrete"},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T4.6 RELATIONSHIP_CHANGE breaking one justification. Retype A->C supports to informs. J1 no longer intact (edge not propagating). J2 still intact. C.status stays true."
+}

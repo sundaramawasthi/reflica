@@ -1,0 +1,272 @@
+{
+  "scenario_id": "cat7_rule_conflict_add_001",
+  "category": 7,
+  "subcategory": "ambiguous",
+  "template_id": "T7.5",
+  "operation": "ADD",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "supplier_A",
+          "type": "resource",
+          "attributes": {
+            "name": "Supplier A",
+            "capacity": 80
+          }
+        },
+        {
+          "id": "audit_B",
+          "type": "audit",
+          "attributes": {
+            "verified_capacity": 50
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "required": 100,
+            "available": 80,
+            "coverage": 0.8,
+            "status": "PARTIAL"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "supplier_A",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "available",
+              "machine": {
+                "src": "supplier_A.capacity",
+                "default": 0
+              },
+              "human": "rule 1: available = supplier capacity"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "available",
+              "machine": {
+                "src": "audit_B.verified_capacity",
+                "default": 0
+              },
+              "human": "rule 2 (audit linked): available = audited capacity",
+              "when_linked": [
+                "audit_B"
+              ]
+            },
+            {
+              "node": "demand_C",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "ref": "demand_C.available"
+                  },
+                  {
+                    "ref": "demand_C.required"
+                  }
+                ]
+              },
+              "human": "coverage = available / required",
+              "role": "ratio"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FULL",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "INVALID",
+                  "when": {
+                    "op": "le",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      0
+                    ]
+                  }
+                },
+                {
+                  "label": "PARTIAL",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FULL if coverage >= 1; INVALID if coverage <= 0; else PARTIAL"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "ADD",
+      "target_kind": "edge",
+      "edge_change": {
+        "source": "audit_B",
+        "target": "demand_C",
+        "new_type": "supports"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {
+      "pathology_codes": [
+        "P5"
+      ],
+      "consistent_completions": [
+        {
+          "choice": {
+            "P5:demand_C.available": 0
+          },
+          "differs": {
+            "demand_C.available": 80,
+            "demand_C.coverage": 0.8
+          }
+        },
+        {
+          "choice": {
+            "P5:demand_C.available": 1
+          },
+          "differs": {
+            "demand_C.available": 50,
+            "demand_C.coverage": 0.5
+          }
+        }
+      ]
+    },
+    "nodes": {
+      "supplier_A": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "Supplier A",
+          "capacity": 80
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "audit_B": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "verified_capacity": 50
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "UNCERTAIN",
+        "state_change": false,
+        "attribute_values": {
+          "required": 100,
+          "available": null,
+          "coverage": null,
+          "status": "PARTIAL"
+        },
+        "in_affected_set": true,
+        "determinability": "AMBIGUOUS",
+        "pathology_codes": [
+          "P5"
+        ]
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "available": "continuous_unbounded_positive",
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "name": "discrete",
+      "required": "continuous_unbounded_positive",
+      "status": "discrete",
+      "verified_capacity": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T7.5 P5: linking the audit activates a second rule for C.available that disagrees (80 vs 50)."
+}

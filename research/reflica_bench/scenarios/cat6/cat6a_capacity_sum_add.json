@@ -1,0 +1,314 @@
+{
+  "scenario_id": "cat6a_capacity_sum_add_001",
+  "category": 6,
+  "subcategory": "C6-A",
+  "template_id": "T6.3",
+  "operation": "ADD",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {
+          "id": "S1",
+          "type": "resource",
+          "attributes": {
+            "name": "S1",
+            "capacity": 40
+          }
+        },
+        {
+          "id": "S2",
+          "type": "resource",
+          "attributes": {
+            "name": "S2",
+            "capacity": 30
+          }
+        },
+        {
+          "id": "S3",
+          "type": "resource",
+          "attributes": {
+            "name": "S3",
+            "capacity": 40
+          }
+        },
+        {
+          "id": "demand_C",
+          "type": "conclusion",
+          "attributes": {
+            "required": 100,
+            "total": 70,
+            "coverage": 0.7,
+            "shortfall": 30,
+            "excess": 0,
+            "status": "INFEASIBLE"
+          }
+        },
+        {
+          "id": "unrelated_U",
+          "type": "generic",
+          "attributes": {
+            "name": "office wifi"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "E1",
+          "source": "S1",
+          "target": "demand_C",
+          "type": "supports"
+        },
+        {
+          "edge_id": "E2",
+          "source": "S2",
+          "target": "demand_C",
+          "type": "supports"
+        }
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": []
+        }
+      },
+      "justifications": {
+        "declared_input": true,
+        "entries": {
+          "conclusions": {}
+        }
+      },
+      "satisfaction_functions": {
+        "declared_input": true,
+        "entries": {
+          "computations": [
+            {
+              "node": "demand_C",
+              "attribute": "total",
+              "machine": {
+                "agg": "sum",
+                "attribute": "capacity",
+                "empty": 0
+              },
+              "human": "total = sum of linked capacities",
+              "role": "aggregate"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "coverage",
+              "machine": {
+                "op": "div",
+                "args": [
+                  {
+                    "ref": "demand_C.total"
+                  },
+                  {
+                    "ref": "demand_C.required"
+                  }
+                ]
+              },
+              "human": "coverage = total / required",
+              "role": "ratio"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "shortfall",
+              "machine": {
+                "op": "max",
+                "args": [
+                  0,
+                  {
+                    "op": "sub",
+                    "args": [
+                      {
+                        "ref": "demand_C.required"
+                      },
+                      {
+                        "ref": "demand_C.total"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "shortfall = max(0, required - total)",
+              "role": "gap"
+            },
+            {
+              "node": "demand_C",
+              "attribute": "excess",
+              "machine": {
+                "op": "max",
+                "args": [
+                  0,
+                  {
+                    "op": "sub",
+                    "args": [
+                      {
+                        "ref": "demand_C.total"
+                      },
+                      {
+                        "ref": "demand_C.required"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "human": "excess = max(0, total - required)",
+              "role": "gap"
+            }
+          ],
+          "status_functions": {
+            "demand_C": {
+              "status_attribute": "status",
+              "mapping": [
+                {
+                  "label": "FEASIBLE",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      1
+                    ]
+                  }
+                },
+                {
+                  "label": "BORDERLINE",
+                  "when": {
+                    "op": "ge",
+                    "args": [
+                      {
+                        "ref": "demand_C.coverage"
+                      },
+                      0.9
+                    ]
+                  }
+                },
+                {
+                  "label": "INFEASIBLE",
+                  "when": "otherwise"
+                }
+              ],
+              "human": "FEASIBLE if coverage >= 1; BORDERLINE if >= 0.9; else INFEASIBLE"
+            }
+          }
+        }
+      },
+      "combination_selection": {
+        "declared_input": true,
+        "entries": {
+          "problems": {}
+        }
+      },
+      "evidence": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "units": {
+        "declared_input": true,
+        "entries": {}
+      },
+      "fixed_point_semantics": {
+        "declared_input": true,
+        "entries": {}
+      }
+    },
+    "event": {
+      "operation": "ADD",
+      "target_kind": "edge",
+      "edge_change": {
+        "source": "S3",
+        "target": "demand_C",
+        "new_type": "supports"
+      }
+    }
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "S1": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S1",
+          "capacity": 40
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S2": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S2",
+          "capacity": 30
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "S3": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "S3",
+          "capacity": 40
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "demand_C": {
+        "outcome_label": "MUST_CHANGE",
+        "state_change": true,
+        "attribute_values": {
+          "required": 100,
+          "total": 110,
+          "coverage": 1.1,
+          "shortfall": 0,
+          "excess": 10,
+          "status": "FEASIBLE"
+        },
+        "in_affected_set": true,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      },
+      "unrelated_U": {
+        "outcome_label": "MUST_STAY_STABLE",
+        "state_change": false,
+        "attribute_values": {
+          "name": "office wifi"
+        },
+        "in_affected_set": false,
+        "determinability": "DETERMINABLE",
+        "pathology_codes": []
+      }
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {
+      "capacity": "continuous_unbounded_positive",
+      "coverage": "continuous_bounded",
+      "excess": "continuous_unbounded_positive",
+      "name": "discrete",
+      "required": "continuous_unbounded_positive",
+      "shortfall": "continuous_unbounded_positive",
+      "status": "discrete",
+      "total": "continuous_unbounded_positive"
+    },
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T6.3 S3 joins the aggregate: 70->110, INFEASIBLE->FEASIBLE."
+}

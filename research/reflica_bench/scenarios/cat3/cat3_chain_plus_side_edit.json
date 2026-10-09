@@ -1,0 +1,64 @@
+{
+  "scenario_id": "cat3_chain_plus_side_edit_001",
+  "category": 3,
+  "subcategory": null,
+  "template_id": "T3.5",
+  "operation": "EDIT",
+  "regime": "R-S",
+  "scenario_version": "0.1.0",
+  "generator_version": "0.1.0",
+  "natural_language_description": null,
+  "canonical_input": {
+    "graph": {
+      "nodes": [
+        {"id": "src_X",    "type": "resource", "attributes": {"state": "ok"}},
+        {"id": "node_N1",  "type": "stage", "attributes": {"mirror": "ok"}},
+        {"id": "node_N2",  "type": "stage", "attributes": {"mirror": "ok"}},
+        {"id": "side_Y",   "type": "note",  "attributes": {"text": "side note"}},
+        {"id": "side_Z",   "type": "note",  "attributes": {"text": "another note"}}
+      ],
+      "edges": [
+        {"edge_id": "E1", "source": "src_X",   "target": "node_N1", "type": "supports"},
+        {"edge_id": "E2", "source": "node_N1", "target": "node_N2", "type": "supports"},
+        {"edge_id": "E3", "source": "node_N1", "target": "side_Y",  "type": "informs"},
+        {"edge_id": "E4", "source": "node_N2", "target": "side_Z",  "type": "informs"}
+      ]
+    },
+    "rules": {
+      "read_attributes": {
+        "declared_input": true,
+        "entries": {"src_X": ["state"], "node_N1": ["mirror"], "node_N2": ["mirror"]}
+      },
+      "propagation_rules": {
+        "declared_input": true,
+        "entries": {
+          "rules": [
+            {"from_node": "src_X",   "from_attribute": "state",  "to_node": "node_N1", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "src_X",   "attribute": "state"}],  "output_name": "mirror"},
+             "human": "node_N1.mirror = src_X.state"},
+            {"from_node": "node_N1", "from_attribute": "mirror", "to_node": "node_N2", "to_attribute": "mirror",
+             "machine": {"operator": "copy", "inputs": [{"node": "node_N1", "attribute": "mirror"}], "output_name": "mirror"},
+             "human": "node_N2.mirror = node_N1.mirror"}
+          ]
+        }
+      }
+    },
+    "event": {"operation": "EDIT", "target_kind": "node", "target_id": "src_X", "attribute": "state", "new_value": "degraded"}
+  },
+  "ground_truth": {
+    "scenario": {},
+    "nodes": {
+      "src_X":   {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"state": "degraded"},    "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N1": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "degraded"},   "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "node_N2": {"outcome_label": "MUST_CHANGE",      "state_change": true,  "attribute_values": {"mirror": "degraded"},   "in_affected_set": true,  "determinability": "DETERMINABLE", "pathology_codes": []},
+      "side_Y":  {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"text": "side note"},    "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []},
+      "side_Z":  {"outcome_label": "MUST_STAY_STABLE", "state_change": false, "attribute_values": {"text": "another note"}, "in_affected_set": false, "determinability": "DETERMINABLE", "pathology_codes": []}
+    }
+  },
+  "evaluation_annotations": {
+    "attribute_types": {"state": "discrete", "mirror": "discrete", "text": "discrete"},
+    "tolerance_bands": {},
+    "escalation_policy": {}
+  },
+  "notes": "T3.5 chain + irrelevant side-branches via informs. Depth-2 cascade in the propagating chain; side_Y and side_Z must stay stable."
+}

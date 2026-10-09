@@ -1,0 +1,1444 @@
+{
+ "$defs": {
+  "Agg": {
+   "additionalProperties": false,
+   "properties": {
+    "agg": {
+     "description": "Combine over all nodes with an influencing link into the computed node",
+     "enum": [
+      "sum",
+      "max",
+      "min",
+      "count"
+     ],
+     "title": "Agg",
+     "type": "string"
+    },
+    "attribute": {
+     "title": "Attribute",
+     "type": "string"
+    },
+    "empty": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      }
+     ],
+     "default": 0,
+     "description": "Result when no node is linked",
+     "title": "Empty"
+    }
+   },
+   "required": [
+    "agg",
+    "attribute"
+   ],
+   "title": "Agg",
+   "type": "object"
+  },
+  "Case": {
+   "additionalProperties": false,
+   "properties": {
+    "case": {
+     "description": "Ordered; first true \"when\" wins; last branch must be \"otherwise\"",
+     "items": {
+      "$ref": "#/$defs/CaseBranch"
+     },
+     "title": "Case",
+     "type": "array"
+    }
+   },
+   "required": [
+    "case"
+   ],
+   "title": "Case",
+   "type": "object"
+  },
+  "CaseBranch": {
+   "additionalProperties": false,
+   "properties": {
+    "when": {
+     "anyOf": [
+      {
+       "const": "otherwise",
+       "type": "string"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "$ref": "#/$defs/Ref"
+      },
+      {
+       "$ref": "#/$defs/Src"
+      },
+      {
+       "$ref": "#/$defs/Agg"
+      },
+      {
+       "$ref": "#/$defs/Op"
+      },
+      {
+       "$ref": "#/$defs/Case"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "When"
+    },
+    "then": {
+     "title": "Then",
+     "type": "string"
+    }
+   },
+   "required": [
+    "when",
+    "then"
+   ],
+   "title": "CaseBranch",
+   "type": "object"
+  },
+  "Claim": {
+   "additionalProperties": false,
+   "properties": {
+    "source": {
+     "title": "Source",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value"
+    }
+   },
+   "required": [
+    "source",
+    "value"
+   ],
+   "title": "Claim",
+   "type": "object"
+  },
+  "CombinationBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_ComboEntries"
+    }
+   },
+   "title": "CombinationBlock",
+   "type": "object"
+  },
+  "Computation": {
+   "additionalProperties": false,
+   "properties": {
+    "node": {
+     "description": "Node id whose attribute this rule sets",
+     "title": "Node",
+     "type": "string"
+    },
+    "attribute": {
+     "title": "Attribute",
+     "type": "string"
+    },
+    "machine": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "$ref": "#/$defs/Ref"
+      },
+      {
+       "$ref": "#/$defs/Src"
+      },
+      {
+       "$ref": "#/$defs/Agg"
+      },
+      {
+       "$ref": "#/$defs/Op"
+      },
+      {
+       "$ref": "#/$defs/Case"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "description": "The formula",
+     "title": "Machine"
+    },
+    "human": {
+     "description": "The rule as written in the text",
+     "title": "Human",
+     "type": "string"
+    },
+    "role": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Role"
+    },
+    "when_linked": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Rule applies only while these nodes have an influencing link into `node`",
+     "title": "When Linked"
+    }
+   },
+   "required": [
+    "node",
+    "attribute",
+    "machine",
+    "human"
+   ],
+   "title": "Computation",
+   "type": "object"
+  },
+  "Conclusion": {
+   "additionalProperties": false,
+   "properties": {
+    "status_attribute": {
+     "default": "status",
+     "title": "Status Attribute",
+     "type": "string"
+    },
+    "true_value": {
+     "default": true,
+     "title": "True Value"
+    },
+    "false_value": {
+     "default": false,
+     "title": "False Value"
+    },
+    "justifications": {
+     "description": "Alternatives (OR); each is a list of premise node ids (AND)",
+     "items": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "title": "Justifications",
+     "type": "array"
+    }
+   },
+   "required": [
+    "justifications"
+   ],
+   "title": "Conclusion",
+   "type": "object"
+  },
+  "Constraint": {
+   "additionalProperties": false,
+   "properties": {
+    "attribute": {
+     "title": "Attribute",
+     "type": "string"
+    },
+    "agg": {
+     "enum": [
+      "sum",
+      "max",
+      "min"
+     ],
+     "title": "Agg",
+     "type": "string"
+    },
+    "op": {
+     "enum": [
+      "ge",
+      "gt",
+      "le",
+      "lt",
+      "eq"
+     ],
+     "title": "Op",
+     "type": "string"
+    },
+    "value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      }
+     ],
+     "title": "Value"
+    }
+   },
+   "required": [
+    "attribute",
+    "agg",
+    "op",
+    "value"
+   ],
+   "title": "Constraint",
+   "type": "object"
+  },
+  "EdgeType": {
+   "enum": [
+    "requires",
+    "supports",
+    "causes",
+    "blocks",
+    "enables",
+    "derived_from",
+    "informs",
+    "references"
+   ],
+   "title": "EdgeType",
+   "type": "string"
+  },
+  "EvidenceBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_EvidenceEntries"
+    }
+   },
+   "title": "EvidenceBlock",
+   "type": "object"
+  },
+  "FixedPointBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_FixedPointEntries"
+    }
+   },
+   "title": "FixedPointBlock",
+   "type": "object"
+  },
+  "JustificationsBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_JustEntries"
+    }
+   },
+   "title": "JustificationsBlock",
+   "type": "object"
+  },
+  "Objective": {
+   "additionalProperties": false,
+   "properties": {
+    "attribute": {
+     "title": "Attribute",
+     "type": "string"
+    },
+    "agg": {
+     "enum": [
+      "sum",
+      "max",
+      "min"
+     ],
+     "title": "Agg",
+     "type": "string"
+    },
+    "sense": {
+     "default": "min",
+     "enum": [
+      "min",
+      "max"
+     ],
+     "title": "Sense",
+     "type": "string"
+    }
+   },
+   "required": [
+    "attribute",
+    "agg"
+   ],
+   "title": "Objective",
+   "type": "object"
+  },
+  "Op": {
+   "additionalProperties": false,
+   "properties": {
+    "op": {
+     "enum": [
+      "add",
+      "sub",
+      "mul",
+      "div",
+      "min",
+      "max",
+      "ge",
+      "gt",
+      "le",
+      "lt",
+      "eq",
+      "and",
+      "or",
+      "not"
+     ],
+     "title": "Op",
+     "type": "string"
+    },
+    "args": {
+     "items": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "integer"
+       },
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "string"
+       },
+       {
+        "$ref": "#/$defs/Ref"
+       },
+       {
+        "$ref": "#/$defs/Src"
+       },
+       {
+        "$ref": "#/$defs/Agg"
+       },
+       {
+        "$ref": "#/$defs/Op"
+       },
+       {
+        "$ref": "#/$defs/Case"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "title": "Args",
+     "type": "array"
+    }
+   },
+   "required": [
+    "op",
+    "args"
+   ],
+   "title": "Op",
+   "type": "object"
+  },
+  "Operation": {
+   "enum": [
+    "ADD",
+    "EDIT",
+    "DELETE",
+    "RELATIONSHIP_CHANGE"
+   ],
+   "title": "Operation",
+   "type": "string"
+  },
+  "Problem": {
+   "additionalProperties": false,
+   "properties": {
+    "constraints": {
+     "items": {
+      "$ref": "#/$defs/Constraint"
+     },
+     "title": "Constraints",
+     "type": "array"
+    },
+    "objective": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Objective"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "status_attribute": {
+     "default": "status",
+     "title": "Status Attribute",
+     "type": "string"
+    },
+    "feasible_label": {
+     "default": "FEASIBLE",
+     "title": "Feasible Label",
+     "type": "string"
+    },
+    "infeasible_label": {
+     "default": "INFEASIBLE",
+     "title": "Infeasible Label",
+     "type": "string"
+    },
+    "human": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Human"
+    }
+   },
+   "required": [
+    "constraints"
+   ],
+   "title": "Problem",
+   "type": "object"
+  },
+  "PropMachine": {
+   "additionalProperties": false,
+   "properties": {
+    "operator": {
+     "default": "copy",
+     "enum": [
+      "copy",
+      "map"
+     ],
+     "title": "Operator",
+     "type": "string"
+    },
+    "mapping": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Mapping"
+    },
+    "default": {
+     "default": null,
+     "title": "Default"
+    },
+    "inputs": {
+     "anyOf": [
+      {
+       "items": {
+        "additionalProperties": {
+         "type": "string"
+        },
+        "type": "object"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Inputs"
+    },
+    "output_name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Output Name"
+    }
+   },
+   "title": "PropMachine",
+   "type": "object"
+  },
+  "PropRule": {
+   "additionalProperties": false,
+   "properties": {
+    "from_node": {
+     "title": "From Node",
+     "type": "string"
+    },
+    "from_attribute": {
+     "title": "From Attribute",
+     "type": "string"
+    },
+    "to_node": {
+     "title": "To Node",
+     "type": "string"
+    },
+    "to_attribute": {
+     "title": "To Attribute",
+     "type": "string"
+    },
+    "machine": {
+     "$ref": "#/$defs/PropMachine",
+     "default": {
+      "operator": "copy",
+      "mapping": null,
+      "default": null,
+      "inputs": null,
+      "output_name": null
+     }
+    },
+    "human": {
+     "default": "",
+     "title": "Human",
+     "type": "string"
+    }
+   },
+   "required": [
+    "from_node",
+    "from_attribute",
+    "to_node",
+    "to_attribute"
+   ],
+   "title": "PropRule",
+   "type": "object"
+  },
+  "PropagationBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_PropEntries"
+    }
+   },
+   "title": "PropagationBlock",
+   "type": "object"
+  },
+  "ReadAttributesBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "additionalProperties": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "title": "Entries",
+     "type": "object"
+    }
+   },
+   "title": "ReadAttributesBlock",
+   "type": "object"
+  },
+  "Ref": {
+   "additionalProperties": false,
+   "properties": {
+    "ref": {
+     "description": "Read attribute: \"<node_id>.<attribute>\"",
+     "title": "Ref",
+     "type": "string"
+    },
+    "default": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/UnknownMarker"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "$ref": "#/$defs/Ref"
+      },
+      {
+       "$ref": "#/$defs/Src"
+      },
+      {
+       "$ref": "#/$defs/Agg"
+      },
+      {
+       "$ref": "#/$defs/Op"
+      },
+      {
+       "$ref": "#/$defs/Case"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Value if the node/attribute is missing",
+     "title": "Default"
+    }
+   },
+   "required": [
+    "ref"
+   ],
+   "title": "Ref",
+   "type": "object"
+  },
+  "Resolution": {
+   "additionalProperties": false,
+   "properties": {
+    "policy": {
+     "const": "prefer_source",
+     "default": "prefer_source",
+     "title": "Policy",
+     "type": "string"
+    },
+    "source": {
+     "description": "Source whose value wins; \"graph\" = the value recorded in the plan",
+     "title": "Source",
+     "type": "string"
+    }
+   },
+   "required": [
+    "source"
+   ],
+   "title": "Resolution",
+   "type": "object"
+  },
+  "SatisfactionBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/SatisfactionEntries"
+    }
+   },
+   "title": "SatisfactionBlock",
+   "type": "object"
+  },
+  "SatisfactionEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "computations": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Computation"
+     },
+     "title": "Computations",
+     "type": "array"
+    },
+    "status_functions": {
+     "additionalProperties": {
+      "$ref": "#/$defs/StatusFunction"
+     },
+     "default": {},
+     "description": "Keyed by node id",
+     "title": "Status Functions",
+     "type": "object"
+    }
+   },
+   "title": "SatisfactionEntries",
+   "type": "object"
+  },
+  "Src": {
+   "additionalProperties": false,
+   "properties": {
+    "src": {
+     "description": "Read \"<node_id>.<attribute>\" only while that node has an influencing link into the node this rule computes",
+     "title": "Src",
+     "type": "string"
+    },
+    "default": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/UnknownMarker"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "$ref": "#/$defs/Ref"
+      },
+      {
+       "$ref": "#/$defs/Src"
+      },
+      {
+       "$ref": "#/$defs/Agg"
+      },
+      {
+       "$ref": "#/$defs/Op"
+      },
+      {
+       "$ref": "#/$defs/Case"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Value when there is no such link; omit if the text gives none",
+     "title": "Default"
+    }
+   },
+   "required": [
+    "src"
+   ],
+   "title": "Src",
+   "type": "object"
+  },
+  "StatusCase": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "when": {
+     "anyOf": [
+      {
+       "const": "otherwise",
+       "type": "string"
+      },
+      {
+       "type": "number"
+      },
+      {
+       "type": "integer"
+      },
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "string"
+      },
+      {
+       "$ref": "#/$defs/Ref"
+      },
+      {
+       "$ref": "#/$defs/Src"
+      },
+      {
+       "$ref": "#/$defs/Agg"
+      },
+      {
+       "$ref": "#/$defs/Op"
+      },
+      {
+       "$ref": "#/$defs/Case"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "When"
+    }
+   },
+   "required": [
+    "label",
+    "when"
+   ],
+   "title": "StatusCase",
+   "type": "object"
+  },
+  "StatusFunction": {
+   "additionalProperties": false,
+   "properties": {
+    "status_attribute": {
+     "default": "status",
+     "title": "Status Attribute",
+     "type": "string"
+    },
+    "mapping": {
+     "description": "Ordered; last entry must have when=\"otherwise\"",
+     "items": {
+      "$ref": "#/$defs/StatusCase"
+     },
+     "title": "Mapping",
+     "type": "array"
+    },
+    "human": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Human"
+    }
+   },
+   "required": [
+    "mapping"
+   ],
+   "title": "StatusFunction",
+   "type": "object"
+  },
+  "TargetKind": {
+   "enum": [
+    "node",
+    "edge"
+   ],
+   "title": "TargetKind",
+   "type": "string"
+  },
+  "TypedRules": {
+   "additionalProperties": false,
+   "properties": {
+    "read_attributes": {
+     "$ref": "#/$defs/ReadAttributesBlock",
+     "description": "entries: {\"<node_id>\": [attributes any rule reads]}"
+    },
+    "propagation_rules": {
+     "$ref": "#/$defs/PropagationBlock",
+     "description": "Copy/lookup an attribute along an influencing link"
+    },
+    "justifications": {
+     "$ref": "#/$defs/JustificationsBlock",
+     "description": "Conclusions true while at least one premise set is intact"
+    },
+    "satisfaction_functions": {
+     "$ref": "#/$defs/SatisfactionBlock",
+     "description": "Formula rules and status rules"
+    },
+    "combination_selection": {
+     "$ref": "#/$defs/CombinationBlock"
+    },
+    "evidence": {
+     "$ref": "#/$defs/EvidenceBlock"
+    },
+    "units": {
+     "$ref": "#/$defs/UnitsBlock"
+    },
+    "fixed_point_semantics": {
+     "$ref": "#/$defs/FixedPointBlock"
+    }
+   },
+   "title": "TypedRules",
+   "type": "object"
+  },
+  "UnitsBlock": {
+   "additionalProperties": false,
+   "properties": {
+    "entries": {
+     "$ref": "#/$defs/_UnitEntries"
+    }
+   },
+   "title": "UnitsBlock",
+   "type": "object"
+  },
+  "UnknownMarker": {
+   "additionalProperties": false,
+   "description": "`{\"$unknown\": \"<why>\"}` \u2014 accepted ONLY as a fallback (Ref/Src default),\nwhere it means exactly \"no fallback given\" (v1.4).",
+   "properties": {
+    "$unknown": {
+     "title": "$Unknown",
+     "type": "string"
+    }
+   },
+   "required": [
+    "$unknown"
+   ],
+   "title": "UnknownMarker",
+   "type": "object"
+  },
+  "XEdge": {
+   "additionalProperties": false,
+   "properties": {
+    "edge_id": {
+     "description": "Any unique id, e.g. e1",
+     "title": "Edge Id",
+     "type": "string"
+    },
+    "source": {
+     "description": "Node id",
+     "title": "Source",
+     "type": "string"
+    },
+    "target": {
+     "description": "Node id",
+     "title": "Target",
+     "type": "string"
+    },
+    "type": {
+     "$ref": "#/$defs/EdgeType"
+    },
+    "justification_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Justification Id"
+    },
+    "weight": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weight"
+    }
+   },
+   "required": [
+    "edge_id",
+    "source",
+    "target",
+    "type"
+   ],
+   "title": "XEdge",
+   "type": "object"
+  },
+  "XEdgeChange": {
+   "additionalProperties": false,
+   "properties": {
+    "edge_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Existing edge id (DELETE / RELATIONSHIP_CHANGE)",
+     "title": "Edge Id"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source"
+    },
+    "target": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target"
+    },
+    "old_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EdgeType"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "new_type": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EdgeType"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Omit if the text does not state the kind"
+    },
+    "candidate_types": {
+     "anyOf": [
+      {
+       "items": {
+        "$ref": "#/$defs/EdgeType"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Kinds the text allows when it does not state one",
+     "title": "Candidate Types"
+    }
+   },
+   "title": "XEdgeChange",
+   "type": "object"
+  },
+  "XEvent": {
+   "additionalProperties": false,
+   "properties": {
+    "operation": {
+     "$ref": "#/$defs/Operation"
+    },
+    "target_kind": {
+     "$ref": "#/$defs/TargetKind"
+    },
+    "target_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Node id (or edge id) the update names unambiguously; null if it names a shared name",
+     "title": "Target Id"
+    },
+    "target_ref": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "The name used in the update when several entities share it, e.g. \"Supplier A\"",
+     "title": "Target Ref"
+    },
+    "target_scope": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Node id the update restricts the name to (e.g. the plant it feeds); null if none stated",
+     "title": "Target Scope"
+    },
+    "attribute": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Attribute"
+    },
+    "new_value": {
+     "anyOf": [
+      {},
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "New Value"
+    },
+    "edge_change": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/XEdgeChange"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "new_node": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/XNode"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "operation",
+    "target_kind"
+   ],
+   "title": "XEvent",
+   "type": "object"
+  },
+  "XGraph": {
+   "additionalProperties": false,
+   "properties": {
+    "nodes": {
+     "items": {
+      "$ref": "#/$defs/XNode"
+     },
+     "title": "Nodes",
+     "type": "array"
+    },
+    "edges": {
+     "items": {
+      "$ref": "#/$defs/XEdge"
+     },
+     "title": "Edges",
+     "type": "array"
+    }
+   },
+   "required": [
+    "nodes",
+    "edges"
+   ],
+   "title": "XGraph",
+   "type": "object"
+  },
+  "XNode": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "description": "The entity label exactly as written in the plan",
+     "title": "Id",
+     "type": "string"
+    },
+    "type": {
+     "default": "generic",
+     "title": "Type",
+     "type": "string"
+    },
+    "attributes": {
+     "additionalProperties": true,
+     "default": {},
+     "description": "Values as written; unknown -> {\"$unknown\": \"<why>\"}",
+     "title": "Attributes",
+     "type": "object"
+    },
+    "state": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "e.g. \"unavailable\" if the text says so",
+     "title": "State"
+    },
+    "provenance": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Provenance"
+    },
+    "confidence": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Confidence"
+    }
+   },
+   "required": [
+    "id"
+   ],
+   "title": "XNode",
+   "type": "object"
+  },
+  "_ComboEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "problems": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Problem"
+     },
+     "default": {},
+     "description": "At most one, keyed by the node it decides",
+     "title": "Problems",
+     "type": "object"
+    }
+   },
+   "title": "_ComboEntries",
+   "type": "object"
+  },
+  "_EvidenceEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "claims": {
+     "additionalProperties": {
+      "items": {
+       "$ref": "#/$defs/Claim"
+      },
+      "type": "array"
+     },
+     "default": {},
+     "description": "Keyed \"<node_id>.<attribute>\"; separate reports of that value",
+     "title": "Claims",
+     "type": "object"
+    },
+    "resolution": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Resolution"
+     },
+     "default": {},
+     "title": "Resolution",
+     "type": "object"
+    }
+   },
+   "title": "_EvidenceEntries",
+   "type": "object"
+  },
+  "_FixedPointEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "domains": {
+     "additionalProperties": {
+      "items": {},
+      "type": "array"
+     },
+     "default": {},
+     "description": "Keyed \"<node_id>.<attribute>\"; the only values it can take",
+     "title": "Domains",
+     "type": "object"
+    }
+   },
+   "title": "_FixedPointEntries",
+   "type": "object"
+  },
+  "_JustEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "conclusions": {
+     "additionalProperties": {
+      "$ref": "#/$defs/Conclusion"
+     },
+     "default": {},
+     "title": "Conclusions",
+     "type": "object"
+    }
+   },
+   "title": "_JustEntries",
+   "type": "object"
+  },
+  "_PropEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "rules": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/PropRule"
+     },
+     "title": "Rules",
+     "type": "array"
+    }
+   },
+   "title": "_PropEntries",
+   "type": "object"
+  },
+  "_UnitEntries": {
+   "additionalProperties": false,
+   "properties": {
+    "factors": {
+     "additionalProperties": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "integer"
+       }
+      ]
+     },
+     "default": {},
+     "description": "Unit -> factor to a common base, e.g. {kg: 1, tonne: 1000}",
+     "title": "Factors",
+     "type": "object"
+    }
+   },
+   "title": "_UnitEntries",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "description": "What the extractor returns. Do not apply the update.",
+ "properties": {
+  "graph": {
+   "$ref": "#/$defs/XGraph"
+  },
+  "rules": {
+   "$ref": "#/$defs/TypedRules"
+  },
+  "event": {
+   "$ref": "#/$defs/XEvent"
+  }
+ },
+ "required": [
+  "graph",
+  "rules",
+  "event"
+ ],
+ "title": "ExtractionOutput",
+ "type": "object"
+}
