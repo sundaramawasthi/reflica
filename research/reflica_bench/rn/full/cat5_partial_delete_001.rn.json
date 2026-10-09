@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat5_partial_delete_001",
+  "source_sha256": "7644eb70696d2fd85f8c61203fbc5d75d3527459f9e3fb573a1a7f524facb648",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; capacity = 50.\n- E2: own_stock = 30; required = 100; available = 80; coverage = 0.8; shortfall = 20; status = \"PARTIAL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E2 = (own_stock of E2 + [capacity of A, counted only while A has an influencing link into E2; otherwise 0]).\n- coverage of E2 = (available of E2 ÷ required of E2).\n- shortfall of E2 = the larger of (0, (required of E2 − available of E2)).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: A has been removed."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

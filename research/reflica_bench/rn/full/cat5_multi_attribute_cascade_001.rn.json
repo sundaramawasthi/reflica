@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat5_multi_attribute_cascade_001",
+  "source_sha256": "0eb5c64f69e341dfee2d6451919dcd699547795285b0f063e97c3380102f4e30",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; capacity = 100.\n- E2: required = 100; unit_price = 12; base_confidence = 0.9; available = 100; delivered = 100; coverage = 1; shortfall = 0; spend = 1200; confidence = 0.9; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E2 = [capacity of A, counted only while A has an influencing link into E2; otherwise 0].\n- delivered of E2 = the smaller of (available of E2, required of E2).\n- coverage of E2 = (delivered of E2 ÷ required of E2).\n- shortfall of E2 = (required of E2 − delivered of E2).\n- spend of E2 = (delivered of E2 × unit_price of E2).\n- confidence of E2 = (coverage of E2 × base_confidence of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: capacity of A is now 80."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

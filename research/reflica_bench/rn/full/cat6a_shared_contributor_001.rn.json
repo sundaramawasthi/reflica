@@ -1,0 +1,16 @@
+{
+  "source_scenario_id": "cat6a_shared_contributor_001",
+  "source_sha256": "7a123d2742a040e09a41d5b86d1e44d29ee0ea5fbf1e29a7b271a8ec61f7fe1c",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 50.\n- S2 (resource): name = \"S2\"; capacity = 60.\n- S3 (resource): name = \"S3\"; capacity = 40.\n- E4: required = 100; total = 110; coverage = 1.1; shortfall = 0; excess = 10; status = \"FEASIBLE\".\n- E5: required = 80; total = 90; coverage = 1.125; shortfall = 0; excess = 10; status = \"FEASIBLE\".\nLinks:\n- S1 → E4 (supports).\n- S1 → E5 (supports).\n- S2 → E4 (supports).\n- S3 → E5 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total of E4 = the sum of capacity over all entities with an influencing link into E4 (0 if there are none).\n- coverage of E4 = (total of E4 ÷ required of E4).\n- shortfall of E4 = the larger of (0, (required of E4 − total of E4)).\n- excess of E4 = the larger of (0, (total of E4 − required of E4)).\n- total of E5 = the sum of capacity over all entities with an influencing link into E5 (0 if there are none).\n- coverage of E5 = (total of E5 ÷ required of E5).\n- shortfall of E5 = the larger of (0, (required of E5 − total of E5)).\n- excess of E5 = the larger of (0, (total of E5 − required of E5)).\n- status of E4 is \"FEASIBLE\" if (coverage of E4 ≥ 1); \"BORDERLINE\" if (coverage of E4 ≥ 0.9); otherwise \"INFEASIBLE\".\n- status of E5 is \"FEASIBLE\" if (coverage of E5 ≥ 1); \"BORDERLINE\" if (coverage of E5 ≥ 0.9); otherwise \"INFEASIBLE\".",
+    "change_text": "Update: capacity of S1 is now 30."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "S3": "S3",
+    "E4": "demand_C1",
+    "E5": "demand_C2"
+  }
+}

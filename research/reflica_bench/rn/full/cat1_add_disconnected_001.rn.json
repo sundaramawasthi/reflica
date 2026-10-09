@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat1_add_disconnected_001",
+  "source_sha256": "4893b5d02db96f9dfa4137d276b0902a295ed4ab2fbd2dd7dcb1b92f00236a8d",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Draft slides (task): name = \"Draft slides\".\n- Prepare demo (task): name = \"Prepare demo\".\nLinks:\n- Draft slides → Prepare demo (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- none.",
+    "change_text": "Update: new entity E3: text = \"reminder note\"."
+  },
+  "alias_map": {
+    "Draft slides": "task_A",
+    "Prepare demo": "task_B",
+    "E3": "note_X"
+  }
+}

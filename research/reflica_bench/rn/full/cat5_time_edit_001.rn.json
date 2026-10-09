@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat5_time_edit_001",
+  "source_sha256": "c2c7508d3f6f36a0ea65e6ab599b9791545cc4392b7e5e7f94e48c9c507006c9",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; delivery_days = 5.\n- E2: deadline_days = 6; grace_days = 4; lead_time = 5; schedule_margin = 1; on_time_ratio = 1; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- lead_time of E2 = [delivery_days of A, counted only while A has an influencing link into E2; otherwise undefined].\n- schedule_margin of E2 = (deadline_days of E2 − lead_time of E2).\n- on_time_ratio of E2 = the smaller of (1, (deadline_days of E2 ÷ lead_time of E2)).\n- status of E2 is \"FULL\" if (schedule_margin of E2 ≥ 0); \"INVALID\" if (schedule_margin of E2 < (-1 × grace_days of E2)); otherwise \"PARTIAL\".",
+    "change_text": "Update: delivery_days of A is now 8."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

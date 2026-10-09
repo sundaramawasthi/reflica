@@ -1,0 +1,13 @@
+{
+  "source_scenario_id": "cat2_pair_edit_001",
+  "source_sha256": "c3fc185ba4138114abe3c6724cab2377da878df3965cb6a8867644564c5fd0f5",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (resource): capacity = 100.\n- E2 (task): available_capacity = 100.\nLinks:\n- E1 → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: capacity.\n- Rules depend on these attributes of E2: available_capacity.\n- available_capacity of E2 equals capacity of E1 while E1 has an influencing link into E2; otherwise it is unset.",
+    "change_text": "Update: capacity of E1 is now 60."
+  },
+  "alias_map": {
+    "E1": "supplier_A",
+    "E2": "task_T"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat2_mixed_edge_edit_001",
+  "source_sha256": "cfeb7ea8e9fb5635ca8e917b72a7a08b697952eb06f7feb34e6657ca300ebe1d",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (resource): reading = 42.\n- E2 (task): reading_mirror = 42.\n- E3 (note): text = \"sensor description\".\nLinks:\n- E1 → E2 (supports).\n- E1 → E3 (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: reading.\n- Rules depend on these attributes of E2: reading_mirror.\n- reading_mirror of E2 equals reading of E1 while E1 has an influencing link into E2; otherwise it is unset.",
+    "change_text": "Update: reading of E1 is now 17."
+  },
+  "alias_map": {
+    "E1": "sensor_S",
+    "E2": "task_T",
+    "E3": "note_N"
+  }
+}

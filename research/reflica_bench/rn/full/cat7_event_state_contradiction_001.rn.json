@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat7_event_state_contradiction_001",
+  "source_sha256": "8601f3cfd98bc1144a078c7d1a7cbbd5306ce18684e8c7b2a430bd27c7110fc9",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Supplier A (resource, state: unavailable): name = \"Supplier A\"; capacity = 0.\n- E2: required = 100; coverage = 0; status = \"INVALID\".\n- office wifi: name = \"office wifi\".\nLinks:\n- Supplier A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- coverage of E2 = ([capacity of Supplier A, counted only while Supplier A has an influencing link into E2; otherwise undefined] ÷ required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: capacity of Supplier A is now 50."
+  },
+  "alias_map": {
+    "Supplier A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

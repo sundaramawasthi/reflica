@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat6a_threshold_crossing_001",
+  "source_sha256": "fa94e53932482a83d31551b29e06c1a750c7e930a6253fd5943cd8a6bb17fb1e",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 50.\n- S2 (resource): name = \"S2\"; capacity = 45.\n- E3: required = 100; total = 95; coverage = 0.95; shortfall = 5; excess = 0; status = \"BORDERLINE\".\n- office wifi: name = \"office wifi\".\nLinks:\n- S1 → E3 (supports).\n- S2 → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total of E3 = the sum of capacity over all entities with an influencing link into E3 (0 if there are none).\n- coverage of E3 = (total of E3 ÷ required of E3).\n- shortfall of E3 = the larger of (0, (required of E3 − total of E3)).\n- excess of E3 = the larger of (0, (total of E3 − required of E3)).\n- status of E3 is \"FEASIBLE\" if (coverage of E3 ≥ 1); \"BORDERLINE\" if (coverage of E3 ≥ 0.9); otherwise \"INFEASIBLE\".",
+    "change_text": "Update: capacity of S2 is now 30."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "E3": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

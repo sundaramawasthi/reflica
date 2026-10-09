@@ -1,0 +1,18 @@
+{
+  "source_scenario_id": "cat6a_nested_aggregation_001",
+  "source_sha256": "142778943d6d2b29d2ca2dea7917a5455b671f0efcce85ec8306e9ae3ef3641d",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 30.\n- S2 (resource): name = \"S2\"; capacity = 30.\n- S3 (resource): name = \"S3\"; capacity = 25.\n- S4 (resource): name = \"S4\"; capacity = 35.\n- E5 (region): total = 60.\n- E6 (region): total = 60.\n- E7: required = 100; total = 120; coverage = 1.2; shortfall = 0; excess = 20; status = \"FEASIBLE\".\nLinks:\n- S1 → E5 (supports).\n- S2 → E5 (supports).\n- S3 → E6 (supports).\n- S4 → E6 (supports).\n- E5 → E7 (supports).\n- E6 → E7 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total of E5 = the sum of capacity over all entities with an influencing link into E5 (0 if there are none).\n- total of E6 = the sum of capacity over all entities with an influencing link into E6 (0 if there are none).\n- total of E7 = the sum of total over all entities with an influencing link into E7 (0 if there are none).\n- coverage of E7 = (total of E7 ÷ required of E7).\n- shortfall of E7 = the larger of (0, (required of E7 − total of E7)).\n- excess of E7 = the larger of (0, (total of E7 − required of E7)).\n- status of E7 is \"FEASIBLE\" if (coverage of E7 ≥ 1); \"BORDERLINE\" if (coverage of E7 ≥ 0.9); otherwise \"INFEASIBLE\".",
+    "change_text": "Update: capacity of S3 is now 0."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "S3": "S3",
+    "S4": "S4",
+    "E5": "region_1",
+    "E6": "region_2",
+    "E7": "national_N"
+  }
+}

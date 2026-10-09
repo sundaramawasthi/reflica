@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat3_branching_cascade_edit_001",
+  "source_sha256": "74da9c98572916a7a3d81b99281eb6f1128fca600a84d27adc10cde0c52ced8c",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (resource): state = \"ok\".\n- E2 (stage): mirror = \"ok\".\n- E3 (stage): mirror = \"ok\".\n- E4 (stage): mirror = \"ok\".\nLinks:\n- E1 → E2 (supports).\n- E2 → E3 (supports).\n- E2 → E4 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: state.\n- Rules depend on these attributes of E2: mirror.\n- Rules depend on these attributes of E3: mirror.\n- Rules depend on these attributes of E4: mirror.\n- mirror of E2 equals state of E1 while E1 has an influencing link into E2; otherwise it is unset.\n- mirror of E3 equals mirror of E2 while E2 has an influencing link into E3; otherwise it is unset.\n- mirror of E4 equals mirror of E2 while E2 has an influencing link into E4; otherwise it is unset.",
+    "change_text": "Update: state of E1 is now \"degraded\"."
+  },
+  "alias_map": {
+    "E1": "src_X",
+    "E2": "node_N1",
+    "E3": "node_N2a",
+    "E4": "node_N2b"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat5_relchange_weight_001",
+  "source_sha256": "f994a63c7fd33e2dfe4089249430fd3c71b1581f9f84c589cbbbae22b0822e44",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; capacity = 60.\n- E2: own_stock = 20; required = 80; available = 80; coverage = 1; shortfall = 0; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E2 = (own_stock of E2 + [capacity of A, counted only while A has an influencing link into E2; otherwise 0]).\n- coverage of E2 = (available of E2 ÷ required of E2).\n- shortfall of E2 = the larger of (0, (required of E2 − available of E2)).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: the link A → E2 is now informs (was supports)."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

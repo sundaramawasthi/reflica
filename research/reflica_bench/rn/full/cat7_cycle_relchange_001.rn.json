@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat7_cycle_relchange_001",
+  "source_sha256": "00b33addfa9e5d8018dd26a094cf101a07dcb6ae5bcc5afb6723bf04fde5724d",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (team): solo_commit = true; committed = true.\n- E2 (team): committed = true.\n- E3: ready = true; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- E1 → E2 (supports).\n- E2 → E1 (informs).\n- E2 → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- committed of E1 = [committed of E2, counted only while E2 has an influencing link into E1; otherwise solo_commit of E1].\n- committed of E2 = [committed of E1, counted only while E1 has an influencing link into E2; otherwise false].\n- ready of E3 = [committed of E2, counted only while E2 has an influencing link into E3; otherwise false].\n- status of E3 is \"FULL\" if (ready of E3); otherwise \"INVALID\".\n- committed of E1 can only be one of [true, false].\n- committed of E2 can only be one of [true, false].",
+    "change_text": "Update: the link E2 → E1 is now supports (was informs)."
+  },
+  "alias_map": {
+    "E1": "team_X",
+    "E2": "team_Y",
+    "E3": "launch_C",
+    "office wifi": "unrelated_U"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat7_rule_conflict_add_001",
+  "source_sha256": "8e0aefe6083a7f9cf34bc953cd9ab830cbaf23b46d7b8586f3807d68036a42b0",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Supplier A (resource): name = \"Supplier A\"; capacity = 80.\n- E2 (audit): verified_capacity = 50.\n- E3: required = 100; available = 80; coverage = 0.8; status = \"PARTIAL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- Supplier A → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- available of E3 = [capacity of Supplier A, counted only while Supplier A has an influencing link into E3; otherwise 0].\n- available of E3 = [verified_capacity of E2, counted only while E2 has an influencing link into E3; otherwise 0] (applies only while E2 has an influencing link into E3).\n- coverage of E3 = (available of E3 ÷ required of E3).\n- status of E3 is \"FULL\" if (coverage of E3 ≥ 1); \"INVALID\" if (coverage of E3 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: new link E2 → E3 (supports)."
+  },
+  "alias_map": {
+    "Supplier A": "supplier_A",
+    "E2": "audit_B",
+    "E3": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

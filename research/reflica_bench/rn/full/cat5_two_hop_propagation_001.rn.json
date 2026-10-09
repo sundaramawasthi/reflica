@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat5_two_hop_propagation_001",
+  "source_sha256": "6a66d8166d53ad210b5897c9f618471566a4216c37e95281f304ab57727cd520",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; capacity = 100.\n- E2 (process): max_rate = 90; input = 100; throughput = 90.\n- E3: required = 80; available = 90; coverage = 1.125; shortfall = 0; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\n- E2 → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- input of E2 = [capacity of A, counted only while A has an influencing link into E2; otherwise 0].\n- throughput of E2 = the smaller of (input of E2, max_rate of E2).\n- available of E3 = [throughput of E2, counted only while E2 has an influencing link into E3; otherwise 0].\n- coverage of E3 = (available of E3 ÷ required of E3).\n- shortfall of E3 = the larger of (0, (required of E3 − available of E3)).\n- status of E3 is \"FULL\" if (coverage of E3 ≥ 1); \"INVALID\" if (coverage of E3 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: capacity of A is now 50."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "plant_B",
+    "E3": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat7_ambiguous_relationship_add_001",
+  "source_sha256": "72b16e89e2f1f5370cf772b9cdd303e992dbc50788295492d0300754b654b8ea",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Supplier A (resource): name = \"Supplier A\"; capacity = 50.\n- E2: own_stock = 30; required = 100; coverage = 0.3; status = \"PARTIAL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- none.\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- coverage of E2 = ((own_stock of E2 + [capacity of Supplier A, counted only while Supplier A has an influencing link into E2; otherwise 0]) ÷ required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: new link Supplier A → E2; the report gives its kind only as supports or informs."
+  },
+  "alias_map": {
+    "Supplier A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

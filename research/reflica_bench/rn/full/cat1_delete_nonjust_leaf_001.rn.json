@@ -1,0 +1,13 @@
+{
+  "source_scenario_id": "cat1_delete_nonjust_leaf_001",
+  "source_sha256": "5254fbb10ce2d91b8b4bb86c123401f06276d5c4cf23f9abcdbc91703962a991",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (plan): status = \"active\".\n- Buy whiteboard (task): name = \"Buy whiteboard\".\nLinks:\n- E1 → Buy whiteboard (informs).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: status.",
+    "change_text": "Update: Buy whiteboard has been removed."
+  },
+  "alias_map": {
+    "E1": "plan_root",
+    "Buy whiteboard": "task_P"
+  }
+}

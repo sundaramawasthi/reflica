@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat6a_multi_dimension_001",
+  "source_sha256": "00acce8e3764e9d9f9cec47f4206743b624c4b7b99e1b7d49ab61acbb4e92665",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 60; delivery_days = 5; cost = 9000.\n- S2 (resource): name = \"S2\"; capacity = 50; delivery_days = 6; cost = 8000.\n- E3: required = 100; deadline_days = 7; budget = 20000; total_capacity = 110; max_delivery = 6; total_cost = 17000; capacity_gap = 10; time_slack = 1; budget_slack = 3000; status = \"FEASIBLE\".\n- office wifi: name = \"office wifi\".\nLinks:\n- S1 → E3 (supports).\n- S2 → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total_capacity of E3 = the sum of capacity over all entities with an influencing link into E3 (0 if there are none).\n- max_delivery of E3 = the max of delivery_days over all entities with an influencing link into E3 (0 if there are none).\n- total_cost of E3 = the sum of cost over all entities with an influencing link into E3 (0 if there are none).\n- capacity_gap of E3 = (total_capacity of E3 − required of E3).\n- time_slack of E3 = (deadline_days of E3 − max_delivery of E3).\n- budget_slack of E3 = (budget of E3 − total_cost of E3).\n- status of E3 is \"FEASIBLE\" if ((total_capacity of E3 ≥ required of E3) and (max_delivery of E3 ≤ deadline_days of E3) and (total_cost of E3 ≤ budget of E3)); \"BORDERLINE\" if ((total_capacity of E3 ≥ (0.9 × required of E3)) and (max_delivery of E3 ≤ deadline_days of E3) and (total_cost of E3 ≤ budget of E3)); otherwise \"INFEASIBLE\".",
+    "change_text": "Update: capacity of S2 is now 35."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "E3": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

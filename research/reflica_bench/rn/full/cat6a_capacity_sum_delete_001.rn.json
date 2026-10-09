@@ -1,0 +1,16 @@
+{
+  "source_scenario_id": "cat6a_capacity_sum_delete_001",
+  "source_sha256": "46d0b9423a35ffb0326fb14911b792fb971d04f69686247ac228389241f82f5f",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 50.\n- S2 (resource): name = \"S2\"; capacity = 40.\n- S3 (resource): name = \"S3\"; capacity = 30.\n- E4: required = 100; total = 120; coverage = 1.2; shortfall = 0; excess = 20; status = \"FEASIBLE\".\n- office wifi: name = \"office wifi\".\nLinks:\n- S1 → E4 (supports).\n- S2 → E4 (supports).\n- S3 → E4 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total of E4 = the sum of capacity over all entities with an influencing link into E4 (0 if there are none).\n- coverage of E4 = (total of E4 ÷ required of E4).\n- shortfall of E4 = the larger of (0, (required of E4 − total of E4)).\n- excess of E4 = the larger of (0, (total of E4 − required of E4)).\n- status of E4 is \"FEASIBLE\" if (coverage of E4 ≥ 1); \"BORDERLINE\" if (coverage of E4 ≥ 0.9); otherwise \"INFEASIBLE\".",
+    "change_text": "Update: S2 has been removed."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "S3": "S3",
+    "E4": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source_scenario_id": "cat6b_optimal_selection_edit_001",
+  "source_sha256": "9d1ebd8ec63776eedbdc8f0522ed9f03e47f6d4231c11a51d567742a035e6f9e",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- S1 (resource): name = \"S1\"; capacity = 60; delivery_days = 5; cost = 9000.\n- S2 (resource): name = \"S2\"; capacity = 50; delivery_days = 6; cost = 8000.\n- S3 (resource): name = \"S3\"; capacity = 40; delivery_days = 4; cost = 6000.\n- S4 (resource): name = \"S4\"; capacity = 70; delivery_days = 9; cost = 10000.\n- E5: status = \"FEASIBLE\"; feasible_count = 2; selected = [\"S1\", \"S3\"]; selected_value = 15000.\nLinks:\n- S1 → E5 (supports).\n- S2 → E5 (supports).\n- S3 → E5 (supports).\n- S4 → E5 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- For E5, a valid combination is any non-empty set of entities with an influencing link into E5 such that total capacity ≥ 100, largest delivery_days ≤ 7, total cost ≤ 20000. status of E5 is \"FEASIBLE\" if at least one valid combination exists, otherwise \"INFEASIBLE\"; feasible_count is the number of valid combinations. selected is the valid combination with the lowest total cost (unset if none), and selected_value is that cost.",
+    "change_text": "Update: cost of S3 is now 9500."
+  },
+  "alias_map": {
+    "S1": "S1",
+    "S2": "S2",
+    "S3": "S3",
+    "S4": "S4",
+    "E5": "demand_C"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat7_unit_with_conversion_001",
+  "source_sha256": "64befe7da1a1f78710e57b191b3f80964930a1d4e572b490c8c7aa7447aebaa2",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Supplier A (resource): name = \"Supplier A\"; capacity = 60; capacity_unit = \"tonne\".\n- E2: required = 100; required_unit = \"tonne\"; coverage = 0.6; status = \"PARTIAL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- Supplier A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- coverage of E2 = ([capacity of Supplier A, counted only while Supplier A has an influencing link into E2; otherwise undefined] ÷ required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".\n- Unit conversion to a common base: 1 kg = 1, 1 tonne = 1000.",
+    "change_text": "Update: capacity_unit of Supplier A is now \"kg\"."
+  },
+  "alias_map": {
+    "Supplier A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}

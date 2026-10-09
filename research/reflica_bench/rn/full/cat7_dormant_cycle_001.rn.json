@@ -1,0 +1,15 @@
+{
+  "source_scenario_id": "cat7_dormant_cycle_001",
+  "source_sha256": "de1615173c9d9d37b6774f10036bc1b070fec0c08742db3873d20443a31cd205",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- Supplier A (resource): name = \"Supplier A\"; capacity = 60.\n- E2: required = 100; coverage = 0.6; status = \"PARTIAL\".\n- P: name = \"P\".\n- Q: name = \"Q\".\nLinks:\n- Supplier A → E2 (supports).\n- P → Q (supports).\n- Q → P (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- coverage of E2 = ([capacity of Supplier A, counted only while Supplier A has an influencing link into E2; otherwise undefined] ÷ required of E2).\n- status of E2 is \"FULL\" if (coverage of E2 ≥ 1); \"INVALID\" if (coverage of E2 ≤ 0); otherwise \"PARTIAL\".",
+    "change_text": "Update: capacity of Supplier A is now 80."
+  },
+  "alias_map": {
+    "Supplier A": "supplier_A",
+    "E2": "demand_C",
+    "P": "loop_P",
+    "Q": "loop_Q"
+  }
+}

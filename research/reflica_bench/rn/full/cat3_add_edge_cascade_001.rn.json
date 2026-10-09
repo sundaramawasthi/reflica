@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat3_add_edge_cascade_001",
+  "source_sha256": "9e6d9b59b5e1ebc62e570e809eb895ff02eba4a179c151e86bfb635e57760bb9",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- E1 (resource): state = \"ready\".\n- E2 (stage): mirror = unset.\n- E3 (stage): mirror = unset.\nLinks:\n- E2 → E3 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- Rules depend on these attributes of E1: state.\n- Rules depend on these attributes of E2: mirror.\n- Rules depend on these attributes of E3: mirror.\n- mirror of E2 equals state of E1 while E1 has an influencing link into E2; otherwise it is unset.\n- mirror of E3 equals mirror of E2 while E2 has an influencing link into E3; otherwise it is unset.",
+    "change_text": "Update: new link E1 → E2 (supports)."
+  },
+  "alias_map": {
+    "E1": "src_X",
+    "E2": "node_N1",
+    "E3": "node_N2"
+  }
+}

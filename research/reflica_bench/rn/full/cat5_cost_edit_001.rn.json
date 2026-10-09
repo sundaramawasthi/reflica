@@ -1,0 +1,14 @@
+{
+  "source_scenario_id": "cat5_cost_edit_001",
+  "source_sha256": "e4fae9004fb4ad8c8d0444495423bf8e1945add8c84fdb1cf6a1926d14c6dbab",
+  "render_version": "rn-template-1.0.0",
+  "method_input": {
+    "plan_text": "Entities:\n- A (resource): name = \"A\"; unit_cost = 50.\n- E2: quantity = 100; budget = 5600; total_cost = 5000; budget_margin = 600; budget_coverage = 1; status = \"FULL\".\n- office wifi: name = \"office wifi\".\nLinks:\n- A → E2 (supports).\nLink kinds: 'requires', 'supports', 'causes', 'blocks', 'enables' and 'derived_from' carry influence from the first entity to the second; 'informs' and 'references' do not carry influence. An 'influencing link into X' means one of the first kind ending at X.\nRules:\n- total_cost of E2 = ([unit_cost of A, counted only while A has an influencing link into E2; otherwise undefined] × quantity of E2).\n- budget_margin of E2 = (budget of E2 − total_cost of E2).\n- budget_coverage of E2 = the smaller of (1, (budget of E2 ÷ total_cost of E2)).\n- status of E2 is \"FULL\" if (budget_margin of E2 ≥ 0); \"INVALID\" if (budget_coverage of E2 ≤ 0.5); otherwise \"PARTIAL\".",
+    "change_text": "Update: unit_cost of A is now 70."
+  },
+  "alias_map": {
+    "A": "supplier_A",
+    "E2": "demand_C",
+    "office wifi": "unrelated_U"
+  }
+}
