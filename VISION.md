@@ -5,6 +5,42 @@
 > as reality changes, suggests what to do, lets you decide, and learns from
 > every decision — for individuals, organizations, governments and disasters.
 
+## 0. Current status (9 October 2026)
+
+Stage: working prototype + research validation. Details live in `PROGRESS.md`.
+
+| Area | Status |
+|---|---|
+| Flutter app (sign-in, dashboard, New Plan wizard, 2D mind map, Firestore + offline, notifications) | Built (Stage 0+) |
+| AI plan extraction in the app (Gemini "READ" step) | Not built — the app still creates a placeholder seed graph |
+| B5 wired into the app (change → affected nodes → explain → approve) | Not built (Stage 2) |
+| Benchmark v0.2.0: 63 scenarios, 7 categories, independent ground truth | Built and frozen |
+| Baselines B3 (reachability), B4a (ATMS), B4b (CP-SAT); conditions B1, B2, extraction→B4b, extraction→B5 | Built |
+| Natural-language pilot (16 scenarios × 3 = 144 calls, Nemotron-3-Ultra, config v1.7) | Done; one genuine extraction failure (T7.2 invented rule) |
+| B5 v0.1.0 | Frozen; 0 disagreements with gold on 63 scenarios; 203 tests passing |
+
+Known B5 limitations: matching gold on clean input does not prove robustness;
+the repair-within-scope path is not yet exercised; UNCERTAIN vs
+REQUIRES_REEVALUATION matches gold only 11/19 times.
+
+Contribution stance: B5 is not claimed as novel. The contribution is an
+evaluated combination (LLM extraction → dependency-aware revision →
+determinability check) on natural-language input, tested against hypotheses:
+
+- H1 — fewer over-flips and missed changes on Cat 1–4.
+- H2 — non-inferior to extraction→B4b on Cat 5–6 (margin 0.05).
+- H3 — less false confidence on Cat 7, with false abstention ≤ 0.15.
+
+Next steps, in order:
+
+1. Freeze the full experiment protocol (conditions, statistics plan).
+2. Run the full 63-scenario experiment.
+3. Statistics (95% CIs, paired tests) and H1–H3 verdicts.
+4. Failure analysis and component ablations.
+5. Deep literature review and contribution statement.
+6. Thesis writing.
+7. Product: Gemini extractor, then B5 inside the app.
+
 ## 1. Core principle — the loop
 
 ```
