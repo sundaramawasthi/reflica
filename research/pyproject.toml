@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "reflica-bench"
 version = "0.1.0"
-description = "M.Tech research benchmark for attribute-aware revision of state graphs. Category 1 floor only in this version."
+description = "M.Tech research benchmark for attribute-aware revision of state graphs. Benchmark v0.2.0: 63 scenarios across 7 categories, deterministic baselines, and the B5 engine."
 requires-python = ">=3.11"
 dependencies = [
     "networkx>=3.2",

@@ -3,7 +3,7 @@
 > **Vision:** Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform.
 > A **living strategic planning architecture** where a goal → structured strategy graph stays continuously updated by real-world reports. The mind map is the human-facing view of the underlying structured system, not the product.
 > **Owner:** Sundram Awasthi · M.Tech CSE (2026–28), GLA University.
-> **Last updated:** 2026-10-07
+> **Last updated:** 2026-10-09
 
 ---
 
@@ -18,7 +18,7 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 | Level | Scope | State |
 |---|---|---|
 | **A — Long-term platform (Reflica)** | Multimodal, closed-loop, serves individuals → organisations → government with reporting + impact propagation + federated connection layer. | Flutter product Stage 0+ complete. |
-| **B — M.Tech research** | Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction + capacity constraints. Sub-component of Reflica's Capability C (Change / Revision Engine). | Direction + 7 categories + cross-category synthesis locked 2026-10-07. No research code yet. |
+| **B — M.Tech research** | Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction + capacity constraints. Sub-component of Reflica's Capability C (Change / Revision Engine). | Benchmark v0.2.0 (63 scenarios, 7 categories) built and frozen; R-N pilot complete (144/144 calls); B5 engine frozen v0.1.0; 203 tests passing. Full experiment not started. |
 
 ---
 
@@ -58,14 +58,14 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 ---
 
-## M.Tech research track — current status (2026-10-07)
+## M.Tech research track — current status (2026-10-09)
 
 **Thesis sentence (locked):**
 > Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction and capacity constraints — evaluated across add, edit, delete, and relationship-change operations against classical ATMS, constraint-programming, and LLM-regeneration baselines.
 
 **Where it fits:** sub-component of **Capability C — Change / Revision Engine**. Not Reflica itself.
 
-### 7 benchmark categories (all locked 2026-10-07; all implemented 2026-10-08, 100 tests passing)
+### 7 benchmark categories (locked 2026-10-07; implemented 2026-10-08; frozen as benchmark v0.2.0)
 1. Irrelevant change / no propagation
 2. Direct dependency / single hop
 3. Multi-hop propagation
@@ -80,8 +80,22 @@ Scenario allocation · input-regime allocation · unified schema · common basel
 ### Baselines
 B1 LLM regeneration · B2 LLM re-prompt with graph · B3 Reachability-only invalidation · B4a Classical ATMS · B4b Weighted CSP + rule engine (OR-Tools) · B5 **Proposed** attribute-aware revision · B6 Oracle scope (evaluator-side upper-bound).
 
-### Research track next step
-Instantiate scenarios + Python code only AFTER the benchmark contract is implemented. Separate workspace from this Flutter product.
+### Research track — done so far
+- **Benchmark v0.2.0:** 63 scenarios, SHA-256 manifest (`research/reflica_bench/frozen_manifest.json`; v0.1.0 kept for history).
+- **Ground truth:** hand-written labels cross-checked against the independent exact generator `gt_engine.py`.
+- **Deterministic baselines:** B3, B4a, B4b (OR-Tools CP-SAT; matches ground truth on all of Cat 5–6).
+- **Natural-language layer:** template renderer + leakage checker (`rn.py`); B1/B2/extractor prompts and typed extraction schema.
+- **R-N pilot (config v1.7, nemotron-3-ultra-550b-a55b):** 16 scenarios × 3 repeats = 144/144 calls; one genuine extraction failure (T7.2 invented preference rule). See `research/experiments/rn_pilot/PILOT_HEALTH.md`.
+- **B5 (Reflica engine) v0.1.0:** frozen; 0 disagreements with gold on all 63 scenarios. See `research/reflica_bench/b5/B5_REPORT.md`.
+- **Tests:** 203 passing.
+
+### Research track next steps
+1. Freeze the full protocol (conditions, statistics plan).
+2. Run the full 63-scenario experiment.
+3. Statistics (95% CIs, paired tests) and hypothesis verdicts.
+4. Failure analysis and component ablations.
+5. Deep literature review and contribution statement.
+6. Thesis writing.
 
 ---
 
@@ -366,6 +380,8 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-08 | **Research track: Categories 5, 6 (6-A + 6-B), 7 implemented** — 41 new scenarios (63 total), 100 passing tests. New `gt_engine.py` (exact Python ground truth, consistent-completion enumeration for Cat 7) and `b4b_cpsat.py` (B4b via OR-Tools CP-SAT). B4b agrees with ground truth on every Cat 5/6 scenario; on Cat 7 it detects P1/P2/P4/P5/P6 and commits on P3/P7/P8a/P8b/P9/P10. B4a catches P4/P5 but false-abstains on the dormant-cycle control. | Ground-truth / B4b circularity from the Cat 4 audit is now broken. Scenario counts are below Phase A allocation; next is B5 or literature review. |
 | 2026-10-08 | **R-N layer + pilot built (no LLM yet).** Canonical benchmark frozen at 63 (SHA-256 manifest + test). `rn.py`: deterministic template renderer (neutral labels, never reads ground truth), leakage checker (outcome/ambiguity vocabulary, P-codes, template ids, node ids, post-event-only numbers), `NaturalLanguageAdapter_v1` (prose only; alias map evaluator-side). 16 pilot R-N files, 117 tests passing. Design locked: API model at temperature 0, τ_FA 0.15, δ 0.05 non-inferiority. | Known issue: frozen `cat1_add_disconnected_001` contains the word "unrelated" → blocked from R-N until a versioned fix is approved. Next: extractor output schema + LLM integration after review. |
 | 2026-10-08 | **Benchmark v0.2.0** — hygiene fix to `cat1_add_disconnected_001` ("unrelated reminder" → "reminder note"), found by the leakage checker **before any LLM results**. v0.1.0 manifest kept (`frozen_manifest_v0.1.0.json`); all 63 now render leak-free; 118 tests. Draft pilot prompts/schemas/config in `research/experiments/rn_pilot/`. | Blocked: no API key / SDK in the environment, so the GPT-5.6 model id cannot be verified or frozen. |
+| 2026-10-09 | **R-N pilot complete (config v1.7).** Primary model `nvidia/nemotron-3-ultra-550b-a55b` (temp 0, seed 20261008, thinking on, 16,384 max tokens) after Gemini, Kimi K3, Nemotron Lightning and gpt-oss-20b were tried and rejected (each logged under `experiments/rn_pilot/runs/`). 144/144 calls, 0 truncation; extraction recall 1.0, pre-state reproduction 0.993; one genuine failure kept (T7.2 invented `prefer_source`). | Infrastructure healthy; full experiment blocked until B5 built and frozen. |
+| 2026-10-09 | **B5 (Reflica engine) v0.1.0 frozen** — change detection → dependency scope → scoped revision → verify/repair → determinability across consistent completions. Independent of ground-truth code (enforced by test); 0 disagreements with gold on 63 scenarios; rejects the T7.2 invented rule. 203 tests passing. | Next: freeze full protocol, then run the 63-scenario experiment. |
 
 ---
 

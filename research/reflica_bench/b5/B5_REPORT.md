@@ -42,7 +42,7 @@ not the benchmark's per-scenario escalation policy (secondary metric; left as is
 - The in-scope **repair** path is never triggered by consistent inputs; only out-of-scope reporting is exercised.
 - Completion enumeration is exponential in open choices (benchmark has ≤ 2).
 - With pilot extraction for T7.2 r1, B5 also flags P5 because that extraction contains two rules for one value.
-- No commit made (repository policy: commit only on request); version id = hash of B5 source files.
+- Committed to the repository in `886095d`; version id = hash of B5 source files.
 
 ## 7. Reproduce
 `cd research && .venv/bin/python -m pytest tests/test_b5.py -q`
