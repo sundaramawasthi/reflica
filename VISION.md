@@ -19,6 +19,36 @@ Stage: working prototype + research validation. Details live in `PROGRESS.md`.
 | Natural-language pilot (16 scenarios × 3 = 144 calls, Nemotron-3-Ultra, config v1.7) | Done; one genuine extraction failure (T7.2 invented rule) |
 | B5 v0.1.0 | Frozen; 0 disagreements with gold on 63 scenarios; 203 tests passing |
 
+### UI pages (routes in `lib/main.dart`)
+
+| Page | Route | Status |
+|---|---|---|
+| Landing page | `/` (signed out) | Built |
+| Sign-in gate | `/` (AuthGate) | Built |
+| Dashboard | `/dashboard` | Built |
+| New Plan wizard | `/new-plan` | Built (6 of 7 input modes end to end) |
+| My Plans | `/plans` | Built |
+| Plan detail + mind map | `/plan` | Built; no explain/approve step yet |
+| Notifications | panel | Built |
+| Combined graph | `/graph` | Placeholder |
+| Scenarios (what-if) | `/scenarios` | Placeholder |
+| Documents | `/documents` | Placeholder |
+| Settings | `/settings` | Placeholder |
+
+7 of 11 pages are built. The UI is not connected to the research engine:
+no AI extraction (the app creates a placeholder seed graph) and no B5 behind
+plan changes. Planned after the experiment (Stage 1–2).
+
+### Rough progress (judgement, not measured)
+
+| Area | Done | Remaining |
+|---|---|---|
+| UI pages (~55%) | 7 of 11 pages | `/graph`, `/scenarios`, `/documents`, `/settings` |
+| App logic (~35%) | Sign-in, Firestore + offline, save/edit/delete, notifications | AI extraction + confirm step, B5 in app, explain, approve/reject |
+| Research (~65%) | Benchmark, gold answers, B3/B4a/B4b, B5 frozen, pilot, first literature pass | Deep literature review, thesis writing |
+| Experiment (~50%) | Protocol v2, runner incl. B5, statistics, 63 scenario texts, 233 tests, dry run (`research/experiments/full_experiment/`) | Owner's 5 open decisions, NVIDIA key rotation, paid run (567 calls), H1–H3 results, failure analysis |
+| Vision (~5%) | Written down (this file) | Voice, integrations, watcher, camera, world knowledge, memory, disaster mode; 3D/AR paused |
+
 Known B5 limitations: matching gold on clean input does not prove robustness;
 the repair-within-scope path is not yet exercised; UNCERTAIN vs
 REQUIRES_REEVALUATION matches gold only 11/19 times.
@@ -33,7 +63,7 @@ determinability check) on natural-language input, tested against hypotheses:
 
 Next steps, in order:
 
-1. Freeze the full experiment protocol (conditions, statistics plan).
+1. Protocol v2 and runner ready (see `research/experiments/full_experiment/`); owner answers 5 open decisions.
 2. Run the full 63-scenario experiment.
 3. Statistics (95% CIs, paired tests) and H1–H3 verdicts.
 4. Failure analysis and component ablations.
