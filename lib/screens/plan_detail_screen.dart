@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../graph/graph1.dart';
@@ -105,6 +107,25 @@ class _DetailBody extends StatefulWidget {
 
 class _DetailBodyState extends State<_DetailBody> {
   bool _editMode = false;
+  StreamSubscription<String>? _writeErrors;
+
+  @override
+  void initState() {
+    super.initState();
+    // Saves run in the background; show any that fail.
+    _writeErrors = PlanRepository.instance.writeErrors.listen((msg) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(msg), duration: const Duration(seconds: 8)));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _writeErrors?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

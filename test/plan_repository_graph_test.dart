@@ -1,4 +1,6 @@
 // Runs without Firebase, so PlanRepository uses its in-memory store.
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:reflicaa/graph/graph1.dart';
 import 'package:reflicaa/models/plan.dart';
@@ -58,5 +60,19 @@ void main() {
     final rejected = events.last;
     expect(rejected['graph_before_sha256'], rejected['graph_after_sha256']);
     expect(Plan.fromJson(plan.toJson()).graph, plan.graph);
+  });
+
+  test('background saves never block, and failures are reported, not silent', () async {
+    final errors = <String>[];
+    final sub = repo.writeErrors.listen(errors.add);
+    final never = Completer<void>(); // a server that never confirms
+    final sw = Stopwatch()..start();
+    repo.trackWrite(never.future, 'plan "stuck"', warnAfter: const Duration(milliseconds: 10));
+    repo.trackWrite(Future<void>.value(), 'plan "ok"');
+    repo.trackWrite(Future<void>.error(StateError('permission-denied')), 'history entry "x"');
+    expect(sw.elapsedMilliseconds, lessThan(50), reason: 'trackWrite returns immediately');
+    await Future<void>.delayed(const Duration(milliseconds: 30));
+    expect(errors, ['Could not save history entry "x": Bad state: permission-denied']);
+    await sub.cancel();
   });
 }

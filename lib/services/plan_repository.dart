@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../graph/graph1.dart';
@@ -125,18 +126,20 @@ class PlanRepository {
       _memory.insert(0, plan);
       _memoryController.add(_sortByUpdated(_memory));
     } else {
-      await col.doc(id).set(plan.toJson());
+      trackWrite(col.doc(id).set(plan.toJson()), 'plan "${plan.title}"');
     }
     if (accepted != null) {
-      await _appendEvent(uid, plan.id, 'proposal_accepted', accepted.record,
+      _appendEvent(uid, plan.id, 'proposal_accepted', accepted.record,
           before: null, after: accepted.record['graph_sha256'] as String?);
     }
-    await NotificationService.instance.emit(
-      kind: NotificationKind.planCreated,
-      title: 'Plan created',
-      body: plan.title,
-      planId: plan.id,
-    );
+    trackWrite(
+        NotificationService.instance.emit(
+          kind: NotificationKind.planCreated,
+          title: 'Plan created',
+          body: plan.title,
+          planId: plan.id,
+        ),
+        'notification');
     return plan;
   }
 
@@ -327,9 +330,9 @@ class PlanRepository {
       if (i >= 0) _memory[i] = updated;
       _memoryController.add(_sortByUpdated(_memory));
     } else {
-      await col.doc(updated.id).set(updated.toJson());
+      trackWrite(col.doc(updated.id).set(updated.toJson()), 'graph of "${plan.title}"');
     }
-    await _appendEvent(uid, plan.id, eventType, update.record,
+    _appendEvent(uid, plan.id, eventType, update.record,
         before: update.record['graph_before_sha256'] as String?,
         after: update.record['graph_after_sha256'] as String?);
     return updated;
@@ -339,8 +342,8 @@ class PlanRepository {
   // Timestamps and the actor live here, outside the fingerprinted records.
   final Map<String, List<Map<String, dynamic>>> _memoryEvents = {};
 
-  Future<void> _appendEvent(String uid, String planId, String type,
-      Map<String, dynamic> record, {String? before, String? after}) async {
+  void _appendEvent(String uid, String planId, String type,
+      Map<String, dynamic> record, {String? before, String? after}) {
     final event = <String, dynamic>{
       'id': _uuid.v4(),
       'type': type,
@@ -355,13 +358,44 @@ class PlanRepository {
       (_memoryEvents[planId] ??= []).add(event);
     } else {
       event['created_at'] = FieldValue.serverTimestamp();
-      await col.doc(planId).collection('events').doc(event['id'] as String).set(event);
+      trackWrite(col.doc(planId).collection('events').doc(event['id'] as String).set(event),
+          'history entry "$type"');
     }
   }
 
   /// The plan's recorded decisions, oldest first (in-memory mode only; used by tests).
   List<Map<String, dynamic>> memoryEvents(String planId) =>
       List.unmodifiable(_memoryEvents[planId] ?? const []);
+
+  // ----- background writes -----
+  //
+  // On Firestore a write's Future completes only when the server confirms it,
+  // which can take long or not happen at all (offline, stalled connection),
+  // while the data is already visible locally. graph@1 saves therefore do not
+  // block the UI: each is tracked here, logged when confirmed, and reported on
+  // [writeErrors] if it fails, so a failure is never silent.
+
+  final _writeErrors = StreamController<String>.broadcast();
+
+  /// Human-readable messages for saves that failed.
+  Stream<String> get writeErrors => _writeErrors.stream;
+
+  /// Track a save without waiting for it. Returns immediately.
+  void trackWrite(Future<void> write, String what,
+      {Duration warnAfter = const Duration(seconds: 20)}) {
+    var done = false;
+    Timer(warnAfter, () {
+      if (!done) debugPrint('[Reflica] $what: not yet confirmed by the server (still queued)');
+    });
+    write.then((_) {
+      done = true;
+      debugPrint('[Reflica] $what: saved');
+    }, onError: (Object e) {
+      done = true;
+      debugPrint('[Reflica] $what: FAILED: $e');
+      _writeErrors.add('Could not save $what: $e');
+    });
+  }
 
   /// The signed-in account's stable id, recorded as `decided_by`.
   String get actorId => _requireOwnerId();
