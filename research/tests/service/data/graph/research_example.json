@@ -1,0 +1,186 @@
+{
+ "version": "graph@1",
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Research problem (typed by the researcher)",
+   "media_type": "text/plain",
+   "text": "We hypothesise that higher soil moisture increases wheat yield in semi-arid plots. Our 2024 field trial measured grain yield in 40 plots. Plots irrigated weekly yielded 18% more grain than rain-fed plots. We assume that soil type is similar across plots. If the hypothesis holds, we plan to recommend weekly irrigation to farmers.",
+   "sha256": "743d223e493f0e063e29a3efccdcd838f314127d717603f567f98e46433305b7"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "h1",
+   "kind": "hypothesis",
+   "label": "Higher soil moisture increases wheat yield in semi-arid plots",
+   "detail": null,
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 20,
+     "end": 81,
+     "quote": "higher soil moisture increases wheat yield in semi-arid plots"
+    }
+   ],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  },
+  {
+   "id": "m1",
+   "kind": "method",
+   "label": "2024 field trial measuring grain yield in 40 plots",
+   "detail": null,
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 83,
+     "end": 136,
+     "quote": "Our 2024 field trial measured grain yield in 40 plots"
+    }
+   ],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  },
+  {
+   "id": "r1",
+   "kind": "result",
+   "label": "Weekly irrigated plots yielded 18% more grain than rain-fed plots",
+   "detail": null,
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 138,
+     "end": 203,
+     "quote": "Plots irrigated weekly yielded 18% more grain than rain-fed plots"
+    }
+   ],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  },
+  {
+   "id": "a1",
+   "kind": "assumption",
+   "label": "Soil type is similar across plots",
+   "detail": null,
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 220,
+     "end": 253,
+     "quote": "soil type is similar across plots"
+    }
+   ],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  },
+  {
+   "id": "t1",
+   "kind": "task",
+   "label": "Recommend weekly irrigation to farmers",
+   "detail": null,
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 291,
+     "end": 329,
+     "quote": "recommend weekly irrigation to farmers"
+    }
+   ],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  },
+  {
+   "id": "l1",
+   "kind": "limitation",
+   "label": "Only one growing season was measured",
+   "detail": null,
+   "basis": "llm_inferred",
+   "spans": [],
+   "run_id": null,
+   "confidence": null,
+   "reviews": []
+  }
+ ],
+ "edges": [
+  {
+   "id": "e1",
+   "source": "m1",
+   "target": "r1",
+   "type": "derived_from",
+   "certainty": "confirmed",
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 83,
+     "end": 124,
+     "quote": "Our 2024 field trial measured grain yield"
+    }
+   ],
+   "run_id": null,
+   "note": null
+  },
+  {
+   "id": "e2",
+   "source": "r1",
+   "target": "h1",
+   "type": "supports",
+   "certainty": "inferred",
+   "basis": "llm_inferred",
+   "spans": [],
+   "run_id": null,
+   "note": null
+  },
+  {
+   "id": "e3",
+   "source": "a1",
+   "target": "r1",
+   "type": "requires",
+   "certainty": "inferred",
+   "basis": "llm_inferred",
+   "spans": [],
+   "run_id": null,
+   "note": "Comparing plots assumes similar soil."
+  },
+  {
+   "id": "e4",
+   "source": "h1",
+   "target": "t1",
+   "type": "enables",
+   "certainty": "confirmed",
+   "basis": "source_quoted",
+   "spans": [
+    {
+     "source_id": "s1",
+     "start": 255,
+     "end": 300,
+     "quote": "If the hypothesis holds, we plan to recommend"
+    }
+   ],
+   "run_id": null,
+   "note": null
+  },
+  {
+   "id": "e5",
+   "source": "l1",
+   "target": "r1",
+   "type": "informs",
+   "certainty": "inferred",
+   "basis": "llm_inferred",
+   "spans": [],
+   "run_id": null,
+   "note": null
+  }
+ ]
+}

@@ -1,0 +1,2414 @@
+{
+ "Change": {
+  "$defs": {
+   "AddEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge": {
+      "$ref": "#/$defs/Edge"
+     },
+     "op": {
+      "const": "add_edge",
+      "default": "add_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge"
+    ],
+    "title": "AddEdge",
+    "type": "object"
+   },
+   "AddNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node": {
+      "$ref": "#/$defs/Node"
+     },
+     "op": {
+      "const": "add_node",
+      "default": "add_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node"
+    ],
+    "title": "AddNode",
+    "type": "object"
+   },
+   "ChangeEdgeType": {
+    "additionalProperties": false,
+    "description": "Re-type a link. The researcher asserts it, so it becomes user-stated and confirmed.",
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "new_type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "New Type",
+      "type": "string"
+     },
+     "op": {
+      "const": "change_edge_type",
+      "default": "change_edge_type",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id",
+     "new_type"
+    ],
+    "title": "ChangeEdgeType",
+    "type": "object"
+   },
+   "Confidence": {
+    "additionalProperties": false,
+    "properties": {
+     "stated_by": {
+      "enum": [
+       "user",
+       "llm_estimate",
+       "analysis"
+      ],
+      "title": "Stated By",
+      "type": "string"
+     },
+     "value": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Value",
+      "type": "number"
+     }
+    },
+    "required": [
+     "value",
+     "stated_by"
+    ],
+    "title": "Confidence",
+    "type": "object"
+   },
+   "DeleteEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_edge",
+      "default": "delete_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id"
+    ],
+    "title": "DeleteEdge",
+    "type": "object"
+   },
+   "DeleteNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_node",
+      "default": "delete_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "DeleteNode",
+    "type": "object"
+   },
+   "Edge": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "inferred"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Note"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "source": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source",
+      "type": "string"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     },
+     "type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "source",
+     "target",
+     "type",
+     "certainty",
+     "basis"
+    ],
+    "title": "Edge",
+    "type": "object"
+   },
+   "EditNode": {
+    "additionalProperties": false,
+    "description": "Change a node's wording or kind. Fields left None stay as they are.\n\nEditing the label or detail makes the content the researcher's own: the\nnode's basis becomes `user_stated` (its source spans are kept as references).",
+    "properties": {
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "kind": {
+      "anyOf": [
+       {
+        "enum": [
+         "goal",
+         "question",
+         "hypothesis",
+         "assumption",
+         "claim",
+         "method",
+         "evidence",
+         "result",
+         "limitation",
+         "task"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Kind"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Label"
+     },
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "edit_node",
+      "default": "edit_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "EditNode",
+    "type": "object"
+   },
+   "Node": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "confidence": {
+      "anyOf": [
+       {
+        "$ref": "#/$defs/Confidence"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null
+     },
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "kind": {
+      "enum": [
+       "goal",
+       "question",
+       "hypothesis",
+       "assumption",
+       "claim",
+       "method",
+       "evidence",
+       "result",
+       "limitation",
+       "task"
+      ],
+      "title": "Kind",
+      "type": "string"
+     },
+     "label": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+     },
+     "reviews": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/ReviewNote"
+      },
+      "title": "Reviews",
+      "type": "array"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     }
+    },
+    "required": [
+     "id",
+     "kind",
+     "label",
+     "basis"
+    ],
+    "title": "Node",
+    "type": "object"
+   },
+   "ResolveReview": {
+    "additionalProperties": false,
+    "description": "The researcher has reviewed a flagged node; clears its review notes.",
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "resolve_review",
+      "default": "resolve_review",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "ResolveReview",
+    "type": "object"
+   },
+   "ReviewNote": {
+    "additionalProperties": false,
+    "description": "Why a node needs the researcher's review after an approved change.",
+    "properties": {
+     "change_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Change Sha256",
+      "type": "string"
+     },
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "change_sha256",
+     "reason"
+    ],
+    "title": "ReviewNote",
+    "type": "object"
+   },
+   "SourceSpan": {
+    "additionalProperties": false,
+    "description": "A verbatim passage: source.text[start:end] == quote (checked by Graph).",
+    "properties": {
+     "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+     },
+     "quote": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Quote",
+      "type": "string"
+     },
+     "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source Id",
+      "type": "string"
+     },
+     "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "source_id",
+     "start",
+     "end",
+     "quote"
+    ],
+    "title": "SourceSpan",
+    "type": "object"
+   }
+  },
+  "discriminator": {
+   "mapping": {
+    "add_edge": "#/$defs/AddEdge",
+    "add_node": "#/$defs/AddNode",
+    "change_edge_type": "#/$defs/ChangeEdgeType",
+    "delete_edge": "#/$defs/DeleteEdge",
+    "delete_node": "#/$defs/DeleteNode",
+    "edit_node": "#/$defs/EditNode",
+    "resolve_review": "#/$defs/ResolveReview"
+   },
+   "propertyName": "op"
+  },
+  "oneOf": [
+   {
+    "$ref": "#/$defs/AddNode"
+   },
+   {
+    "$ref": "#/$defs/EditNode"
+   },
+   {
+    "$ref": "#/$defs/DeleteNode"
+   },
+   {
+    "$ref": "#/$defs/AddEdge"
+   },
+   {
+    "$ref": "#/$defs/DeleteEdge"
+   },
+   {
+    "$ref": "#/$defs/ChangeEdgeType"
+   },
+   {
+    "$ref": "#/$defs/ResolveReview"
+   }
+  ]
+ },
+ "ChangeRecord": {
+  "$defs": {
+   "AddEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge": {
+      "$ref": "#/$defs/Edge"
+     },
+     "op": {
+      "const": "add_edge",
+      "default": "add_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge"
+    ],
+    "title": "AddEdge",
+    "type": "object"
+   },
+   "AddNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node": {
+      "$ref": "#/$defs/Node"
+     },
+     "op": {
+      "const": "add_node",
+      "default": "add_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node"
+    ],
+    "title": "AddNode",
+    "type": "object"
+   },
+   "ChangeEdgeType": {
+    "additionalProperties": false,
+    "description": "Re-type a link. The researcher asserts it, so it becomes user-stated and confirmed.",
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "new_type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "New Type",
+      "type": "string"
+     },
+     "op": {
+      "const": "change_edge_type",
+      "default": "change_edge_type",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id",
+     "new_type"
+    ],
+    "title": "ChangeEdgeType",
+    "type": "object"
+   },
+   "Confidence": {
+    "additionalProperties": false,
+    "properties": {
+     "stated_by": {
+      "enum": [
+       "user",
+       "llm_estimate",
+       "analysis"
+      ],
+      "title": "Stated By",
+      "type": "string"
+     },
+     "value": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Value",
+      "type": "number"
+     }
+    },
+    "required": [
+     "value",
+     "stated_by"
+    ],
+    "title": "Confidence",
+    "type": "object"
+   },
+   "Decision": {
+    "additionalProperties": false,
+    "description": "The researcher's decision on one specific preview.",
+    "properties": {
+     "decided_by": {
+      "maxLength": 200,
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Decided By",
+      "type": "string"
+     },
+     "decision": {
+      "enum": [
+       "approve",
+       "reject"
+      ],
+      "title": "Decision",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Note"
+     },
+     "preview_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Preview Sha256",
+      "type": "string"
+     }
+    },
+    "required": [
+     "preview_sha256",
+     "decision",
+     "decided_by"
+    ],
+    "title": "Decision",
+    "type": "object"
+   },
+   "DeleteEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_edge",
+      "default": "delete_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id"
+    ],
+    "title": "DeleteEdge",
+    "type": "object"
+   },
+   "DeleteNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_node",
+      "default": "delete_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "DeleteNode",
+    "type": "object"
+   },
+   "Edge": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "inferred"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Note"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "source": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source",
+      "type": "string"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     },
+     "type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "source",
+     "target",
+     "type",
+     "certainty",
+     "basis"
+    ],
+    "title": "Edge",
+    "type": "object"
+   },
+   "EditNode": {
+    "additionalProperties": false,
+    "description": "Change a node's wording or kind. Fields left None stay as they are.\n\nEditing the label or detail makes the content the researcher's own: the\nnode's basis becomes `user_stated` (its source spans are kept as references).",
+    "properties": {
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "kind": {
+      "anyOf": [
+       {
+        "enum": [
+         "goal",
+         "question",
+         "hypothesis",
+         "assumption",
+         "claim",
+         "method",
+         "evidence",
+         "result",
+         "limitation",
+         "task"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Kind"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Label"
+     },
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "edit_node",
+      "default": "edit_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "EditNode",
+    "type": "object"
+   },
+   "ImpactItem": {
+    "additionalProperties": false,
+    "description": "A node that may be affected by the change, and why.",
+    "properties": {
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "uncertain"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "explanation": {
+      "title": "Explanation",
+      "type": "string"
+     },
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "path": {
+      "items": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+       "type": "string"
+      },
+      "title": "Path",
+      "type": "array"
+     },
+     "relation": {
+      "enum": [
+       "changed",
+       "direct",
+       "downstream"
+      ],
+      "title": "Relation",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id",
+     "relation",
+     "certainty",
+     "path",
+     "explanation"
+    ],
+    "title": "ImpactItem",
+    "type": "object"
+   },
+   "ImpactPreview": {
+    "additionalProperties": false,
+    "description": "What a change would do. Nothing is applied until this exact preview is approved.",
+    "properties": {
+     "analyzer": {
+      "title": "Analyzer",
+      "type": "string"
+     },
+     "change": {
+      "discriminator": {
+       "mapping": {
+        "add_edge": "#/$defs/AddEdge",
+        "add_node": "#/$defs/AddNode",
+        "change_edge_type": "#/$defs/ChangeEdgeType",
+        "delete_edge": "#/$defs/DeleteEdge",
+        "delete_node": "#/$defs/DeleteNode",
+        "edit_node": "#/$defs/EditNode",
+        "resolve_review": "#/$defs/ResolveReview"
+       },
+       "propertyName": "op"
+      },
+      "oneOf": [
+       {
+        "$ref": "#/$defs/AddNode"
+       },
+       {
+        "$ref": "#/$defs/EditNode"
+       },
+       {
+        "$ref": "#/$defs/DeleteNode"
+       },
+       {
+        "$ref": "#/$defs/AddEdge"
+       },
+       {
+        "$ref": "#/$defs/DeleteEdge"
+       },
+       {
+        "$ref": "#/$defs/ChangeEdgeType"
+       },
+       {
+        "$ref": "#/$defs/ResolveReview"
+       }
+      ],
+      "title": "Change"
+     },
+     "graph_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Graph Sha256",
+      "type": "string"
+     },
+     "items": {
+      "items": {
+       "$ref": "#/$defs/ImpactItem"
+      },
+      "title": "Items",
+      "type": "array"
+     },
+     "limitations": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+     },
+     "preview_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Preview Sha256",
+      "type": "string"
+     },
+     "proposed_updates": {
+      "items": {
+       "$ref": "#/$defs/ProposedUpdate"
+      },
+      "title": "Proposed Updates",
+      "type": "array"
+     },
+     "related_unaffected": {
+      "items": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+       "type": "string"
+      },
+      "title": "Related Unaffected",
+      "type": "array"
+     },
+     "unaffected": {
+      "items": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+       "type": "string"
+      },
+      "title": "Unaffected",
+      "type": "array"
+     },
+     "version": {
+      "const": "impact@1",
+      "default": "impact@1",
+      "title": "Version",
+      "type": "string"
+     }
+    },
+    "required": [
+     "analyzer",
+     "graph_sha256",
+     "change",
+     "items",
+     "unaffected",
+     "related_unaffected",
+     "proposed_updates",
+     "limitations",
+     "preview_sha256"
+    ],
+    "title": "ImpactPreview",
+    "type": "object"
+   },
+   "Node": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "confidence": {
+      "anyOf": [
+       {
+        "$ref": "#/$defs/Confidence"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null
+     },
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "kind": {
+      "enum": [
+       "goal",
+       "question",
+       "hypothesis",
+       "assumption",
+       "claim",
+       "method",
+       "evidence",
+       "result",
+       "limitation",
+       "task"
+      ],
+      "title": "Kind",
+      "type": "string"
+     },
+     "label": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+     },
+     "reviews": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/ReviewNote"
+      },
+      "title": "Reviews",
+      "type": "array"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     }
+    },
+    "required": [
+     "id",
+     "kind",
+     "label",
+     "basis"
+    ],
+    "title": "Node",
+    "type": "object"
+   },
+   "ProposedUpdate": {
+    "additionalProperties": false,
+    "properties": {
+     "action": {
+      "enum": [
+       "add_node",
+       "edit_node",
+       "delete_node",
+       "add_edge",
+       "delete_edge",
+       "change_edge_type",
+       "flag_for_review",
+       "resolve_review"
+      ],
+      "title": "Action",
+      "type": "string"
+     },
+     "description": {
+      "title": "Description",
+      "type": "string"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     }
+    },
+    "required": [
+     "action",
+     "target",
+     "description"
+    ],
+    "title": "ProposedUpdate",
+    "type": "object"
+   },
+   "ResolveReview": {
+    "additionalProperties": false,
+    "description": "The researcher has reviewed a flagged node; clears its review notes.",
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "resolve_review",
+      "default": "resolve_review",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "ResolveReview",
+    "type": "object"
+   },
+   "ReviewNote": {
+    "additionalProperties": false,
+    "description": "Why a node needs the researcher's review after an approved change.",
+    "properties": {
+     "change_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Change Sha256",
+      "type": "string"
+     },
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "change_sha256",
+     "reason"
+    ],
+    "title": "ReviewNote",
+    "type": "object"
+   },
+   "SourceSpan": {
+    "additionalProperties": false,
+    "description": "A verbatim passage: source.text[start:end] == quote (checked by Graph).",
+    "properties": {
+     "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+     },
+     "quote": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Quote",
+      "type": "string"
+     },
+     "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source Id",
+      "type": "string"
+     },
+     "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "source_id",
+     "start",
+     "end",
+     "quote"
+    ],
+    "title": "SourceSpan",
+    "type": "object"
+   }
+  },
+  "additionalProperties": false,
+  "description": "Reproducible record of a decided change (approved or rejected).",
+  "properties": {
+   "decision": {
+    "$ref": "#/$defs/Decision"
+   },
+   "graph_after_sha256": {
+    "pattern": "^[0-9a-f]{64}$",
+    "title": "Graph After Sha256",
+    "type": "string"
+   },
+   "graph_before_sha256": {
+    "pattern": "^[0-9a-f]{64}$",
+    "title": "Graph Before Sha256",
+    "type": "string"
+   },
+   "preview": {
+    "$ref": "#/$defs/ImpactPreview"
+   }
+  },
+  "required": [
+   "preview",
+   "decision",
+   "graph_before_sha256",
+   "graph_after_sha256"
+  ],
+  "title": "ChangeRecord",
+  "type": "object"
+ },
+ "Decision": {
+  "additionalProperties": false,
+  "description": "The researcher's decision on one specific preview.",
+  "properties": {
+   "decided_by": {
+    "maxLength": 200,
+    "minLength": 1,
+    "pattern": "\\S",
+    "title": "Decided By",
+    "type": "string"
+   },
+   "decision": {
+    "enum": [
+     "approve",
+     "reject"
+    ],
+    "title": "Decision",
+    "type": "string"
+   },
+   "note": {
+    "anyOf": [
+     {
+      "maxLength": 2000,
+      "type": "string"
+     },
+     {
+      "type": "null"
+     }
+    ],
+    "default": null,
+    "title": "Note"
+   },
+   "preview_sha256": {
+    "pattern": "^[0-9a-f]{64}$",
+    "title": "Preview Sha256",
+    "type": "string"
+   }
+  },
+  "required": [
+   "preview_sha256",
+   "decision",
+   "decided_by"
+  ],
+  "title": "Decision",
+  "type": "object"
+ },
+ "Graph": {
+  "$defs": {
+   "Confidence": {
+    "additionalProperties": false,
+    "properties": {
+     "stated_by": {
+      "enum": [
+       "user",
+       "llm_estimate",
+       "analysis"
+      ],
+      "title": "Stated By",
+      "type": "string"
+     },
+     "value": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Value",
+      "type": "number"
+     }
+    },
+    "required": [
+     "value",
+     "stated_by"
+    ],
+    "title": "Confidence",
+    "type": "object"
+   },
+   "Edge": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "inferred"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Note"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "source": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source",
+      "type": "string"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     },
+     "type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "source",
+     "target",
+     "type",
+     "certainty",
+     "basis"
+    ],
+    "title": "Edge",
+    "type": "object"
+   },
+   "Node": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "confidence": {
+      "anyOf": [
+       {
+        "$ref": "#/$defs/Confidence"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null
+     },
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "kind": {
+      "enum": [
+       "goal",
+       "question",
+       "hypothesis",
+       "assumption",
+       "claim",
+       "method",
+       "evidence",
+       "result",
+       "limitation",
+       "task"
+      ],
+      "title": "Kind",
+      "type": "string"
+     },
+     "label": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+     },
+     "reviews": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/ReviewNote"
+      },
+      "title": "Reviews",
+      "type": "array"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     }
+    },
+    "required": [
+     "id",
+     "kind",
+     "label",
+     "basis"
+    ],
+    "title": "Node",
+    "type": "object"
+   },
+   "ReviewNote": {
+    "additionalProperties": false,
+    "description": "Why a node needs the researcher's review after an approved change.",
+    "properties": {
+     "change_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Change Sha256",
+      "type": "string"
+     },
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "change_sha256",
+     "reason"
+    ],
+    "title": "ReviewNote",
+    "type": "object"
+   },
+   "Source": {
+    "additionalProperties": false,
+    "description": "Text the graph was built from. Quotes are checked against it.",
+    "properties": {
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "media_type": {
+      "const": "text/plain",
+      "default": "text/plain",
+      "title": "Media Type",
+      "type": "string"
+     },
+     "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Sha256",
+      "type": "string"
+     },
+     "text": {
+      "maxLength": 200000,
+      "title": "Text",
+      "type": "string"
+     },
+     "title": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "title",
+     "text",
+     "sha256"
+    ],
+    "title": "Source",
+    "type": "object"
+   },
+   "SourceSpan": {
+    "additionalProperties": false,
+    "description": "A verbatim passage: source.text[start:end] == quote (checked by Graph).",
+    "properties": {
+     "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+     },
+     "quote": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Quote",
+      "type": "string"
+     },
+     "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source Id",
+      "type": "string"
+     },
+     "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "source_id",
+     "start",
+     "end",
+     "quote"
+    ],
+    "title": "SourceSpan",
+    "type": "object"
+   }
+  },
+  "additionalProperties": false,
+  "properties": {
+   "edges": {
+    "default": [],
+    "items": {
+     "$ref": "#/$defs/Edge"
+    },
+    "maxItems": 10000,
+    "title": "Edges",
+    "type": "array"
+   },
+   "nodes": {
+    "default": [],
+    "items": {
+     "$ref": "#/$defs/Node"
+    },
+    "maxItems": 2000,
+    "title": "Nodes",
+    "type": "array"
+   },
+   "sources": {
+    "default": [],
+    "items": {
+     "$ref": "#/$defs/Source"
+    },
+    "title": "Sources",
+    "type": "array"
+   },
+   "version": {
+    "const": "graph@1",
+    "default": "graph@1",
+    "title": "Version",
+    "type": "string"
+   }
+  },
+  "title": "Graph",
+  "type": "object"
+ },
+ "ImpactPreview": {
+  "$defs": {
+   "AddEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge": {
+      "$ref": "#/$defs/Edge"
+     },
+     "op": {
+      "const": "add_edge",
+      "default": "add_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge"
+    ],
+    "title": "AddEdge",
+    "type": "object"
+   },
+   "AddNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node": {
+      "$ref": "#/$defs/Node"
+     },
+     "op": {
+      "const": "add_node",
+      "default": "add_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node"
+    ],
+    "title": "AddNode",
+    "type": "object"
+   },
+   "ChangeEdgeType": {
+    "additionalProperties": false,
+    "description": "Re-type a link. The researcher asserts it, so it becomes user-stated and confirmed.",
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "new_type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "New Type",
+      "type": "string"
+     },
+     "op": {
+      "const": "change_edge_type",
+      "default": "change_edge_type",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id",
+     "new_type"
+    ],
+    "title": "ChangeEdgeType",
+    "type": "object"
+   },
+   "Confidence": {
+    "additionalProperties": false,
+    "properties": {
+     "stated_by": {
+      "enum": [
+       "user",
+       "llm_estimate",
+       "analysis"
+      ],
+      "title": "Stated By",
+      "type": "string"
+     },
+     "value": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Value",
+      "type": "number"
+     }
+    },
+    "required": [
+     "value",
+     "stated_by"
+    ],
+    "title": "Confidence",
+    "type": "object"
+   },
+   "DeleteEdge": {
+    "additionalProperties": false,
+    "properties": {
+     "edge_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Edge Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_edge",
+      "default": "delete_edge",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "edge_id"
+    ],
+    "title": "DeleteEdge",
+    "type": "object"
+   },
+   "DeleteNode": {
+    "additionalProperties": false,
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "delete_node",
+      "default": "delete_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "DeleteNode",
+    "type": "object"
+   },
+   "Edge": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "inferred"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Note"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "source": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source",
+      "type": "string"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     },
+     "type": {
+      "enum": [
+       "requires",
+       "supports",
+       "causes",
+       "blocks",
+       "enables",
+       "derived_from",
+       "informs",
+       "references"
+      ],
+      "title": "Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "source",
+     "target",
+     "type",
+     "certainty",
+     "basis"
+    ],
+    "title": "Edge",
+    "type": "object"
+   },
+   "EditNode": {
+    "additionalProperties": false,
+    "description": "Change a node's wording or kind. Fields left None stay as they are.\n\nEditing the label or detail makes the content the researcher's own: the\nnode's basis becomes `user_stated` (its source spans are kept as references).",
+    "properties": {
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "kind": {
+      "anyOf": [
+       {
+        "enum": [
+         "goal",
+         "question",
+         "hypothesis",
+         "assumption",
+         "claim",
+         "method",
+         "evidence",
+         "result",
+         "limitation",
+         "task"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Kind"
+     },
+     "label": {
+      "anyOf": [
+       {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Label"
+     },
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "edit_node",
+      "default": "edit_node",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "EditNode",
+    "type": "object"
+   },
+   "ImpactItem": {
+    "additionalProperties": false,
+    "description": "A node that may be affected by the change, and why.",
+    "properties": {
+     "certainty": {
+      "enum": [
+       "confirmed",
+       "uncertain"
+      ],
+      "title": "Certainty",
+      "type": "string"
+     },
+     "explanation": {
+      "title": "Explanation",
+      "type": "string"
+     },
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "path": {
+      "items": {
+       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+       "type": "string"
+      },
+      "title": "Path",
+      "type": "array"
+     },
+     "relation": {
+      "enum": [
+       "changed",
+       "direct",
+       "downstream"
+      ],
+      "title": "Relation",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id",
+     "relation",
+     "certainty",
+     "path",
+     "explanation"
+    ],
+    "title": "ImpactItem",
+    "type": "object"
+   },
+   "Node": {
+    "additionalProperties": false,
+    "properties": {
+     "basis": {
+      "enum": [
+       "user_stated",
+       "source_quoted",
+       "llm_inferred",
+       "computed"
+      ],
+      "title": "Basis",
+      "type": "string"
+     },
+     "confidence": {
+      "anyOf": [
+       {
+        "$ref": "#/$defs/Confidence"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null
+     },
+     "detail": {
+      "anyOf": [
+       {
+        "maxLength": 4000,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Detail"
+     },
+     "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+     },
+     "kind": {
+      "enum": [
+       "goal",
+       "question",
+       "hypothesis",
+       "assumption",
+       "claim",
+       "method",
+       "evidence",
+       "result",
+       "limitation",
+       "task"
+      ],
+      "title": "Kind",
+      "type": "string"
+     },
+     "label": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+     },
+     "reviews": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/ReviewNote"
+      },
+      "title": "Reviews",
+      "type": "array"
+     },
+     "run_id": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Run Id"
+     },
+     "spans": {
+      "default": [],
+      "items": {
+       "$ref": "#/$defs/SourceSpan"
+      },
+      "title": "Spans",
+      "type": "array"
+     }
+    },
+    "required": [
+     "id",
+     "kind",
+     "label",
+     "basis"
+    ],
+    "title": "Node",
+    "type": "object"
+   },
+   "ProposedUpdate": {
+    "additionalProperties": false,
+    "properties": {
+     "action": {
+      "enum": [
+       "add_node",
+       "edit_node",
+       "delete_node",
+       "add_edge",
+       "delete_edge",
+       "change_edge_type",
+       "flag_for_review",
+       "resolve_review"
+      ],
+      "title": "Action",
+      "type": "string"
+     },
+     "description": {
+      "title": "Description",
+      "type": "string"
+     },
+     "target": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Target",
+      "type": "string"
+     }
+    },
+    "required": [
+     "action",
+     "target",
+     "description"
+    ],
+    "title": "ProposedUpdate",
+    "type": "object"
+   },
+   "ResolveReview": {
+    "additionalProperties": false,
+    "description": "The researcher has reviewed a flagged node; clears its review notes.",
+    "properties": {
+     "node_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Node Id",
+      "type": "string"
+     },
+     "op": {
+      "const": "resolve_review",
+      "default": "resolve_review",
+      "title": "Op",
+      "type": "string"
+     }
+    },
+    "required": [
+     "node_id"
+    ],
+    "title": "ResolveReview",
+    "type": "object"
+   },
+   "ReviewNote": {
+    "additionalProperties": false,
+    "description": "Why a node needs the researcher's review after an approved change.",
+    "properties": {
+     "change_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Change Sha256",
+      "type": "string"
+     },
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "change_sha256",
+     "reason"
+    ],
+    "title": "ReviewNote",
+    "type": "object"
+   },
+   "SourceSpan": {
+    "additionalProperties": false,
+    "description": "A verbatim passage: source.text[start:end] == quote (checked by Graph).",
+    "properties": {
+     "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+     },
+     "quote": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Quote",
+      "type": "string"
+     },
+     "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+      "title": "Source Id",
+      "type": "string"
+     },
+     "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "source_id",
+     "start",
+     "end",
+     "quote"
+    ],
+    "title": "SourceSpan",
+    "type": "object"
+   }
+  },
+  "additionalProperties": false,
+  "description": "What a change would do. Nothing is applied until this exact preview is approved.",
+  "properties": {
+   "analyzer": {
+    "title": "Analyzer",
+    "type": "string"
+   },
+   "change": {
+    "discriminator": {
+     "mapping": {
+      "add_edge": "#/$defs/AddEdge",
+      "add_node": "#/$defs/AddNode",
+      "change_edge_type": "#/$defs/ChangeEdgeType",
+      "delete_edge": "#/$defs/DeleteEdge",
+      "delete_node": "#/$defs/DeleteNode",
+      "edit_node": "#/$defs/EditNode",
+      "resolve_review": "#/$defs/ResolveReview"
+     },
+     "propertyName": "op"
+    },
+    "oneOf": [
+     {
+      "$ref": "#/$defs/AddNode"
+     },
+     {
+      "$ref": "#/$defs/EditNode"
+     },
+     {
+      "$ref": "#/$defs/DeleteNode"
+     },
+     {
+      "$ref": "#/$defs/AddEdge"
+     },
+     {
+      "$ref": "#/$defs/DeleteEdge"
+     },
+     {
+      "$ref": "#/$defs/ChangeEdgeType"
+     },
+     {
+      "$ref": "#/$defs/ResolveReview"
+     }
+    ],
+    "title": "Change"
+   },
+   "graph_sha256": {
+    "pattern": "^[0-9a-f]{64}$",
+    "title": "Graph Sha256",
+    "type": "string"
+   },
+   "items": {
+    "items": {
+     "$ref": "#/$defs/ImpactItem"
+    },
+    "title": "Items",
+    "type": "array"
+   },
+   "limitations": {
+    "items": {
+     "type": "string"
+    },
+    "title": "Limitations",
+    "type": "array"
+   },
+   "preview_sha256": {
+    "pattern": "^[0-9a-f]{64}$",
+    "title": "Preview Sha256",
+    "type": "string"
+   },
+   "proposed_updates": {
+    "items": {
+     "$ref": "#/$defs/ProposedUpdate"
+    },
+    "title": "Proposed Updates",
+    "type": "array"
+   },
+   "related_unaffected": {
+    "items": {
+     "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+     "type": "string"
+    },
+    "title": "Related Unaffected",
+    "type": "array"
+   },
+   "unaffected": {
+    "items": {
+     "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,63}$",
+     "type": "string"
+    },
+    "title": "Unaffected",
+    "type": "array"
+   },
+   "version": {
+    "const": "impact@1",
+    "default": "impact@1",
+    "title": "Version",
+    "type": "string"
+   }
+  },
+  "required": [
+   "analyzer",
+   "graph_sha256",
+   "change",
+   "items",
+   "unaffected",
+   "related_unaffected",
+   "proposed_updates",
+   "limitations",
+   "preview_sha256"
+  ],
+  "title": "ImpactPreview",
+  "type": "object"
+ },
+ "version": "graph@1"
+}
