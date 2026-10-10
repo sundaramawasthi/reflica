@@ -52,7 +52,8 @@ Current state:
 - **Baselines:** B3 (reachability), B4a (ATMS), and B4b (OR-Tools CP-SAT); B1/B2 LLM prompt-and-schema baselines used in the pilot.
 - **B5 (the Reflica revision engine) v0.1.0:** frozen and agrees with gold on all 63 scenarios in the plan/state-graph benchmark; not yet connected to the experiment runner.
 - **Natural-language pilot:** complete (144/144 calls).
-- **Tests:** 203 passing.
+- **Tests:** 203 benchmark tests passing.
+- **Scientific-analysis service** (`research/reflica_service`, product track): CSV ingestion and `describe@1`; 296 tests. `regress@1` is next.
 
 The full 63-scenario experiment is next.
 
@@ -74,10 +75,12 @@ reflica/
 ├── android/, ios/, web/, macos/, linux/, windows/
 ├── assets/
 ├── test/               # Flutter tests
-├── research/           # M.Tech Python workspace (separate venv, separate tests)
-│   ├── reflica_bench/
-│   ├── scenarios/
-│   └── tests/
+├── research/           # Python workspace (separate venv, separate tests)
+│   ├── reflica_bench/      # M.Tech benchmark, baselines, B5 (frozen)
+│   ├── reflica_service/    # scientific-analysis service (CSV + describe@1)
+│   ├── experiments/
+│   ├── tests/
+│   └── SCIENCE_DIRECTION.md, RESEARCH_OUTLINE.md, PLATFORM_AUDIT.md, MTECH_PLAN.md
 ├── PROGRESS.md         # authoritative board — read this first
 └── pubspec.yaml
 ```

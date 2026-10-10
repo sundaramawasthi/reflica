@@ -3,7 +3,7 @@
 > **Vision:** Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform.
 > A **living strategic planning architecture** where a goal → structured strategy graph stays continuously updated by real-world reports. The mind map is the human-facing view of the underlying structured system, not the product.
 > **Owner:** Sundram Awasthi · M.Tech CSE (2026–28), GLA University.
-> **Last updated:** 2026-10-09
+> **Last updated:** 2026-10-10
 
 ---
 
@@ -17,7 +17,7 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 | Level | Scope | State |
 |---|---|---|
-| **A — Long-term platform (Reflica)** | Multimodal, closed-loop, serves individuals → organisations → government with reporting + impact propagation + federated connection layer. | Flutter product Stage 0+ complete. |
+| **A — Long-term platform (Reflica)** | Multimodal, closed-loop, serves individuals → organisations → government with reporting + impact propagation + federated connection layer; long-term direction: AI research partner for scientific discovery. | Flutter product Stage 0+ complete. Scientific-analysis service foundation (`research/reflica_service`: CSV ingestion + `describe@1`) built and tested; not yet connected to the app. |
 | **B — M.Tech research** | Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction + capacity constraints. Sub-component of Reflica's Capability C (Change / Revision Engine). | Benchmark v0.2.0 (63 scenarios, 7 categories) built and frozen; R-N pilot complete (144/144 calls); B5 engine v0.1.0 frozen for the plan/state-graph benchmark (0 disagreements with gold on all 63 scenarios; not yet connected to the experiment runner); 203 tests passing. Full experiment not started. |
 
 ---
@@ -38,6 +38,29 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 **Immediate priority:** study researcher workflows and review related literature; define the scientific evidence model; create a small reproducible benchmark; compare an evidence-aware revision approach with appropriate baselines before expanding the system.
 
 The literature review establishes what is genuinely new about the method; researcher interviews establish whether the problem matters in practice. Neither alone is proof of novelty or usefulness.
+
+---
+
+## Reflica scientific-analysis service (product track)
+
+Local Python service for the first end-to-end research workflow: CSV upload → validated variables → question → approved analysis → recorded results and uncertainty → human-reviewed conclusions. Lives in `research/reflica_service/`, isolated from `reflica_bench` (no imports either way). Architecture, decisions and the long-term vision: `research/PLATFORM_AUDIT.md`; implementation rules and measurements: `research/reflica_service/NOTES.md`.
+
+| Step | Work | Status |
+|---|---|---|
+| 1 | Package scaffold, config, optional `service` extra | ✅ Done |
+| 2 | CSV ingestion + `describe@1` (statistics, data-quality issues, correlations as associations), timeout-bounded execution, bounded correlation work | ✅ Done — reviewed; 296 service tests; exact-reference check on 20,000 random datasets |
+| 3 | `regress@1` — OLS with uncertainty and diagnostics | ⏭ Next |
+| 4 | `sweep@1` — prediction grid, refuses extrapolation | Planned |
+| 5 | Store + run records (provenance, reproducibility) | Planned |
+| 6 | FastAPI routes + security (token, localhost, concurrency / rate / memory limits) | Planned |
+| 7 | Flutter screens: upload → confirm variables → approve → results | Planned |
+| 8 | Dataset-version comparison ("what changed") | Planned |
+
+**Task roadmap:** (1) close the adversarial-timeout risk ✅ · (2) commit Step 2 ✅ · (3) `regress@1` ⏭ · (4) learning from experience / reinforcement learning — **proposed only** (`PLATFORM_AUDIT.md` §9), after Tasks 1–3.
+
+**Known open risks:** no worker memory cap or concurrency limit yet (planned with the routes); tested on Linux only; results are deterministic per Python version.
+
+**M.Tech plan (proposed):** minor projects, data analytics project, dissertation and publication plan in `research/MTECH_PLAN.md` — to confirm with the supervisor.
 
 ---
 
@@ -401,6 +424,9 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-08 | **Benchmark v0.2.0** — hygiene fix to `cat1_add_disconnected_001` ("unrelated reminder" → "reminder note"), found by the leakage checker **before any LLM results**. v0.1.0 manifest kept (`frozen_manifest_v0.1.0.json`); all 63 now render leak-free; 118 tests. Draft pilot prompts/schemas/config in `research/experiments/rn_pilot/`. | Blocked: no API key / SDK in the environment, so the GPT-5.6 model id cannot be verified or frozen. |
 | 2026-10-09 | **R-N pilot complete (config v1.7).** Primary model `nvidia/nemotron-3-ultra-550b-a55b` (temp 0, seed 20261008, thinking on, 16,384 max tokens) after Gemini, Kimi K3, Nemotron Lightning and gpt-oss-20b were tried and rejected (each logged under `experiments/rn_pilot/runs/`). 144/144 calls, 0 truncation; extraction recall 1.0, pre-state reproduction 0.993; one genuine failure kept (T7.2 invented `prefer_source`). | Infrastructure healthy; full experiment blocked until B5 built and frozen. |
 | 2026-10-09 | **B5 (Reflica engine) v0.1.0 frozen** — change detection → dependency scope → scoped revision → verify/repair → determinability across consistent completions. Independent of ground-truth code (enforced by test); 0 disagreements with gold on 63 scenarios; rejects the T7.2 invented rule. 203 tests passing. | Next: freeze full protocol, then run the 63-scenario experiment. |
+| 2026-10-10 | **Long-term direction: AI research partner for scientific discovery** (`research/SCIENCE_DIRECTION.md`, `RESEARCH_OUTLINE.md`, `PLATFORM_AUDIT.md`). Thesis scope unchanged; any change to be discussed with the supervisor. | Vision documented as proposed, separate from implemented capabilities. |
+| 2026-10-10 | **Platform decisions:** local Python service first behind a versioned `/v1` interface; CSV + research question as the first vertical slice (not the product boundary); service dependencies in an optional `service` extra; package in `research/reflica_service/`; first operations `describe`, `regress`, `sweep`; no user-supplied code executed. | Smallest testable end-to-end workflow; reuses the research workspace without restructuring. |
+| 2026-10-10 | **Step 2 committed** (`70b73eb`): CSV ingestion + `describe@1`; two review rounds fixed overflow, precision, row-counting, correlation-accuracy and timeout issues; analyses run in a separate process with an enforced time limit; correlation work bounded by configuration. 499 tests passing (203 benchmark + 296 service); frozen manifest unchanged. | Foundation for `regress@1` (Task 3). |
 
 ---
 
@@ -408,6 +434,8 @@ Reflica ships as **three products that share one engine**:
 
 - Platform vision is broad. M.Tech is narrow. **Do not conflate.**
 - Never claim "first" or "novel" until the 2025–26 literature search is done.
+- Analysis results never present correlation as causation, never extrapolate silently, and report unavailable statistics explicitly.
+- Service code reaches analyses only through `reflica_service.execution` (time limit enforced; checked by a test).
 - Keep out-of-scope items (federated systems, autonomous execution, personal "replica", trained-from-scratch LLMs) out of M.Tech code.
 - Every input mode produces the same typed JSON before the graph is touched.
 - Reporting (planned vs actual) is first-class, not an afterthought.
