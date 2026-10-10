@@ -1,0 +1,289 @@
+{
+ "graph": {
+  "version": "graph@1",
+  "sources": [
+   {
+    "id": "s1",
+    "title": "Irrigation",
+    "media_type": "text/plain",
+    "text": "We want to know whether higher soil moisture increases wheat yield in semi-arid plots. We hypothesise that weekly irrigation raises yield. Our 2024 field trial measured grain yield in 40 plots. Plots irrigated weekly yielded 18% more grain than rain-fed plots, which supports the hypothesis. We assume that soil type is similar across plots. If the hypothesis holds, we plan to recommend weekly irrigation to farmers.",
+    "sha256": "364645d228ebf80f87cd3fedf8f15864db047c0e79a6d6fd8892fc843d1d6e7a"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "n1",
+    "kind": "question",
+    "label": "Does higher soil moisture increase wheat yield in semi-arid plots?",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 16,
+      "end": 85,
+      "quote": "whether higher soil moisture increases wheat yield in semi-arid plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n2",
+    "kind": "hypothesis",
+    "label": "Weekly irrigation raises yield",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 107,
+      "end": 137,
+      "quote": "weekly irrigation raises yield"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [
+     {
+      "change_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320",
+      "reason": "'n3' was deleted. Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted)."
+     }
+    ],
+    "legacy": null
+   },
+   {
+    "id": "n4",
+    "kind": "result",
+    "label": "Weekly irrigated plots yielded 18% more grain",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 194,
+      "end": 259,
+      "quote": "Plots irrigated weekly yielded 18% more grain than rain-fed plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [
+     {
+      "change_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320",
+      "reason": "'n3' was deleted. Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated)."
+     }
+    ],
+    "legacy": null
+   },
+   {
+    "id": "n5",
+    "kind": "assumption",
+    "label": "Soil type is similar across plots",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 307,
+      "end": 340,
+      "quote": "soil type is similar across plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n6",
+    "kind": "task",
+    "label": "Recommend weekly irrigation to farmers",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 378,
+      "end": 416,
+      "quote": "recommend weekly irrigation to farmers"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [
+     {
+      "change_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320",
+      "reason": "'n3' was deleted. Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted); 'Weekly irrigation raises yield' enables 'Recommend weekly irrigation to farmers' (confirmed, source quoted)."
+     }
+    ],
+    "legacy": null
+   }
+  ],
+  "edges": [
+   {
+    "id": "x1",
+    "source": "n2",
+    "target": "n1",
+    "type": "informs",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x3",
+    "source": "n4",
+    "target": "n2",
+    "type": "supports",
+    "certainty": "confirmed",
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 261,
+      "end": 290,
+      "quote": "which supports the hypothesis"
+     }
+    ],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x4",
+    "source": "n5",
+    "target": "n4",
+    "type": "requires",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x5",
+    "source": "n2",
+    "target": "n6",
+    "type": "enables",
+    "certainty": "confirmed",
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 342,
+      "end": 387,
+      "quote": "If the hypothesis holds, we plan to recommend"
+     }
+    ],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   }
+  ]
+ },
+ "record": {
+  "preview": {
+   "version": "impact@1",
+   "analyzer": "link_following@1",
+   "graph_sha256": "2e1f9ab635c2b57e511332ee5dfe77da8f653f24a10fdf85a99130cd2fe65076",
+   "change": {
+    "op": "delete_node",
+    "node_id": "n3"
+   },
+   "items": [
+    {
+     "node_id": "n2",
+     "relation": "downstream",
+     "certainty": "confirmed",
+     "path": [
+      "x2",
+      "x3"
+     ],
+     "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted)."
+    },
+    {
+     "node_id": "n3",
+     "relation": "changed",
+     "certainty": "confirmed",
+     "path": [],
+     "explanation": "This node is being deleted."
+    },
+    {
+     "node_id": "n4",
+     "relation": "direct",
+     "certainty": "confirmed",
+     "path": [
+      "x2"
+     ],
+     "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated)."
+    },
+    {
+     "node_id": "n6",
+     "relation": "downstream",
+     "certainty": "confirmed",
+     "path": [
+      "x2",
+      "x3",
+      "x5"
+     ],
+     "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted); 'Weekly irrigation raises yield' enables 'Recommend weekly irrigation to farmers' (confirmed, source quoted)."
+    }
+   ],
+   "unaffected": [
+    "n1",
+    "n5"
+   ],
+   "related_unaffected": [
+    "n1"
+   ],
+   "proposed_updates": [
+    {
+     "action": "delete_node",
+     "target": "n3",
+     "description": "Delete method '2024 field trial measuring grain yield in 40 plots'."
+    },
+    {
+     "action": "delete_edge",
+     "target": "x2",
+     "description": "Remove link n3 --derived_from--> n4, which cannot exist without the deleted node."
+    },
+    {
+     "action": "flag_for_review",
+     "target": "n2",
+     "description": "Flag for review (confirmed); it is not changed or deleted."
+    },
+    {
+     "action": "flag_for_review",
+     "target": "n4",
+     "description": "Flag for review (confirmed); it is not changed or deleted."
+    },
+    {
+     "action": "flag_for_review",
+     "target": "n6",
+     "description": "Flag for review (confirmed); it is not changed or deleted."
+    }
+   ],
+   "limitations": [
+    "Link-following treats every propagating link (requires, supports, causes, blocks, enables, derived_from) as a possible dependency. It shows what may need review; it does not decide whether a dependent conclusion actually changes.",
+    "Links of type informs or references do not carry a change forward; items connected only that way are listed as related but unaffected.",
+    "Uncertain means every path from the change runs through at least one inferred link that the researcher has not confirmed.",
+    "Only links recorded in the graph are followed; dependencies missing from the graph cannot be found."
+   ],
+   "preview_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320"
+  },
+  "decision": {
+   "preview_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320",
+   "decision": "approve",
+   "decided_by": "uid-demo",
+   "note": null
+  },
+  "graph_before_sha256": "2e1f9ab635c2b57e511332ee5dfe77da8f653f24a10fdf85a99130cd2fe65076",
+  "graph_after_sha256": "126a95c92c90ced1287dc07fbcbf76f1ccb71d08f87eb7acaeee33f25ac58833"
+ }
+}

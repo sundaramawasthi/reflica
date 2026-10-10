@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:uuid/uuid.dart';
 
+import '../graph/graph1.dart';
 import '../models/notification.dart';
 import '../models/plan.dart';
 import 'auth_service.dart';
@@ -96,12 +97,15 @@ class PlanRepository {
     required InputMode inputMode,
     String? rawText,
     List<InputArtefact> artefacts = const [],
+    GraphUpdate? accepted,
   }) async {
+    // New plans hold a graph@1 graph: the researcher-reviewed extraction
+    // ([accepted]) or, when none is available, an empty graph. The fixed
+    // starter nodes used before graph@1 are no longer created.
     final uid = _requireOwnerId();
     final now = DateTime.now();
     final id = _uuid.v4();
-    final nodes = _bootstrapNodes(title: title, audience: audience, rawText: rawText);
-    final edges = _bootstrapEdges(nodes);
+    final graph = accepted?.graph ?? GraphDoc.empty();
     final plan = Plan(
       id: id,
       ownerId: uid,
@@ -110,11 +114,10 @@ class PlanRepository {
       inputMode: inputMode,
       rawText: rawText,
       artefacts: artefacts,
-      nodes: nodes,
-      edges: edges,
       status: PlanStatus.draft,
       createdAt: now,
       updatedAt: now,
+      graph: graph.raw,
     );
 
     final col = _col(uid);
@@ -123,6 +126,10 @@ class PlanRepository {
       _memoryController.add(_sortByUpdated(_memory));
     } else {
       await col.doc(id).set(plan.toJson());
+    }
+    if (accepted != null) {
+      await _appendEvent(uid, plan.id, 'proposal_accepted', accepted.record,
+          before: null, after: accepted.record['graph_sha256'] as String?);
     }
     await NotificationService.instance.emit(
       kind: NotificationKind.planCreated,
@@ -305,86 +312,63 @@ class PlanRepository {
     return sorted;
   }
 
-  // ----- Stage-0 bootstrap -----
-  // Until the LLM extractor is wired up, every new plan gets a tiny seed graph
-  // so the mind-map viewer has something real to render. The user can see
-  // their inputs reflected in the goal node; the rest are placeholder scaffold
-  // that the real pipeline will replace in Phase 1.
-  List<PlanNode> _bootstrapNodes({
-    required String title,
-    required Audience audience,
-    String? rawText,
-  }) {
-    final goal = title.trim().isEmpty ? _derivedTitle(audience, rawText) : title;
-    return [
-      PlanNode(
-        id: 'goal',
-        label: goal,
-        subLabel: 'goal · ${audience.label}',
-        type: EvidenceType.fact,
-        x: 0.5,
-        y: 0.14,
-        confidence: 1.0,
-        source: 'user',
-      ),
-      const PlanNode(
-        id: 'situation',
-        label: 'Situation',
-        subLabel: 'observation',
-        type: EvidenceType.observation,
-        x: 0.22,
-        y: 0.45,
-        confidence: 0.85,
-      ),
-      const PlanNode(
-        id: 'resources',
-        label: 'Resources',
-        subLabel: 'facts',
-        type: EvidenceType.fact,
-        x: 0.78,
-        y: 0.45,
-        confidence: 0.9,
-      ),
-      const PlanNode(
-        id: 'constraints',
-        label: 'Constraints',
-        subLabel: 'facts',
-        type: EvidenceType.fact,
-        x: 0.5,
-        y: 0.62,
-        confidence: 0.9,
-      ),
-      const PlanNode(
-        id: 'risks',
-        label: 'Risks',
-        subLabel: 'hypothesis',
-        type: EvidenceType.hypothesis,
-        x: 0.25,
-        y: 0.80,
-        confidence: 0.6,
-      ),
-      const PlanNode(
-        id: 'plan',
-        label: 'Proposed plan',
-        subLabel: 'prediction',
-        type: EvidenceType.prediction,
-        x: 0.75,
-        y: 0.80,
-        confidence: 0.7,
-      ),
-    ];
+  // ----- graph@1 updates and the event history -----
+
+  /// Save the graph returned by an approved (or rejected) impact decision and
+  /// append the decision record to the plan's history. Rejections are recorded
+  /// too; the graph is then unchanged.
+  Future<Plan> applyGraphUpdate(Plan plan, GraphUpdate update,
+      {required String eventType}) async {
+    final uid = _requireOwnerId();
+    final updated = plan.copyWith(graph: update.graph.raw);
+    final col = _col(uid);
+    if (col == null) {
+      final i = _memory.indexWhere((p) => p.id == updated.id);
+      if (i >= 0) _memory[i] = updated;
+      _memoryController.add(_sortByUpdated(_memory));
+    } else {
+      await col.doc(updated.id).set(updated.toJson());
+    }
+    await _appendEvent(uid, plan.id, eventType, update.record,
+        before: update.record['graph_before_sha256'] as String?,
+        after: update.record['graph_after_sha256'] as String?);
+    return updated;
   }
 
-  List<PlanEdge> _bootstrapEdges(List<PlanNode> nodes) {
-    return const [
-      PlanEdge(fromId: 'situation', toId: 'goal', kind: EdgeKind.supports),
-      PlanEdge(fromId: 'resources', toId: 'goal', kind: EdgeKind.enables),
-      PlanEdge(fromId: 'constraints', toId: 'plan', kind: EdgeKind.requires),
-      PlanEdge(fromId: 'risks', toId: 'plan', kind: EdgeKind.blocks),
-      PlanEdge(fromId: 'plan', toId: 'goal', kind: EdgeKind.causes),
-      PlanEdge(fromId: 'situation', toId: 'plan', kind: EdgeKind.supports),
-      PlanEdge(fromId: 'resources', toId: 'plan', kind: EdgeKind.supports),
-    ];
+  // Append-only history: users/{uid}/plans/{planId}/events/{eventId}.
+  // Timestamps and the actor live here, outside the fingerprinted records.
+  final Map<String, List<Map<String, dynamic>>> _memoryEvents = {};
+
+  Future<void> _appendEvent(String uid, String planId, String type,
+      Map<String, dynamic> record, {String? before, String? after}) async {
+    final event = <String, dynamic>{
+      'id': _uuid.v4(),
+      'type': type,
+      'actor_uid': uid,
+      'graph_before_sha256': before,
+      'graph_after_sha256': after,
+      'record': record,
+    };
+    final col = _col(uid);
+    if (col == null) {
+      event['created_at'] = DateTime.now().toUtc().toIso8601String();
+      (_memoryEvents[planId] ??= []).add(event);
+    } else {
+      event['created_at'] = FieldValue.serverTimestamp();
+      await col.doc(planId).collection('events').doc(event['id'] as String).set(event);
+    }
+  }
+
+  /// The plan's recorded decisions, oldest first (in-memory mode only; used by tests).
+  List<Map<String, dynamic>> memoryEvents(String planId) =>
+      List.unmodifiable(_memoryEvents[planId] ?? const []);
+
+  /// The signed-in account's stable id, recorded as `decided_by`.
+  String get actorId => _requireOwnerId();
+
+  void resetMemoryForTests() {
+    _memory.clear();
+    _memoryEvents.clear();
   }
 
   String _derivedTitle(Audience audience, String? text) {

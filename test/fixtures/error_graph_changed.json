@@ -1,0 +1,10 @@
+{
+ "error": {
+  "code": "graph_changed",
+  "message": "The graph has changed since the preview; preview the change again.",
+  "detail": {
+   "preview_graph": "2e1f9ab635c2b57e511332ee5dfe77da8f653f24a10fdf85a99130cd2fe65076",
+   "current_graph": "126a95c92c90ced1287dc07fbcbf76f1ccb71d08f87eb7acaeee33f25ac58833"
+  }
+ }
+}

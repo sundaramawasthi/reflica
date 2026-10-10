@@ -1,0 +1,268 @@
+{
+ "version": "extraction@1",
+ "source": {
+  "id": "s1",
+  "title": "Irrigation",
+  "media_type": "text/plain",
+  "text": "We want to know whether higher soil moisture increases wheat yield in semi-arid plots. We hypothesise that weekly irrigation raises yield. Our 2024 field trial measured grain yield in 40 plots. Plots irrigated weekly yielded 18% more grain than rain-fed plots, which supports the hypothesis. We assume that soil type is similar across plots. If the hypothesis holds, we plan to recommend weekly irrigation to farmers.",
+  "sha256": "364645d228ebf80f87cd3fedf8f15864db047c0e79a6d6fd8892fc843d1d6e7a"
+ },
+ "restatement": "You want to find out whether more soil moisture, through weekly irrigation, is associated with higher wheat yield in semi-arid plots, and then decide whether to recommend weekly irrigation.",
+ "clarifying_questions": [
+  "Were plots assigned to irrigation at random?",
+  "Is the 18% difference from a single season?"
+ ],
+ "graph": {
+  "version": "graph@1",
+  "sources": [
+   {
+    "id": "s1",
+    "title": "Irrigation",
+    "media_type": "text/plain",
+    "text": "We want to know whether higher soil moisture increases wheat yield in semi-arid plots. We hypothesise that weekly irrigation raises yield. Our 2024 field trial measured grain yield in 40 plots. Plots irrigated weekly yielded 18% more grain than rain-fed plots, which supports the hypothesis. We assume that soil type is similar across plots. If the hypothesis holds, we plan to recommend weekly irrigation to farmers.",
+    "sha256": "364645d228ebf80f87cd3fedf8f15864db047c0e79a6d6fd8892fc843d1d6e7a"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "n1",
+    "kind": "question",
+    "label": "Does higher soil moisture increase wheat yield in semi-arid plots?",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 16,
+      "end": 85,
+      "quote": "whether higher soil moisture increases wheat yield in semi-arid plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n2",
+    "kind": "hypothesis",
+    "label": "Weekly irrigation raises yield",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 107,
+      "end": 137,
+      "quote": "weekly irrigation raises yield"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n3",
+    "kind": "method",
+    "label": "2024 field trial measuring grain yield in 40 plots",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 139,
+      "end": 192,
+      "quote": "Our 2024 field trial measured grain yield in 40 plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n4",
+    "kind": "result",
+    "label": "Weekly irrigated plots yielded 18% more grain",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 194,
+      "end": 259,
+      "quote": "Plots irrigated weekly yielded 18% more grain than rain-fed plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n5",
+    "kind": "assumption",
+    "label": "Soil type is similar across plots",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 307,
+      "end": 340,
+      "quote": "soil type is similar across plots"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n6",
+    "kind": "task",
+    "label": "Recommend weekly irrigation to farmers",
+    "detail": null,
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 378,
+      "end": 416,
+      "quote": "recommend weekly irrigation to farmers"
+     }
+    ],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   },
+   {
+    "id": "n7",
+    "kind": "limitation",
+    "label": "Only one season was measured",
+    "detail": null,
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "confidence": null,
+    "reviews": [],
+    "legacy": null
+   }
+  ],
+  "edges": [
+   {
+    "id": "x1",
+    "source": "n2",
+    "target": "n1",
+    "type": "informs",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x2",
+    "source": "n3",
+    "target": "n4",
+    "type": "derived_from",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x3",
+    "source": "n4",
+    "target": "n2",
+    "type": "supports",
+    "certainty": "confirmed",
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 261,
+      "end": 290,
+      "quote": "which supports the hypothesis"
+     }
+    ],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x4",
+    "source": "n5",
+    "target": "n4",
+    "type": "requires",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x5",
+    "source": "n2",
+    "target": "n6",
+    "type": "enables",
+    "certainty": "confirmed",
+    "basis": "source_quoted",
+    "spans": [
+     {
+      "source_id": "s1",
+      "start": 342,
+      "end": 387,
+      "quote": "If the hypothesis holds, we plan to recommend"
+     }
+    ],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   },
+   {
+    "id": "x6",
+    "source": "n7",
+    "target": "n4",
+    "type": "informs",
+    "certainty": "inferred",
+    "basis": "llm_inferred",
+    "spans": [],
+    "run_id": null,
+    "note": null,
+    "legacy": null
+   }
+  ]
+ },
+ "refs": {
+  "q": "n1",
+  "h": "n2",
+  "m": "n3",
+  "r": "n4",
+  "a": "n5",
+  "t": "n6",
+  "l": "n7"
+ },
+ "issues": [
+  {
+   "code": "no_quote",
+   "severity": "info",
+   "message": "No supporting words were given; marked as inferred by the model.",
+   "ref": "l"
+  }
+ ],
+ "model": {
+  "provider": "scripted",
+  "model": "scripted-v1",
+  "prompt_version": "extract-text@1",
+  "request_sha256": "e8bbf8721663b92b68cbb520c16e27206cc680fe9eaf9c768bc9d91415396dad",
+  "response_sha256": "0852abc19aff7be2f67cb280f242505edd1389b2c84fcce5a129ffefcb396a40"
+ },
+ "proposal_sha256": "8ce22f14ff6a2342f39ec6ee2d7fc23cf07a6bd12e57a89a18bc3b70b47be44e"
+}

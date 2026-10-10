@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../graph/graph1.dart';
 import '../models/plan.dart';
 import '../services/plan_repository.dart';
+import '../services/reflica_api.dart';
 import '../theme/app_theme.dart';
 import '../widgets/dashboard/dashboard_sidebar.dart';
+import '../widgets/graph/research_graph_panel.dart';
 import '../widgets/plan/node_editor_dialog.dart';
 import '../widgets/plan/plan_mind_map.dart';
 import '../widgets/responsive.dart';
@@ -105,6 +108,7 @@ class _DetailBodyState extends State<_DetailBody> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.plan.hasGraph) return _graphBody(context);
     return Column(
       children: [
         _TopBar(
@@ -142,18 +146,63 @@ class _DetailBodyState extends State<_DetailBody> {
   }
 }
 
+extension on _DetailBodyState {
+  // graph@1 plans: the researcher-reviewed graph; changes go through the
+  // impact preview and are recorded in the plan's event history.
+  Widget _graphBody(BuildContext context) {
+    final repo = PlanRepository.instance;
+    return Column(
+      children: [
+        _TopBar(
+          plan: widget.plan,
+          showMenu: widget.showMenu,
+          editMode: false,
+          showEditToggle: false,
+          onToggleEdit: () {},
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _PlanMeta(plan: widget.plan),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: ResearchGraphPanel(
+                    graph: GraphDoc.fromJson(widget.plan.graph!),
+                    api: ReflicaApi.instance,
+                    decidedBy: repo.actorId,
+                    onUpdate: (up, type) async {
+                      await repo.applyGraphUpdate(widget.plan, up, eventType: type);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _RawInputBlock(plan: widget.plan, editMode: false),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 // ---------- top bar with inline title edit ----------
 
 class _TopBar extends StatefulWidget {
   final Plan plan;
   final bool showMenu;
   final bool editMode;
+  final bool showEditToggle;
   final VoidCallback onToggleEdit;
   const _TopBar({
     required this.plan,
     required this.showMenu,
     required this.editMode,
     required this.onToggleEdit,
+    this.showEditToggle = true,
   });
 
   @override
@@ -280,7 +329,8 @@ class _TopBarState extends State<_TopBar> {
               ],
             ),
           ),
-          _EditToggle(active: widget.editMode, onTap: widget.onToggleEdit),
+          if (widget.showEditToggle)
+            _EditToggle(active: widget.editMode, onTap: widget.onToggleEdit),
           const SizedBox(width: 8),
           IconButton(
             tooltip: 'Delete plan',
@@ -627,12 +677,12 @@ class _PlanMeta extends StatelessWidget {
               value: plan.inputMode.label),
           _MetaItem(
               icon: Icons.layers_outlined,
-              label: 'Nodes',
-              value: '${plan.nodes.length}'),
+              label: plan.hasGraph ? 'Items' : 'Nodes',
+              value: '${plan.hasGraph ? (plan.graph!['nodes'] as List).length : plan.nodes.length}'),
           _MetaItem(
               icon: Icons.alt_route_outlined,
-              label: 'Edges',
-              value: '${plan.edges.length}'),
+              label: plan.hasGraph ? 'Links' : 'Edges',
+              value: '${plan.hasGraph ? (plan.graph!['edges'] as List).length : plan.edges.length}'),
           _MetaItem(
               icon: Icons.schedule,
               label: 'Updated',

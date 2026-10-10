@@ -56,6 +56,7 @@ dependencies:
   # Native in-app Google sign-in on Android / iOS (bottom-sheet UX instead of
   # Firebase's separate GenericIdpActivity).
   google_sign_in: ^6.2.1
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

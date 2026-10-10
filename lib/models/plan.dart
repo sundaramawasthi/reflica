@@ -138,6 +138,9 @@ class Plan {
   final PlanStatus status;
   final DateTime createdAt;
   final DateTime updatedAt;
+  // graph@1 JSON exactly as returned by reflica_service (see lib/graph/graph1.dart).
+  // Null for plans created before graph@1: those keep the legacy nodes/edges above.
+  final Map<String, dynamic>? graph;
 
   const Plan({
     required this.id,
@@ -152,7 +155,10 @@ class Plan {
     this.status = PlanStatus.draft,
     required this.createdAt,
     required this.updatedAt,
+    this.graph,
   });
+
+  bool get hasGraph => graph != null;
 
   Plan copyWith({
     String? title,
@@ -160,6 +166,7 @@ class Plan {
     List<PlanEdge>? edges,
     PlanStatus? status,
     DateTime? updatedAt,
+    Map<String, dynamic>? graph,
   }) =>
       Plan(
         id: id,
@@ -174,6 +181,7 @@ class Plan {
         status: status ?? this.status,
         createdAt: createdAt,
         updatedAt: updatedAt ?? DateTime.now(),
+        graph: graph ?? this.graph,
       );
 
   Map<String, dynamic> toJson() => {
@@ -189,6 +197,7 @@ class Plan {
         'status': status.name,
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
+        if (graph != null) 'graph': graph,
       };
 
   factory Plan.fromJson(Map<String, dynamic> j) => Plan(
@@ -213,5 +222,17 @@ class Plan {
             .firstWhere((s) => s.name == j['status'], orElse: () => PlanStatus.draft),
         createdAt: DateTime.parse(j['createdAt'] as String),
         updatedAt: DateTime.parse(j['updatedAt'] as String),
+        graph: j['graph'] == null ? null : jsonMap(j['graph'] as Map),
       );
 }
+
+/// Deep copy with String keys. Firestore may return nested maps whose static
+/// type is `Map<Object?, Object?>`; graph@1 parsing expects `Map<String, dynamic>`.
+Map<String, dynamic> jsonMap(Map m) =>
+    {for (final e in m.entries) e.key as String: _jsonValue(e.value)};
+
+Object? _jsonValue(Object? v) => switch (v) {
+      Map() => jsonMap(v),
+      List() => [for (final x in v) _jsonValue(x)],
+      _ => v,
+    };

@@ -2,8 +2,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../graph/graph1.dart';
 import '../models/plan.dart';
 import '../services/plan_repository.dart';
+import '../services/reflica_api.dart';
+import 'proposal_review_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/dashboard/dashboard_sidebar.dart';
 import '../widgets/responsive.dart';
@@ -305,12 +308,22 @@ class _NewPlanFlowState extends State<NewPlanFlow> {
       } else if (_mode == InputMode.form) {
         rawText = _composeFormAsText();
       }
+      GraphUpdate? accepted;
+      if (rawText != null && rawText.isNotEmpty) {
+        final (update, proceed) = await _extractAndReview(rawText);
+        if (!proceed) {
+          if (mounted) setState(() => _submitting = false);
+          return;
+        }
+        accepted = update;
+      }
       final plan = await PlanRepository.instance.createPlan(
         title: _titleCtrl.text.trim(),
         audience: _audience!,
         inputMode: _mode!,
         rawText: rawText,
         artefacts: List.unmodifiable(_artefacts),
+        accepted: accepted,
       );
       if (!mounted) return;
       Navigator.of(context).pushReplacementNamed('/plan', arguments: plan.id);
@@ -321,6 +334,42 @@ class _NewPlanFlowState extends State<NewPlanFlow> {
       );
       setState(() => _submitting = false);
     }
+  }
+
+  /// Text -> proposal (service) -> researcher review. Returns the accepted
+  /// graph, or (null, true) to continue with an empty graph when extraction is
+  /// unavailable and the researcher chooses to, or (null, false) to stay here.
+  Future<(GraphUpdate?, bool)> _extractAndReview(String text) async {
+    final api = ReflicaApi.instance;
+    final title = _titleCtrl.text.trim();
+    ExtractionProposalView proposal;
+    try {
+      proposal = await api.extract(text, title: title.isEmpty ? 'Research problem' : title);
+    } on ReflicaApiException catch (e) {
+      if (!mounted) return (null, false);
+      final empty = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Automatic graph extraction is unavailable'),
+          content: Text('${e.message}\n\nYou can create the plan with an empty graph and '
+              'add items later, or go back.'),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Go back')),
+            FilledButton(
+                key: const ValueKey('create-empty'),
+                onPressed: () => Navigator.pop(ctx, true),
+                child: const Text('Create with empty graph')),
+          ],
+        ),
+      );
+      return (null, empty == true);
+    }
+    if (!mounted) return (null, false);
+    final update = await Navigator.of(context).push<GraphUpdate>(MaterialPageRoute(
+      builder: (_) => ProposalReviewScreen(
+          proposal: proposal, api: api, decidedBy: PlanRepository.instance.actorId),
+    ));
+    return (update, update != null);
   }
 
   String _composeFormAsText() {

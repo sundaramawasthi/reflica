@@ -1,0 +1,89 @@
+{
+ "version": "impact@1",
+ "analyzer": "link_following@1",
+ "graph_sha256": "2e1f9ab635c2b57e511332ee5dfe77da8f653f24a10fdf85a99130cd2fe65076",
+ "change": {
+  "op": "delete_node",
+  "node_id": "n3"
+ },
+ "items": [
+  {
+   "node_id": "n2",
+   "relation": "downstream",
+   "certainty": "confirmed",
+   "path": [
+    "x2",
+    "x3"
+   ],
+   "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted)."
+  },
+  {
+   "node_id": "n3",
+   "relation": "changed",
+   "certainty": "confirmed",
+   "path": [],
+   "explanation": "This node is being deleted."
+  },
+  {
+   "node_id": "n4",
+   "relation": "direct",
+   "certainty": "confirmed",
+   "path": [
+    "x2"
+   ],
+   "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated)."
+  },
+  {
+   "node_id": "n6",
+   "relation": "downstream",
+   "certainty": "confirmed",
+   "path": [
+    "x2",
+    "x3",
+    "x5"
+   ],
+   "explanation": "Affected through: 'Weekly irrigated plots yielded 18% more grain' is derived from '2024 field trial measuring grain yield in 40 plots' (confirmed, user stated); 'Weekly irrigated plots yielded 18% more grain' supports 'Weekly irrigation raises yield' (confirmed, source quoted); 'Weekly irrigation raises yield' enables 'Recommend weekly irrigation to farmers' (confirmed, source quoted)."
+  }
+ ],
+ "unaffected": [
+  "n1",
+  "n5"
+ ],
+ "related_unaffected": [
+  "n1"
+ ],
+ "proposed_updates": [
+  {
+   "action": "delete_node",
+   "target": "n3",
+   "description": "Delete method '2024 field trial measuring grain yield in 40 plots'."
+  },
+  {
+   "action": "delete_edge",
+   "target": "x2",
+   "description": "Remove link n3 --derived_from--> n4, which cannot exist without the deleted node."
+  },
+  {
+   "action": "flag_for_review",
+   "target": "n2",
+   "description": "Flag for review (confirmed); it is not changed or deleted."
+  },
+  {
+   "action": "flag_for_review",
+   "target": "n4",
+   "description": "Flag for review (confirmed); it is not changed or deleted."
+  },
+  {
+   "action": "flag_for_review",
+   "target": "n6",
+   "description": "Flag for review (confirmed); it is not changed or deleted."
+  }
+ ],
+ "limitations": [
+  "Link-following treats every propagating link (requires, supports, causes, blocks, enables, derived_from) as a possible dependency. It shows what may need review; it does not decide whether a dependent conclusion actually changes.",
+  "Links of type informs or references do not carry a change forward; items connected only that way are listed as related but unaffected.",
+  "Uncertain means every path from the change runs through at least one inferred link that the researcher has not confirmed.",
+  "Only links recorded in the graph are followed; dependencies missing from the graph cannot be found."
+ ],
+ "preview_sha256": "c5b316c159309156ed677146d6e90608bb7e13467a9e424b280a11a4df54d320"
+}

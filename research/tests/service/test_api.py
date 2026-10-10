@@ -138,3 +138,16 @@ def test_cors_allows_only_local_origins():
     bad = c.options("/v1/health", headers={"Origin": "https://example.com",
                                            "Access-Control-Request-Method": "GET"})
     assert "access-control-allow-origin" not in bad.headers
+
+
+def test_dart_fixtures_are_current():
+    """The Flutter tests parse these files; they must equal real API output."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "make_dart_fixtures", Path(__file__).parent / "make_dart_fixtures.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    for name, obj in mod.responses().items():
+        assert (mod.OUT / name).read_text() == mod.render(obj), name
+    err = json.loads((mod.OUT / "error_graph_changed.json").read_text())
+    assert err["error"]["code"] == "graph_changed"
