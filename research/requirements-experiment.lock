@@ -1,0 +1,29 @@
+# requirements-experiment.lock — exact environment for the full experiment (protocol P3).
+# python==3.13.16
+# PROVISIONAL: generated 2026-10-10 in the review container (Linux x86_64) from 'pip freeze'.
+# Before freezing, install this on the machine that will run the experiment (or regenerate it there,
+# with the owner's approval), then run 'python experiments/full_run/runner.py env-check' and the full test suite.
+# The gate refuses every model request unless this interpreter and these exact versions are installed.
+# Install: pip install -r requirements-experiment.lock && pip install --no-deps -e .
+absl-py==2.5.1
+annotated-types==0.8.0
+coverage==7.16.2
+immutabledict==4.3.1
+iniconfig==2.3.1
+networkx==3.7
+numpy==2.5.3
+ortools==9.15.6755
+packaging==26.3
+pandas==3.0.6
+pluggy==1.6.0
+protobuf==6.33.6
+pydantic==2.14.0
+pydantic_core==2.50.0
+Pygments==2.21.0
+pytest==9.1.1
+pytest-cov==7.1.0
+python-dateutil==2.9.0.post0
+scipy==1.18.1
+six==1.17.0
+typing-inspection==0.4.4
+typing_extensions==4.16.0

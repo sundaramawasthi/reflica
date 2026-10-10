@@ -1,0 +1,148 @@
+{
+ "all_packages": [
+  "Pygments==2.21.0",
+  "absl-py==2.5.1",
+  "annotated-types==0.8.0",
+  "coverage==7.16.2",
+  "immutabledict==4.3.1",
+  "iniconfig==2.3.1",
+  "networkx==3.7",
+  "numpy==2.5.3",
+  "ortools==9.15.6755",
+  "packaging==26.3",
+  "pandas==3.0.6",
+  "pip==26.2.1",
+  "pluggy==1.6.0",
+  "protobuf==6.33.6",
+  "pydantic==2.14.0",
+  "pydantic_core==2.50.0",
+  "pytest-cov==7.1.0",
+  "pytest==9.1.1",
+  "python-dateutil==2.9.0.post0",
+  "reflica-bench==0.1.0",
+  "reflica-bench==0.1.0",
+  "scipy==1.18.1",
+  "six==1.17.0",
+  "typing-inspection==0.4.4",
+  "typing_extensions==4.16.0"
+ ],
+ "fingerprints_for_freeze": {
+  "analysis_code": {
+   "adapters.py": "8454f27fc6bd1ce629cf6607bcddef9d096a7adce565b757174b8b86fa6d958f",
+   "baseline.py": "b8ad5ddb02599a1afc408f4074194815fa8128c7e60bfcf2fb06938b5155caec",
+   "endpoints.py": "bf311024a934272b18d47e2913123611f36b8f03f7890a4f20a462c52d515f0e",
+   "evaluator.py": "5f853db0bfc7b4d28e445bc9ea0d36171e4888a429e9bad431d54ba876f8a167",
+   "extraction_schema.py": "fa4c8bb2fdd9516a376b5bec5dd78355bc3df28132a0da0aa7294eaa50669966",
+   "loader.py": "61f4fb7dacb2e3462b6d0b07552e0e5ada21b90c479406e5ab3840cb39fdbaf4",
+   "protocol_lock.py": "8c8234079d74cab12027fbadfccfef6a0a7d5ef7d530673e4212c66b11f34a25",
+   "schema.py": "d0c4eeae3a21bfc936a78cd64e81bcc6dee87118ff5026ca94142dd09bddb3b2",
+   "stats.py": "350f36e583deb08df057f0b907c9805f69da7335c4817f7e48e147ecf9828bd9"
+  },
+  "b5_files": {
+   "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "engine.py": "9f5257207c5c9f4c98296b4e34d03e4f3b9dcda56b99b49b50b7a2042f9f2fdf",
+   "reflica.py": "e6ed63866771063045ffaba6554c765fc6f21ff4fe916a980ceb197474e9ca5a"
+  },
+  "b5_version_id": "fc9524a4ea38cca5",
+  "baselines_code": {
+   "__init__.py": "517fce668991e3bf902b6f7a923b164a2d04c3aa2b8835294ea9b17d9bf67159",
+   "_event.py": "1d9357e0c4bc63c6e67f0817a33d42e6664e61a19f1b2cb293371f83ce7e522c",
+   "b3_reachability.py": "85ccbea5fc859c78481e67f99bae6362296a331e5a900a069da047692d74c558",
+   "b4a_atms.py": "e064d07414271d5e76e3f903222b924b186e8f90f70984bc4cf94e7241730ad9",
+   "b4b_cpsat.py": "426ea80741a429a6aa1d0a294c988e11338d8ec72b585795aabfedccd89b0c9c",
+   "b4b_weighted_csp.py": "81630c34e2ba52a80e0b40980497c050a48a0194a10645ff772b220fc3ae8183"
+  },
+  "benchmark_manifest_sha256": "27b6ea09986157677bfa5feaac05c125a52d5b5cc4f761e8e831d0092b3b6915",
+  "client_sha256": "5f46a2daca08f694809cc49596b30c5d9d1ef3f70d607494eb652ab618ba83fc",
+  "environment": {
+   "implementation": "CPython",
+   "packages": {
+    "networkx": "3.7",
+    "numpy": "2.5.3",
+    "ortools": "9.15.6755",
+    "protobuf": "6.33.6",
+    "pydantic": "2.14.0",
+    "pydantic-core": "2.50.0"
+   },
+   "python": "3.13.16"
+  },
+  "environment_all_packages": "aa2fe1c929d5981d4caa9233245304916ac9e4262bfcaac5c272c29fa07b2656",
+  "environment_lock_sha256": "e632e51e3ca30118a157d57b99d5a473052e12a2b1ba08f1fe5d25df4e77f8d8",
+  "full_run_code": {
+   "analysis.py": "f7c4e0caefbb2f4825406fc9b74be5c34ecb0b1c6842c8ddb1b7c120b626f228",
+   "preflight.py": "6cb9aeb469cac3b00f0feee277b48005e20defb6a2e16d6521a1747cafa4535a",
+   "runner.py": "fd5574291a18d910c4ab9c513034bb7b526fedde32faceddabe811d34d68aea8",
+   "simulations/__init__.py": "279815a57605e02f97423a2047fe5e85277a8e2ace723d8ea26db545ed285765",
+   "simulations/alt_sim.py": "579837f077eda22be989e89872dd64d2eedad5eb05150bf920e78d0c81ca3f04",
+   "simulations/binary_cov.py": "689140907749d582775e96e48ea0d38a9f71460e132b448feeeb1df5d8469fce",
+   "simulations/coverage_sim.py": "4e8720a991acd000ee21ea365c678de830eb8f5c2802cab03f90498e7d4a8195",
+   "simulations/s1_study.py": "df3c961ab7f70d23266ec33b6c4eb9da825d6181687f75971ce6d7c1a32bd702",
+   "simulations/size_sim.py": "7c2d3f5de9518653168c162c979a59c6d3777454453e166b56cdbc3dc3d6b005",
+   "simulations/verdict_sim.py": "3b923b54663a21e5526fc3f826613389e31cde451550463643ec8c1fce6749cb"
+  },
+  "llm_config_sha256": "0010914eaabcb9b9640b8a3b5d2cb03b262727b8b812dff0bcf906f5f7d7e209",
+  "pilot_code": {
+   "_api.py": "5f46a2daca08f694809cc49596b30c5d9d1ef3f70d607494eb652ab618ba83fc",
+   "pilot.py": "0f7f39592fd8b8a975364728f2acb25fd19c497e2ec5e40aafc9fa69fc229007",
+   "repeatability.py": "f5a6b25355b8245e00186b6cc9808d47c1897b2427d475faeec37cda7d994daf"
+  },
+  "prompts": {
+   "b1_full_regeneration.v1.1.txt": "88922e5dd31c2bab7057a7d83fd6384ca3af547aff441022184451c65075a9ce",
+   "b1_full_regeneration.v1.txt": "7466652fad46688b6bc19fb6b9bf38e78f834721ef7952ccc6e605f3ce512e3f",
+   "b2_delta.v1.1.txt": "059a1b9880a1ca26b7cb9df91c5d383c4da3233c6cd6cf14aded6fe771764edd",
+   "b2_delta.v1.txt": "4b8c83db52552fcca6182875cb89b9470641b99b9497c1fd57871f715c8e3ffe",
+   "common_reasons.txt": "fcc50a8a70379bb0c5c8e4abbab0fd54a8f0c431220f0cd97aeed3a32476b61f",
+   "extractor.v1.1.txt": "2477e7b036ac4022fb8ee88bd3d26400d68f0c660b2610a12a0f4211286e305d",
+   "extractor.v1.txt": "03207dbe5b9bbeb672936d68b083765cc39b6888da482c04ea9941ba87de4934"
+  },
+  "protocol_sha256": "b787b5cc4d0c34d1171257b592cb4eed6a368a1d7b52ccb348dc342a20b2f015",
+  "render_version": "rn-template-1.0.0",
+  "rendered_texts_sha256": "09abee0389a60926d8e076236d787388bda8fefbb153dc8ddcb4a872f1504ac3",
+  "runtime_code": {
+   "groundtruth.py": "2d99b03927ac5fb1305f1c8759a289d37c4be0f643bde0e13cfaf8af37f85325",
+   "groundtruth_quant.py": "f44622a9a4dabff8c0ba34a8d3791355a30980bbef205c167ff2f437376db32c",
+   "gt_engine.py": "3b9fb3e8a71d83d9b03a3e36fc7d01f802d563e045f70122b5100865ad0dc742",
+   "linter.py": "745497b1012f85c6fdeda1ce9d0f274e1b703a0aafb247b43b8a29549dd2bf8b",
+   "rn.py": "fdf38d63288e3a9f0edc45540cfb8b7f4e17965328d80c1b67df5d606f351353"
+  },
+  "schemas": {
+   "extractor_output.schema.v1.2.json": "34ba3460167a2e00d9b55941a0eb8e8e95b4541f6da908803d0c211debbb783a",
+   "extractor_output.schema.v1.4.json": "23677cb13049bfe0cb1f6f0cdfd56f639715edb85940d959eb2062fdc46b86de",
+   "extractor_output.schema.v1.json": "27c3c1ec0d01a5c22157dc4d2b9cc0e6cf1f3aca0eb59c2105bca72d934b85d2",
+   "revision_output.schema.v1.json": "b19ffb3a079a8f91ae36522b1018db85d8f2bdc15ae978cdc1043853329e000a"
+  }
+ },
+ "generated_at": "2026-10-10T15:45:53.679191+00:00",
+ "machine": {
+  "implementation": "CPython",
+  "machine": "x86_64",
+  "packages": {
+   "networkx": "3.7",
+   "numpy": "2.5.3",
+   "ortools": "9.15.6755",
+   "protobuf": "6.33.6",
+   "pydantic": "2.14.0",
+   "pydantic-core": "2.50.0"
+  },
+  "python": "3.13.16",
+  "python_build": "main Oct  1 2026 15:40:24",
+  "release": "6.18.44-fc-v114",
+  "system": "Linux"
+ },
+ "preflight_passed": true,
+ "steps": {
+  "1_environment_lock": [],
+  "2_record_problems": [],
+  "3_lock_state": {
+   "frozen": false,
+   "problems": []
+  },
+  "4_test_suite": {
+   "exit_code": 0,
+   "summary": [
+    "284 passed in 20.32s"
+   ]
+  },
+  "5_gate": "REFUSED: protocol is not frozen (no protocol_lock.json); no LLM call may be made"
+ }
+}
