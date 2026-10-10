@@ -49,8 +49,8 @@ A separate Python benchmark for the thesis:
 Current state:
 
 - **Benchmark v0.2.0:** 63 scenarios across 7 categories, fingerprinted and frozen.
-- **Baselines:** B3 (reachability), B4a (ATMS), B4b (OR-Tools CP-SAT), plus LLM baselines B1/B2.
-- **B5 (the Reflica revision engine) v0.1.0:** frozen for the plan/state-graph benchmark; agrees with gold on all 63 scenarios; not yet connected to the experiment runner.
+- **Baselines:** B3 (reachability), B4a (ATMS), and B4b (OR-Tools CP-SAT); B1/B2 LLM prompt-and-schema baselines used in the pilot.
+- **B5 (the Reflica revision engine) v0.1.0:** frozen and agrees with gold on all 63 scenarios in the plan/state-graph benchmark; not yet connected to the experiment runner.
 - **Natural-language pilot:** complete (144/144 calls).
 - **Tests:** 203 passing.
 
