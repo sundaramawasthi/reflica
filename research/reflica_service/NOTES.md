@@ -2,7 +2,7 @@
 
 Local scientific-analysis service for the first vertical slice described in `../PLATFORM_AUDIT.md`. Product work; it does not change the locked M.Tech thesis scope.
 
-**Status (Step 2, after review fixes):** CSV ingestion (`csv_adapter.py`), `describe@1` and timeout-bounded execution (`execution.py`) are implemented and tested. `regress`, `sweep`, storage, the router and API routes are not implemented. `describe@1` is not yet frozen: its output may still change before the first commit of this package; after that, any output change requires a new version.
+**Status (Step 3, uncommitted):** CSV ingestion (`csv_adapter.py`), `describe@1`, `regress@1` and timeout-bounded execution (`execution.py`) are implemented and tested. `sweep`, storage, the router and API routes are not implemented. Neither `describe@1` nor `regress@1` is frozen yet: their output may still change before the first commit of this package; after that, any output change requires a new version.
 
 ## Scientific-correctness requirements
 
@@ -72,5 +72,78 @@ Before the Step 2 review the 200-column file ran for over 10 minutes; before the
 
 **Guaranteed by tests:** limits on size, rows and columns; correlation work bounded by `max_correlation_work` and `correlation_refine_budget_rows`, with every skipped or unrefined correlation reported; a running analysis is stopped at the time limit and its process cleaned up. **Not guaranteed:** any particular wall-clock time on other hardware (the time limit remains the backstop), or any bound on memory beyond the size limit (about 20–30× the file size was observed).
 
+## regress@1 (Step 3)
+
+Ordinary least-squares linear regression with uncertainty and diagnostics. Needs NumPy (the `service` extra), imported inside functions; p-values and quantiles use standard-library code in `analyses/_distributions.py`, so SciPy is not needed.
+
+**Researcher in control: two steps.**
+1. `execution.prepare_regress(data, RegressSpec)` validates the request and returns a `RegressPlan`: formula, rows used and dropped (missing counts per column), parameters, residual degrees of freedom, planned diagnostics, pre-fit warnings, a plain-language summary, and `plan_sha256` (SHA-256 of the plan's canonical JSON). Nothing is fitted.
+2. `execution.run_regress(data, plan, Approval(plan_sha256, approved_by, note))` fits only if the approval names that hash (`approval_mismatch`), the plan was not edited (`plan_modified`), and the plan re-derived from `data` is identical (`plan_mismatch`: different data, specification or service version). The first two checks run before any process starts.
+
+`RegressSpec`: `target`, `predictors` (1 to `max_regress_predictors`, default 20), `intercept` (default true), `confidence_level` (0.5 to 0.999, default 0.95), `row_order_meaningful` (default false; enables the Durbin-Watson independence check) and `question` (recorded only, never interpreted).
+
+**Refused with a stable code** (`AnalysisInputError`): `unknown_column`, `target_in_predictors`, `duplicate_predictor`, `too_many_predictors`, `non_numeric_column` (with count and up to 3 example values), `all_missing`, `insufficient_observations` (fewer than parameters + 1 complete rows), `constant_target`, `constant_predictor` (after listwise deletion; allowed without an intercept unless all zero), `perfect_collinearity` (singular-value ratio < 1e-10; names the columns involved; never resolved by silently dropping a column), `numerical_failure`.
+
+**Method.** Listwise deletion. Each column is rescaled by an exact power of two; with an intercept, columns are centred with a two-pass mean; predictors are scaled to unit length and the problem is solved by SVD. Coefficients, standard errors and t are formed in scaled units and only then rescaled, so results are scale-invariant from 1e-200 to 1e150. The coefficient covariance is reported as unavailable if its entries leave the floating-point range. If the residual norm is at most 1e-12 times the total norm the fit is "perfect": estimates are reported, but every uncertainty and diagnostic value is `unavailable` with the reason, never infinite.
+
+**Output: three separate parts.**
+- `measured`:
+  - fit statistics: R² (centred, or uncentred without an intercept, labelled), adjusted R², residual SE, F test, log-likelihood, AIC, BIC;
+  - per coefficient: estimate, SE, t, two-sided p, CI, standardized coefficient, VIF;
+  - the coefficient covariance;
+  - per row: fitted value, residual, leverage, standardized and studentized residuals, Cook's distance;
+  - diagnostics: residual quantiles, Durbin-Watson, Breusch-Pagan (Koenker), Jarque-Bera, RESET (fitted²), condition number, and the rows flagged for high leverage (> 2p/n), influence (Cook > 4/n) and outliers (|studentized| > 3);
+  - the observed range of each predictor (`sweep` needs these to refuse extrapolation).
+- `assumptions`: 8 named assumptions. Each has a status:
+  - `contradicted` or `not_contradicted`, from its diagnostic at α = 0.05;
+  - `not_checkable`;
+  - `unavailable`.
+
+  A `not_contradicted` result always says the test does not show the assumption holds.
+- `interpretation`: statements generated from fixed templates in association-only language, plus `next_steps` suggestions for the researcher to decide on, which always include that a designed study is needed to learn whether changing a predictor changes the target.
+
+`warnings` and `limitations` are separate from all three parts. The tests forbid causal or "significant" wording in every generated text except the limitation that names cause and effect.
+
+**Reproducibility.** The `run` record holds:
+- the dataset SHA-256 and the plan hash;
+- the full spec, including the question;
+- the approver and note;
+- the service and analysis version;
+- the solver description;
+- the Python and NumPy versions.
+
+The output is deterministic for the same inputs and environment.
+
+**Verification.** Known answers are from R 4.3.3 `lm()` and textbook formulas, written by `tests/service/data/regress_reference/make_reference.R` (base R only; R is not needed to run the tests) for four cases:
+- `longley`: ill-conditioned, 6 predictors;
+- `mtcars` `mpg ~ wt + hp`;
+- `cars` `dist ~ 0 + speed`: no intercept;
+- `airquality` `Ozone ~ Solar.R + Wind + Temp`: 42 rows dropped, 90% CI.
+
+Every reported quantity agrees with R within 1e-9 relative or better, and most agree within 1e-12. A grid of 302 distribution values is also checked against R. Further tests cover:
+- every validation code;
+- the approval and tamper checks;
+- determinism and row-order invariance;
+- CI coverage by simulation (300 datasets);
+- that the diagnostics flag heteroscedastic, curved and autocorrelated data;
+- leverage-1 rows;
+- perfect and minimal-df fits;
+- extreme magnitudes;
+- the time limit;
+- 100,000 rows × 20 predictors through both process steps: about 11 s on this machine, mostly CSV parsing in each step.
+
+A mutation check found that 9 of 10 seeded formula errors were caught. The survivor removes an accuracy-refinement step whose effect is below the test tolerances.
+
+**Not in version 1 (limitations):**
+- robust, clustered or weighted standard errors;
+- categorical predictors or interactions (numeric columns only);
+- transformations;
+- model selection;
+- multiple-testing adjustment;
+- prediction intervals for new points (planned with `sweep`);
+- a p-value for Durbin-Watson.
+
+Diagnostic thresholds (VIF 10, Cook 4/n, leverage 2p/n, |t| 3, α 0.05) are conventional flags for review, not decision rules.
+
 ## Optional test-only reference: statsmodels (not added)
-Using `statsmodels` as a reference for `regress@1` tests would give an independent, widely used implementation to compare against. Trade-offs: it pulls in SciPy, pandas and patsy (large installs, slower CI), its versions change numerical details over time, and agreement with it is evidence of consistency, not of correctness. If added, it belongs in a separate optional `reference` extra used only by tests that skip when it is absent, so neither the runtime nor the benchmark depends on it. Textbook datasets with published coefficients are a complementary reference that needs no dependency.
+Using `statsmodels` as a reference for `regress@1` tests would give an independent, widely used implementation to compare against. Trade-offs: it pulls in SciPy, pandas and patsy (large installs, slower CI), its versions change numerical details over time, and agreement with it is evidence of consistency, not of correctness. If added, it belongs in a separate optional `reference` extra used only by tests that skip when it is absent, so neither the runtime nor the benchmark depends on it. Textbook datasets with published coefficients are a complementary reference that needs no dependency. Step 3 used that route: R `lm()` references are stored as JSON, so statsmodels is still not needed.
