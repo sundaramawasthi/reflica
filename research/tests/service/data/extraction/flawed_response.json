@@ -1,0 +1,17 @@
+{
+ "restatement": "You want to know whether irrigation raises wheat yield.",
+ "items": [
+  {"ref": "h", "kind": "hypothesis", "label": "Weekly irrigation raises yield", "quote": "weekly   irrigation\nraises yield"},
+  {"ref": "r", "kind": "result", "label": "Irrigated plots yielded 25% more grain", "quote": "Plots irrigated weekly yielded 25% more grain"},
+  {"ref": "r", "kind": "claim", "label": "A second item reusing the name r", "quote": null},
+  {"ref": "t", "kind": "task", "label": "Recommend weekly irrigation", "quote": "recommend weekly irrigation to farmers"}
+ ],
+ "links": [
+  {"source": "r", "target": "h", "type": "supports", "quote": "which proves the hypothesis"},
+  {"source": "h", "target": "t", "type": "causes", "quote": null},
+  {"source": "h", "target": "t", "type": "causes", "quote": null},
+  {"source": "x", "target": "h", "type": "supports", "quote": null},
+  {"source": "h", "target": "h", "type": "supports", "quote": null}
+ ],
+ "clarifying_questions": []
+}

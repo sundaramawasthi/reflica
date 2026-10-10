@@ -1,0 +1,21 @@
+{
+ "restatement": "You want to find out whether more soil moisture, through weekly irrigation, is associated with higher wheat yield in semi-arid plots, and then decide whether to recommend weekly irrigation.",
+ "items": [
+  {"ref": "q", "kind": "question", "label": "Does higher soil moisture increase wheat yield in semi-arid plots?", "quote": "whether higher soil moisture increases wheat yield in semi-arid plots"},
+  {"ref": "h", "kind": "hypothesis", "label": "Weekly irrigation raises yield", "quote": "weekly irrigation raises yield"},
+  {"ref": "m", "kind": "method", "label": "2024 field trial measuring grain yield in 40 plots", "quote": "Our 2024 field trial measured grain yield in 40 plots"},
+  {"ref": "r", "kind": "result", "label": "Weekly irrigated plots yielded 18% more grain", "quote": "Plots irrigated weekly yielded 18% more grain than rain-fed plots"},
+  {"ref": "a", "kind": "assumption", "label": "Soil type is similar across plots", "quote": "soil type is similar across plots"},
+  {"ref": "t", "kind": "task", "label": "Recommend weekly irrigation to farmers", "quote": "recommend weekly irrigation to farmers"},
+  {"ref": "l", "kind": "limitation", "label": "Only one season was measured", "quote": null}
+ ],
+ "links": [
+  {"source": "h", "target": "q", "type": "informs", "quote": null},
+  {"source": "m", "target": "r", "type": "derived_from", "quote": null},
+  {"source": "r", "target": "h", "type": "supports", "quote": "which supports the hypothesis"},
+  {"source": "a", "target": "r", "type": "requires", "quote": null},
+  {"source": "h", "target": "t", "type": "enables", "quote": "If the hypothesis holds, we plan to recommend"},
+  {"source": "l", "target": "r", "type": "informs", "quote": null}
+ ],
+ "clarifying_questions": ["Were plots assigned to irrigation at random?", "Is the 18% difference from a single season?"]
+}

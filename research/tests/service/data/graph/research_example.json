@@ -26,7 +26,8 @@
    ],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   },
   {
    "id": "m1",
@@ -44,7 +45,8 @@
    ],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   },
   {
    "id": "r1",
@@ -62,7 +64,8 @@
    ],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   },
   {
    "id": "a1",
@@ -80,7 +83,8 @@
    ],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   },
   {
    "id": "t1",
@@ -98,7 +102,8 @@
    ],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   },
   {
    "id": "l1",
@@ -109,7 +114,8 @@
    "spans": [],
    "run_id": null,
    "confidence": null,
-   "reviews": []
+   "reviews": [],
+   "legacy": null
   }
  ],
  "edges": [
@@ -129,7 +135,8 @@
     }
    ],
    "run_id": null,
-   "note": null
+   "note": null,
+   "legacy": null
   },
   {
    "id": "e2",
@@ -140,7 +147,8 @@
    "basis": "llm_inferred",
    "spans": [],
    "run_id": null,
-   "note": null
+   "note": null,
+   "legacy": null
   },
   {
    "id": "e3",
@@ -151,7 +159,8 @@
    "basis": "llm_inferred",
    "spans": [],
    "run_id": null,
-   "note": "Comparing plots assumes similar soil."
+   "note": "Comparing plots assumes similar soil.",
+   "legacy": null
   },
   {
    "id": "e4",
@@ -169,7 +178,8 @@
     }
    ],
    "run_id": null,
-   "note": null
+   "note": null,
+   "legacy": null
   },
   {
    "id": "e5",
@@ -180,7 +190,8 @@
    "basis": "llm_inferred",
    "spans": [],
    "run_id": null,
-   "note": null
+   "note": null,
+   "legacy": null
   }
  ]
 }

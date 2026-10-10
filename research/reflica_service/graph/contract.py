@@ -8,7 +8,9 @@ Two questions are kept apart on purpose:
 
 - `kind`  — what an item IS (a hypothesis, a claim, a result, ...).
 - `basis` — where the item CAME FROM (stated by the user, quoted from a
-  source, inferred by a language model, computed by an analysis).
+  source, inferred by a language model, computed by an analysis, or
+  `legacy_unverified`: imported from an earlier app plan whose origin was
+  never recorded — no provenance is invented for it).
 
 Neither says the item is true. A hypothesis quoted from a paper is still a
 hypothesis; only the researcher changes its kind. An item whose basis is
@@ -46,7 +48,7 @@ MAX_EDGES = 10_000
 
 NodeKind = Literal["goal", "question", "hypothesis", "assumption", "claim", "method",
                    "evidence", "result", "limitation", "task"]
-Basis = Literal["user_stated", "source_quoted", "llm_inferred", "computed"]
+Basis = Literal["user_stated", "source_quoted", "llm_inferred", "computed", "legacy_unverified"]
 EdgeType = Literal["requires", "supports", "causes", "blocks", "enables", "derived_from",
                    "informs", "references"]
 PROPAGATING: frozenset[str] = frozenset(
@@ -128,6 +130,23 @@ class ReviewNote(BaseModel):
     reason: str = Field(min_length=1, max_length=2000)
 
 
+class LegacyOrigin(BaseModel):
+    """What an imported legacy item was in the earlier app model, kept verbatim.
+
+    Recorded so that translating to graph@1 never silently loses information
+    (e.g. a legacy `prediction` becomes kind `hypothesis` with this note).
+    """
+
+    model_config = _STRICT
+
+    model: Literal["app-plan@0"] = "app-plan@0"
+    type: str = Field(max_length=40)          # legacy EvidenceType or EdgeKind name
+    reversed: bool = False                    # edge direction was flipped (dependsOn)
+    sub_label: str | None = Field(default=None, max_length=300)
+    source: str | None = Field(default=None, max_length=300)    # legacy free-text source
+    confidence: float | None = None           # legacy value, origin unknown: not a Confidence
+
+
 class Confidence(BaseModel):
     model_config = _STRICT
 
@@ -158,6 +177,7 @@ class Node(BaseModel):
     run_id: str | None = Field(default=None, max_length=200)  # required for computed
     confidence: Confidence | None = None
     reviews: tuple[ReviewNote, ...] = ()     # non-empty = needs review
+    legacy: LegacyOrigin | None = None
 
     @model_validator(mode="after")
     def _basis(self):
@@ -181,6 +201,7 @@ class Edge(BaseModel):
     spans: tuple[SourceSpan, ...] = ()
     run_id: str | None = Field(default=None, max_length=200)
     note: str | None = Field(default=None, max_length=2000)
+    legacy: LegacyOrigin | None = None
 
     @model_validator(mode="after")
     def _rules(self):
