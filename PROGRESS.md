@@ -18,7 +18,26 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 | Level | Scope | State |
 |---|---|---|
 | **A — Long-term platform (Reflica)** | Multimodal, closed-loop, serves individuals → organisations → government with reporting + impact propagation + federated connection layer. | Flutter product Stage 0+ complete. |
-| **B — M.Tech research** | Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction + capacity constraints. Sub-component of Reflica's Capability C (Change / Revision Engine). | Benchmark v0.2.0 (63 scenarios, 7 categories) built and frozen; R-N pilot complete (144/144 calls); B5 engine frozen v0.1.0; 203 tests passing. Full experiment not started. |
+| **B — M.Tech research** | Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction + capacity constraints. Sub-component of Reflica's Capability C (Change / Revision Engine). | Benchmark v0.2.0 (63 scenarios, 7 categories) built and frozen; R-N pilot complete (144/144 calls); B5 engine v0.1.0 frozen for the plan/state-graph benchmark (0 disagreements with gold on all 63 scenarios; not yet connected to the experiment runner); 203 tests passing. Full experiment not started. |
+
+---
+
+## Direction: AI for Scientific Discovery
+
+**Long-term vision:** develop AI technology that helps researchers evaluate evidence, revise scientific conclusions, identify research gaps and choose informative next investigations. Plan: `research/SCIENCE_DIRECTION.md`.
+
+| Stage | Capability | Status |
+|---|---|---|
+| 1 | Represent scientific claims, evidence and assumptions | Planned |
+| 2 | Revise conclusions when evidence changes | Revision engine B5 v0.1.0 implemented and frozen for the plan/state-graph benchmark; not yet connected to the experiment runner, and not yet adapted or tested on scientific claims and evidence. |
+| 3 | Detect contradictions and evidence gaps across papers | Planned |
+| 4 | Recommend informative research questions or experiments | Planned |
+| 5 | Evaluate the method against existing baselines | Planned |
+| 6 | Integrate domain-specific scientific tools, potentially including quantum simulation | Future work |
+
+**Immediate priority:** study researcher workflows and review related literature; define the scientific evidence model; create a small reproducible benchmark; compare an evidence-aware revision approach with appropriate baselines before expanding the system.
+
+The literature review establishes what is genuinely new about the method; researcher interviews establish whether the problem matters in practice. Neither alone is proof of novelty or usefulness.
 
 ---
 
