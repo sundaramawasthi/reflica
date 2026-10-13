@@ -8,10 +8,20 @@
 
 ---
 
+## Current status (14 Oct 2026, after the clean-up)
+
+- **Old Reflica deleted from the main code** (user decision): plan app, old landing and dashboard sections, `reflica_bench` (benchmark, baselines, B5), LLM pilot, 203 tests. **Archived** in branches `archive/old-reflica-2026-10-14` (`b40ef22`) and `archive/stage-1-2026-10-14` (`ae7084e`). The stage-1 merge is cancelled.
+- **Kept:** Flutter foundation (Firebase init, Google sign-in, theme, landing and dashboard shell, top bar, sidebar, welcome card, notifications), all forecasting documentation, `firestore.rules` (notifications only; not published).
+- **The app does not compile until the user makes the edits in `docs/CLEANUP_EDITS.md`**, then runs `flutter analyze` and `flutter test` on the Mac.
+- No forecasting code yet. Next: the clean-up edits → Phase 2 UI → November pilot preparation.
+- Everything below the decisions log's 14 Oct rows, and every section titled as previous or old, describes the **deleted** version and is kept as history only.
+
+---
+
 ## ⚠️ Direction change (2026-10-13) — M.Tech research now = honest AI forecasting of Indian events
 
 Decided by the user; **guide approval pending**. Full brief: `NEW_DIRECTION.md` (repo root).
-- Reflica research (benchmark v0.2.0, 63 scenarios, B3/B4a/B4b, B5 v0.1.0) is **kept and paused**. Nothing deleted.
+- Reflica research (benchmark v0.2.0, 63 scenarios, B3/B4a/B4b, B5 v0.1.0) was first kept and paused; on 14 Oct it was **deleted from the main code and archived** (see Current status).
 - New workstream: `research/forecast/` (India Forecast Benchmark → honest agent with abstention → impact propagation using the Reflica engine).
 - Docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/{PILOT_PROTOCOL,MINOR1_DESIGN,MILESTONE_1,LITERATURE_FORECASTING,AUDIT}.md`.
 - Next: approve the documentation → Flutter UI (Phase 2) → backend (Phase 3). December pilot recorded by hand.
@@ -33,7 +43,7 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 ---
 
-## Current snapshot (what works right now)
+## Snapshot of the OLD app as of 2026-10-09 (deleted 2026-10-14; history only, code in `archive/old-reflica-2026-10-14`)
 
 ### Product UI — fully running on Chrome + Android
 
@@ -69,7 +79,7 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 ---
 
-## Previous M.Tech research track (paused 2026-10-13) — status as of 2026-10-09
+## Previous M.Tech research track (paused 2026-10-13, deleted and archived 2026-10-14) — status as of 2026-10-09
 
 > Paused, not deleted. The forecasting direction in `NEW_DIRECTION.md` replaces it as the student's chosen M.Tech direction (guide approval pending). Code and tests below are preserved unchanged.
 
@@ -408,6 +418,7 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-14 | **Documentation approved in principle** (user's review of `bf61a4d → 1131f92`; a review of the patch content, not of fresh test runs). On-time rule made explicit as *strictly before* the deadline for both creation and recording time (`PILOT_PROTOCOL.md` §4.3, §7). | Next: Firestore rules export and review, fresh verified backup, fresh combined tests, then the merge decision. Stage-1 merge on hold; Firestore additions pending; guide approval pending. |
 | 2026-10-14 | **Firebase Spark review** (`docs/FIREBASE_SPARK.md`). App uses Auth + Cloud Firestore `(default)` only (no Realtime Database API). Firestore database created today, empty, rules deny-all. Proposed owner-only `firestore.rules` (plans, notifications, stage-1 events append-only) saved in repo, **not published**; 37/37 local emulator checks passed. Recommend locking the unused Realtime Database (public rules). No code change needed; no `firebase.json` added; no billing. | Decisions pending: publish rules, event deletion, RTDB lock, device offline data. |
 | 2026-10-14 | **Rules test script fix (approved):** the one unwrapped setup write in `docs/rules-tests/firestore.rules.test.mjs` now records a failure instead of stopping the run. Re-run in the local emulator: proposed rules 37/37 (14 allow, 23 deny); deny-all control 0/15 allow (14 checks + the setup write), 23/23 deny, run completes; allow-all control 14/14 allow, 0/23 deny. User confirmed device plans are demo/test data only (no backup needed). | Rules still **not published**; RTDB lock pending the Usage check. |
+| 2026-10-14 | **Old Reflica deleted (user decision; archived).** Archive branches pushed and verified: `archive/old-reflica-2026-10-14` @ `b40ef22` (373 files), `archive/stage-1-2026-10-14` @ `ae7084e` (tags refused by the proxy, so branches). Deleted 205 files (~37,100 lines): plan app (wizard, My Plans, detail, editor, model, repository, mind map), old landing/dashboard sections, audience images, `reflica_bench`, LLM pilot, 203 tests. Stage-1 merge cancelled. `firestore.rules` reduced to notifications only; tests updated, **22/22 passed** (controls: deny-all 0/6 allow, 17/17 deny; allow-all 5/5 allow, 0/17 deny). `docs/CLEANUP_EDITS.md` lists the edits the user makes so the app compiles. Docs updated; `NEW_DIRECTION.md` has a marked addition recording the decision. | App does not compile until the user's edits; rules not published; guide approval pending. |
 
 ---
 

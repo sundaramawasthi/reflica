@@ -1,4 +1,6 @@
-# Stage-1 merge checklist (draft v2 for review; nothing merged)
+# Stage-1 merge checklist (draft v2): CANCELLED on 14 Oct 2026
+
+> **Cancelled.** On 14 Oct 2026 the user decided to delete the old plan-based Reflica from the main code. The stage-1 branch is built on that plan app, so it will **not be merged**. It is preserved as `archive/stage-1-2026-10-14` @ `ae7084e`; parts such as impact analysis can be restored selectively later. This checklist is kept as a record only.
 
 Date: 14 October 2026 (v2 after the user's review). Status: **merge NOT approved. Firestore changes: approval pending.** UI work (Phase 2) starts only after the merge decision is settled.
 Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand. The research direction is chosen by the student; formal M.Tech guide approval is pending.

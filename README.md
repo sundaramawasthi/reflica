@@ -1,73 +1,39 @@
 # Reflica
 
-**Current direction (14 Oct 2026):** Reflica is evolving into an **AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines). Read `NEW_DIRECTION.md` first. The direction is chosen by the student; formal M.Tech guide approval is pending.
+**Reflica is being rebuilt as an AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, an immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines).
 
-Forecasting docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/` (`PILOT_PROTOCOL.md`, `MINOR1_DESIGN.md`, `MILESTONE_1.md`, `LITERATURE_FORECASTING.md`). Nothing in the forecasting workstream is implemented yet. Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
+Read `NEW_DIRECTION.md` first. The direction is chosen by the student; formal M.Tech guide approval is pending.
+Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
 
-*Previous description (the existing app below still implements it):* a living strategic-planning and decision-support platform that turns messy real-world information into a structured, evidence-aware state graph.
+## Status (14 Oct 2026)
 
-This repository holds two independent tracks:
+- **Forecasting:** documentation and Firestore rules only. No forecasting code yet.
+- **Old Reflica removed:** the plan-based app and the old thesis research were deleted from the main code on 14 Oct 2026. They are kept in branch `archive/old-reflica-2026-10-14` (and stage-1 in `archive/stage-1-2026-10-14`).
+- **The Flutter app does not compile until the clean-up edits in `docs/CLEANUP_EDITS.md` are made.**
 
-## 1. Flutter product (`lib/`, `android/`, `ios/`, `web/`, …)
-
-The user-facing app. Runs on Chrome and Android today.
-
-- Firebase Auth (Google sign-in: Firebase popup on web, native in-app bottom-sheet on Android), Firestore with offline persistence enabled.
-- Landing page, dashboard, 4-step New Plan wizard across 7 input modes (text / structured form / voice / documents / images / video / live camera), live mind-map viewer, inline editor, per-write audit notifications.
-- Width-reactive layouts across every screen.
-- See `PROGRESS.md` for the authoritative board.
-
-Run it:
-
-```bash
-flutter pub get
-flutter run -d chrome       # web
-flutter run -d <device-id>  # android/ios
-flutter analyze             # should print "No issues found!"
-```
-
-## 2. M.Tech research workspace (`research/`)
-
-A separate Python benchmark for the **previous** thesis topic (paused since 2026-10-13, preserved unchanged):
-
-> *Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction and capacity constraints — evaluated across add, edit, delete, and relationship-change operations against classical ATMS, constraint-programming, and LLM-regeneration baselines.*
-
-Current state:
-
-- **Benchmark v0.2.0:** 63 scenarios across 7 categories, fingerprinted and frozen.
-- **Baselines:** B3 (reachability), B4a (ATMS), B4b (OR-Tools CP-SAT), plus LLM baselines B1/B2.
-- **B5 (the Reflica revision engine) v0.1.0:** frozen; agrees with gold on all 63 scenarios.
-- **Natural-language pilot:** complete (144/144 calls).
-- **Tests:** 203 passing.
-
-The full 63-scenario experiment is paused. The new forecasting workstream lives in `research/forecast/` (documentation only so far).
-
-Run it:
-
-```bash
-cd research
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -e ".[dev,csp]"
-pytest
-```
-
-## Repository layout
+## Layout
 
 ```
 reflica/
-├── lib/                # Flutter sources
+├── NEW_DIRECTION.md      # authoritative research direction (read first)
+├── PROGRESS.md           # dated progress log
+├── firestore.rules       # proposed Firestore rules (not published)
+├── docs/                 # UI spec, architecture, Firebase (Spark) review, clean-up edits, rules tests
+├── lib/                  # Flutter app: sign-in, landing and dashboard shell, notifications
 ├── android/, ios/, web/, macos/, linux/, windows/
-├── assets/
-├── test/               # Flutter tests
-├── research/           # M.Tech Python workspace (separate venv, separate tests)
-│   ├── reflica_bench/
-│   ├── scenarios/
-│   └── tests/
-├── NEW_DIRECTION.md    # authoritative research direction — read this first
-├── docs/               # forecasting UI spec and architecture
-├── PROGRESS.md         # dated progress log and status board
-└── pubspec.yaml
+├── test/                 # Flutter tests
+└── research/
+    └── forecast/         # forecasting protocol, Minor 1 design, milestone plan, literature
+```
+
+## Flutter app
+
+Firebase project `reflica-593b4` (free Spark plan): Firebase Auth (Google sign-in) and Cloud Firestore. Web and Android.
+
+```bash
+flutter pub get
+flutter analyze
+flutter run -d chrome
 ```
 
 ## Owner

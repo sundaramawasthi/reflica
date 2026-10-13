@@ -19,7 +19,7 @@ Configuration points to the right project:
 - Android `google-services.json` has `project_id: reflica-593b4` and package `com.reflicaa.app`, matching `applicationId` in `android/app/build.gradle.kts`;
 - iOS and desktop are not configured; the app throws `UnsupportedError` there, as before.
 
-Paths the app reads and writes (all per user):
+Paths the app read and wrote before the 14 Oct clean-up (all per user; after it, only notifications remain):
 - `users/{uid}/plans/{planId}`: create, set (full overwrite), delete; list ordered by `updatedAt`;
 - `users/{uid}/notifications/{id}`: create; `update({read: true})`; `markAllRead` = query `read == false` then a batch update; delete; list ordered by `createdAt`, limit 50;
 - `users/{uid}/plans/{planId}/events/{eventId}`: **stage-1 only**; create with `created_at = serverTimestamp()`.
@@ -52,6 +52,13 @@ Spark quotas, to be **re-checked on the Firebase pricing page before relying on 
 - forecasting data will be read as small summary documents (Phase 4).
 
 ## 4. Proposed Firestore rules (`firestore.rules` in the repo root: NOT published)
+
+> **Update, 14 Oct 2026 (after the old plan app was deleted).** `firestore.rules` now allows **only** `users/{uid}/notifications/{id}` (owner-only, unchanged validation). The plan and stage-1 event paths were removed, so they are now denied like everything else. Emulator re-run with `docs/rules-tests/firestore.rules.test.mjs` (updated to match):
+> - proposed rules **22/22 passed** (5 allow, 17 deny, including 7 checks that the old plan and event paths are closed);
+> - deny-all control: 0/6 allow (5 checks + the setup write), 17/17 deny;
+> - allow-all control: 5/5 allow, 0/17 deny.
+>
+> The event-deletion decision is no longer needed. The description and 37-check matrix below record the earlier version (commit `b40ef22`).
 
 Design:
 - Owner-only access. `request.auth != null && request.auth.uid == uid` for every operation on the three paths.

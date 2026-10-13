@@ -2,7 +2,7 @@
 
 Date: 14 October 2026 (decisions D1–D9 recorded the same day). Status: **approved in principle by the user, subject to final content review.** The research direction is chosen by the student; **formal M.Tech guide approval is pending.**
 
-This is the **single source** for forecasting record formats. `MILESTONE_1.md`, `docs/ARCHITECTURE.md`, `docs/UI_SPEC.md` and the future Python backend refer to this file and must stay compatible with it. The paused Reflica benchmark in `../reflica_bench/` is not affected.
+This is the **single source** for forecasting record formats. `MILESTONE_1.md`, `docs/ARCHITECTURE.md`, `docs/UI_SPEC.md` and the future Python backend refer to this file and must stay compatible with it. The old Reflica benchmark (`reflica_bench`) was removed on 14 Oct 2026 and is kept in branch `archive/old-reflica-2026-10-14`.
 
 **Why it exists.** The implementation order is documentation → Flutter UI → Python backend → connect. The backend will not exist in December, so the 20-question pilot is recorded **by hand** in JSON/JSONL. The backend must later import these files **without changing** their content, timestamps, versions or provenance.
 

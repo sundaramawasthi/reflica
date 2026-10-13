@@ -3,7 +3,7 @@
 Date: 14 October 2026. Status: **proposed; needs the user's approval before Phase 2 starts.** M.Tech guide approval of the research direction is pending.
 Authority: `../NEW_DIRECTION.md`. Architecture: `ARCHITECTURE.md`. Record formats: `../research/forecast/PILOT_PROTOCOL.md`.
 
-Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`../research/forecast/PILOT_PROTOCOL.md`). UI work starts only after the stage-1 merge is reviewed and settled.
+Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`../research/forecast/PILOT_PROTOCOL.md`). UI work starts only after the clean-up edits (`CLEANUP_EDITS.md`) are done and `flutter analyze` is clean. (The stage-1 merge is cancelled.)
 
 This describes the desired experience. It does not give permission to rebuild the app or discard existing functionality. Phase 2 extends the existing Flutter app.
 
@@ -40,10 +40,10 @@ Sidebar / drawer
 ├── Scoreboard           /scoreboard
 ├── Insights             /insights         (explanatory empty state until real results exist)
 └── Settings             /settings         (existing route; becomes a real screen)
-      └── Legacy Plans   → existing /plans, /plan, /new-plan (unchanged)
 
-Kept but not in the main navigation: /plans, /plan, /new-plan, /graph, /scenarios, /documents
-Signed-out landing: existing HomeScreen at "/", copy rewritten for forecasting
+Old plan routes (/plans, /plan, /new-plan, /graph, /scenarios, /documents): removed with the old plan app
+on 14 Oct 2026 (archived in branch archive/old-reflica-2026-10-14; see CLEANUP_EDITS.md).
+Signed-out landing: existing HomeScreen at "/", rebuilt for forecasting
 ```
 
 No navigation item leads to a blank or misleading screen. Every screen has a proper empty state.
@@ -94,7 +94,7 @@ Question · model and version · P(Yes) · timestamp · deadline · condition (W
 Sections for the research questions: does news help, domain differences, India vs Western, past vs future, failure, abstention and calibration. Each insight links to its experiment, dataset version and evaluation report. Until then the screen explains that findings appear after forecasts are resolved and evaluated.
 
 ### 3.9 Settings
-Account, display and notification preferences (where supported); research information and app version; a separate **Legacy Plans** entry. No model controls, and nothing that suggests users can change the benchmark protocol.
+Account, display and notification preferences (where supported); research information and app version. (No Legacy Plans entry: the plan app was deleted on 14 Oct 2026.) No model controls, and nothing that suggests users can change the benchmark protocol.
 
 ## 4. Shared states and accessibility
 Every data screen handles: loading · empty · error · offline · insufficient research data · invalid or unresolved records.
@@ -114,19 +114,19 @@ Shared components keep badges, cards, tables, filters, dates (IST display) and p
 4. Forecasts list and Forecast Details.
 5. History.
 6. Scoreboard.
-7. Insights and Settings (with Legacy Plans).
+7. Insights and Settings.
 
 ### Files (proposed; the user writes them)
 
 | Reuse as-is | `main.dart` Firebase init, `auth_service.dart`, `auth_gate.dart`, `theme/app_theme.dart`, `brand_mark.dart`, `responsive.dart`, `dashboard_top_bar.dart` (bell, user menu) |
 |---|---|
-| **Change** | `widgets/dashboard/dashboard_sidebar.dart` (new items; recent-plans list moves to Legacy) · `screens/dashboard_screen.dart` (body becomes the forecasting Home) · `main.dart` (add routes; keep all old ones) · `screens/home_screen.dart` + landing widgets (copy only) · `/settings` route (real screen) |
+| **Change** | `widgets/dashboard/dashboard_sidebar.dart` (forecasting items; recent-plans list already removed in the clean-up) · `screens/dashboard_screen.dart` (body becomes the forecasting Home) · `main.dart` (add routes; keep all old ones) · `screens/home_screen.dart` + landing widgets (copy only) · `/settings` route (real screen) |
 | **Add** | `lib/forecast/models/` (question, forecast, resolution) · `lib/forecast/data/forecast_source.dart` (interface; empty source + demo source) · `lib/forecast/widgets/` (status badge, probability display, summary card, empty state, filter bar) · `lib/forecast/screens/` (question_bank, question_details, forecasts, forecast_details, history, scoreboard, insights, settings) |
-| **Untouched** | plan models, `PlanRepository`, `NotificationService`, plan screens and widgets, Firestore data |
+| **Untouched** | `NotificationService` (forecast-deadline kinds added later), Firestore data. Plan code was deleted on 14 Oct (`CLEANUP_EDITS.md`) |
 
 ### Tests (run on the Mac: `flutter analyze`, `flutter test`)
 - Each new screen renders its **empty state** without demo data.
-- Navigation: every sidebar item opens its screen, and `/plans`, `/plan`, `/new-plan` still open.
+- Navigation: every sidebar item opens its screen; no item or link leads to a removed plan route.
 - The demo banner appears only when `FORECAST_DEMO` is on, and demo objects never appear when it is off.
 - Status badges show text, not just colour.
 - Status derivation (`PILOT_PROTOCOL.md` §4.1) on both sides of the deadline: `deadline − 1 s` → "Open for Forecasting"; exactly `deadline` → "Forecast Frozen"; a resolved question → "Resolved" regardless of the deadline. (Uses an injectable clock, not the device time.)

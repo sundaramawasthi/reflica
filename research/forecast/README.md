@@ -1,7 +1,7 @@
 # forecast: India Forecast Benchmark (workstream started 2026-10-13)
 
 Research direction (authoritative): `../../NEW_DIRECTION.md`. The direction is chosen by the student; **formal M.Tech guide approval is pending**.
-The Reflica benchmark in `../reflica_bench/` is kept unchanged and paused.
+The old Reflica benchmark (`reflica_bench`) was removed on 14 Oct 2026 and is kept in branch `archive/old-reflica-2026-10-14`.
 Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`PILOT_PROTOCOL.md`).
 
 | Document | Purpose |
@@ -27,7 +27,7 @@ research/forecast/
   fixtures/                    synthetic TEST- records for tests only
   generator/                   A2: official data → CANDIDATE questions (later)
   sources/                     notes per source: RBI, MOSPI, IMD, Grid-India, CWC… (release calendar, how to read the answer)
-research/tests/test_forecast_*.py   forecasting tests (the existing reflica_bench tests stay unchanged)
+research/tests/test_forecast_*.py   forecasting tests (the old reflica_bench tests were archived with it)
 ```
 
 Key rules (details in `PILOT_PROTOCOL.md`):
