@@ -3,7 +3,7 @@
 > **Vision:** Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform.
 > A **living strategic planning architecture** where a goal → structured strategy graph stays continuously updated by real-world reports. The mind map is the human-facing view of the underlying structured system, not the product.
 > **Owner:** Sundram Awasthi · M.Tech CSE (2026–28), GLA University.
-> **Last updated:** 2026-10-13
+> **Last updated:** 2026-10-14
 
 ---
 
@@ -392,6 +392,7 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-09 | **R-N pilot complete (config v1.7).** Primary model `nvidia/nemotron-3-ultra-550b-a55b` (temp 0, seed 20261008, thinking on, 16,384 max tokens) after Gemini, Kimi K3, Nemotron Lightning and gpt-oss-20b were tried and rejected (each logged under `experiments/rn_pilot/runs/`). 144/144 calls, 0 truncation; extraction recall 1.0, pre-state reproduction 0.993; one genuine failure kept (T7.2 invented `prefer_source`). | Infrastructure healthy; full experiment blocked until B5 built and frozen. |
 | 2026-10-09 | **B5 (Reflica engine) v0.1.0 frozen** — change detection → dependency scope → scoped revision → verify/repair → determinability across consistent completions. Independent of ground-truth code (enforced by test); 0 disagreements with gold on 63 scenarios; rejects the T7.2 invented rule. 203 tests passing. | Next: freeze full protocol, then run the 63-scenario experiment. |
 | 2026-10-13 | **Research direction changed to honest AI forecasting of Indian events** (guide approval pending). Reflica research kept and paused. New `research/forecast/` with `DIRECTION.md` and a proposed layout + question schema draft. | Literature review (21 papers) found gaps: uncalibrated %, no abstention, little live testing, no forward effects, no India. Reflica engine reused later for effect propagation; Cat 7 "unknown" becomes the abstain rule. |
+| 2026-10-14 | **Direction document updated** (`research/forecast/DIRECTION.md`): one Reflica platform with three modules (Minor 1 benchmark + dashboard, Minor 2 Ask the Forecaster, Final impact-aware forecasting). Added Indian vs Western comparison, target papers, December 2026 question collection, API budget and caching, Minor 1 resolved forecasts as Minor 2 calibration data. No code changed. | Roadmap still awaiting guide approval; implementation waits for user approval. |
 
 ---
 
