@@ -1,6 +1,8 @@
 # Reflica → forecasting platform: repository audit (Phase 1)
 
 Date: 14 October 2026. Read-only audit; no application code was changed.
+
+> **Snapshot.** This file records the repository as found on 14 October 2026 and is kept unchanged as history. Current architecture and plans: `../../docs/ARCHITECTURE.md`; record formats: `PILOT_PROTOCOL.md`. The implementation order has since changed to documentation → Flutter UI → Python backend → connect (December pilot by hand).
 Checked on `main` (4d55b8f) and on the unmerged branch `reflica/stage-1-flutter-integration` (ae7084e).
 
 ## 1. What is in the repository

@@ -1,318 +1,447 @@
-# Research direction: Reflica → AI forecasting of Indian events
+# Research Direction: Reflica → AI Forecasting of Indian Events
 
-First recorded: 13 October 2026. Updated: 14 October 2026 (Minor 1 rewritten; platform evolution added). Moved from `research/forecast/DIRECTION.md`.
-Status: proposed research roadmap; **M.Tech guide approval is pending**.
+**Date:** 14 October 2026 (replaces the 13 October version)
+**Status:** Final decision by the user (13 October 2026). **M.Tech guide approval is pending.** Until the guide confirms it, everything below is the student's chosen direction, not a formally approved M.Tech plan.
+**Written for:** Claude Code working in the Reflica repositories (Flutter app and Python research code).
 
-## 1. What changed and why
+> **Implementation order (added 14 October 2026, user decision):**
+> **Documentation → Flutter UI → Python backend → connect the UI to real data.**
+> **Exception:** the December 2026 pilot is collected **manually** before the backend exists, following `research/forecast/PILOT_PROTOCOL.md`, so the Minor 1 timeline is protected.
+> Section 9's tasks are read in this order. They are not permission to start backend code now.
+>
+> **Related documents:** detailed Minor 1 design `research/forecast/MINOR1_DESIGN.md` · pilot record format `research/forecast/PILOT_PROTOCOL.md` · UI specification `docs/UI_SPEC.md` · architecture `docs/ARCHITECTURE.md` · backend milestone `research/forecast/MILESTONE_1.md` · literature `research/forecast/LITERATURE_FORECASTING.md` · repository audit snapshot `research/forecast/AUDIT.md` · progress log `PROGRESS.md`.
+> This file is the authoritative high-level direction. If another document disagrees with it, this file wins until it is updated.
 
-The M.Tech research moves from Reflica plan revision (revising a plan graph correctly when a fact changes) to **predictive AI**: agent-based forecasting of important Indian events.
+## 1. Overall vision
 
-Why: the user wants to become a researcher in predictive AI. A literature review of 21 recent papers (2024–2027, including 6 IEEE Q1 journal papers) suggested open space in AI event forecasting, especially for India. These gaps must still be verified against the full papers and the wider forecasting literature (see section 10).
+I want to evolve my existing Reflica platform into an AI forecasting platform focused on important Indian events.
 
-## 2. Overall vision
-
-Evolve the existing Reflica platform into an AI forecasting platform for important Indian events. The long-term goal is a website where students, researchers, companies, banks and government officers can:
+The long-term goal is a website where students, researchers, companies, banks, and government officers can:
 
 - See forecasts of important Indian events.
-- See the probability of each event.
+- View the probability of each event happening.
 - Understand the evidence and reasons behind a forecast.
 - Track whether predictions were correct.
 - Ask an AI forecasting agent their own questions.
-- Explore possible consequences of predicted events through a cause-and-effect graph.
+- Explore the possible consequences of predicted events through a cause-and-effect graph.
 
-Research area:
-- Area: Artificial Intelligence
-- Subfield: Machine Learning and Predictive AI
-- Specific area: Agent-based event forecasting
-- Initial domain: Indian economy, climate, critical infrastructure. Selected geopolitical events are a later extension, because they are harder to resolve objectively.
+The research area is:
 
-The goal is not just a website. Each project must have a research question, an experiment, measurable results and a defensible contribution.
+- **Area:** Artificial Intelligence
+- **Subfield:** Machine Learning and Predictive AI
+- **Specific area:** Agent-based event forecasting
+- **Initial domain:** Indian economy, climate, critical infrastructure, and selected geopolitical events (geopolitics added later, once objective resolution rules are clear).
 
-**One platform, three modules.** Each academic project adds a module to the same Reflica platform.
+The goal is not merely to create a website. Each project must contain a research question, an experiment, measurable results, and a defensible contribution. Each project also produces one paper (see section 7).
 
-### Platform evolution (added 14 October 2026)
+## 2. Important instruction: reuse the existing Reflica platform
 
-Reflica's **primary product direction** changes from goal/plan management to an AI forecasting and research platform, starting with Indian events. This is an evolution of the existing app, not a new one. Users will be able to: explore upcoming Indian events; view clearly defined Yes/No questions; see probability forecasts from several AI models; read the evidence and sources; track predictions over time without historical records changing; check outcomes after resolution; compare models with Brier scores, calibration and baselines; and explore research comparisons (Indian vs Western, with vs without news).
+Reflica already exists. It is not a new project to create from scratch.
 
-Old plan features are **hidden from the main navigation, not deleted**. Nothing is removed without approval. The repository audit and the feature-by-feature table are in `research/forecast/AUDIT.md`.
+The existing Flutter application runs on Chrome and Android. It already includes Google sign-in, Firebase integration, offline storage, a seven-input plan wizard, a mind-map view, a plan editor, and notifications.
 
-**Implementation phases** (one at a time; the user writes the code with Claude's guidance and review):
-1. Audit and plan (no app code changes).
-2. Homepage and navigation for forecasting (app stays buildable; old routes kept).
-3. Question catalogue (data model + UI: sources, resolution rules, deadlines).
-4. Immutable, timestamped forecast records + a safe server-side point for model calls.
-5. Evaluation: outcomes, scoring, model comparison, scoreboard from real resolved data only.
-6. Advanced research: question generator, news-retrieval experiments, historical evaluation, Indian vs Western, as separate tested components.
+The Python research repository also contains the Reflica benchmark, ground truth, reasoning baselines, tests, and graph-related research code.
 
-## 3. What happens to the existing Reflica work
+### Rules for working in the repository
 
-- **Reflica already exists. It is not rebuilt from scratch.** It is the foundation.
-- **Keep everything.** Do not delete the Flutter app, authentication, Firebase integration, the benchmark (v0.2.0, 63 scenarios, Categories 1–7), baselines B3, B4a, B4b, or B5 v0.1.0.
-- **Old plan-revision research is paused** unless the user explicitly asks to resume it.
-- The Reflica graph engine may be reused in the final project for impact analysis. The Category 7 "unknown" idea is the starting point for the abstention rule. Neither is assumed to work for forecasting without testing (see section 7).
+1. Inspect the current repository before proposing changes.
+2. Read `NEW_DIRECTION.md`, the progress notes, and the existing architecture documentation if available.
+3. Identify the existing Firebase products, collections, authentication flow, data models, and configuration. Do not assume which Firebase services are used without checking.
+4. Preserve the existing Reflica application, authentication, Firebase integration, and research work.
+5. Do not delete, replace, or unnecessarily rewrite working features.
+6. Keep Reflica's old plan-revision research paused unless I explicitly ask to resume it.
+7. Add forecasting features incrementally, reusing existing Flutter screens and components where appropriate.
+8. Do not expose Firebase credentials, service-account keys, API keys, or other secrets in client code or public repositories.
+9. Do not run destructive database migrations or make major architectural changes without explaining the impact and receiving my approval.
+10. I want to write the code myself. Explain the implementation step by step, let me write it, and then review and debug my work. Do not generate entire modules unless I explicitly request that.
 
-### Current foundation (checked in the repository on 14 October 2026)
+Before changing anything, propose a repository structure and an incremental integration plan. Wait for my approval before making major changes.
 
-- `main`: Flutter app (Chrome + Android). Firebase products in `pubspec.yaml`: `firebase_core`, `firebase_auth` (+ `google_sign_in` on Android), `cloud_firestore` (offline persistence on), `firebase_analytics`, `firebase_ai`. Firestore collections used in `lib/`: `users`, `plans`, `notifications`.
-- `main`: Python research workspace `research/reflica_bench/` (benchmark, ground truth, baselines, B5, tests).
-- Branch `reflica/stage-1-flutter-integration` (not merged into `main`): adds `research/reflica_service/`, an optional FastAPI HTTP API (`service` extra) bound to localhost, with LLM extraction, a `graph@1` contract and `graph/impact.py`, plus Flutter screens that call it. This is the most likely place for a forecasting backend. Decide how this branch relates to `main` before building on it.
+## 3. Minor Project 1: India Forecast Benchmark and Forecast Dashboard
 
-## 4. Minor Project 1: India Forecast Benchmark and Forecast Dashboard
+**Estimated period:** January–May 2027, subject to university requirements. **Question collection starts in December 2026** (see Scope control).
 
-Estimated period: January–May 2027 (subject to GLA rules). **Question collection starts December 2026.**
+### Purpose
 
-**Goal.** Not an app that asks AI questions, but the first scientific foundation of the long-term vision. The platform is the tool; the experiments are the research; the findings are what make the work valuable to other researchers.
+Build the first working forecasting module inside the existing Reflica platform.
 
-**Central research question.** How reliably can AI forecast future events in India, what information improves its predictions, and where does it fail?
+This project must do more than compare AI models. It must actually generate forecasts, save them, display them, and track their outcomes.
 
-### The research pipeline
+### Research question
 
-| Step | What happens |
-|---|---|
-| 1. Find questions | Collect upcoming Indian events and official data. |
-| 2. Validate | Every question has a clear outcome, deadline and resolution rule. |
-| 3. Forecast | Ask several LLMs for probabilities, with controlled information access. |
-| 4. Freeze | Save timestamped probabilities, evidence and model details. Never overwrite. |
-| 5. Resolve | Check what happened against the official source named in advance. |
-| 6. Evaluate | Score predictions; compare models, news conditions and baselines. |
-| 7. Publish | Dashboard, analysis and the paper. |
+How accurately and reliably do large language models forecast unresolved Indian economic, climate, and infrastructure events? Does providing current, authoritative Indian information improve their forecasts? Do the same models forecast Indian events worse than comparable Western events?
 
-**Most important practical rule:** get **one question working end to end** (generate → validate → forecast → freeze → resolve → score) before scaling up. Do not build a giant platform first.
+### Features to build
 
-### Part 1. Automatic question generation
+**A. Forecast question catalogue**
 
-A program reads structured data from official sources and turns it into **candidate** forecast questions.
+Create a page listing objectively verifiable questions about future events in India.
 
-- **Economy (RBI, MOSPI):** monetary-policy decisions and indicators such as CPI inflation; "will indicator X cross threshold T in the next period?".
-- **Climate (IMD):** defined rainfall, temperature and monsoon thresholds.
-- **Infrastructure (Grid-India, CWC):** electricity demand, power shortage, reservoir levels, only where reliable data and resolution rules exist.
+Example questions:
 
-Example: the last inflation value was 4.8% → template → "Will the indicator exceed 5% in the next reporting period?". The generator records indicator, units, period, threshold, data source, forecast deadline and resolution rule.
+- Will India's CPI inflation for a specified month exceed a defined threshold?
+- Will a specified region experience a defined extreme-weather event during a specified period?
+- Will an officially reported electricity shortage exceed a specified threshold during a given period?
 
-The generator **does not trust its own output.** Every candidate is checked for ambiguity, duplicates, triviality (too easy) and resolvability before it enters the benchmark.
+Each question must have:
+- A unique ID.
+- Clearly worded question.
+- Event category.
+- Region tag: India (main set) or Western (small comparison set).
+- Creation timestamp.
+- Forecast deadline (always before the resolution date).
+- Resolution deadline.
+- Official resolution source.
+- Unambiguous resolution rule.
+- Resolution status and final outcome.
 
-ForecastBench already shows that automatic questions from time-series data can support a dynamic benchmark. This project must show what an **India-focused** version adds, not reproduce it.
+Avoid vague questions such as "Will the Indian economy perform well?"
 
-### Part 2. Benchmark design
+**Western comparison set.** Add a small, carefully selected set of objectively resolvable Western questions (for example US or EU inflation and central-bank decisions in the same months), so the study can test whether models perform worse on Indian events. Match the two sets as closely as possible on topic, difficulty, forecast horizon, deadlines and resolution criteria, and keep the question format identical. Report sample sizes, uncertainty and limitations for the comparison. Do not claim an India-specific performance gap unless the results support it.
 
-A standardized test: questions from selected Indian domains plus a **smaller, comparable Western set**.
+**A2. Automatic question generator (upgrade to Minor Project 1, added 14 Oct 2026)**
 
-| Field | Example |
-|---|---|
-| Question | Will indicator X exceed 5%? |
-| Geography | India / Western |
-| Category | Economy / Climate / Infrastructure |
-| Source of the question | data record or event it came from |
-| Forecast deadline | specified date and time |
-| Resolution date | when the official result becomes available |
-| Resolution source | named official publication |
-| Resolution rule | written in advance, unambiguous |
-| Outcome | Yes = 1, No = 0, or unresolved/invalid |
-| Difficulty / horizon | recorded using predefined rules |
-| Pair ID | links a matched Indian and Western question |
+Build a program that creates questions automatically, so the catalogue can grow to 1,000+ questions and refresh every month.
+- Main source: official data feeds and pages with scheduled releases (RBI policy and DBIE, MOSPI CPI/IIP, IMD forecasts and warnings, Grid-India daily reports, CWC reservoir bulletins). Turn each scheduled release into a question with a template, for example "Will [indicator] for [period] be above [threshold]?"
+- Secondary source: news headlines about upcoming scheduled events (policy meetings, data releases), converted into questions only when an official resolution source exists.
+- Every generated question must pass the same checks as hand-written ones (clear rule, official source, forecast deadline before resolution date). Review a sample by hand and report the rejection rate.
+- Respect each website's terms and robots.txt; prefer official APIs or downloadable files; store the source URL and fetch time.
 
-The forecast deadline must be **earlier** than the resolution date.
+*Note:* size is not the goal by itself. 1,000 generated questions are not automatically better than 200 good ones. Questions must be meaningful, varied and independently informative (see `MINOR1_DESIGN.md`).
 
-**Scope.** Pilot of **20 questions** to test the whole pipeline; then expand towards 200–300 as time, budget and the supply of useful questions allow. **1,000 generated questions are not automatically better than 200 good ones**: questions must be meaningful, varied and independently informative.
+**A3. Past-question study (upgrade to Minor Project 1, added 14 Oct 2026)**
 
-**Collection timeline.** Start building and reviewing the catalogue in **December 2026**; prefer questions that resolve by **May 2027**. **Never change a question's criteria after seeing predictions or the outcome**; a correction creates a new question ID and the old one is kept with a note.
+Also create questions about events that have already happened, so models can be tested instantly while live questions wait to resolve.
+- Use these for three things: (1) testing the whole pipeline end to end, (2) development data, and (3) a **leakage study**: compare model scores on past questions (answers the model may already know from training) with scores on future questions.
+- Record each model's stated knowledge cutoff and split past questions into "before cutoff" and "after cutoff".
+- When giving news to the model for a past question, give only news published before that question's forecast date.
+- Past-question results must never be reported as the main forecasting performance. The prospective (future) questions remain the main evaluation.
 
-### Part 3. Forecasting with the LLMs
+*Note:* A2 and A3 are upgrades **within** Minor Project 1, not separate projects. A score difference between past and future questions does not by itself prove memorisation.
 
-- **Start with 2–3 accessible models**; expand to 3–4 only if the budget allows. (This is the agreed number for all documents.)
-- Each model returns a **probability**, not "yes, probably".
-- Two information conditions, everything else kept the same (model version, question, prompt structure, settings):
-  - **Condition A, no retrieved news:** question + its specified baseline information.
-  - **Condition B, retrieved news:** the same, plus relevant news **published before the forecast deadline**. Record the exact sources given and the retrieval time.
+**B. Forecast generation**
 
-### Part 4. Permanent forecast records
+For each question, the system should request forecasts from three or four selected AI models, subject to budget and API availability.
 
-Every forecast stores: question ID; model and version; probability; forecast timestamp; forecast deadline; prompt version and information condition; evidence references with their publication dates; settings; token usage, cost, runtime; failure status.
+*Note (agreed 14 October 2026):* the pilot **starts with 2–3 models** and expands to 3–4 only when the budget allows.
 
-Once submitted, a forecast is **never silently replaced**. An update is a **new version** with a new timestamp; the old one stays available for evaluation. The existing Reflica Flutter app and Firebase provide the UI and storage foundation; inspect the repository before deciding which collections and components to reuse.
+Where possible, compare:
+- Model without live news retrieval.
+- The same model with current, relevant evidence.
+- Simple baselines such as a historical base rate or persistence.
+- *(Agreed 14 October 2026)* Official Indian forecasts where they exist, such as RBI's inflation projections and IMD's forecasts. The rule that turns each official forecast into a probability for a question is fixed before resolution.
 
-### Part 5. Resolving questions
+Each forecast should record:
+- Model and version.
+- Forecast timestamp.
+- Probability of the event.
+- Short explanation.
+- Supporting evidence and source URLs, where applicable.
+- Experimental condition, such as search enabled or disabled.
+- Prompt/configuration version.
+- Error or failure status.
 
-When the resolution condition is met, a result checker (a human reviewer at first) verifies the answer from the source defined in advance. Example: "Did the policy rate increase at the named meeting?" → official RBI policy statement → Yes/No → link and date.
+Save the prediction before the outcome becomes known. Never overwrite an earlier prediction; subsequent forecasts must be separate, timestamped records.
 
-If the source is unavailable or the result is genuinely ambiguous, mark the question **unresolved or invalid** by a predefined rule. Never force an answer to grow the sample.
+**API budget and cost control.** Calling several models, with and without retrieval, on hundreds of questions costs money.
+- Set a monthly API budget and an estimated cost per experiment.
+- Prefer free or low-cost models and open models where practical. Open models are not automatically free: include compute or hosting costs.
+- Cache model outputs and avoid repeating identical calls.
+- Record model version, settings, token usage, cost, failures and runtime for every run.
+- Estimate the total cost before expanding from the 20-question pilot to 200–300 questions.
 
-### Part 6. Scientific evaluation
+**C. Forecast history and scoreboard**
 
-**A. Brier score.** For a binary question, BS = (p − o)², where p is the probability of Yes and o is 1 if Yes happened, 0 if No. A lower average is better.
+The Flutter application should display:
+- Upcoming forecast questions.
+- Predictions from each model.
+- Forecast timestamps.
+- Explanations and source links.
+- Resolved outcomes.
+- Model performance and leaderboard.
+- Historical forecast records.
 
-**B. Calibration.** If a model says about 70% for a group of similar events, about 70% of them should happen. Calibration needs many resolved forecasts; always report the number resolved and the uncertainty.
+Do not show an unearned "accuracy" score for unresolved questions. Clearly distinguish preliminary results from scores based on resolved outcomes.
 
-**C. Baselines.** A complex model is not valuable if a simple one does as well.
-- Historical **base rate** and **persistence** ("same as last time").
-- **Official Indian forecasts (addition):** compare the AI with **RBI's own inflation projections** (published in the monetary-policy statements) and **IMD's own forecasts** (e.g. monsoon long-range and extended-range forecasts). Official forecasts are often a point value or a range rather than a probability, so the rule for turning each into a forecast for a question must be **written before** the questions resolve (IMD's categorical monsoon forecasts already give probabilities). If the AI cannot beat India's official forecasters, that is an important finding; if it can, that is stronger still.
+**D. Resolution and scoring**
 
-**D. Research comparisons.**
-1. **Does news help?** Each model with vs without timely retrieved news.
-2. **India gap?** Indian vs Western questions matched on category, difficulty and horizon. A difference is a finding only if the evidence supports it.
-3. **Historical vs prospective.** Historical questions test the pipeline and probe possible training-data contamination. Compare them cautiously with live forecasts: a difference alone does **not** prove memorisation. Historical results are reported separately and never mixed into the prospective benchmark scores.
+When an event's official result becomes available, resolve the question using its predefined rule and record the outcome with the source and resolution timestamp.
 
-**E. Optional extra experiments (only if time allows; they would strengthen the India-specific contribution):**
-- **Human vs AI:** GLA students forecast the same questions before the same deadlines. Needs informed consent, and GLA ethics approval if the university requires it; record each participant's forecast time the same way as the models'.
-- **Hindi/regional vs English news:** in Condition B, give the same model news in Hindi (or another Indian language) vs English for the same questions and deadlines, with the amount of evidence matched as closely as possible.
+Calculate:
+- Brier score for probabilistic predictions.
+- Calibration, with uncertainty-aware interpretation when the sample is small.
+- Resolution rate and unresolved-question counts.
+- Performance against baseline forecasts.
+- Indian vs Western performance.
+- Cost and failure rate, where practical.
 
-For every comparison report sample sizes, uncertainty, costs and failures. A well-designed experiment that shows no improvement is still a useful result.
+For binary questions, the Brier score is the squared difference between the forecast probability and the final outcome coded as zero or one. Lower scores are better.
 
-### Part 7. Dashboard inside Reflica
+### Proposed research contribution
 
-Four views: **Question bank** (questions and deadlines), **Forecasts** (probabilities and evidence), **History** (immutable records), **Scoreboard** (resolved forecasts and metrics). The app clearly separates: forecasts still unknown; resolved forecasts that can be scored; questions invalidated or unresolvable. No "accuracy" is shown for unresolved questions.
+An openly documented, automatically updated, prospective benchmark of AI forecasting on Indian events, with timestamped predictions, a Western comparison set, a past-vs-future leakage study, and reproducible evaluation.
 
-Use Firebase for what it already does well; add a secure model-calling service only if the architecture requires one. API keys never go in the Flutter client.
+The website is the working product; the benchmark design and empirical findings form the research contribution.
 
-### Part 8. API budget and cost control
+Do not claim that India-specific forecasting or calibration is entirely unexplored without verifying the literature first.
 
-- Set a **monthly API budget** and estimate the cost of each experiment before running it.
-- Prefer free or low-cost models and open models where practical. **Open models are not free to run**: include compute or hosting costs.
-- **Cache model outputs**; do not repeat identical calls without reason (a repeat run for variance is a planned, recorded condition).
-- Record model version, settings, token usage, cost, failures and runtime for every call.
-- **Estimate the full cost before expanding** beyond the 20-question pilot.
+### Scope control
 
-### Part 9. From results to a paper (Conference Paper 1)
+Start with a pilot of 20 carefully specified questions. Test the complete workflow before expanding towards 200–300 questions.
 
-The manuscript explains: (1) the research gap from the literature review; (2) how questions are generated, validated and resolved; (3) models, information conditions and baselines; (4) how forecasts were stored and leakage prevented; (5) what the metrics show, with uncertainty and limitations; (6) what worked, what failed, and what future work should do.
+Questions take weeks or months to resolve. Begin building and reviewing the question catalogue in December 2026:
+- For every question, record its source, topic, resolution criteria, resolution source, forecast deadline and final resolution date.
+- The forecast deadline must be earlier than the resolution date.
+- Prefer questions that resolve by May 2027 for the initial Minor 1 evaluation.
+- Never change a question's criteria after seeing model predictions or the outcome.
 
-ForecastBench (ICLR 2025) is the key precedent: a dynamic benchmark of 1,000 questions comparing LLMs with human forecasters. The novelty here must be **demonstrably different**: for example the quality of the India-focused question pipeline, a well-controlled local-information experiment, comparison with official Indian forecasters, or findings existing benchmarks do not already establish. Publication is an aspiration, not a guaranteed outcome.
+Minor Project 1 does not need a free-form forecasting chatbot. Its primary focus is the curated catalogue, forecast generation, history, scoring, and scoreboard.
 
-### Roadmap
+### Output
 
-| Period | Main target |
-|---|---|
-| October–November 2026 | Read the core literature, refine the research questions, inspect the Reflica repository. |
-| December 2026 | Start question collection and validation; first 20-question pilot; forecast logging. |
-| January–March 2027 | Expand the benchmark; run controlled model/news experiments. |
-| April–May 2027 | Resolve available questions, analyse results, document limitations, prepare the report. |
+Working Module 1 in the Reflica app + open benchmark v1 + **Conference paper 1** (benchmark design and findings).
 
-Working targets, subject to GLA requirements and the real resolution dates of events.
+## 4. Minor Project 2: Interactive and Evidence-Grounded Forecasting Agent
 
-**Proposed contribution.** An openly documented, prospective benchmark of AI forecasting on Indian events, with timestamped predictions, controlled news and India-vs-West comparisons, official-forecast baselines and reproducible evaluation. Do not claim that India-specific forecasting or calibration is unexplored without verifying the literature first.
+**Estimated period:** July–December 2027, subject to university requirements.
 
-### How Minor 1 fits the long-term vision
+### Purpose
 
-1. **Minor 1, measure the future:** which forecasts deserve trust, what evidence helps, where AI fails.
-2. **Minor 2, improve the forecaster:** an agent that researches, gives calibrated probabilities and abstains when evidence is weak.
-3. **Final project, understand the consequences:** how a forecast event affects other events and sectors. The Reflica graph engine may help with dependency reasoning, but probability propagation needs separate validation.
+Extend the working forecasting module so a user can ask a new question in natural language and receive a transparent, evidence-grounded probabilistic forecast.
 
-## 5. Minor Project 2: Interactive, evidence-grounded forecasting agent
+### Research question
 
-Estimated period: July–December 2027 (subject to GLA rules).
+Can an evidence-grounded forecasting agent with calibrated probabilities and a tested abstention rule reduce confident forecasting errors while retaining useful coverage?
 
-**Research question.** Can an evidence-grounded forecasting agent with calibrated probabilities and a tested abstention rule reduce confident forecasting errors while keeping useful coverage?
+### Features to build
 
-### A. Ask the Forecaster
-A new screen in the existing app. The agent:
-1. Checks whether the question is specific and forecastable.
-2. Identifies the time period and event definition.
-3. Searches appropriate current sources when retrieval is available.
-4. Evaluates evidence quality, freshness and consistency.
-5. Gives a probability when the evidence supports one.
-6. Explains the main reasons and cites the evidence.
-7. Says "insufficient evidence" or abstains when appropriate.
-8. Saves the question, forecast, timestamp, evidence references and configuration.
+**A. Ask the Forecaster**
 
-It must not fabricate sources or call a probability calibrated just because it is a percentage.
+Add a screen to the existing application where users can ask questions such as:
 
-### B. Honest probability estimation
-Compare: plain LLM forecast; forecast with retrieved evidence; aggregation of several forecasts; calibration on previously resolved predictions (when enough data exists); abstention based on evidence quality, model uncertainty or validation results. Agreement between models or runs does not guarantee correctness.
+"Is there a high chance of electricity demand exceeding available supply in this region next week?"
 
-### C. Calibration data from Minor 1 (addition 5)
-- Use suitable **resolved forecasts from Minor 1** as calibration and evaluation data for Minor 2. This links the two projects.
-- Aim for **a few hundred resolved forecasts** if feasible. The amount needed depends on how balanced the outcomes are and how good the forecasts are; report it honestly if there is too little.
-- **Separate development data from held-out evaluation data** (for example by time period). Choose the abstention threshold and calibration settings on development data only, then test once on the held-out data.
-- Prevent leakage from future news, outcomes or anything unavailable at forecast time.
-- Report calibration, Brier score, coverage, and performance when the agent abstains.
+The agent should:
+1. Check whether the question is specific and forecastable.
+2. Identify the relevant time period and event definition.
+3. Search appropriate current sources when retrieval is available.
+4. Evaluate the quality, freshness, and consistency of the evidence.
+5. Produce a probability when the available evidence supports one.
+6. Explain the main reasons and cite the evidence used.
+7. Say "insufficient evidence" or abstain when appropriate.
+8. Save the question, forecast, timestamp, evidence references, and configuration for later evaluation.
 
-### D. Abstention and evaluation
-Measure Brier score on answered questions, calibration, false-confidence rate, coverage and the risk–coverage trade-off. Compare against baselines on a reproducible test set and continue prospective testing where possible.
+The system must not fabricate sources or claim that a probability is calibrated merely because it provides a percentage.
 
-**Proposed contribution.** An experimentally evaluated approach to evidence-grounded, uncertainty-aware forecasting of Indian events, supported by results showing whether it improves forecast quality or reduces false confidence. Do not assume it beats the baselines.
+**B. Honest probability estimation**
 
-## 6. Final project: Impact-aware forecasting
+Investigate and compare appropriate methods for probability estimation and calibration.
 
-Estimated period: final project period (GLA rules).
+Potential methods include:
+- A plain LLM forecast.
+- Forecasting with retrieved evidence.
+- Aggregation of multiple forecasts.
+- Calibration using previously resolved predictions, where enough data is available.
+- An abstention rule based on evidence quality, model uncertainty, or validation results.
 
-**Research question.** Does an explicit cause-and-effect model for estimating downstream consequences of forecast events predict those consequences better than asking an LLM directly?
+Do not assume that agreement between models or multiple runs guarantees correctness.
 
-Example: elevated chance of extreme heat → electricity demand → supply shortage → water-pumping disruption → effects on hospitals and industry. These are hypotheses about dependencies, not guaranteed outcomes. The system must represent uncertainty and relevant conditions (available generation, water storage, local infrastructure, mitigation).
+**Calibration data.** Use suitable resolved forecasts collected during Minor Project 1 as calibration and evaluation data for Minor Project 2.
+- Aim for a few hundred resolved forecasts if feasible; the amount needed depends on event balance and forecast quality.
+- Separate development data from held-out evaluation data.
+- Prevent leakage from future news, outcomes, or any information unavailable at forecast time.
+- If too few forecasts have resolved, report that limitation and use simpler methods.
 
-### A. Interactive impact map
-Reuse the Reflica mind-map / graph interface where practical. Show the initial forecast and probability; downstream nodes; the relationship on each edge; evidence for each relationship; conditional probabilities or uncertainty ranges where adequately estimated; assumptions and missing information; observed outcomes once resolved.
+**C. Abstention**
 
-## 7. Reusing the Reflica engine (final project)
+When the system lacks sufficient evidence, it should be able to decline to issue a confident forecast.
 
-Evaluate whether the existing graph propagation, ground truth, constraint reasoning and related components can support impact analysis. **Do not assume the old engine can propagate probabilities**: it was built for deterministic plan revision. Assess it against the mathematical and causal requirements of forecasting. Where needed, build and test a **separate probabilistic propagation layer** instead of forcing the old engine. Reviewers will ask why not a Bayesian network; have an answer.
+Measure:
+- Brier score on answered questions.
+- Calibration.
+- False-confidence rate.
+- Coverage: the proportion of questions for which the system issues a forecast.
+- The trade-off between forecast risk and coverage.
+- Performance on the questions where the agent abstains (what it would have scored), to show whether abstaining was justified.
 
-**Scientific evaluation.** Compare at least: (1) direct LLM prediction of effects; (2) a baseline without the explicit graph; (3) the graph-based approach using Reflica components, if technically appropriate. Use predefined outcomes, probability scores, calibration and task-specific metrics. The main challenges are reliable labels for downstream effects and not treating a time sequence as proof of causation.
+Choose the abstention threshold using development data and evaluate it on separate test data. Avoid selecting a threshold after inspecting the final test outcomes.
 
-**Proposed contribution.** A tested method combining event forecasts with explicit dependency reasoning, showing when graph propagation helps, when it fails, and how uncertainty changes along the graph.
+**D. Evaluation**
 
-## 8. Research outputs (addition 2)
+Compare the new agent against appropriate baselines using a reproducible test set. Continue prospective testing where possible.
 
-These are research goals, not guaranteed publications.
+### Proposed research contribution
 
-| Project | Target output | Content |
-|---|---|---|
-| Minor 1 | Conference Paper 1 + open benchmark v1 | Benchmark design, news vs no-news and Indian vs Western comparisons, official-forecast baselines, empirical findings |
-| Minor 2 | Conference Paper 2 + open agent | Honest forecasting agent: calibration, evidence retrieval, abstention |
-| Final project | Final research paper + M.Tech thesis | Impact-aware forecasting and downstream consequence analysis |
+An experimentally evaluated approach to evidence-grounded and uncertainty-aware forecasting for Indian events.
 
-## 9. Shared platform and architecture
+The contribution must be supported by results showing whether the approach improves forecast quality or reduces false confidence. Do not assume that the proposed method will outperform the baselines.
 
-**Frontend.** Reuse the existing Flutter app and components. Additions: forecast catalogue and details; history and leaderboard; Ask the Forecaster; evidence viewer; impact map. No rebuild in React/Next.js unless there is a demonstrated need and the user approves.
+### Output
 
-**Firebase.** Inspect and reuse the existing setup (authentication, Firestore, offline persistence). Design forecasting data around the current architecture. Do not duplicate users or replace working sign-in or storage. The frontend must never hold privileged LLM API keys.
+Working Module 2 ("Ask the Forecaster") + open agent code + **Conference paper 2** (evidence-grounded, calibrated, abstaining forecasting).
 
-**Forecasting backend.** Choose after checking the existing project. A Python service may fit (model calls, scoring, scheduled jobs, graph reasoning); FastAPI is a candidate, not a decision (one already exists on the stage-1 branch). Keep separate: question management; forecast generation; evidence retrieval; immutable forecast history; resolution and scoring; impact analysis. If a separate service is used, explain how it authenticates, talks to Firebase and protects secrets.
+## 5. Final Project: Impact-Aware Forecasting
 
-**Automated jobs (later).** Scheduled forecasts; resolution checks; recording outcomes; leaderboard recalculation; failure logging and safe retries. Jobs must never silently replace predictions or change historical scores without an auditable correction record.
+**Estimated period:** Final project period, according to GLA requirements.
 
-## 10. Research integrity rules
+### Purpose
+
+Integrate the forecasting agent with a cause-and-effect graph so users can explore the possible downstream consequences of a predicted event.
+
+This is where the existing Reflica graph-reasoning work becomes especially useful.
+
+### Research question
+
+Does using an explicit cause-and-effect model to estimate downstream consequences of forecast events produce better forecasts of those consequences than asking an LLM to predict the consequences directly?
+
+### Example
+
+Suppose the system forecasts an elevated probability of an extreme heat event.
+
+A possible dependency graph is:
+
+Extreme heat → electricity demand → supply shortage → water-pumping disruption → effects on hospitals and industry.
+
+These are hypotheses about possible dependencies, not guaranteed outcomes. The system must represent uncertainty and account for relevant conditions, such as available generation, water storage, local infrastructure, and mitigation measures.
+
+### Features to build
+
+**A. Interactive impact map**
+
+Reuse the existing Reflica mind-map or graph interface where practical.
+
+Display:
+- The initial forecast and its probability.
+- Downstream events or consequences.
+- The relationship connecting each node.
+- Evidence supporting each relationship.
+- Conditional probabilities or uncertainty ranges when adequately estimated.
+- Important assumptions and missing information.
+- Observed outcomes when the event has been resolved.
+
+**B. Reuse the Reflica engine**
+
+Evaluate whether the existing graph propagation, ground truth, constraint reasoning, and relevant components can support the new impact-analysis task.
+
+Do not assume that the old engine can directly propagate probabilities. Its existing plan-revision behaviour must be assessed against the mathematical and causal requirements of forecasting.
+
+Where necessary, implement and test a separate probabilistic propagation layer rather than forcing the old engine to perform a task it was not designed for.
+
+**C. Scientific evaluation**
+
+Compare at least:
+1. Direct LLM prediction of downstream effects.
+2. A suitable baseline that does not use the explicit graph.
+3. The graph-based approach using Reflica components, if technically appropriate.
+
+Evaluate against predefined outcomes using appropriate probability scores, calibration, and other task-specific metrics.
+
+The main challenge is obtaining reliable labels for downstream effects and avoiding the assumption that a temporal sequence proves causation.
+
+### Proposed research contribution
+
+A tested method for combining event forecasts with explicit dependency reasoning to estimate downstream effects. The contribution must show when graph-based propagation helps, when it fails, and how uncertainty changes along the graph.
+
+### Output
+
+Working Module 3 (Impact Map) + live track record + **Final research paper** + M.Tech thesis.
+
+## 6. Shared platform and architecture
+
+The three projects should extend one platform, with features added in stages.
+
+### Frontend
+
+Reuse the existing Flutter application and its working components.
+
+Proposed additions:
+- Forecast catalogue and details.
+- Forecast history and leaderboard.
+- Ask the Forecaster.
+- Evidence viewer.
+- Impact map.
+
+Do not rebuild the frontend in React or Next.js unless there is a demonstrated need and I approve the change. (This replaces the earlier FastAPI/Streamlit/React suggestion in the 13 October version.)
+
+### Existing Firebase integration
+
+Inspect the existing Firebase setup first and reuse the appropriate services for authentication, persistence, and any existing offline functionality.
+
+Design the new forecasting data models around the current architecture. Avoid duplicating users or replacing working sign-in and storage systems.
+
+The frontend must not directly hold privileged LLM API keys.
+
+### Forecasting backend
+
+Determine the best integration with the existing project before choosing the implementation.
+
+A Python service may be appropriate for model calls, scoring, scheduled evaluation, and graph reasoning. FastAPI is a candidate, not a mandatory decision.
+
+Keep the following concerns separated:
+- Question management.
+- Forecast generation.
+- Evidence retrieval.
+- Immutable forecast history.
+- Resolution and scoring.
+- Graph-based impact analysis.
+
+If a separate Python service is needed, explain how it will authenticate, communicate with Firebase, and protect secrets.
+
+### Automated jobs
+
+Eventually support:
+- Scheduled forecasts.
+- Checking whether questions have resolved.
+- Recording official outcomes.
+- Recalculating leaderboard summaries.
+- Logging failures and retrying safely.
+
+Automated jobs must not silently replace existing predictions or alter historical scores without an auditable correction record.
+
+## 7. Publications
+
+| Paper | From | Working title | Target venue |
+|---|---|---|---|
+| Conference paper 1 | Minor Project 1 | Benchmark design, Indian vs Western comparison and empirical findings ("How well do LLMs forecast Indian events? A prospective benchmark") | NeurIPS / ACL workshop, or an IEEE conference |
+| Conference paper 2 | Minor Project 2 | The honest forecasting agent: evidence retrieval, probability calibration and abstention ("Knowing when not to forecast") | AAAI / EMNLP / ACL workshop, or IEEE conference |
+| Final research paper + M.Tech thesis | Final Project | Impact-aware forecasting and downstream consequence analysis, with live evaluation | Main AI conference (ACL, EMNLP, AAAI), International Journal of Forecasting, or IEEE TKDE |
+| Optional review | Literature work | A systematic review of LLM agents for event forecasting | Artificial Intelligence Review (Springer) |
+
+These are research goals, not guaranteed publication outcomes. Each paper reports only what the experiments show, including negative results.
+
+## 8. Research integrity rules
 
 1. Preserve all historical forecasts and their original timestamps.
-2. Store probabilities before resolution.
+2. Store forecast probabilities before outcome resolution.
 3. Define outcome sources and resolution rules in advance.
-4. Prevent future information leaking into forecasts.
-5. Use clear train, calibration, development and evaluation periods.
-6. Report sample sizes and uncertainty with every score.
+4. Prevent future information from leaking into historical or prospective forecasts.
+5. Use clear train, calibration, development, and evaluation periods where relevant.
+6. Report sample sizes and uncertainty alongside scores.
 7. Compare against meaningful baselines.
-8. Separate correlation, prediction and causal claims.
-9. Verify every claimed literature gap against the actual paper, not its abstract or a summary.
+8. Separate correlation, prediction, and causal claims.
+9. Verify every claimed literature gap against the actual paper, not only its abstract or a summary.
 10. Report negative results honestly.
-11. Keep the product roadmap separate from the evidence for research claims.
+11. Keep the product roadmap separate from the evidence supporting the research claims.
 
-### Literature gaps to verify (from the 21-paper review)
-1. Forecast probabilities rarely calibrated or checked.
-2. No abstention ("I don't know") in forecasting systems.
-3. Little prospective (live) testing; leakage risk on historical data. ForecastBench is the main exception.
-4. Cause chains extracted from past text but not used forward.
-5. India largely missing (one paper, Indian stock indices).
+## 9. Immediate tasks
 
-Papers to read before claiming any of these: Halawi et al. 2024 "Approaching Human-Level Forecasting with Language Models"; Autocast (Zou et al. 2022); ForecastQA (Jin et al. 2021); "Wisdom of the Silicon Crowd" (Schoenegger et al. 2024); "Pitfalls in Evaluating Language Model Forecasters" (Paleka et al. 2025); "Know Your Limits" abstention survey (Wen et al. 2024); Bayesian-network work for gap 4.
+Do these tasks in order (read together with the implementation order at the top of this file):
 
-Key papers from the review to read first: LLM-based Agents for Forecasting and Prediction (survey, arXiv 2608.23058); ForecastBench (ICLR 2025); From News to Forecast (NeurIPS 2024); Application of LLMs in the Problem of Event Forecasting (2025); Hierarchical Semantic Extraction and Heterogeneous GNNs for Event-Driven Time Series Forecasting (Scientific Reports 2026); LLM Framework for Predicting Significant Equity Index Fluctuations (NIFTY, 2026). Full analysis: https://claude.ai/artifact/B61G9cki25mLr8aRaSXK81 and the user's `LITERATURE_FORECASTING.md` (not in this repo).
+1. Inspect the current repository and report the actual state of the Flutter application, Firebase integration, Python research code, tests, and documentation. *(Done: `research/forecast/AUDIT.md`.)*
+2. Identify which Reflica components can be reused directly and which require adaptation. *(Done: `AUDIT.md`, `docs/ARCHITECTURE.md`.)*
+3. Propose a minimal integration architecture and folder layout for the new forecasting workstream. *(Proposed: `docs/ARCHITECTURE.md`; awaiting approval.)*
+4. Propose the question and forecast data schemas (including the India/Western region tag), and how immutable prediction history and resolution records will work with the existing Firebase setup. *(Proposed: `PILOT_PROTOCOL.md`, `docs/ARCHITECTURE.md`; awaiting approval.)*
+5. Explain the proposed changes before implementing them.
+6. After I approve the plan, help me write and timestamp the first 20 pilot questions (December 2026) and implement a minimal working forecast dashboard.
+7. Help me set an API budget and choose low-cost models for the pilot.
+8. Keep a short dated progress log and update the project documentation as real implementation work is completed.
 
-## 11. How to work in this repository
+**Working principle:** I write the code and learn the underlying concepts. You guide the design, explain the reasoning, review my code, help debug errors, and check scientific validity. The actual repository and tests are the source of truth for implementation status.
 
-1. Inspect the repository before proposing changes; read this file, `PROGRESS.md` and any architecture docs.
-2. Check the actual Firebase products, collections, auth flow, data models and configuration; do not assume.
-3. Preserve the Reflica app, authentication, Firebase integration and research work. Do not delete or needlessly rewrite working features.
-4. Add forecasting features incrementally, reusing Flutter screens and components.
-5. Never put Firebase credentials, service-account keys or API keys in client code or public repositories.
-6. No destructive database migrations or major architecture changes without explaining the impact and getting approval.
-7. **The user writes the code.** Claude explains step by step, reviews, debugs and checks scientific validity; it does not generate whole modules unless asked.
-8. The repository and its tests are the source of truth for status. Keep a short dated log in `PROGRESS.md`.
-9. Messages are often voice-typed; answer in short, simple English.
+## Appendix: literature background (from the 13 October review)
 
-## 12. Immediate tasks (in order)
+Gaps found in 21 recent papers (abstract-level; verify in full texts): forecasts are rarely calibrated; no system abstains; little prospective (live) testing, so leakage is likely; cause chains are extracted from past text but not used forward; India is almost absent (one paper, stock indices). Supporting: rare big events are fragile; single-case evaluations; LLM extraction errors unmeasured.
 
-1. Inspect the repository and report the real state of the Flutter app, Firebase, Python code, tests and docs.
-2. Identify which Reflica components can be reused directly and which need adaptation.
-3. Propose a minimal integration architecture and folder layout.
-4. Propose question and forecast schemas, including immutable history and resolution records in the existing Firebase setup.
-5. Explain proposed changes before implementing them.
-6. After approval, help the user get **one question working end to end**, then the 20-question pilot (collection from December 2026) and a minimal forecast dashboard.
-7. Keep the progress log and docs updated as real work is completed.
+Read first: the survey "LLM-based Agents for Forecasting and Prediction" (arXiv 2608.23058, 2026); "ForecastBench" (ICLR 2025); "From News to Forecast" (NeurIPS 2024); "Application of Large Language Models in the Problem of Event Forecasting" (2025); "Hierarchical Semantic Extraction and Heterogeneous GNNs for Event-Driven Time Series Forecasting" (Scientific Reports 2026); "A Large Language Model Framework for Predicting Significant Equity Index Fluctuations" (NIFTY, 2026).
+
+Full analysis: `research/forecast/LITERATURE_FORECASTING.md` (in this repository), the review page https://claude.ai/artifact/B61G9cki25mLr8aRaSXK81, and the research brief (Word) in the Windows folder. Papers outside the 21 that must be checked before any gap is claimed (e.g. Halawi et al. 2024; Autocast; ForecastQA) are listed at the end of `LITERATURE_FORECASTING.md`.

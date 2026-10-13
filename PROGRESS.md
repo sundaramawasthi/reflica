@@ -1,7 +1,8 @@
 # Reflica — PROGRESS
 
-> **Vision:** Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform.
-> A **living strategic planning architecture** where a goal → structured strategy graph stays continuously updated by real-world reports. The mind map is the human-facing view of the underlying structured system, not the product.
+> **Current direction (14 Oct 2026):** Reflica is evolving into an **AI forecasting and research platform for Indian events**. Authoritative: `NEW_DIRECTION.md`. Chosen by the student; **formal M.Tech guide approval pending**.
+> **Implementation order:** documentation → Flutter UI → Python backend → connect to real data; the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
+> *Previous vision (kept for history):* Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform; a living strategic planning architecture.
 > **Owner:** Sundram Awasthi · M.Tech CSE (2026–28), GLA University.
 > **Last updated:** 2026-10-14
 
@@ -12,17 +13,18 @@
 Decided by the user; **guide approval pending**. Full brief: `NEW_DIRECTION.md` (repo root).
 - Reflica research (benchmark v0.2.0, 63 scenarios, B3/B4a/B4b, B5 v0.1.0) is **kept and paused**. Nothing deleted.
 - New workstream: `research/forecast/` (India Forecast Benchmark → honest agent with abstention → impact propagation using the Reflica engine).
-- Next: question schema, first 20 questions resolving Jan–May 2027, runner, Brier scorer (user writes the code).
+- Docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/{PILOT_PROTOCOL,MINOR1_DESIGN,MILESTONE_1,LITERATURE_FORECASTING,AUDIT}.md`.
+- Next: approve the documentation → Flutter UI (Phase 2) → backend (Phase 3). December pilot recorded by hand.
 
 ---
 
-## One-sentence definition
+## One-sentence definition (previous plan-management product; kept for history)
 
 Reflica keeps an explicit, evidence-aware model of a changing situation so that AI-generated plans can be checked, traced, reported against, and repaired as reality changes — serving individuals, organisations, research institutions, government bodies, and disaster responders through one general engine.
 
 ---
 
-## Two levels (do not conflate)
+## Two levels (do not conflate) (as of 2026-10-09; superseded by `NEW_DIRECTION.md`)
 
 | Level | Scope | State |
 |---|---|---|
@@ -67,9 +69,11 @@ Reflica keeps an explicit, evidence-aware model of a changing situation so that 
 
 ---
 
-## M.Tech research track — current status (2026-10-09)
+## Previous M.Tech research track (paused 2026-10-13) — status as of 2026-10-09
 
-**Thesis sentence (locked):**
+> Paused, not deleted. The forecasting direction in `NEW_DIRECTION.md` replaces it as the student's chosen M.Tech direction (guide approval pending). Code and tests below are preserved unchanged.
+
+**Previous thesis sentence (was locked; now paused):**
 > Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction and capacity constraints — evaluated across add, edit, delete, and relationship-change operations against classical ATMS, constraint-programming, and LLM-regeneration baselines.
 
 **Where it fits:** sub-component of **Capability C — Change / Revision Engine**. Not Reflica itself.
@@ -312,7 +316,7 @@ Notification kinds: `planCreated | planUpdated | planDeleted | nodeAdded | nodeU
 
 ---
 
-## Roadmap — tracked against the 10-step user flow
+## Roadmap — tracked against the 10-step user flow (previous plan product; superseded by the phases in `docs/ARCHITECTURE.md`)
 
 Reflica's full user flow has **10 steps** (locked 2026-10-08). The product's current coverage:
 
@@ -396,6 +400,7 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-14 | **Minor 1 rewritten** in the direction document: 7-step pipeline, automatic candidate-question generator, news vs no-news, India vs West, historical vs prospective. Added official RBI/IMD forecasts as a baseline, start with 2–3 models, optional human-vs-AI and Hindi-vs-English news experiments. README layout/schema aligned. No code changed. | User-approved Minor 1 description; first goal is one question working end to end. |
 | 2026-10-14 | **Phase 1 audit** (`research/forecast/AUDIT.md`); direction file moved to `NEW_DIRECTION.md` (repo root) with a platform-evolution section. Python tests: `main` 203 passed; stage-1 branch 1030 passed, 4 skipped. Flutter not built (no SDK in cloud). No app code changed. | Reflica becomes a forecasting platform; old plan features to be hidden, not deleted. Waiting for approval of the plan. |
 | 2026-10-14 | **Stage-1 merge-readiness checked; Milestone 1 designed** (`research/forecast/MILESTONE_1.md`): question@1 / forecast@1 / resolution@1 schemas, first question IN-ECO-RBI-0001, minimum files and tests, timestamping plan (RFC 3161 + OpenTimestamps). Backup branch `backup/lucid-mendel-pre-stage1-2026-10-14` pushed. Trial merge: one conflict (`PROGRESS.md`). Not merged. | User writes the code; merge waits for review. |
+| 2026-10-14 | **Documentation consolidated.** `NEW_DIRECTION.md` replaced with the user's authoritative 14 Oct text (A2 generator, A3 past-question study, publications table) plus marked notes (implementation order, 2–3 models first, official-forecast baseline). New: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/PILOT_PROTOCOL.md` (single source for record formats), `MINOR1_DESIGN.md`, `LITERATURE_FORECASTING.md`. Old thesis and plan-product sections relabelled as paused/history. No code, Firebase or schema changes. | Order is now documentation → Flutter UI → backend → connect; December pilot recorded by hand. Guide approval pending. |
 
 ---
 

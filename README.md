@@ -1,8 +1,12 @@
 # Reflica
 
-A living strategic-planning and decision-support platform. Reflica turns messy real-world information (text, voice, documents, images, video) into a structured, evidence-aware state graph that keeps updating as reality changes — so plans can be checked, traced, reported against, and repaired.
+**Current direction (14 Oct 2026):** Reflica is evolving into an **AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines). Read `NEW_DIRECTION.md` first. The direction is chosen by the student; formal M.Tech guide approval is pending.
 
-This repository holds two independent tracks that share one vision:
+Forecasting docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/` (`PILOT_PROTOCOL.md`, `MINOR1_DESIGN.md`, `MILESTONE_1.md`, `LITERATURE_FORECASTING.md`). Nothing in the forecasting workstream is implemented yet.
+
+*Previous description (the existing app below still implements it):* a living strategic-planning and decision-support platform that turns messy real-world information into a structured, evidence-aware state graph.
+
+This repository holds two independent tracks:
 
 ## 1. Flutter product (`lib/`, `android/`, `ios/`, `web/`, …)
 
@@ -24,7 +28,7 @@ flutter analyze             # should print "No issues found!"
 
 ## 2. M.Tech research workspace (`research/`)
 
-A separate Python benchmark for the thesis:
+A separate Python benchmark for the **previous** thesis topic (paused since 2026-10-13, preserved unchanged):
 
 > *Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction and capacity constraints — evaluated across add, edit, delete, and relationship-change operations against classical ATMS, constraint-programming, and LLM-regeneration baselines.*
 
@@ -36,7 +40,7 @@ Current state:
 - **Natural-language pilot:** complete (144/144 calls).
 - **Tests:** 203 passing.
 
-The full 63-scenario experiment is next.
+The full 63-scenario experiment is paused. The new forecasting workstream lives in `research/forecast/` (documentation only so far).
 
 Run it:
 
@@ -60,7 +64,9 @@ reflica/
 │   ├── reflica_bench/
 │   ├── scenarios/
 │   └── tests/
-├── PROGRESS.md         # authoritative board — read this first
+├── NEW_DIRECTION.md    # authoritative research direction — read this first
+├── docs/               # forecasting UI spec and architecture
+├── PROGRESS.md         # dated progress log and status board
 └── pubspec.yaml
 ```
 
