@@ -63,7 +63,7 @@ Order to write them: `schema.py` → its test → `validate.py` → `scoring.py`
 
 Hand-checked Brier values for the scoring test: p = 0.7, Yes → 0.09; p = 0.7, No → 0.49; p = 0.5 either way → 0.25; p = 1.0, No → 1.0.
 
-E2E test must also check that: a forecast after the deadline is kept with `timing_status: late` and excluded from on-time scoring; the primary-leaderboard selection picks the latest on-time forecast per model and condition (D1); a baseline record scores like a model record; writing the same `forecast_id` (`FC-YYYYMMDD-NNNNNN`) twice fails; a changed question file breaks the hash check; an `invalid` resolution is excluded from the score.
+E2E test must also check that: a forecast after the deadline is kept with `timing_status: late` and excluded from on-time scoring; selection takes the latest *eligible* forecast, so an earlier eligible one is used when the latest failed (`PILOT_PROTOCOL.md` section 7.1); a question past its deadline with no forecasts derives *Forecast Frozen*, not *Open* (section 4.1); a baseline record scores like a model record; writing the same `forecast_id` (`FC-YYYYMMDD-NNNNNN`) twice fails; a changed question file breaks the hash check; an `invalid` resolution is excluded from the score.
 
 ## 4. Timestamps
 

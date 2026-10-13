@@ -2,7 +2,7 @@
 
 Date: 14 October 2026. Read-only audit; no application code was changed.
 
-> **Snapshot.** This file records the repository as found on 14 October 2026 and is kept unchanged as history. Current architecture and plans: `../../docs/ARCHITECTURE.md`; record formats: `PILOT_PROTOCOL.md`. Corrected since: section 4 says "the git commit time is an independent timestamp"; it is **not** independent proof (see the evidence hierarchy in `docs/ARCHITECTURE.md` section 5), and "read for everyone" is not a decided rule (section 5.1 there). The implementation order has since changed to documentation → Flutter UI → Python backend → connect (December pilot by hand).
+> **Snapshot.** This file records the repository as found on 14 October 2026 and is kept unchanged as history. Current architecture and plans: `../../docs/ARCHITECTURE.md`; record formats: `PILOT_PROTOCOL.md`. Corrected since: "7 Flutter test files" should read 6 new test files (one live, skipped by default; 91 files differ in total); "fast-forward" applies only to `main`, not to the working branch, which needs a merge commit; section 4 says "the git commit time is an independent timestamp"; it is **not** independent proof (see the evidence hierarchy in `docs/ARCHITECTURE.md` section 5), and "read for everyone" is not a decided rule (section 5.1 there). The implementation order has since changed to documentation → Flutter UI → Python backend → connect (December pilot by hand).
 Checked on `main` (4d55b8f) and on the unmerged branch `reflica/stage-1-flutter-integration` (ae7084e).
 
 ## 1. What is in the repository

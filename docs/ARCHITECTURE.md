@@ -24,7 +24,7 @@ Exception: the December 2026 pilot is collected by hand in the format in `resear
 - **Reusable as-is:** `AuthService` (Google sign-in, demo mode), `AppColors`/`AppText`, `BrandMark`, `responsive.dart`, the dashboard frame (sidebar, top bar, notifications bell, user menu).
 - **Plan system (legacy):** `models/plan.dart`, `services/plan_repository.dart`, `new_plan_flow.dart`, `plans_screen.dart`, `plan_detail_screen.dart`, `widgets/plan/plan_mind_map.dart`.
 - **Notifications:** `services/notification_service.dart`, client-written on plan changes only. There are no background jobs.
-- **Branch `reflica/stage-1-flutter-integration`** (not merged): adds `research/reflica_service/` (localhost FastAPI, `graph@1`, impact preview, LLM extraction), `lib/services/reflica_api.dart`, graph widgets, the `http` package and 7 Flutter test files. The trial merge had one conflict, in `PROGRESS.md` only. A backup branch exists.
+- **Branch `reflica/stage-1-flutter-integration`** (not merged): adds `research/reflica_service/` (localhost FastAPI, `graph@1`, impact preview, LLM extraction), `lib/services/reflica_api.dart`, graph widgets, the `http` package and 6 new Flutter test files (one is a live test, skipped by default); 91 files differ from `main` in total. Trial merges (scratch copies, cancelled), checked again on 14 Oct: at `43a35bf` and `1182570` → **1 conflict** (`PROGRESS.md`); at `90ae02a` and later → **3 conflicts** (`PROGRESS.md`, `README.md`, `research/README.md`), because both READMEs were edited on our side in `90ae02a`. All are documentation; no code conflicts. Backup branch `backup/lucid-mendel-pre-stage1-2026-10-14` points to `43a35bf`, older than the current head. A fresh backup is required before merging (`STAGE1_MERGE_CHECKLIST.md`).
 
 ## 3. Treatment of legacy features
 
@@ -55,10 +55,10 @@ Append-only research files (JSONL)  ──import/verify──▶  Python backend
 Flutter app  ◀──read──  Firestore display layer (proposed, not created): questions / forecasts / resolutions / scores
 ```
 
-**Evidence hierarchy** (what proves what):
+**Evidence hierarchy** (what each kind of evidence shows):
 1. **Primary record:** the immutable forecast JSONL record (forecast timestamp, model and version, question ID, probability, configuration hash, evidence cutoff, `timing_status`).
 2. **Integrity evidence:** the record hash and the frozen question-set manifest (`question_set` record).
-3. **Additional timing evidence:** an external timestamp, once tested and adopted (decision D7).
+3. **Additional timing evidence:** an independently verifiable external timestamp, **only once the method has been evaluated and adopted** (D7). Until then no record is described as independently time-verified.
 4. **Supporting history:** Git commits and repository history. Useful for versioning and spotting changes, but **not** independent proof that a forecast existed before the outcome was known.
 
 - **Raw records vs derived reports:** scores, leaderboards and reports are always **recalculated** from the frozen records by code. They are never edited by hand, and are stored apart (`results/reports/`, later `scores` in Firestore).
@@ -94,14 +94,14 @@ Personal account data and settings stay under `users/{uid}` and remain private i
 ## 8. Research integrity, evaluation and testing
 
 - Integrity rules: `NEW_DIRECTION.md` section 8. Record and pilot rules (candidates editable, definitions frozen before the first forecast, no backdating, late forecasts excluded, corrections as new records, baselines with rules fixed in advance, India–Western pairs as matched comparisons, synthetic and historical records kept apart): `PILOT_PROTOCOL.md`.
-- Evaluation: Brier on `yes`/`no` only; calibration with sample size and uncertainty; baselines with rules fixed in advance (base rate in the pilot; persistence only after its method is documented and validated, D2; official RBI/IMD forecasts deferred unless a defensible conversion exists, D3); primary leaderboard = latest eligible on-time forecast per model and condition (D1); late forecasts kept but excluded (D9); India vs Western matched pairs (4–6, exploratory, D5); A3 past-question results reported separately.
+- Evaluation: Brier on `yes`/`no` only; calibration with sample size and uncertainty; baselines with rules fixed in advance (base rate in the pilot; persistence only after its method is documented and validated, D2; official RBI/IMD forecasts deferred unless a defensible conversion exists, D3); primary leaderboard = latest **eligible** forecast per question, model and condition, with eligibility and selection order defined in `PILOT_PROTOCOL.md` section 7.1 (D1); question status derived by the ordered rules in its section 4.1; late forecasts kept but excluded (D9); India vs Western matched pairs (4–6, exploratory, D5); A3 past-question results reported separately.
 - Testing:
   - **Python:** `reflica_bench` tests unchanged (203); new `research/tests/test_forecast_*.py` (schema, validator, hashing, append-only store, timeliness rule, Brier hand values, end-to-end with `TEST-` fixtures, pilot-file import without changes).
   - **Flutter:** `flutter analyze` and `flutter test` on the Mac. Screen empty states, navigation (including legacy routes), demo-flag behaviour and model JSON round-trip (`UI_SPEC.md` section 6). The cloud environment has no Flutter SDK.
 
 ## 9. Risks
 
-1. Stage-1 and `main` diverge (90 files). Integrate before Phase 2, or the UI work will conflict.
+1. Stage-1 and `main` diverge (91 files). Integrate before Phase 2, or the UI work will conflict.
 2. Unknown live security rules.
 3. The December deadline: the protocol and question drafts must be ready in November.
 4. Manual collection errors (wrong times, edited lines). These are mitigated by hashes, same-day stamps and the importer's checks.

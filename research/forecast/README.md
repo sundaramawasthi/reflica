@@ -22,7 +22,7 @@ research/forecast/
   results/resolutions/         append-only outcome records
   results/reports/             generated tables and plots
   prompts/                     prompt templates and baseline rules (versioned files)
-  stamps/                      external timestamp proofs
+  stamps/                      external timestamp evidence (only if a service is adopted, D7)
   historical/                  A3 past questions, kept apart from prospective records
   fixtures/                    synthetic TEST- records for tests only
   generator/                   A2: official data → CANDIDATE questions (later)
@@ -34,5 +34,5 @@ Key rules (details in `PILOT_PROTOCOL.md`):
 - Question definitions, forecasts and resolutions are **separate records**. A question never stores its own answer or status.
 - Candidates can be edited; a definition is **frozen before its first forecast**. Material defects → documented invalidation + new question ID.
 - Forecasts are **append-only**; updates are new records. Times are timezone-aware UTC (IST for display).
-- Git commits are supporting evidence; proof = record hashes + external timestamps.
+- Evidence hierarchy: the record itself → its hash and the frozen question-set manifest → an external timestamp (only after evaluation and adoption, D7) → Git history as supporting history only.
 - Every baseline has a calculation rule fixed in advance; an official point forecast is not a probability without a documented conversion.

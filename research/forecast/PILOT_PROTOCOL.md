@@ -10,7 +10,7 @@ This is the **single source** for forecasting record formats. `MILESTONE_1.md`, 
 
 | # | Decision |
 |---|---|
-| D1 | **Primary leaderboard:** for each question, forecaster and condition, use the **latest eligible on-time forecast** made before the deadline. Every other forecast record is kept for secondary analyses. |
+| D1 | **Primary leaderboard:** for each question, forecaster and condition, use the **latest eligible on-time forecast** made before the deadline. "Eligible" and the selection order are defined in section 7.1. Every other forecast record is kept for secondary analyses. |
 | D2 | **Persistence baseline:** no arbitrary probability. Its method is documented and validated before any evaluation uses it (section 5). |
 | D3 | **Official-forecast baseline:** **deferred** from the initial pilot unless a defensible conversion to a probability is established and documented in advance. |
 | D4 | **Pilot models:** start the 20-question pilot with **2–3 models**; estimate API costs before expanding. |
@@ -44,7 +44,7 @@ research/forecast/
     resolutions/resolutions.jsonl   append-only: outcomes, corrections
     reports/               generated tables and plots (re-creatable, not source data)
   prompts/                 prompt templates and baseline rules; never edited (new file = new version)
-  stamps/                  external timestamp proofs (.tsr, .ots) and stamps.jsonl
+  stamps/                  external timestamp evidence (.tsr, .ots) and stamps.jsonl, used only if a service is adopted (D7)
   historical/              A3 past questions and their forecasts (same formats, kept apart)
   fixtures/                SYNTHETIC test records only (ids start with TEST-)
   pipeline/                Python code only (Phase 3; written by the user); no data files inside
@@ -103,7 +103,20 @@ Every line in a `.jsonl` file is:
 | `origin` | `{method: "manual" \| "generator", source_url, fetched_at_utc, note}` |
 | `author` | person |
 
-Resolution status is **not** stored in the question. The app derives it: no forecasts yet → *Open*; forecasts after deadline → *Forecast frozen*; a resolution record → *Resolved* or *Invalid*.
+Question status is **not** stored in the question. It is derived from the records, checking these rules from the top and stopping at the first that matches (`now` = current UTC time):
+
+| # | Condition | Derived status |
+|---|---|---|
+| 1 | Question invalidated by a `correction`, or its current resolution record says `invalid` | **Invalid** |
+| 2 | Current resolution record says `yes` or `no` | **Resolved** |
+| 3 | Frozen, and `now` ≥ `forecast_deadline` (with or without forecasts) | **Forecast Frozen** |
+| 4 | Frozen, and `now` < `forecast_deadline` | **Open for Forecasting** |
+| 5 | Candidate with `review_status: "validated"` (not yet frozen) | **Validated** |
+| 6 | Candidate still being edited | **Draft** |
+
+- "Current resolution record" = the latest resolution for the question that has not been superseded or invalidated by a `correction`.
+- A question past its deadline is **never** shown as open, even if no forecast was collected. The app shows "0 forecasts" instead.
+- *Draft* and *Validated* are review states of files in `questions/candidates/` (field `review_status`). Candidates are not research records.
 
 ### 4.2 `question_set` (`question_set@1`)
 
@@ -161,8 +174,26 @@ The pilot aims for **4–6 matched Western questions** (D5). The comparison is *
 4. Write the record the same day, hash it, append it, commit, and stamp the file.
 5. **Never backdate.** If the exact call time is unknown, use the recorded time.
 6. **On time vs late (D9):** a forecast is `on_time` only if it was produced **and** written to the file before the deadline. Write, hash and commit it the same day. Anything else is kept with `timing_status: "late"` and excluded from on-time evaluation. If an external stamp is adopted (D7), on-time records must also be covered by a stamp dated before the deadline.
-7. **Updates** are new records with `supersedes`. **Primary leaderboard (D1):** the latest eligible `on_time` forecast per question, forecaster and condition. All other records stay available for secondary analyses.
+7. **Updates** are new records with `supersedes`. The primary leaderboard uses the selection rule in section 7.1 (D1). All other records stay available for secondary analyses.
 8. **Failures** are recorded and count towards the failure rate.
+
+### 7.1 Eligible forecasts and the primary leaderboard (D1)
+
+A forecast is **eligible** for the primary Brier-score leaderboard only when **all** of these hold:
+1. `status` is `ok`;
+2. `probability` is a number with 0 ≤ p ≤ 1;
+3. its `record_hash` validates, and `question_hash` and `question_set_hash` match the frozen records;
+4. `timing_status` is `on_time`;
+5. its question's current resolution is `yes` or `no`;
+6. the forecast is not invalidated by a `correction` record.
+
+**Selection:** for each (question, forecaster, condition), first keep only the eligible forecasts, then take the **latest** of them by `created_at_utc` (ties broken by the later `forecast_id`). Do **not** take the latest record first and then drop it if it is ineligible: an earlier eligible forecast is used instead. If none is eligible, that combination has no primary-leaderboard entry.
+
+Reported alongside, never mixed in:
+- **Failure rate:** records with `status` ≠ `ok`, out of all records per forecaster and condition.
+- **Late count:** records with `timing_status: late`.
+- **Invalid and unresolved questions** are counted and reported. They are **never** treated as incorrect forecasts and are excluded from Brier scores.
+- **Secondary analyses** (all versions, late forecasts, past questions) are labelled as such.
 
 **External timestamps (D7: candidate, to be evaluated before relying on it).** The minimum for the pilot is UTC times, record hashes and same-day commits. These are supporting evidence, not tamper-proof proof. In November, evaluate RFC 3161 (e.g. FreeTSA) and OpenTimestamps on test files (cost, reliability, verification steps) and record the decision. If adopted, after each session:
 1. Hash each changed `.jsonl` file.

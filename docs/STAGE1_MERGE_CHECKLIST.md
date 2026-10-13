@@ -7,17 +7,17 @@ Implementation order: Documentation → Flutter UI → Python backend → connec
 
 | Item | Value |
 |---|---|
-| Source | `origin/reflica/stage-1-flutter-integration` @ `ae7084e` (9 commits, 90 files) |
+| Source | `origin/reflica/stage-1-flutter-integration` @ `ae7084e` (9 commits, 91 files differ from `main`) |
 | Target | `claude/lucid-mendel-zy17b7` (= `main` @ `4d55b8f` + forecasting documentation only) |
 | Common base | `4d55b8f`; neither side was rebased; stage-1 contains all of `main` |
-| Trial merge (scratch copy, cancelled) | 3 conflicts, all documentation: `PROGRESS.md`, `README.md`, `research/README.md` |
-| Existing backup | `backup/lucid-mendel-pre-stage1-2026-10-14` @ `1182570`. **Older than the current head; not sufficient.** |
+| Trial merges (scratch copies, cancelled) | At `43a35bf` / `1182570`: 1 conflict (`PROGRESS.md`). At `90ae02a` and the current head: **3 conflicts, all documentation** (`PROGRESS.md`, `README.md`, `research/README.md`); the two READMEs were edited on our side in `90ae02a`. Re-check on merge day. |
+| Existing backup | `backup/lucid-mendel-pre-stage1-2026-10-14` @ `43a35bf` (verified on GitHub 14 Oct). **Older than the current head; not sufficient.** |
 | Earlier test results | Python 1030 passed / 4 skipped on stage-1 alone. **Evidence of a previous run only; says nothing about the combined branch.** Flutter has never been run in the cloud. |
 
 ## 2. What stage-1 changes
 
 - **Python:** `research/reflica_service/` (local FastAPI on `127.0.0.1`, optional `service` extra): LLM extraction, the `graph@1` contract, impact preview and decisions, `describe`/`regress`.
-- **Flutter:** `reflica_api.dart`, `graph/graph1.dart`, graph widgets, a proposal review screen, changes to the plan detail and new-plan screens, the `http` package, and 7 test files plus a live test (skipped unless `REFLICA_LIVE=true`).
+- **Flutter:** `reflica_api.dart`, `graph/graph1.dart`, graph widgets, a proposal review screen, changes to the plan detail and new-plan screens, the `http` package, 6 new Flutter test files (one is the live test `test/live/live_service_test.dart`, skipped unless `REFLICA_LIVE=true`) and JSON fixtures.
 - **Android:** a debug-only manifest allows plain `http://`. Release builds are unchanged.
 - **Documents:** six stage-1 documents describe earlier directions (they get "superseded" banners; nothing is deleted).
 

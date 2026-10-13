@@ -60,7 +60,7 @@ No navigation item leads to a blank or misleading screen. Every screen has a pro
 
 ### 3.2 Question Bank
 - **Row or card:** ID, wording, domain, forecast deadline, resolution date or window, status, forecast count (real only).
-- **Status values:** Draft · Validated · Open for Forecasting · Forecast Frozen · Resolved · Invalid. Status is *derived* from records (`PILOT_PROTOCOL.md`), never typed by hand.
+- **Status values:** Draft · Validated · Open for Forecasting · Forecast Frozen · Resolved · Invalid. Status is *derived* from records using the ordered rules in `PILOT_PROTOCOL.md` section 4.1, never typed by hand. A question past its deadline is never shown as open, even with 0 forecasts.
 - **Search and filters:** domain, status, deadline, resolution date, horizon, India vs comparison region.
 - **Sort:** deadline, newest, domain.
 
@@ -75,7 +75,7 @@ Question · model and version · P(Yes) · timestamp · deadline · condition (W
 - **Model and configuration:** model and version, created and recorded times, prompt version, config hash, news on/off.
 - **Evidence:** each source with its publication date and URL. Published facts are visually separated from the model's reasoning.
 - **Uncertainty and limitations:** missing or conflicting evidence, abstention (Minor 2).
-- **Record history:** later versions shown as separate records, linked by `supersedes`, plus the record hash and stamp proof.
+- **Record history:** later versions shown as separate records, linked by `supersedes`, plus the record hash and, only if an external timestamp service has been adopted (D7), its timestamp evidence. The UI never labels a record "time-verified" otherwise.
 
 ### 3.6 History
 - **Filters:** resolved/unresolved, model, domain, forecast date, resolution date, outcome (Yes, No, Invalid).
@@ -86,7 +86,7 @@ Question · model and version · P(Yes) · timestamp · deadline · condition (W
 ### 3.7 Scoreboard
 - **Metrics:** Brier (lower is better) · calibration · accuracy at a stated threshold, where suitable · number of eligible resolved forecasts · failure and abstention rates · cost and runtime.
 - **Every metric shows** its population, time period and sample size.
-- **Primary leaderboard (D1):** the latest eligible on-time forecast per question, model and condition. Late forecasts are not in it (D9); other records appear only in clearly labelled secondary views.
+- **Primary leaderboard (D1):** the latest **eligible** forecast per question, model and condition, as defined in `PILOT_PROTOCOL.md` section 7.1 (ok status, valid probability, hashes valid, on time, Yes/No resolution, not invalidated). Failure rate and late counts are shown beside it; invalid and unresolved questions are counted, never scored as wrong. Other records appear only in clearly labelled secondary views.
 - **Comparisons:** by model, domain, news condition, India vs Western (labelled **exploratory**, D5), historical vs prospective. Historical (A3) results are labelled and never merged into the prospective ranking.
 - **Small samples** show "Insufficient data" instead of a ranking. Incompatible question sets are never pooled.
 
@@ -101,7 +101,7 @@ Every data screen handles: loading · empty · error · offline · insufficient 
 Shared components keep badges, cards, tables, filters, dates (IST display) and probability displays consistent. Text stays readable, tap targets are adequately sized, charts are labelled, and the layout is keyboard-navigable where Flutter supports it.
 
 ## 5. Data in the first UI pass
-- **Typed local demo objects** live under `lib/forecast/demo/`. They are shown **only** in a development preview with a visible "Sample data, not research results" banner, behind a `--dart-define=FORECAST_DEMO=true` flag.
+- **Typed local demo objects** (planned, not yet created) will live under `lib/forecast/demo/`. They are shown **only** in a development preview with a visible "Sample data, not research results" banner, behind a `--dart-define=FORECAST_DEMO=true` flag.
 - Normal builds show honest empty states.
 - **No new Firestore collections, rules or backend calls** in Phase 2.
 - Demo objects use the same field names as `PILOT_PROTOCOL.md`, so swapping in real data later is a data-source change, not a redesign.
