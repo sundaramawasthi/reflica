@@ -68,7 +68,7 @@ The forecast deadline must be **earlier** than the resolution date.
 
 ### Part 3. Forecasting with the LLMs
 
-- **Start with 2–3 accessible models**; expand to 3–4 only if the budget allows. (This is the agreed number for all documents.)
+- **Start with 2–3 accessible models** (decision D4); estimate API costs before expanding to 3–4.
 - Each model returns a **probability**, not "yes, probably".
 - Two information conditions, everything else kept the same (model version, question, prompt structure, settings):
   - **Condition A, no retrieved news:** question + its specified baseline information.
@@ -94,7 +94,7 @@ If the source is unavailable or the result is genuinely ambiguous, mark the ques
 
 **C. Baselines.** A complex model is not valuable if a simple one does as well.
 - Historical **base rate** and **persistence** ("same as last time").
-- **Official Indian forecasts (addition):** compare the AI with **RBI's own inflation projections** (published in the monetary-policy statements) and **IMD's own forecasts** (e.g. monsoon long-range and extended-range forecasts). Official forecasts are often a point value or a range rather than a probability, so the rule for turning each into a forecast for a question must be **written before** the questions resolve (IMD's categorical monsoon forecasts already give probabilities). If the AI cannot beat India's official forecasters, that is an important finding; if it can, that is stronger still.
+- **Official Indian forecasts (addition; deferred from the initial pilot by decision D3 unless a defensible probability conversion is documented in advance; see `PILOT_PROTOCOL.md`):** compare the AI with **RBI's own inflation projections** (published in the monetary-policy statements) and **IMD's own forecasts** (e.g. monsoon long-range and extended-range forecasts). Official forecasts are often a point value or a range rather than a probability, so the rule for turning each into a forecast for a question must be **written before** the questions resolve (IMD's categorical monsoon forecasts already give probabilities). If the AI cannot beat India's official forecasters, that is an important finding; if it can, that is stronger still.
 
 **D. Research comparisons.**
 1. **Does news help?** Each model with vs without timely retrieved news.

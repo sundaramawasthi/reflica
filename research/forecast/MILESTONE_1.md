@@ -1,7 +1,7 @@
 # Milestone 1 (backend): one question, end to end (design, not code)
 
 Date: 14 October 2026. Status: proposed; the user writes the code. M.Tech guide approval of the overall direction is pending.
-**When:** Phase 3 (Python backend), after the documentation and the Flutter UI phases. The December 2026 pilot does not wait for this milestone; it is collected by hand (`PILOT_PROTOCOL.md`).
+**When:** Phase 3 (Python backend). Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`PILOT_PROTOCOL.md`). The December 2026 pilot does not wait for this milestone; it is collected by hand (`PILOT_PROTOCOL.md`).
 
 Goal: one question passes **validation → forecast → freeze → resolution → scoring**, proven by tests.
 
@@ -46,12 +46,13 @@ Why this one: the RBI publishes a clear, dated, official answer; Yes/No is mecha
 ## 3. Minimum files (the user writes them)
 
 ```
-research/forecast/__init__.py        makes it a package (and add "forecast*" to pyproject include)
-research/forecast/schema.py          pydantic models Question, Forecast, Resolution + canonical_hash()
-research/forecast/validate.py        cross-field checks (deadlines, hashes, evidence dates, probability)
-research/forecast/store.py           append-only JSONL write/read; refuse duplicate ids
-research/forecast/runner.py          make_forecast(question, client, condition) -> Forecast; ModelClient protocol
-research/forecast/scoring.py         brier(p, outcome); score(forecasts, resolutions) skipping invalid
+research/forecast/__init__.py                 marks `forecast` as a package (data folders contain no code)
+research/forecast/pipeline/__init__.py        code lives only in pipeline/ (decision D8); add "forecast" and "forecast.pipeline*" to the pyproject include list
+research/forecast/pipeline/schema.py          pydantic models Question, Forecast, Resolution + canonical_hash()
+research/forecast/pipeline/validate.py        cross-field checks (deadlines, hashes, evidence dates, probability)
+research/forecast/pipeline/store.py           append-only JSONL write/read; refuse duplicate ids
+research/forecast/pipeline/runner.py          make_forecast(question, client, condition) -> Forecast; ModelClient protocol
+research/forecast/pipeline/scoring.py         brier(p, outcome); score(forecasts, resolutions) skipping invalid
 research/forecast/fixtures/*.jsonl                 TEST- records only (synthetic)
 research/tests/test_forecast_schema.py     valid question loads; each broken rule rejected
 research/tests/test_forecast_scoring.py    hand-computed Brier values
@@ -62,7 +63,7 @@ Order to write them: `schema.py` → its test → `validate.py` → `scoring.py`
 
 Hand-checked Brier values for the scoring test: p = 0.7, Yes → 0.09; p = 0.7, No → 0.49; p = 0.5 either way → 0.25; p = 1.0, No → 1.0.
 
-E2E test must also check that: a forecast after the deadline is kept but labelled late and excluded from scoring; a baseline record scores like a model record; writing the same `forecast_id` twice fails; a changed question file breaks the hash check; an `invalid` resolution is excluded from the score.
+E2E test must also check that: a forecast after the deadline is kept with `timing_status: late` and excluded from on-time scoring; the primary-leaderboard selection picks the latest on-time forecast per model and condition (D1); a baseline record scores like a model record; writing the same `forecast_id` (`FC-YYYYMMDD-NNNNNN`) twice fails; a changed question file breaks the hash check; an `invalid` resolution is excluded from the score.
 
 ## 4. Timestamps
 

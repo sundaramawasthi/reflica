@@ -1,10 +1,24 @@
 # Forecasting records and the December 2026 pilot: protocol
 
-Date: 14 October 2026. Status: **proposed final draft; awaiting the user's approval.** The research direction is chosen by the student; **formal M.Tech guide approval is pending.**
+Date: 14 October 2026 (decisions D1–D9 recorded the same day). Status: **approved in principle by the user, subject to final content review.** The research direction is chosen by the student; **formal M.Tech guide approval is pending.**
 
 This is the **single source** for forecasting record formats. `MILESTONE_1.md`, `docs/ARCHITECTURE.md`, `docs/UI_SPEC.md` and the future Python backend refer to this file and must stay compatible with it. The paused Reflica benchmark in `../reflica_bench/` is not affected.
 
 **Why it exists.** The implementation order is documentation → Flutter UI → Python backend → connect. The backend will not exist in December, so the 20-question pilot is recorded **by hand** in JSON/JSONL. The backend must later import these files **without changing** their content, timestamps, versions or provenance.
+
+## 0. Recorded decisions (14 October 2026)
+
+| # | Decision |
+|---|---|
+| D1 | **Primary leaderboard:** for each question, forecaster and condition, use the **latest eligible on-time forecast** made before the deadline. Every other forecast record is kept for secondary analyses. |
+| D2 | **Persistence baseline:** no arbitrary probability. Its method is documented and validated before any evaluation uses it (section 5). |
+| D3 | **Official-forecast baseline:** **deferred** from the initial pilot unless a defensible conversion to a probability is established and documented in advance. |
+| D4 | **Pilot models:** start the 20-question pilot with **2–3 models**; estimate API costs before expanding. |
+| D5 | **Western comparison:** aim for **4–6 matched Western questions**; the comparison is **exploratory** and its limitations are reported. |
+| D6 | **Forecast ID:** opaque unique id `FC-YYYYMMDD-NNNNNN` (e.g. `FC-20261201-000001`); model, question, condition and timestamps are stored in their own fields, never parsed from the id. |
+| D7 | **Time and integrity:** UTC timestamps and record hashes are required. An external timestamping service is **evaluated before it is relied on**. Git timestamps alone are not tamper-proof proof. |
+| D8 | **Code location:** the Python package stays inside `research/forecast/`, with code clearly separated from data (section 2). |
+| D9 | **Late forecasts** are kept with an explicit `late` status and excluded from on-time evaluation. |
 
 ## 1. Workflow
 
@@ -33,7 +47,10 @@ research/forecast/
   stamps/                  external timestamp proofs (.tsr, .ots) and stamps.jsonl
   historical/              A3 past questions and their forecasts (same formats, kept apart)
   fixtures/                SYNTHETIC test records only (ids start with TEST-)
+  pipeline/                Python code only (Phase 3; written by the user); no data files inside
 ```
+
+Code and data are separate (D8): only `pipeline/` (plus `__init__.py` files) is Python code. Every other folder holds data or documents and is excluded from packaging.
 
 Separation rules, which the importer enforces:
 - `questions/` and `results/` hold only real prospective records. They must not contain a `TEST-` id, `"synthetic": true`, or `"kind": "historical"`.
@@ -96,7 +113,7 @@ Its `record_hash` is the **question-set hash** stored in every forecast. It is e
 
 | Field | Rule |
 |---|---|
-| `forecast_id` | unique, e.g. `F-IN-ECO-RBI-0001-v1-<model>-<condition>-01` |
+| `forecast_id` | `FC-YYYYMMDD-NNNNNN` (UTC date the record is written + running number across all forecasts; e.g. `FC-20261201-000001`). Opaque: never parse meaning from it (D6) |
 | `question_id`, `question_version`, `question_hash`, `question_set_hash` | must match the frozen records |
 | `question_text`, `forecast_deadline`, `resolution_rule` | exact copies, so the record stands alone |
 | `forecaster` | `{type: "model" \| "baseline", provider, name, version, access: "api" \| "console", stated_knowledge_cutoff}`; for baselines `provider: "baseline"`, `name` = rule id |
@@ -112,6 +129,7 @@ Its `record_hash` is the **question-set hash** stored in every forecast. It is e
 | `usage` | `{input_tokens, output_tokens, cost_usd, runtime_s}`, null where unknown |
 | `status`, `error` | `ok` \| `failed` \| `refused` \| `unparseable` |
 | `collection_method`, `recorded_by` | `"manual_v1"` for the pilot; person |
+| `timing_status` | `on_time` if `created_at_utc` **and** `recorded_at_utc` are before `forecast_deadline`, else `late` (D9). Set when the line is written; never changed |
 | `supersedes` | earlier `forecast_id` for a deliberate update, else null |
 
 ### 4.4 `resolution` (`resolution@1`)
@@ -125,14 +143,14 @@ Its `record_hash` is the **question-set hash** stored in every forecast. It is e
 
 ## 5. Baselines: rules fixed in advance
 
-Each baseline is a written rule in `prompts/baseline_<name>_v1.md`, hashed and frozen **before the deadline of every question it is applied to**. Its output is stored as an ordinary forecast record (`forecaster.type: "baseline"`).
-- **Base rate:** the share of Yes outcomes in a documented reference class and period (e.g. MPC decisions from date A to date B that were cuts), with the count.
-- **Persistence ("same as last time"):** the documented mapping from the last observed value or decision to a probability (e.g. P = 0.8 for the same outcome as last time). The mapping is fixed in advance.
-- **Official forecast:** a numeric official projection (e.g. an RBI CPI projection) **is not a probability**. The rule must state the conversion, for example a normal distribution centred on the projection with a stated spread estimated from past projection errors, and P(Yes) = P(value > threshold). Where an official source already gives category probabilities (e.g. IMD's long-range monsoon forecast), the rule states which categories map to Yes.
+Each baseline is a written rule in `prompts/baseline_<name>_v1.md`, hashed and frozen **before the deadline of every question it is applied to**. Its output is stored as an ordinary forecast record (`forecaster.type: "baseline"`, `condition: "baseline"`).
+- **Base rate (pilot):** the share of Yes outcomes in a documented reference class and period (e.g. MPC decisions from date A to date B that were cuts), stored with the count. With very small counts, the documented rule states the smoothing used (for example adding one Yes and one No).
+- **Persistence ("same as last time") (D2):** no arbitrary probability. Before use, the rule document must state how the probability is **estimated** (for example the observed frequency with which the outcome repeated in the documented reference class) and how it was **validated** on historical or development data. Until that document exists and is reviewed, this baseline is not used in any evaluation.
+- **Official forecast (D3): deferred** from the initial pilot. A numeric official projection (e.g. an RBI CPI projection) is not a probability. It is used only after a conversion method is documented and justified in advance (for instance an error distribution estimated from past projection errors), or where the official source itself gives probabilities (e.g. IMD's category probabilities), with the category-to-Yes mapping written down first.
 
 ## 6. India–Western pairs
 
-A pair is a **matched comparison, not an equivalent question**. Match as closely as possible on indicator, forecast horizon, release schedule, threshold difficulty (e.g. distance from the last value) and wording. Record `matched_on` and the unavoidable `known_differences`, such as a different release lag or different rounding. Verify each Western question's release calendar and rule before freezing. Report results per pair set with its sample size and these limitations.
+The pilot aims for **4–6 matched Western questions** (D5). The comparison is **exploratory**; no India-gap claim is made from it. A pair is a **matched comparison, not an equivalent question**. Match as closely as possible on indicator, forecast horizon, release schedule, threshold difficulty (e.g. distance from the last value) and wording. Record `matched_on` and the unavoidable `known_differences`, such as a different release lag or different rounding. Verify each Western question's release calendar and rule before freezing. Report results per pair set with its sample size and these limitations.
 
 ## 7. Collecting forecasts by hand
 
@@ -141,11 +159,11 @@ A pair is a **matched comparison, not an equivalent question**. Match as closely
 3. **News condition:** collect the evidence first, record each item's publication time, set the cutoff, and give the model only that evidence.
 4. Write the record the same day, hash it, append it, commit, and stamp the file.
 5. **Never backdate.** If the exact call time is unknown, use the recorded time.
-6. **Timely:** `created_at_utc` < `forecast_deadline` **and** an external stamp covering the line is dated before the deadline. Any other forecast is kept, labelled late, and excluded from the main evaluation.
-7. **Updates** are new records with `supersedes`. The selection rule (e.g. "latest timely forecast per forecaster, condition and question") is fixed before the first resolution.
+6. **On time vs late (D9):** a forecast is `on_time` only if it was produced **and** written to the file before the deadline. Write, hash and commit it the same day. Anything else is kept with `timing_status: "late"` and excluded from on-time evaluation. If an external stamp is adopted (D7), on-time records must also be covered by a stamp dated before the deadline.
+7. **Updates** are new records with `supersedes`. **Primary leaderboard (D1):** the latest eligible `on_time` forecast per question, forecaster and condition. All other records stay available for secondary analyses.
 8. **Failures** are recorded and count towards the failure rate.
 
-**External timestamps.** After each session:
+**External timestamps (D7: candidate, to be evaluated before relying on it).** The minimum for the pilot is UTC times, record hashes and same-day commits. These are supporting evidence, not tamper-proof proof. In November, evaluate RFC 3161 (e.g. FreeTSA) and OpenTimestamps on test files (cost, reliability, verification steps) and record the decision. If adopted, after each session:
 1. Hash each changed `.jsonl` file.
 2. Get an RFC 3161 token (e.g. FreeTSA; verify with `openssl ts -verify`) and an OpenTimestamps proof.
 3. Append `{file, sha256, line_count, tsa, stamped_at_utc, proof_file}` to `stamps/stamps.jsonl`.
@@ -184,7 +202,8 @@ Fields not shown follow section 4.1. The release date, the series definition and
 | When | Step |
 |---|---|
 | Oct–Nov 2026 | Approve this protocol; write prompt v1 and the baseline rules; draft ~20 India candidates + a few Western pairs; check every source, release date and rule |
-| Late Nov 2026 | Final review; choose 2–3 models and the monthly API budget |
+| Nov 2026 | Evaluate an external timestamping service (D7); document the base-rate rule; estimate API cost for 2–3 models |
+| Late Nov 2026 | Final review; choose the 2–3 models (D4) and the monthly API budget |
 | By 1 Dec 2026 | Append the frozen definitions and the `question_set`; stamp them |
-| Dec 2026 | Record forecasts and baselines before each deadline; stamp after each session |
+| Dec 2026 | Record forecasts and the base-rate baseline before each deadline; commit (and stamp, if adopted) after each session |
 | Jan–May 2027 | Resolve from the named sources; score `yes`/`no` only; report invalid, late and failed counts |

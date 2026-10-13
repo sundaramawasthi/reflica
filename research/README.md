@@ -2,7 +2,7 @@
 
 Attribute-aware revision of LLM-extracted state graphs under partial-satisfaction and capacity constraints.
 
-> **Paused since 2026-10-13.** The M.Tech direction is now AI forecasting of Indian events (`../NEW_DIRECTION.md`; guide approval pending). This benchmark, its baselines, B5 and all tests are preserved unchanged. The new workstream is in `forecast/` (documentation only so far).
+> **Paused since 2026-10-13.** The M.Tech direction is now AI forecasting of Indian events (`../NEW_DIRECTION.md`; guide approval pending). This benchmark, its baselines, B5 and all tests are preserved unchanged. The new workstream is in `forecast/` (documentation only so far). Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`forecast/PILOT_PROTOCOL.md`).
 
 This workspace is intentionally separate from the Flutter Reflica product and will remain so. See `../PROGRESS.md` for the frozen design contract and current status.
 

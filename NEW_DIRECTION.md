@@ -1,16 +1,15 @@
 # Research Direction: Reflica → AI Forecasting of Indian Events
 
 **Date:** 14 October 2026 (replaces the 13 October version)
-**Status:** Final decision by the user (13 October 2026). **M.Tech guide approval is pending.** Until the guide confirms it, everything below is the student's chosen direction, not a formally approved M.Tech plan.
+**Status:** Final decision by the user (13 October 2026). M.Tech guide approval is pending.
 **Written for:** Claude Code working in the Reflica repositories (Flutter app and Python research code).
 
-> **Implementation order (added 14 October 2026, user decision):**
-> **Documentation → Flutter UI → Python backend → connect the UI to real data.**
-> **Exception:** the December 2026 pilot is collected **manually** before the backend exists, following `research/forecast/PILOT_PROTOCOL.md`, so the Minor 1 timeline is protected.
-> Section 9's tasks are read in this order. They are not permission to start backend code now.
->
-> **Related documents:** detailed Minor 1 design `research/forecast/MINOR1_DESIGN.md` · pilot record format `research/forecast/PILOT_PROTOCOL.md` · UI specification `docs/UI_SPEC.md` · architecture `docs/ARCHITECTURE.md` · backend milestone `research/forecast/MILESTONE_1.md` · literature `research/forecast/LITERATURE_FORECASTING.md` · repository audit snapshot `research/forecast/AUDIT.md` · progress log `PROGRESS.md`.
-> This file is the authoritative high-level direction. If another document disagrees with it, this file wins until it is updated.
+> **[Addition, 14 Oct 2026, not in the user's text]**
+> - **Approval status:** this is the student's chosen direction. **Formal M.Tech guide approval is pending** until the guide confirms it.
+> - **Implementation order (user decision):** **Documentation → Flutter UI → Python backend → connect the UI to real data.** Exception: the December 2026 pilot is recorded **by hand** following `research/forecast/PILOT_PROTOCOL.md`, so the Minor 1 timeline is protected. Section 9's tasks are read in this order. They are not permission to start backend code now.
+> - **Recorded decisions D1–D9** (leaderboard selection, baselines, models, Western set, forecast IDs, timestamps, code location, late forecasts): `research/forecast/PILOT_PROTOCOL.md` section 0.
+> - **Related documents:** `research/forecast/MINOR1_DESIGN.md` (detailed Minor 1 design) · `research/forecast/PILOT_PROTOCOL.md` (record formats) · `docs/UI_SPEC.md` · `docs/ARCHITECTURE.md` · `research/forecast/MILESTONE_1.md` (backend milestone) · `research/forecast/LITERATURE_FORECASTING.md` · `research/forecast/AUDIT.md` (snapshot) · `PROGRESS.md`.
+> - This file is the authoritative high-level direction. If another document disagrees, this file wins until it is updated.
 
 ## 1. Overall vision
 
@@ -99,7 +98,7 @@ Avoid vague questions such as "Will the Indian economy perform well?"
 
 **Western comparison set.** Add a small, carefully selected set of objectively resolvable Western questions (for example US or EU inflation and central-bank decisions in the same months), so the study can test whether models perform worse on Indian events. Match the two sets as closely as possible on topic, difficulty, forecast horizon, deadlines and resolution criteria, and keep the question format identical. Report sample sizes, uncertainty and limitations for the comparison. Do not claim an India-specific performance gap unless the results support it.
 
-**A2. Automatic question generator (upgrade to Minor Project 1, added 14 Oct 2026)**
+**A2. Automatic question generator (upgrade, added 14 Oct 2026)**
 
 Build a program that creates questions automatically, so the catalogue can grow to 1,000+ questions and refresh every month.
 - Main source: official data feeds and pages with scheduled releases (RBI policy and DBIE, MOSPI CPI/IIP, IMD forecasts and warnings, Grid-India daily reports, CWC reservoir bulletins). Turn each scheduled release into a question with a template, for example "Will [indicator] for [period] be above [threshold]?"
@@ -107,9 +106,9 @@ Build a program that creates questions automatically, so the catalogue can grow 
 - Every generated question must pass the same checks as hand-written ones (clear rule, official source, forecast deadline before resolution date). Review a sample by hand and report the rejection rate.
 - Respect each website's terms and robots.txt; prefer official APIs or downloadable files; store the source URL and fetch time.
 
-*Note:* size is not the goal by itself. 1,000 generated questions are not automatically better than 200 good ones. Questions must be meaningful, varied and independently informative (see `MINOR1_DESIGN.md`).
+> **[Addition, 14 Oct 2026, not in the user's text]** Size is not the goal by itself: 1,000 generated questions are not automatically better than 200 good ones (see `research/forecast/MINOR1_DESIGN.md`).
 
-**A3. Past-question study (upgrade to Minor Project 1, added 14 Oct 2026)**
+**A3. Past-question study (upgrade, added 14 Oct 2026)**
 
 Also create questions about events that have already happened, so models can be tested instantly while live questions wait to resolve.
 - Use these for three things: (1) testing the whole pipeline end to end, (2) development data, and (3) a **leakage study**: compare model scores on past questions (answers the model may already know from training) with scores on future questions.
@@ -117,19 +116,20 @@ Also create questions about events that have already happened, so models can be 
 - When giving news to the model for a past question, give only news published before that question's forecast date.
 - Past-question results must never be reported as the main forecasting performance. The prospective (future) questions remain the main evaluation.
 
-*Note:* A2 and A3 are upgrades **within** Minor Project 1, not separate projects. A score difference between past and future questions does not by itself prove memorisation.
+> **[Addition, 14 Oct 2026, not in the user's text]** A2 and A3 are upgrades **within** Minor Project 1, not separate projects. A3's past questions serve pipeline testing, development and the leakage study; prospective questions remain the primary evaluation. A past-vs-future score difference does not by itself prove memorisation.
 
 **B. Forecast generation**
 
 For each question, the system should request forecasts from three or four selected AI models, subject to budget and API availability.
 
-*Note (agreed 14 October 2026):* the pilot **starts with 2–3 models** and expands to 3–4 only when the budget allows.
+> **[Addition, 14 Oct 2026, not in the user's text]** Decision D4: the 20-question pilot **starts with 2–3 models**; API costs are estimated before expanding.
 
 Where possible, compare:
 - Model without live news retrieval.
 - The same model with current, relevant evidence.
 - Simple baselines such as a historical base rate or persistence.
-- *(Agreed 14 October 2026)* Official Indian forecasts where they exist, such as RBI's inflation projections and IMD's forecasts. The rule that turns each official forecast into a probability for a question is fixed before resolution.
+
+> **[Addition, 14 Oct 2026, not in the user's text]** Baseline decisions: every baseline's calculation rule is documented and fixed in advance; persistence gets no arbitrary probability and is validated before use (D2); the official-forecast baseline (RBI/IMD) is **deferred** from the initial pilot unless a defensible conversion to a probability is established (D3). Primary leaderboard = latest eligible on-time forecast per model and condition; late forecasts are kept, marked late, and excluded from on-time evaluation (D1, D9).
 
 Each forecast should record:
 - Model and version.
@@ -425,16 +425,18 @@ These are research goals, not guaranteed publication outcomes. Each paper report
 
 ## 9. Immediate tasks
 
-Do these tasks in order (read together with the implementation order at the top of this file):
+Do these tasks in order:
 
-1. Inspect the current repository and report the actual state of the Flutter application, Firebase integration, Python research code, tests, and documentation. *(Done: `research/forecast/AUDIT.md`.)*
-2. Identify which Reflica components can be reused directly and which require adaptation. *(Done: `AUDIT.md`, `docs/ARCHITECTURE.md`.)*
-3. Propose a minimal integration architecture and folder layout for the new forecasting workstream. *(Proposed: `docs/ARCHITECTURE.md`; awaiting approval.)*
-4. Propose the question and forecast data schemas (including the India/Western region tag), and how immutable prediction history and resolution records will work with the existing Firebase setup. *(Proposed: `PILOT_PROTOCOL.md`, `docs/ARCHITECTURE.md`; awaiting approval.)*
+1. Inspect the current repository and report the actual state of the Flutter application, Firebase integration, Python research code, tests, and documentation.
+2. Identify which Reflica components can be reused directly and which require adaptation.
+3. Propose a minimal integration architecture and folder layout for the new forecasting workstream.
+4. Propose the question and forecast data schemas (including the India/Western region tag), and how immutable prediction history and resolution records will work with the existing Firebase setup.
 5. Explain the proposed changes before implementing them.
 6. After I approve the plan, help me write and timestamp the first 20 pilot questions (December 2026) and implement a minimal working forecast dashboard.
 7. Help me set an API budget and choose low-cost models for the pilot.
 8. Keep a short dated progress log and update the project documentation as real implementation work is completed.
+
+> **[Addition, 14 Oct 2026, not in the user's text]** Status of section 9 on 14 Oct 2026: tasks 1–2 done (`research/forecast/AUDIT.md`, `docs/ARCHITECTURE.md`); tasks 3–4 proposed (`docs/ARCHITECTURE.md`, `research/forecast/PILOT_PROTOCOL.md`) and approved in principle; the tasks follow the implementation order stated at the top.
 
 **Working principle:** I write the code and learn the underlying concepts. You guide the design, explain the reasoning, review my code, help debug errors, and check scientific validity. The actual repository and tests are the source of truth for implementation status.
 
@@ -444,4 +446,6 @@ Gaps found in 21 recent papers (abstract-level; verify in full texts): forecasts
 
 Read first: the survey "LLM-based Agents for Forecasting and Prediction" (arXiv 2608.23058, 2026); "ForecastBench" (ICLR 2025); "From News to Forecast" (NeurIPS 2024); "Application of Large Language Models in the Problem of Event Forecasting" (2025); "Hierarchical Semantic Extraction and Heterogeneous GNNs for Event-Driven Time Series Forecasting" (Scientific Reports 2026); "A Large Language Model Framework for Predicting Significant Equity Index Fluctuations" (NIFTY, 2026).
 
-Full analysis: `research/forecast/LITERATURE_FORECASTING.md` (in this repository), the review page https://claude.ai/artifact/B61G9cki25mLr8aRaSXK81, and the research brief (Word) in the Windows folder. Papers outside the 21 that must be checked before any gap is claimed (e.g. Halawi et al. 2024; Autocast; ForecastQA) are listed at the end of `LITERATURE_FORECASTING.md`.
+Full analysis: review page https://claude.ai/artifact/B61G9cki25mLr8aRaSXK81, plus `LITERATURE_FORECASTING.md` and the research brief (Word) in the Windows folder.
+
+> **[Addition, 14 Oct 2026, not in the user's text]** `LITERATURE_FORECASTING.md` is now also in this repository (`research/forecast/`), with a gap-verification checklist and papers outside the 21 that must be read before any gap is claimed (e.g. Halawi et al. 2024, Autocast, ForecastQA).

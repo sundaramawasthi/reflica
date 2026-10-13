@@ -3,6 +3,8 @@
 Date: 14 October 2026. Status: **proposed; needs the user's approval before Phase 2 starts.** M.Tech guide approval of the research direction is pending.
 Authority: `../NEW_DIRECTION.md`. Architecture: `ARCHITECTURE.md`. Record formats: `../research/forecast/PILOT_PROTOCOL.md`.
 
+Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`../research/forecast/PILOT_PROTOCOL.md`). UI work starts only after the stage-1 merge is reviewed and settled.
+
 This describes the desired experience. It does not give permission to rebuild the app or discard existing functionality. Phase 2 extends the existing Flutter app.
 
 ## 1. Identity and visual direction
@@ -66,7 +68,7 @@ No navigation item leads to a blank or misleading screen. Every screen has a pro
 Full wording · why it matters · forecast deadline · resolution date or window · exact Yes/No rule and invalid rule · official source · evidence cutoff · domain, region, horizon · paired comparison question · forecast records. For an RBI question, show the decision, reference rate, comparison rule and source. An AI-generated question is not "validated" until it passes the documented checks.
 
 ### 3.4 Forecasts list
-Question · model and version · P(Yes) · timestamp · deadline · condition (With news / Without news) · record status (timely, late, failed). A visible note says a probability is a model estimate, not a guarantee.
+Question · model and version · P(Yes) · timestamp · deadline · condition (With news / Without news) · record status (On time / Late / Failed, from `timing_status` and `status`). A visible note says a probability is a model estimate, not a guarantee.
 
 ### 3.5 Forecast Details
 - **Probability:** P(Yes) displayed prominently, with P(No) beside it.
@@ -84,7 +86,8 @@ Question · model and version · P(Yes) · timestamp · deadline · condition (W
 ### 3.7 Scoreboard
 - **Metrics:** Brier (lower is better) · calibration · accuracy at a stated threshold, where suitable · number of eligible resolved forecasts · failure and abstention rates · cost and runtime.
 - **Every metric shows** its population, time period and sample size.
-- **Comparisons:** by model, domain, news condition, India vs Western, historical vs prospective. Historical (A3) results are labelled and never merged into the prospective ranking.
+- **Primary leaderboard (D1):** the latest eligible on-time forecast per question, model and condition. Late forecasts are not in it (D9); other records appear only in clearly labelled secondary views.
+- **Comparisons:** by model, domain, news condition, India vs Western (labelled **exploratory**, D5), historical vs prospective. Historical (A3) results are labelled and never merged into the prospective ranking.
 - **Small samples** show "Insufficient data" instead of a ranking. Incompatible question sets are never pooled.
 
 ### 3.8 Insights

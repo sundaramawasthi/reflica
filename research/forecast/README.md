@@ -2,6 +2,7 @@
 
 Research direction (authoritative): `../../NEW_DIRECTION.md`. The direction is chosen by the student; **formal M.Tech guide approval is pending**.
 The Reflica benchmark in `../reflica_bench/` is kept unchanged and paused.
+Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`PILOT_PROTOCOL.md`).
 
 | Document | Purpose |
 |---|---|

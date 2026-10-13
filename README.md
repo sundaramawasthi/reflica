@@ -2,7 +2,7 @@
 
 **Current direction (14 Oct 2026):** Reflica is evolving into an **AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines). Read `NEW_DIRECTION.md` first. The direction is chosen by the student; formal M.Tech guide approval is pending.
 
-Forecasting docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/` (`PILOT_PROTOCOL.md`, `MINOR1_DESIGN.md`, `MILESTONE_1.md`, `LITERATURE_FORECASTING.md`). Nothing in the forecasting workstream is implemented yet.
+Forecasting docs: `docs/UI_SPEC.md`, `docs/ARCHITECTURE.md`, `research/forecast/` (`PILOT_PROTOCOL.md`, `MINOR1_DESIGN.md`, `MILESTONE_1.md`, `LITERATURE_FORECASTING.md`). Nothing in the forecasting workstream is implemented yet. Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
 
 *Previous description (the existing app below still implements it):* a living strategic-planning and decision-support platform that turns messy real-world information into a structured, evidence-aware state graph.
 
