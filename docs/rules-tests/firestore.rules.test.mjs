@@ -50,7 +50,7 @@ await check('P14 signed-in user writes to users/demo', 'deny', () => setDoc(doc(
 
 // Notifications
 await check('N1 owner creates notification', 'allow', () => setDoc(doc(alice, 'users/alice/notifications/n1'), notif('n1', 'alice')));
-await setDoc(doc(alice, 'users/alice/notifications/n2'), notif('n2', 'alice'));
+try { await setDoc(doc(alice, 'users/alice/notifications/n2'), notif('n2', 'alice')); } catch (e) { results.push(['FAIL', 'allow', 'setup: owner creates notification n2 :: ' + e.code]); }
 await check('N2 owner watches latest 50 (orderBy createdAt, limit)', 'allow', () => getDocs(query(collection(alice, 'users/alice/notifications'), orderBy('createdAt', 'desc'), limit(50))));
 await check('N3 markRead: update {read: true}', 'allow', () => updateDoc(doc(alice, 'users/alice/notifications/n1'), { read: true }));
 await check('N4 markAllRead: query read==false + batch update', 'allow', async () => {
