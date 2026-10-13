@@ -10,6 +10,8 @@ research/forecast/
   DIRECTION.md        the decision and the plan
   README.md           this file
   questions/          one JSON file per question (q0001.json ...), never edited after freeze
+  generator/          turns official data (RBI, MOSPI, IMD, Grid-India, CWC) into CANDIDATE questions
+                      (candidates are checked by hand before they enter questions/)
   sources/            notes per source: RBI, MOSPI, Grid-India, CWC, IMD, PIB, GDELT, ACLED
                       (URL, release calendar, how to read the answer)
   runner/             asks each LLM each open question, saves the raw answer with a timestamp
@@ -34,6 +36,9 @@ Rules:
 | `question` | "Will India's CPI inflation (combined, y/y) for January 2027, as first released by MOSPI, be above 4.0%?" | one clear yes/no |
 | `category` | `economy` / `infrastructure` / `geopolitics` | |
 | `region` | `india` / `western` | the India-vs-West comparison |
+| `indicator` / `units` / `period` / `threshold` | `CPI combined y/y`, `%`, `2027-01`, `5.0` | filled by the generator for data-based questions |
+| `question_source` | data record or event it was made from | traceability |
+| `horizon_days` / `difficulty` | `45` / rule-based label | for matching Indian and Western questions |
 | `pair_id` | `CPI-2027-01` | links an Indian question to a matched Western one (US CPI) so difficulty is comparable |
 | `type` | `binary` | start with yes/no only |
 | `created_date` | `2026-12-01` | when written |
@@ -43,8 +48,9 @@ Rules:
 | `resolution_rule` | "Use the first release, not revisions. Round to 1 decimal. Exactly 4.0 = No." | removes arguments later |
 | `base_rate` | `0.35` + how computed | for the base-rate baseline |
 | `last_value` | `3.8` | for the "same as last time" baseline |
+| `official_forecast` | RBI projection or IMD forecast + rule used to turn it into a probability | official-forecast baseline (rule fixed before resolution) |
 | `answer` | `null` until resolved, then `true`/`false` | |
-| `status` | `draft` / `open` / `resolved` / `annulled` | annulled = source never published |
+| `status` | `candidate` / `open` / `resolved` / `unresolved` / `invalid` | unresolved/invalid by a predefined rule, never forced |
 | `notes` | | |
 
 ## Literature checks before claiming any gap
