@@ -3,7 +3,16 @@
 > **Vision:** Human-Centered Multimodal Cognitive Intelligence & Closed-Loop Decision-Support Platform.
 > A **living strategic planning architecture** where a goal → structured strategy graph stays continuously updated by real-world reports. The mind map is the human-facing view of the underlying structured system, not the product.
 > **Owner:** Sundram Awasthi · M.Tech CSE (2026–28), GLA University.
-> **Last updated:** 2026-10-09
+> **Last updated:** 2026-10-13
+
+---
+
+## ⚠️ Direction change (2026-10-13) — M.Tech research now = honest AI forecasting of Indian events
+
+Decided by the user; **guide approval pending**. Full brief: `research/forecast/DIRECTION.md`.
+- Reflica research (benchmark v0.2.0, 63 scenarios, B3/B4a/B4b, B5 v0.1.0) is **kept and paused**. Nothing deleted.
+- New workstream: `research/forecast/` (India Forecast Benchmark → honest agent with abstention → impact propagation using the Reflica engine).
+- Next: question schema, first 20 questions resolving Jan–May 2027, runner, Brier scorer (user writes the code).
 
 ---
 
@@ -382,6 +391,7 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-08 | **Benchmark v0.2.0** — hygiene fix to `cat1_add_disconnected_001` ("unrelated reminder" → "reminder note"), found by the leakage checker **before any LLM results**. v0.1.0 manifest kept (`frozen_manifest_v0.1.0.json`); all 63 now render leak-free; 118 tests. Draft pilot prompts/schemas/config in `research/experiments/rn_pilot/`. | Blocked: no API key / SDK in the environment, so the GPT-5.6 model id cannot be verified or frozen. |
 | 2026-10-09 | **R-N pilot complete (config v1.7).** Primary model `nvidia/nemotron-3-ultra-550b-a55b` (temp 0, seed 20261008, thinking on, 16,384 max tokens) after Gemini, Kimi K3, Nemotron Lightning and gpt-oss-20b were tried and rejected (each logged under `experiments/rn_pilot/runs/`). 144/144 calls, 0 truncation; extraction recall 1.0, pre-state reproduction 0.993; one genuine failure kept (T7.2 invented `prefer_source`). | Infrastructure healthy; full experiment blocked until B5 built and frozen. |
 | 2026-10-09 | **B5 (Reflica engine) v0.1.0 frozen** — change detection → dependency scope → scoped revision → verify/repair → determinability across consistent completions. Independent of ground-truth code (enforced by test); 0 disagreements with gold on 63 scenarios; rejects the T7.2 invented rule. 203 tests passing. | Next: freeze full protocol, then run the 63-scenario experiment. |
+| 2026-10-13 | **Research direction changed to honest AI forecasting of Indian events** (guide approval pending). Reflica research kept and paused. New `research/forecast/` with `DIRECTION.md` and a proposed layout + question schema draft. | Literature review (21 papers) found gaps: uncalibrated %, no abstention, little live testing, no forward effects, no India. Reflica engine reused later for effect propagation; Cat 7 "unknown" becomes the abstain rule. |
 
 ---
 
