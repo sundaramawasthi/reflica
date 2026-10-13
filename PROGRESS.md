@@ -9,7 +9,7 @@
 
 ## ⚠️ Direction change (2026-10-13) — M.Tech research now = honest AI forecasting of Indian events
 
-Decided by the user; **guide approval pending**. Full brief: `research/forecast/DIRECTION.md`.
+Decided by the user; **guide approval pending**. Full brief: `NEW_DIRECTION.md` (repo root).
 - Reflica research (benchmark v0.2.0, 63 scenarios, B3/B4a/B4b, B5 v0.1.0) is **kept and paused**. Nothing deleted.
 - New workstream: `research/forecast/` (India Forecast Benchmark → honest agent with abstention → impact propagation using the Reflica engine).
 - Next: question schema, first 20 questions resolving Jan–May 2027, runner, Brier scorer (user writes the code).
@@ -393,7 +393,8 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-09 | **B5 (Reflica engine) v0.1.0 frozen** — change detection → dependency scope → scoped revision → verify/repair → determinability across consistent completions. Independent of ground-truth code (enforced by test); 0 disagreements with gold on 63 scenarios; rejects the T7.2 invented rule. 203 tests passing. | Next: freeze full protocol, then run the 63-scenario experiment. |
 | 2026-10-13 | **Research direction changed to honest AI forecasting of Indian events** (guide approval pending). Reflica research kept and paused. New `research/forecast/` with `DIRECTION.md` and a proposed layout + question schema draft. | Literature review (21 papers) found gaps: uncalibrated %, no abstention, little live testing, no forward effects, no India. Reflica engine reused later for effect propagation; Cat 7 "unknown" becomes the abstain rule. |
 | 2026-10-14 | **Direction document updated** (`research/forecast/DIRECTION.md`): one Reflica platform with three modules (Minor 1 benchmark + dashboard, Minor 2 Ask the Forecaster, Final impact-aware forecasting). Added Indian vs Western comparison, target papers, December 2026 question collection, API budget and caching, Minor 1 resolved forecasts as Minor 2 calibration data. No code changed. | Roadmap still awaiting guide approval; implementation waits for user approval. |
-| 2026-10-14 | **Minor 1 rewritten** in `research/forecast/DIRECTION.md`: 7-step pipeline, automatic candidate-question generator, news vs no-news, India vs West, historical vs prospective. Added official RBI/IMD forecasts as a baseline, start with 2–3 models, optional human-vs-AI and Hindi-vs-English news experiments. README layout/schema aligned. No code changed. | User-approved Minor 1 description; first goal is one question working end to end. |
+| 2026-10-14 | **Minor 1 rewritten** in the direction document: 7-step pipeline, automatic candidate-question generator, news vs no-news, India vs West, historical vs prospective. Added official RBI/IMD forecasts as a baseline, start with 2–3 models, optional human-vs-AI and Hindi-vs-English news experiments. README layout/schema aligned. No code changed. | User-approved Minor 1 description; first goal is one question working end to end. |
+| 2026-10-14 | **Phase 1 audit** (`research/forecast/AUDIT.md`); direction file moved to `NEW_DIRECTION.md` (repo root) with a platform-evolution section. Python tests: `main` 203 passed; stage-1 branch 1030 passed, 4 skipped. Flutter not built (no SDK in cloud). No app code changed. | Reflica becomes a forecasting platform; old plan features to be hidden, not deleted. Waiting for approval of the plan. |
 
 ---
 

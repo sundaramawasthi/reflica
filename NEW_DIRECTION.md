@@ -1,6 +1,6 @@
 # Research direction: Reflica → AI forecasting of Indian events
 
-First recorded: 13 October 2026. Updated: 14 October 2026 (Minor 1 rewritten the same day).
+First recorded: 13 October 2026. Updated: 14 October 2026 (Minor 1 rewritten; platform evolution added). Moved from `research/forecast/DIRECTION.md`.
 Status: proposed research roadmap; **M.Tech guide approval is pending**.
 
 ## 1. What changed and why
@@ -29,6 +29,20 @@ Research area:
 The goal is not just a website. Each project must have a research question, an experiment, measurable results and a defensible contribution.
 
 **One platform, three modules.** Each academic project adds a module to the same Reflica platform.
+
+### Platform evolution (added 14 October 2026)
+
+Reflica's **primary product direction** changes from goal/plan management to an AI forecasting and research platform, starting with Indian events. This is an evolution of the existing app, not a new one. Users will be able to: explore upcoming Indian events; view clearly defined Yes/No questions; see probability forecasts from several AI models; read the evidence and sources; track predictions over time without historical records changing; check outcomes after resolution; compare models with Brier scores, calibration and baselines; and explore research comparisons (Indian vs Western, with vs without news).
+
+Old plan features are **hidden from the main navigation, not deleted**. Nothing is removed without approval. The repository audit and the feature-by-feature table are in `research/forecast/AUDIT.md`.
+
+**Implementation phases** (one at a time; the user writes the code with Claude's guidance and review):
+1. Audit and plan (no app code changes).
+2. Homepage and navigation for forecasting (app stays buildable; old routes kept).
+3. Question catalogue (data model + UI: sources, resolution rules, deadlines).
+4. Immutable, timestamped forecast records + a safe server-side point for model calls.
+5. Evaluation: outcomes, scoring, model comparison, scoreboard from real resolved data only.
+6. Advanced research: question generator, news-retrieval experiments, historical evaluation, Indian vs Western, as separate tested components.
 
 ## 3. What happens to the existing Reflica work
 

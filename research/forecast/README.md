@@ -1,13 +1,12 @@
 # forecast — India Forecast Benchmark (workstream started 2026-10-13)
 
-New M.Tech direction: honest AI forecasting of Indian events. See `DIRECTION.md`.
+New M.Tech direction: honest AI forecasting of Indian events. See `../../NEW_DIRECTION.md`.
 The Reflica benchmark (`../reflica_bench/`) is kept and paused.
 
 ## Proposed layout (user writes the code)
 
 ```
 research/forecast/
-  DIRECTION.md        the decision and the plan
   README.md           this file
   questions/          one JSON file per question (q0001.json ...), never edited after freeze
   generator/          turns official data (RBI, MOSPI, IMD, Grid-India, CWC) into CANDIDATE questions
