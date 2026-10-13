@@ -11,10 +11,10 @@ Exception: the December 2026 pilot is collected by hand in the format in `resear
 | Phase | Content | Gate |
 |---|---|---|
 | 1 | Documentation (this set) | user approval |
-| 2 | Flutter UI with honest empty states / labelled demo data (`UI_SPEC.md`) | stage-1 merge reviewed and settled (`STAGE1_MERGE_CHECKLIST.md`); user review after each UI stage |
+| 2 | Flutter UI with honest empty states / labelled demo data (`UI_SPEC.md`); **no Firestore collections or published records** | stage-1 merge reviewed and settled (`STAGE1_MERGE_CHECKLIST.md`); user review after each UI stage |
 | — | December pilot, manual (`PILOT_PROTOCOL.md`) | question set frozen before any forecast |
 | 3 | Python backend: validation → storage → runner → resolution → scoring → evaluation (`MILESTONE_1.md`) | user review at each component |
-| 4 | Connect UI to real data (Firestore display layer) | security rules versioned and reviewed |
+| 4 | Connect UI to real data (Firestore display layer) | section 5.1 decided; rules versioned and emulator-tested |
 | 5+ | A2 generator, A3 past-question study, news experiments, India vs Western | separate, tested components |
 
 ## 2. Current Flutter app (checked on `main`, 14 Oct 2026)
@@ -46,20 +46,36 @@ Nothing is deleted without the user's approval.
 - Collections: `users/{uid}/plans`, `users/{uid}/notifications` (per user).
 - **Security rules are not in the repository.** They must be exported from the console and versioned (`firestore.rules`, `firebase.json`) before any forecasting collection is written.
 
-## 5. Forecasting data architecture (provisionally approved)
+## 5. Forecasting data architecture (provisionally approved; Firestore parts not yet decided)
 
 ```
-Append-only research files (git + external timestamps)  ──import/verify──▶  Python backend
-   research/forecast/{questions,results}/*.jsonl                                │ Admin SDK (server only)
-                                                                                ▼
-Flutter app  ◀──read only──  Firestore display layer: questions / forecasts / resolutions / scores
+Append-only research files (JSONL)  ──import/verify──▶  Python backend  ──derive──▶  score reports
+   research/forecast/{questions,results}/*.jsonl              │ (server credentials only)
+                                                              ▼
+Flutter app  ◀──read──  Firestore display layer (proposed, not created): questions / forecasts / resolutions / scores
 ```
 
-- **Source of truth:** the versioned, append-only research files (`PILOT_PROTOCOL.md`). Firestore is the app-facing display copy.
-- **Public vs private:** approved questions, published forecasts, resolved outcomes and aggregate evaluation results are publicly readable where practical. Personal account data and settings stay under `users/{uid}` and remain private.
-- **Clients never write research records.** Rules: read allowed; `create`/`update`/`delete` denied for forecasting collections. Only the backend writes, using the Admin SDK.
-- **Immutability:** forecast documents are created once. Changes are new documents (`supersedes`) or correction records, never updates.
-- **Collections are not created yet.** Names and rules are proposed and will be discussed before Phase 4.
+**Evidence hierarchy** (what proves what):
+1. **Primary record:** the immutable forecast JSONL record (forecast timestamp, model and version, question ID, probability, configuration hash, evidence cutoff, `timing_status`).
+2. **Integrity evidence:** the record hash and the frozen question-set manifest (`question_set` record).
+3. **Additional timing evidence:** an external timestamp, once tested and adopted (decision D7).
+4. **Supporting history:** Git commits and repository history. Useful for versioning and spotting changes, but **not** independent proof that a forecast existed before the outcome was known.
+
+- **Raw records vs derived reports:** scores, leaderboards and reports are always **recalculated** from the frozen records by code. They are never edited by hand, and are stored apart (`results/reports/`, later `scores` in Firestore).
+- **Immutability:** forecast records are created once. Changes are new records (`supersedes`) or correction records, never updates.
+- **Firestore is a display copy only** and is **not created yet**. Collection names are candidates.
+
+### 5.1 Firestore security: decisions required before Phase 4 (nothing is defaulted)
+
+| Question | Options | Status |
+|---|---|---|
+| May **unauthenticated** visitors read questions, published forecasts, resolutions and aggregate scores? | public read · signed-in read only | **undecided** |
+| Who may **publish or resolve** official records? | only the trusted server (proposed) | proposed; **clients must never create, modify or delete official records** |
+| Where are **server credentials** kept and how are they restricted? | service-account key outside Flutter and Git (environment or secret store), least-privilege role, rotation plan | to specify |
+| How are the **rules tested**? | Firebase emulator tests proving clients cannot create, update or delete forecasting documents, and that `users/{uid}` stays private | to specify |
+| App Check for public data? | evaluate at Phase 4 | open |
+
+Personal account data and settings stay under `users/{uid}` and remain private in every option. The current live rules must be exported and versioned first (they are not in the repo).
 
 ## 6. Backend (Phase 3, proposal)
 
@@ -70,8 +86,9 @@ Flutter app  ◀──read only──  Firestore display layer: questions / fore
 
 ## 7. Security
 
-- No secrets in client code or git. Firebase client config (`firebase_options.dart`, `google-services.json`) is not secret; protection comes from rules.
-- Rules are versioned and reviewed before the first write. App Check is considered when the data is public.
+- Model API keys and Firebase Admin / service-account credentials: never in Flutter, never in Git.
+- Firebase client config (`firebase_options.dart`, `google-services.json`) is not secret; protection comes from rules.
+- Rules are versioned, reviewed and emulator-tested before the first write (section 5.1).
 - External timestamping sends only hashes.
 
 ## 8. Research integrity, evaluation and testing

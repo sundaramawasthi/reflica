@@ -71,7 +71,8 @@ Every line in a `.jsonl` file is:
   python3 -c "import json,hashlib,sys;r=json.load(open(sys.argv[1]));print('sha256:'+hashlib.sha256(json.dumps(r,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest())" rec.json
   ```
 - **Time:** every timestamp is timezone-aware ISO 8601. `*_utc` fields are UTC with `Z` and are authoritative. Records may also carry `*_ist` copies (`+05:30`) for display; they must be the same instant. Deadlines are written with an explicit offset.
-- **Git commits are supporting evidence, not proof**: commit dates come from the local clock and can be changed. Proof comes from record hashes plus external timestamps (section 7).
+- **Evidence hierarchy:** (1) the immutable record itself is primary; (2) its `record_hash` and the frozen `question_set` manifest are integrity evidence; (3) an external timestamp is additional timing evidence once tested and adopted (D7); (4) Git commits are supporting history only. Commit dates come from the local clock and can be changed, so they are not independent proof.
+- **Derived reports** (scores, leaderboards, calibration tables) are always recalculated from the frozen records and never edited by hand.
 
 ## 4. Record types
 
