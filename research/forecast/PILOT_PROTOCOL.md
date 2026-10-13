@@ -103,16 +103,22 @@ Every line in a `.jsonl` file is:
 | `origin` | `{method: "manual" \| "generator", source_url, fetched_at_utc, note}` |
 | `author` | person |
 
-Question status is **not** stored in the question. It is derived from the records, checking these rules from the top and stopping at the first that matches (`now` = current UTC time):
+**Two different ideas, two different words:**
+- **Definition locked** (also called "frozen definition" in this protocol): the question's definition has been appended to `questions/questions.jsonl` and can never change. This happens **before** forecasting opens.
+- **Forecast Frozen** (a *status* label): **forecasting is closed** because the forecast deadline has passed. It says nothing new about the definition, which was already locked.
+
+Question status is **not** stored in the question. It is derived from the records, checking these rules from the top and stopping at the first that matches (`now` = current UTC time; `deadline` = `forecast_deadline`):
 
 | # | Condition | Derived status |
 |---|---|---|
 | 1 | Question invalidated by a `correction`, or its current resolution record says `invalid` | **Invalid** |
 | 2 | Current resolution record says `yes` or `no` | **Resolved** |
-| 3 | Frozen, and `now` ≥ `forecast_deadline` (with or without forecasts) | **Forecast Frozen** |
-| 4 | Frozen, and `now` < `forecast_deadline` | **Open for Forecasting** |
-| 5 | Candidate with `review_status: "validated"` (not yet frozen) | **Validated** |
+| 3 | Definition locked **and** `now` ≥ `deadline` (with or without forecasts) | **Forecast Frozen** (forecasting closed, awaiting resolution) |
+| 4 | Definition locked **and** `now` < `deadline` | **Open for Forecasting** |
+| 5 | Candidate with `review_status: "validated"`, definition not yet locked | **Validated** |
 | 6 | Candidate still being edited | **Draft** |
+
+Rules 3 and 4 cannot both match: the deadline comparison splits them (≥ vs <). **Boundary:** at exactly `now == deadline` the status is *Forecast Frozen*. This matches the on-time rule: a forecast is `on_time` only if it was created and recorded strictly **before** the deadline.
 
 - "Current resolution record" = the latest resolution for the question that has not been superseded or invalidated by a `correction`.
 - A question past its deadline is **never** shown as open, even if no forecast was collected. The app shows "0 forecasts" instead.

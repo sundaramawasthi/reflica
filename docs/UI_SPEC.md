@@ -129,5 +129,6 @@ Shared components keep badges, cards, tables, filters, dates (IST display) and p
 - Navigation: every sidebar item opens its screen, and `/plans`, `/plan`, `/new-plan` still open.
 - The demo banner appears only when `FORECAST_DEMO` is on, and demo objects never appear when it is off.
 - Status badges show text, not just colour.
+- Status derivation (`PILOT_PROTOCOL.md` §4.1) on both sides of the deadline: `deadline − 1 s` → "Open for Forecasting"; exactly `deadline` → "Forecast Frozen"; a resolved question → "Resolved" regardless of the deadline. (Uses an injectable clock, not the device time.)
 - Models parse a `PILOT_PROTOCOL.md` example record (JSON round-trip).
 - Brier is shown only for `yes`/`no` outcomes.
