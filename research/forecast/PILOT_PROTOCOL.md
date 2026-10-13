@@ -149,7 +149,7 @@ Its `record_hash` is the **question-set hash** stored in every forecast. It is e
 | `usage` | `{input_tokens, output_tokens, cost_usd, runtime_s}`, null where unknown |
 | `status`, `error` | `ok` \| `failed` \| `refused` \| `unparseable` |
 | `collection_method`, `recorded_by` | `"manual_v1"` for the pilot; person |
-| `timing_status` | `on_time` if `created_at_utc` **and** `recorded_at_utc` are before `forecast_deadline`, else `late` (D9). Set when the line is written; never changed |
+| `timing_status` | `on_time` if `created_at_utc` < `forecast_deadline` **and** `recorded_at_utc` < `forecast_deadline` (strictly before; a time equal to the deadline is late), else `late` (D9). Set when the line is written; never changed |
 | `supersedes` | earlier `forecast_id` for a deliberate update, else null |
 
 ### 4.4 `resolution` (`resolution@1`)
@@ -179,7 +179,7 @@ The pilot aims for **4–6 matched Western questions** (D5). The comparison is *
 3. **News condition:** collect the evidence first, record each item's publication time, set the cutoff, and give the model only that evidence.
 4. Write the record the same day, hash it, append it, commit, and stamp the file.
 5. **Never backdate.** If the exact call time is unknown, use the recorded time.
-6. **On time vs late (D9):** a forecast is `on_time` only if it was produced **and** written to the file before the deadline. Write, hash and commit it the same day. Anything else is kept with `timing_status: "late"` and excluded from on-time evaluation. If an external stamp is adopted (D7), on-time records must also be covered by a stamp dated before the deadline.
+6. **On time vs late (D9):** a forecast is `on_time` only if it was produced **and** written to the file **strictly before** the deadline. Created before but recorded at or after the deadline → `late`. Write, hash and commit it the same day. Anything else is kept with `timing_status: "late"` and excluded from on-time evaluation. If an external stamp is adopted (D7), on-time records must also be covered by a stamp dated before the deadline.
 7. **Updates** are new records with `supersedes`. The primary leaderboard uses the selection rule in section 7.1 (D1). All other records stay available for secondary analyses.
 8. **Failures** are recorded and count towards the failure rate.
 
