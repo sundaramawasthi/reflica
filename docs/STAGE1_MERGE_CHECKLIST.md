@@ -35,7 +35,7 @@ Implementation order: Documentation → Flutter UI → Python backend → connec
 
 1. **Firestore changes** (section 2.1): hold until this diff and the combined tests are reviewed. Then approve, adjust or reject each row.
 2. **Starter nodes:** keep the stage-1 behaviour (empty graph) or restore starters?
-3. **Firestore rules:** export the current rules from the console and add them to the repo before approving the `events` subcollection.
+3. **Firestore rules:** done. The live rules are deny-all (database created 14 Oct, empty). Proposed owner-only rules in `firestore.rules` cover `events` as append-only (no updates; owner delete is an open decision) and passed 37/37 emulator checks (`FIREBASE_SPARK.md`). Publishing still needs approval. Because the cloud database was empty, there is **no existing cloud plan data** at risk from the merge; device offline caches are the only copies.
 4. **Who runs the merge:** Claude in the cloud (you pull and test on the Mac), or you on the Mac with this checklist.
 5. **`main`:** merge into `main` later, through a pull request, after the Mac tests pass.
 

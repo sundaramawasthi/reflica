@@ -44,7 +44,9 @@ Nothing is deleted without the user's approval.
 
 - Project `reflica-593b4`; web and Android only. Products: Auth, Firestore (offline persistence), plus the unused Analytics and AI packages.
 - Collections: `users/{uid}/plans`, `users/{uid}/notifications` (per user).
-- **Security rules are not in the repository.** They must be exported from the console and versioned (`firestore.rules`, `firebase.json`) before any forecasting collection is written.
+- **Firestore database `(default)` was only created on 14 Oct 2026** (empty). Before that, app writes stayed in each device's offline cache and were never stored in the cloud.
+- Live rules on 14 Oct: **deny all**. Proposed owner-only rules: `firestore.rules` (repo root, **not published**; 37/37 emulator checks passed). Spark-plan review, quotas and the Realtime Database recommendation: `FIREBASE_SPARK.md`.
+- The project stays on the free **Spark** plan: no billing, no Cloud Functions, no managed backups. Scheduled jobs are run locally.
 
 ## 5. Forecasting data architecture (provisionally approved; Firestore parts not yet decided)
 

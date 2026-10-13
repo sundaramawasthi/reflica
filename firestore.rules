@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// Reflica Cloud Firestore security rules. PROPOSED, NOT DEPLOYED.
+// Project reflica-593b4, (default) database. Owner-only access to a user's
+// own plans, plan events (stage-1) and notifications. Everything else,
+// including the users/{uid} document itself and any forecasting
+// collections, is denied: no rule allows it.
+// Deploy only after the user approves (Firebase console → Firestore → Rules).
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedInAs(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    match /users/{uid} {
+
+      match /plans/{planId} {
+        allow read: if signedInAs(uid);
+        allow create, update: if signedInAs(uid)
+          && incoming().id == planId
+          && incoming().ownerId == uid
+          && incoming().title is string;
+        allow delete: if signedInAs(uid);
+
+        // Stage-1 decision history: append-only, never edited.
+        match /events/{eventId} {
+          allow read: if signedInAs(uid);
+          allow create: if signedInAs(uid)
+            && incoming().id == eventId
+            && incoming().actor_uid == uid
+            && incoming().type is string
+            && incoming().created_at == request.time;
+          allow update: if false;
+          // Owner may delete (cleanup when a plan is deleted). Open decision.
+          allow delete: if signedInAs(uid);
+        }
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if signedInAs(uid);
+        allow create: if signedInAs(uid)
+          && incoming().id == notificationId
+          && incoming().ownerId == uid
+          && incoming().read is bool;
+        // Only the read flag may change (markRead and the markAllRead batch).
+        allow update: if signedInAs(uid)
+          && incoming().diff(resource.data).affectedKeys().hasOnly(['read'])
+          && incoming().read is bool;
+        allow delete: if signedInAs(uid);
+      }
+    }
+  }
+}
