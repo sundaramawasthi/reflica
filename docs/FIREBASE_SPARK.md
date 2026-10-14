@@ -1,6 +1,6 @@
 # Firebase on the free Spark plan: setup and security review
 
-Date: 14 October 2026. Status: **review and proposal. Nothing deployed or changed in Firebase.** Project `reflica-593b4`, Cloud Firestore `(default)` database (created 14 Oct 2026 by the user, empty).
+Date: 14 October 2026. Status: **in effect.** On 14 Oct 2026 the user published the Firestore rules (`firestore.rules`) and locked the Realtime Database (`database.rules.json`) by hand in the console. No billing; still on Spark. Project `reflica-593b4`, Cloud Firestore `(default)` database (created 14 Oct 2026 by the user, empty).
 Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand. Research direction chosen by the student; formal M.Tech guide approval pending.
 
 ## 1. What the app actually uses (checked in code on `main` and the stage-1 branch)
@@ -93,11 +93,9 @@ npx firebase emulators:exec --only firestore --project demo-reflica-rules "node 
 
 No `firebase.json` is added to the repository, so `firebase deploy` from the repo cannot publish the rules by accident.
 
-## 5. Realtime Database (not used by the app)
+## 5. Realtime Database (not used by the app): LOCKED on 14 Oct 2026
 
-Its rules currently allow public reads and writes. The data is `null`, but **anyone on the internet could write to it**, using its free quota and storing content under the project's name.
-
-**Recommendation:** in the console (Realtime Database → Rules) replace the rules with:
+Its original rules allowed public reads and writes (data `null`). On 14 Oct 2026 the user replaced and published them in the console. The repo copy is `database.rules.json`:
 ```json
 { "rules": { ".read": false, ".write": false } }
 ```
@@ -105,9 +103,11 @@ Its rules currently allow public reads and writes. The data is `null`, but **any
 - **Reversible:** the rules can be edited again later.
 - Deleting the database is not needed; locking it is enough.
 
-**Not done; waiting for your approval.**
+**Done:** published by the user on 14 Oct 2026.
 
 ## 6. Decisions for the user
+
+> **Status 14 Oct 2026:** 1 done (Firestore rules published); 2 no longer applies (plan and event paths removed); 3 done (Realtime Database locked); 4 answered (device plans were test data); 5 still open (November).
 
 1. **Publish `firestore.rules`** to the console (copy the text into Firestore → Rules → Publish)? Until then, the deny-all rules block the app completely.
 2. **Event deletion:** keep "owner may delete" (allows cleanup and lets users remove their own data), or deny it to make events a stricter audit log (orphans then stay after a plan is deleted)?

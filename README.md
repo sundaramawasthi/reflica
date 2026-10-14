@@ -17,7 +17,8 @@ Implementation order: Documentation → Flutter UI → Python backend → connec
 reflica/
 ├── NEW_DIRECTION.md      # authoritative research direction (read first)
 ├── PROGRESS.md           # dated progress log
-├── firestore.rules       # proposed Firestore rules (not published)
+├── firestore.rules       # Cloud Firestore rules (published 14 Oct 2026)
+├── database.rules.json   # Realtime Database rules: locked (published 14 Oct 2026)
 ├── docs/                 # UI spec, architecture, Firebase (Spark) review, clean-up edits, rules tests
 ├── lib/                  # Flutter app: sign-in, landing and dashboard shell, notifications
 ├── android/, ios/, web/, macos/, linux/, windows/

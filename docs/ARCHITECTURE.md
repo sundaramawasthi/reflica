@@ -42,7 +42,7 @@ On 14 Oct 2026 the user decided to delete the old plan-based Reflica and keep on
 - Project `reflica-593b4`; web and Android only. Products: Auth, Firestore (offline persistence), plus the unused Analytics and AI packages.
 - Collections used by the kept code: `users/{uid}/notifications` (per user). The old `users/{uid}/plans` path (and stage-1 `events`) is no longer used; any test documents there are unreachable under the proposed rules.
 - **Firestore database `(default)` was only created on 14 Oct 2026** (empty). Before that, app writes stayed in each device's offline cache and were never stored in the cloud.
-- Live rules on 14 Oct: **deny all**. **Live rules since 14 Oct 2026: `firestore.rules`** (published by the user in the console). Owner-only notifications; everything else denied; 22/22 emulator checks passed. Spark-plan review, quotas and the Realtime Database recommendation: `FIREBASE_SPARK.md`.
+- **Live rules since 14 Oct 2026: `firestore.rules`** (published by the user in the console). Owner-only notifications; everything else denied; 22/22 emulator checks passed. Spark-plan review, quotas and the Realtime Database recommendation: `FIREBASE_SPARK.md`. Realtime Database (unused by the app): **locked** since 14 Oct 2026, read and write denied (`database.rules.json`).
 - The project stays on the free **Spark** plan: no billing, no Cloud Functions, no managed backups. Scheduled jobs are run locally.
 
 ## 5. Forecasting data architecture (provisionally approved; Firestore parts not yet decided)
@@ -117,4 +117,4 @@ Still open:
 3. Approve the UI navigation (no Legacy Plans entry: the plan app was deleted).
 4. Which 2–3 pilot models and the monthly API budget (November).
 5. Timestamping service evaluation (D7, November).
-6. Lock the unused Realtime Database (if not done yet).
+6. ~~Lock the unused Realtime Database~~: done 14 Oct 2026 (`database.rules.json`, deny all).
