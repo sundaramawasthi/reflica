@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
@@ -208,8 +206,7 @@ Future<void> handleSignOut(BuildContext context) async {
               ),
               const SizedBox(height: 12),
               Text(
-                'Your plans stay saved. You\'ll need to sign in again to '
-                'open the dashboard.',
+                'You\'ll need to sign in again to open the dashboard.',
                 style: AppText.body(size: 13.5, color: AppColors.ink2),
               ),
               const SizedBox(height: 18),
@@ -282,97 +279,135 @@ Future<void> handleSignOut(BuildContext context) async {
   Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
 }
 
+/// Homepage navigation colours (match the homepage in home_screen.dart).
+const _navy = Color(0xFF0F1B3D);
+const _muted = Color(0xFF5B6B85);
+const _blue = Color(0xFF2563EB);
+const _border = Color(0xFFE3E9F3);
+
+/// Top bar of the public homepage. Links only do real things: scroll on the
+/// page, or say honestly that a forecasting page is not built yet.
 class AppTopBar extends StatelessWidget {
   final bool elevated;
-  const AppTopBar({super.key, this.elevated = false});
+  final VoidCallback? onHome;
+  final VoidCallback? onAbout;
+  final ValueChanged<String>? onComingSoon;
+
+  const AppTopBar({
+    super.key,
+    this.elevated = false,
+    this.onHome,
+    this.onAbout,
+    this.onComingSoon,
+  });
+
+  void _select(String item) {
+    switch (item) {
+      case 'Home':
+        onHome?.call();
+      case 'About':
+        onAbout?.call();
+      default:
+        onComingSoon?.call(item);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = screenSizeOf(context);
-    final width = MediaQuery.sizeOf(context).width;
-    final showLinks = width >= 980;
-    // Nav + chip + button + brand all compete. Tagline is ~290 px wide and
-    // must share Flexible space with the brand mark — we need enough free
-    // width even AFTER nav links eat their share. 1480 is empirically safe.
-    final showTagline = width >= 1480;
+    final showLinks = MediaQuery.sizeOf(context).width >= 900;
+    const items = ['Home', 'Question Bank', 'Forecasts', 'About'];
 
-    return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.bg.withValues(alpha: 0.85),
-            border: Border(
-              bottom: BorderSide(
-                color: elevated ? AppColors.line : Colors.transparent,
-                width: 1,
-              ),
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: elevated ? _border : Colors.transparent,
           ),
-          child: SafeArea(
-            bottom: false,
-            child: PageWrap(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Breakpoints.pageGutter,
-                vertical: 16,
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: ClipRect(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const BrandMark(size: 32),
-                          const SizedBox(width: 10),
-                          Flexible(
-                            child: Text(
-                              'Reflica',
-                              style: AppText.serif(
-                                  size: size == ScreenSize.phone ? 20 : 24,
-                                  weight: FontWeight.w600),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          if (showTagline) ...[
-                            const SizedBox(width: 20),
-                            Flexible(child: _TaglineBar()),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  if (showLinks) ...[
-                    const _NavLink('Home', active: true),
-                    const _NavLink('Solutions'),
-                    const _NavLink('Features'),
-                    const _NavLink('Use Cases'),
-                    const _NavLink('About'),
-                    const SizedBox(width: 32),
-                  ],
-                  if (AuthService.instance.isDemoMode) ...[
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.amber.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: Text(
-                        'demo mode',
-                        style: AppText.mono(size: 10, color: AppColors.amber),
-                      ),
-                    ),
+        ),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: PageWrap(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Breakpoints.pageGutter,
+            vertical: 14,
+          ),
+          child: Row(
+            children: [
+              Flexible(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const BrandMark(size: 32),
                     const SizedBox(width: 10),
+                    Flexible(
+                      child: Text(
+                        'Reflica',
+                        style: TextStyle(
+                          color: _navy,
+                          fontSize: size == ScreenSize.phone ? 20 : 22,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
-                  _PrimaryButton(
-                    label: size == ScreenSize.phone ? 'Start' : 'Get Started',
-                    onTap: () => handleGetStarted(context),
-                  ),
-                ],
+                ),
               ),
-            ),
+              const Spacer(),
+              if (showLinks) ...[
+                for (final item in items)
+                  _NavLink(
+                    item,
+                    active: item == 'Home',
+                    onTap: () => _select(item),
+                  ),
+                const SizedBox(width: 24),
+              ],
+              if (AuthService.instance.isDemoMode) ...[
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.amber.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    'demo mode',
+                    style: AppText.mono(size: 10, color: AppColors.amber),
+                  ),
+                ),
+                const SizedBox(width: 10),
+              ],
+              FilledButton(
+                onPressed: () => handleGetStarted(context),
+                style: FilledButton.styleFrom(
+                  backgroundColor: _blue,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  textStyle: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                child: const Text('Sign In'),
+              ),
+              if (!showLinks) ...[
+                const SizedBox(width: 4),
+                PopupMenuButton<String>(
+                  tooltip: 'Menu',
+                  icon: const Icon(Icons.menu, color: _navy),
+                  onSelected: _select,
+                  itemBuilder: (_) => [
+                    for (final item in items)
+                      PopupMenuItem<String>(value: item, child: Text(item)),
+                  ],
+                ),
+              ],
+            ],
           ),
         ),
       ),
@@ -380,142 +415,27 @@ class AppTopBar extends StatelessWidget {
   }
 }
 
-class _TaglineBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    const words = ['Understand', 'Reason', 'Plan', 'Adapt'];
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (int i = 0; i < words.length; i++) ...[
-          Text(
-            words[i],
-            style: AppText.body(
-              size: 14,
-              weight: FontWeight.w500,
-              color: AppColors.ink2,
-            ),
-          ),
-          if (i < words.length - 1) ...[
-            const SizedBox(width: 10),
-            Container(
-              width: 3,
-              height: 3,
-              decoration: const BoxDecoration(
-                color: AppColors.muted,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 10),
-          ],
-        ],
-      ],
-    );
-  }
-}
-
-class _NavLink extends StatefulWidget {
+class _NavLink extends StatelessWidget {
   final String label;
   final bool active;
-  const _NavLink(this.label, {this.active = false});
-
-  @override
-  State<_NavLink> createState() => _NavLinkState();
-}
-
-class _NavLinkState extends State<_NavLink> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final isActive = widget.active;
-    final color = isActive
-        ? AppColors.accent
-        : _hover
-            ? AppColors.ink
-            : AppColors.ink2;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        onEnter: (_) => setState(() => _hover = true),
-        onExit: (_) => setState(() => _hover = false),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: isActive
-                    ? AppColors.accent
-                    : _hover
-                        ? AppColors.accent.withValues(alpha: 0.4)
-                        : Colors.transparent,
-                width: 2,
-              ),
-            ),
-          ),
-          child: Text(
-            widget.label,
-            style: AppText.body(
-              size: 15,
-              weight: isActive ? FontWeight.w600 : FontWeight.w500,
-              color: color,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PrimaryButton extends StatefulWidget {
-  final String label;
   final VoidCallback onTap;
-  const _PrimaryButton({required this.label, required this.onTap});
-
-  @override
-  State<_PrimaryButton> createState() => _PrimaryButtonState();
-}
-
-class _PrimaryButtonState extends State<_PrimaryButton> {
-  bool _hover = false;
+  const _NavLink(this.label, {this.active = false, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-          decoration: BoxDecoration(
-            color: _hover
-                ? const Color(0xFF1E5BC9)
-                : const Color(0xFF2E6FEB),
-            borderRadius: BorderRadius.circular(999),
-            boxShadow: _hover
-                ? [
-                    BoxShadow(
-                      color: const Color(0xFF2E6FEB).withValues(alpha: 0.4),
-                      blurRadius: 16,
-                      offset: const Offset(0, 4),
-                    ),
-                  ]
-                : [],
-          ),
-          child: Text(
-            widget.label,
-            style: AppText.body(
-              size: 14,
-              weight: FontWeight.w600,
-              color: Colors.white,
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: TextButton(
+        onPressed: onTap,
+        style: TextButton.styleFrom(
+          foregroundColor: active ? _blue : _muted,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          textStyle: TextStyle(
+            fontSize: 15,
+            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
+        child: Text(label),
       ),
     );
   }
