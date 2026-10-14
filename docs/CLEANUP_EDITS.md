@@ -2,6 +2,8 @@
 
 Date: 14 October 2026. On 14 Oct the user decided to delete everything from the old plan-based Reflica, keeping only what serves the predictive-AI direction. Claude deleted the files; **the user makes the edits below** (decision: "Claude deletes, I edit").
 
+> **Update, 14 Oct 2026:** at the user's request, Claude made the **section A** edits (commit after `637841e`). Sections B and C remain. The section D checks must be run on the Mac (no Flutter SDK in the cloud session).
+
 **The app does not compile until section A is done.** Work on your Mac, then run the checks in section D.
 
 Archive (nothing is lost; restore any file with `git checkout <branch> -- <path>`):

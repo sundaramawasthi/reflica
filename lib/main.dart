@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'screens/auth_gate.dart';
 import 'screens/dashboard_screen.dart';
-import 'screens/new_plan_flow.dart';
 import 'screens/placeholder_screen.dart';
-import 'screens/plan_detail_screen.dart';
-import 'screens/plans_screen.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -42,66 +39,14 @@ class ReflicaApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       initialRoute: '/',
-      onGenerateRoute: (settings) {
-        if (settings.name == '/plan') {
-          final id = settings.arguments as String?;
-          if (id == null) {
-            return MaterialPageRoute(
-              builder: (_) => const PlansScreen(),
-              settings: settings,
-            );
-          }
-          return MaterialPageRoute(
-            builder: (_) => PlanDetailScreen(planId: id),
-            settings: settings,
-          );
-        }
-        if (settings.name == '/new-plan') {
-          final args = settings.arguments is NewPlanArgs
-              ? settings.arguments as NewPlanArgs
-              : null;
-          return MaterialPageRoute(
-            builder: (_) => NewPlanFlow(args: args),
-            settings: settings,
-          );
-        }
-        return null;
-      },
       routes: {
         '/': (_) => const AuthGate(),
         '/dashboard': (_) => const DashboardScreen(),
-        '/new-plan': (_) => const NewPlanFlow(),
-        '/plans': (_) => const PlansScreen(),
-        '/graph': (_) => const PlaceholderScreen(
-              title: 'Knowledge Graph',
-              description:
-                  'The combined cognitive graph across all your plans, with '
-                  'evidence, dependencies and uncertainty.',
-              icon: Icons.hub_outlined,
-              sidebarIndex: 3,
-            ),
-        '/scenarios': (_) => const PlaceholderScreen(
-              title: 'Scenarios',
-              description:
-                  'What-if branches you can explore without changing your '
-                  'main plan.',
-              icon: Icons.layers_outlined,
-              sidebarIndex: 4,
-            ),
-        '/documents': (_) => const PlaceholderScreen(
-              title: 'Documents',
-              description:
-                  'Uploaded reports, briefs and data. Reflica extracts facts, '
-                  'observations and constraints you can trace back.',
-              icon: Icons.description_outlined,
-              sidebarIndex: 5,
-            ),
         '/settings': (_) => const PlaceholderScreen(
               title: 'Settings',
-              description:
-                  'Account, workspace, LLM provider, and governance preferences.',
+              description: 'Account and display preferences.',
               icon: Icons.settings_outlined,
-              sidebarIndex: 6,
+              sidebarIndex: 1,
             ),
       },
     );

@@ -12,7 +12,7 @@
 
 - **Old Reflica deleted from the main code** (user decision): plan app, old landing and dashboard sections, `reflica_bench` (benchmark, baselines, B5), LLM pilot, 203 tests. **Archived** in branches `archive/old-reflica-2026-10-14` (`b40ef22`) and `archive/stage-1-2026-10-14` (`ae7084e`). The stage-1 merge is cancelled.
 - **Kept:** Flutter foundation (Firebase init, Google sign-in, theme, landing and dashboard shell, top bar, sidebar, welcome card, notifications), all forecasting documentation, `firestore.rules` (notifications only; published 14 Oct).
-- **The app does not compile until the user makes the edits in `docs/CLEANUP_EDITS.md`**, then runs `flutter analyze` and `flutter test` on the Mac.
+- Section A clean-up edits made (14 Oct); **compile not yet confirmed**: run `flutter analyze` and `flutter test` on the Mac.
 - No forecasting code yet. Next: the clean-up edits → Phase 2 UI → November pilot preparation.
 - Everything below the decisions log's 14 Oct rows, and every section titled as previous or old, describes the **deleted** version and is kept as history only.
 
@@ -421,6 +421,7 @@ Reflica ships as **three products that share one engine**:
 | 2026-10-14 | **Old Reflica deleted (user decision; archived).** Archive branches pushed and verified: `archive/old-reflica-2026-10-14` @ `b40ef22` (373 files), `archive/stage-1-2026-10-14` @ `ae7084e` (tags refused by the proxy, so branches). Deleted 205 files (~37,100 lines): plan app (wizard, My Plans, detail, editor, model, repository, mind map), old landing/dashboard sections, audience images, `reflica_bench`, LLM pilot, 203 tests. Stage-1 merge cancelled. `firestore.rules` reduced to notifications only; tests updated, **22/22 passed** (controls: deny-all 0/6 allow, 17/17 deny; allow-all 5/5 allow, 0/17 deny). `docs/CLEANUP_EDITS.md` lists the edits the user makes so the app compiles. Docs updated; `NEW_DIRECTION.md` has a marked addition recording the decision. | App does not compile until the user's edits; rules not published; guide approval pending. |
 | 2026-10-14 | **Firestore rules published** by the user in the Firebase console: the tested `firestore.rules` (owner-only notifications; everything else denied). Repo copy marked as published. | Realtime Database lock: to confirm. |
 | 2026-10-14 | **Realtime Database locked** by the user in the console: `{".read": false, ".write": false}`; recorded as `database.rules.json` (repo copy; no `firebase.json`, so nothing deploys from the repo). The app never used the Realtime Database. | Live in Firebase: Firestore notification-only rules + locked Realtime Database. |
+| 2026-10-14 | **Clean-up edits, section A, made by Claude** (user's request, after `flutter analyze` on the Mac showed 72 issues, all from deleted files): removed old plan routes, imports, sidebar items, recent-plans list, the welcome-card plan prompt and the notification link to `/plan`; welcome card now reads "AI Forecasting for India"; `pubspec.yaml` drops the deleted audience assets and `google_fonts`, `flutter_svg`, `file_picker` (7 insertions, 491 deletions in `lib/` + `pubspec.yaml`). **Not compiled here** (no Flutter SDK in the cloud). | User to run `flutter pub get` / `analyze` / `test` / `run -d chrome` on the Mac and commit the updated `pubspec.lock`. |
 
 ---
 

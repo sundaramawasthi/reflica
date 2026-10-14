@@ -2,8 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../models/plan.dart';
-import '../../screens/new_plan_flow.dart';
 import '../../services/auth_service.dart';
 import '../../theme/app_theme.dart';
 import '../responsive.dart';
@@ -64,10 +62,6 @@ class WelcomeCard extends StatelessWidget {
                     ),
                   ],
                 ),
-          const SizedBox(height: 28),
-          _PromptBar(),
-          const SizedBox(height: 16),
-          _ExampleChips(),
         ],
       ),
     );
@@ -83,259 +77,16 @@ class WelcomeCard extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          'Your AI Decision\nIntelligence Platform',
+          'AI Forecasting\nfor India',
           style: AppText.serif(size: 36, weight: FontWeight.w400),
         ),
         const SizedBox(height: 14),
         Text(
-          'Understand complex situations, track changing conditions, create '
-          'reliable plans and adapt — with evidence, reasoning and human control.',
+          'Explore upcoming events, inspect model predictions, and evaluate '
+          'forecasts against real-world outcomes.',
           style: AppText.body(size: 15, color: AppColors.ink2),
         ),
       ],
-    );
-  }
-}
-
-class _PromptBar extends StatefulWidget {
-  @override
-  State<_PromptBar> createState() => _PromptBarState();
-}
-
-class _PromptBarState extends State<_PromptBar> {
-  final _ctrl = TextEditingController();
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  void _submit({InputMode mode = InputMode.text}) {
-    final text = _ctrl.text.trim();
-    Navigator.of(context).pushNamed(
-      '/new-plan',
-      arguments: NewPlanArgs(
-        mode: mode,
-        seedText: text.isEmpty ? null : text,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(14, 10, 10, 10),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.line),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: AppColors.surface2,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            alignment: Alignment.center,
-            child: Icon(Icons.short_text,
-                size: 18, color: AppColors.muted),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: TextField(
-              controller: _ctrl,
-              onSubmitted: (_) => _submit(),
-              textInputAction: TextInputAction.send,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText:
-                    'Describe your situation, goal or upload a document...',
-                hintStyle: AppText.body(size: 15, color: AppColors.muted),
-                isCollapsed: true,
-              ),
-              style: AppText.body(size: 15, color: AppColors.ink),
-            ),
-          ),
-          _AttachMenu(onPick: (mode) => _submit(mode: mode)),
-          const SizedBox(width: 4),
-          _StartButton(onTap: _submit),
-        ],
-      ),
-    );
-  }
-}
-
-class _AttachMenu extends StatelessWidget {
-  final void Function(InputMode) onPick;
-  const _AttachMenu({required this.onPick});
-
-  @override
-  Widget build(BuildContext context) {
-    const picks = [
-      InputMode.document,
-      InputMode.image,
-      InputMode.video,
-      InputMode.voice,
-      InputMode.camera,
-      InputMode.form,
-    ];
-    return PopupMenuButton<InputMode>(
-      tooltip: 'Choose another input mode',
-      icon: Icon(Icons.attach_file, color: AppColors.muted),
-      color: AppColors.surface,
-      offset: const Offset(0, 44),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: const BorderSide(color: AppColors.line),
-      ),
-      onSelected: onPick,
-      itemBuilder: (ctx) => picks
-          .map(
-            (m) => PopupMenuItem<InputMode>(
-              value: m,
-              child: Row(
-                children: [
-                  Icon(m.icon, size: 16, color: AppColors.accent),
-                  const SizedBox(width: 10),
-                  Text(m.label,
-                      style: AppText.body(
-                          size: 13.5, color: AppColors.ink)),
-                ],
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-}
-
-class _StartButton extends StatefulWidget {
-  final VoidCallback onTap;
-  const _StartButton({required this.onTap});
-
-  @override
-  State<_StartButton> createState() => _StartButtonState();
-}
-
-class _StartButtonState extends State<_StartButton> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    // Collapse to an icon-only arrow at narrow widths so the prompt bar never
-    // overflows on phones. Breakpoint matches when the welcome card typically
-    // starts to wrap its hero image column.
-    final isTight = MediaQuery.sizeOf(context).width < 520;
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: EdgeInsets.symmetric(
-            horizontal: isTight ? 10 : 18,
-            vertical: isTight ? 10 : 12,
-          ),
-          decoration: BoxDecoration(
-            color: _hover ? AppColors.accent2 : AppColors.accent,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: isTight
-              ? Icon(Icons.arrow_forward, size: 18, color: Colors.white)
-              : Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Start Planning',
-                      style: AppText.body(
-                        size: 14,
-                        weight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Icon(Icons.arrow_forward, size: 16, color: Colors.white),
-                  ],
-                ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ExampleChips extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    const examples = [
-      'Plan my exam preparation',
-      'Evacuation plan for flood',
-      'Project timeline for research',
-      'Resource allocation for team',
-    ];
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Try examples:',
-          style: AppText.body(size: 13, color: AppColors.muted),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: examples.map((e) => _Chip(label: e)).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _Chip extends StatefulWidget {
-  final String label;
-  const _Chip({required this.label});
-
-  @override
-  State<_Chip> createState() => _ChipState();
-}
-
-class _ChipState extends State<_Chip> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed('/new-plan'),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: _hover ? AppColors.accent.withValues(alpha: 0.08) : AppColors.surface,
-            border: Border.all(
-              color: _hover ? AppColors.accent : AppColors.line,
-            ),
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Text(
-            widget.label,
-            style: AppText.body(
-              size: 12.5,
-              color: _hover ? AppColors.accent : AppColors.ink2,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

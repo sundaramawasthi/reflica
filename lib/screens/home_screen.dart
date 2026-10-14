@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
 import '../widgets/app_top_bar.dart';
-import '../widgets/audience_section.dart';
 import '../widgets/cta_footer.dart';
-import '../widgets/evidence_section.dart';
-import '../widgets/hero_section.dart';
-import '../widgets/input_modes_section.dart';
-import '../widgets/living_loop_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,17 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: const [
                   SizedBox(height: 72),
-                  // 1 · Headline + mind-map preview
-                  HeroSection(),
-                  // 2 · "Living loop" — what makes Reflica alive
-                  LivingLoopSection(),
-                  // 3 · All 7 input modes, one typed graph
-                  InputModesSection(),
-                  // 4 · Audience — one engine for five user classes
-                  AudienceSection(),
-                  // 5 · Five evidence types the system distinguishes
-                  EvidenceSection(),
-                  // 6 · CTA + footer
+                  // Forecasting landing sections come in Phase 2 (docs/UI_SPEC.md).
                   CtaFooter(),
                 ],
               ),

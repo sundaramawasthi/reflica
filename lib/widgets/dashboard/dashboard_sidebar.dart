@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/plan.dart';
-import '../../services/plan_repository.dart';
 import '../../theme/app_theme.dart';
 import '../brand_mark.dart';
 
@@ -14,11 +12,6 @@ class SidebarItem {
 
 const sidebarItems = <SidebarItem>[
   SidebarItem('Home', Icons.home_outlined, '/dashboard'),
-  SidebarItem('New Plan', Icons.add_box_outlined, '/new-plan'),
-  SidebarItem('My Plans', Icons.folder_outlined, '/plans'),
-  SidebarItem('Knowledge Graph', Icons.hub_outlined, '/graph'),
-  SidebarItem('Scenarios', Icons.layers_outlined, '/scenarios'),
-  SidebarItem('Documents', Icons.description_outlined, '/documents'),
   SidebarItem('Settings', Icons.settings_outlined, '/settings'),
 ];
 
@@ -66,13 +59,6 @@ class DashboardSidebar extends StatelessWidget {
               },
             );
           }),
-          const SizedBox(height: 24),
-          const Divider(color: AppColors.line, height: 1),
-          const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: _RecentSection(),
-          ),
           const Spacer(),
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -144,99 +130,6 @@ class _NavItemState extends State<_NavItem> {
         ),
       ),
     );
-  }
-}
-
-class _RecentSection extends StatelessWidget {
-  const _RecentSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.schedule, size: 14, color: AppColors.muted),
-            const SizedBox(width: 6),
-            Text('RECENT PROJECTS', style: AppText.eyebrow()),
-          ],
-        ),
-        const SizedBox(height: 14),
-        StreamBuilder<List<Plan>>(
-          stream: PlanRepository.instance.watchMyPlans(),
-          builder: (context, snap) {
-            final plans = (snap.data ?? const []).take(4).toList();
-            if (plans.isEmpty) {
-              return Text(
-                'Your recent plans will show here.',
-                style: AppText.body(size: 12, color: AppColors.muted),
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: plans
-                  .map((p) => Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: _RecentRow(plan: p),
-                      ))
-                  .toList(),
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class _RecentRow extends StatefulWidget {
-  final Plan plan;
-  const _RecentRow({required this.plan});
-
-  @override
-  State<_RecentRow> createState() => _RecentRowState();
-}
-
-class _RecentRowState extends State<_RecentRow> {
-  bool _hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hover = true),
-      onExit: (_) => setState(() => _hover = false),
-      child: GestureDetector(
-        onTap: () =>
-            Navigator.of(context).pushNamed('/plan', arguments: widget.plan.id),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.plan.title,
-              style: AppText.body(
-                size: 13,
-                weight: FontWeight.w500,
-                color: _hover ? AppColors.ink : AppColors.ink2,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 2),
-            Text(_relative(widget.plan.updatedAt),
-                style: AppText.mono(size: 11)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _relative(DateTime t) {
-    final diff = DateTime.now().difference(t);
-    if (diff.inSeconds < 60) return 'just now';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
-    if (diff.inHours < 24) return '${diff.inHours}h ago';
-    return '${diff.inDays}d ago';
   }
 }
 

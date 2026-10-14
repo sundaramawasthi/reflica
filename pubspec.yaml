@@ -43,15 +43,7 @@ dependencies:
   firebase_analytics: 12.6.0
   firebase_ai: 4.0.0
 
-  # Typography — Fraunces (display) + Inter / IBM Plex pulled at runtime from Google Fonts.
-  google_fonts: ^6.2.1
-
-  # SVG rendering (for the Organizations audience illustration).
-  flutter_svg: ^2.0.10+1
-
-  # Cross-platform file / image / video / audio picking.
-  file_picker: ^8.1.4
-  # Unique identifiers for plan records.
+  # Unique identifiers (notifications).
   uuid: ^4.5.1
   # Native in-app Google sign-in on Android / iOS (bottom-sheet UX instead of
   # Firebase's separate GenericIdpActivity).
@@ -78,14 +70,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  assets:
-    - assets/images/audience/
-    - assets/images/audience/individual.jpg
-    - assets/images/audience/organization.svg
-    - assets/images/audience/research.png
-    - assets/images/audience/government.png
-    - assets/images/audience/disaster.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -341,9 +341,6 @@ class _NotificationTile extends StatelessWidget {
         await NotificationService.instance.markRead(n.id);
         if (!context.mounted) return;
         Navigator.of(context).maybePop();
-        if (n.planId != null) {
-          Navigator.of(context).pushNamed('/plan', arguments: n.planId);
-        }
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
