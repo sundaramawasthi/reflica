@@ -9,7 +9,7 @@ Implementation order: Documentation → Flutter UI → Python backend → connec
 
 - **Forecasting:** documentation and Firestore rules only. No forecasting code yet.
 - **Old Reflica removed:** the plan-based app and the old thesis research were deleted from the main code on 14 Oct 2026. They are kept in branch `archive/old-reflica-2026-10-14` (and stage-1 in `archive/stage-1-2026-10-14`).
-- **Clean-up edits (section A of `docs/CLEANUP_EDITS.md`) are made; the build is still to be confirmed on the Mac.**
+- **The app builds and runs again** after the clean-up (confirmed on the Mac, 14 Oct 2026): sign-in, dashboard shell, forecasting welcome card.
 
 ## Layout
 
