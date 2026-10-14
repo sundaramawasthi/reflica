@@ -51,7 +51,7 @@ Spark quotas, to be **re-checked on the Firebase pricing page before relying on 
 - the offline cache reduces repeated reads;
 - forecasting data will be read as small summary documents (Phase 4).
 
-## 4. Proposed Firestore rules (`firestore.rules` in the repo root: NOT published)
+## 4. Firestore rules (`firestore.rules` in the repo root: **published by the user on 14 Oct 2026**)
 
 > **Update, 14 Oct 2026 (after the old plan app was deleted).** `firestore.rules` now allows **only** `users/{uid}/notifications/{id}` (owner-only, unchanged validation). The plan and stage-1 event paths were removed, so they are now denied like everything else. Emulator re-run with `docs/rules-tests/firestore.rules.test.mjs` (updated to match):
 > - proposed rules **22/22 passed** (5 allow, 17 deny, including 7 checks that the old plan and event paths are closed);

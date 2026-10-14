@@ -1,12 +1,13 @@
 rules_version = '2';
 
-// Reflica Cloud Firestore security rules. PROPOSED, NOT DEPLOYED.
+// Reflica Cloud Firestore security rules. PUBLISHED by the user in the Firebase
+// console on 2026-10-14 (same rules, pasted without these comment lines).
 // Project reflica-593b4, (default) database. Owner-only access to a user's
 // own notifications. Everything else is denied because no rule allows it:
 // the users/{uid} document, the old plan paths (users/{uid}/plans/**,
 // removed with the old plan app on 2026-10-14), and any forecasting
 // collections (to be decided in Phase 4).
-// Deploy only after the user approves (Firebase console → Firestore → Rules).
+// Change only with the user's approval; republish by hand in the console.
 
 service cloud.firestore {
   match /databases/{database}/documents {
