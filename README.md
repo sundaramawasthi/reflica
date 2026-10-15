@@ -2,7 +2,7 @@
 
 **Reflica is being rebuilt as an AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, an immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines).
 
-Read `NEW_DIRECTION.md` first. The direction is chosen by the student; formal M.Tech guide approval is pending.
+**Current plan: `PROJECT_PLAN.md`** (15 Oct 2026): Reflica India, AI forecasting of India's economy and government policy (Minor 1: CPI inflation with evidence-aware revision; Minor 2: policy decisions with calibrated probabilities and abstention). Earlier direction: `NEW_DIRECTION.md` (history). The direction is chosen by the student; formal M.Tech guide approval is pending.
 Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
 
 ## Status (14 Oct 2026)
@@ -15,7 +15,8 @@ Implementation order: Documentation → Flutter UI → Python backend → connec
 
 ```
 reflica/
-├── NEW_DIRECTION.md      # authoritative research direction (read first)
+├── PROJECT_PLAN.md       # current research plan and guidelines (read first)
+├── NEW_DIRECTION.md      # earlier direction documents (history)
 ├── PROGRESS.md           # dated progress log
 ├── firestore.rules       # Cloud Firestore rules (published 14 Oct 2026)
 ├── database.rules.json   # Realtime Database rules: locked (published 14 Oct 2026)

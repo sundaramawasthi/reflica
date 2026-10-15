@@ -4,6 +4,8 @@
 **Status:** Final decision by the user (13 October 2026). M.Tech guide approval is pending.
 **Written for:** Claude Code working in the Reflica repositories (Flutter app and Python research code).
 
+> **[15 Oct 2026] Current plan: `PROJECT_PLAN.md`** (Reflica India: Predictive AI for India's Economy and Government Policy; Minor 1 = evidence-aware CPI inflation forecasting and forecast revision; Minor 2 = honest policy-decision forecasting with calibrated probabilities and abstention). It replaces the sections below, which are kept as history. Titles and scope are provisional until the supervisor approves them.
+
 > **[Addition, 14 Oct 2026, not in the user's text]**
 > - **Approval status:** this is the student's chosen direction. **Formal M.Tech guide approval is pending** until the guide confirms it.
 > - **Implementation order (user decision):** **Documentation → Flutter UI → Python backend → connect the UI to real data.** Exception: the December 2026 pilot is recorded **by hand** following `research/forecast/PILOT_PROTOCOL.md`, so the Minor 1 timeline is protected. Section 9's tasks are read in this order. They are not permission to start backend code now.

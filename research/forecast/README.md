@@ -1,4 +1,6 @@
-# forecast: India Forecast Benchmark (workstream started 2026-10-13)
+# forecast: forecasting workstream (started 2026-10-13)
+
+> **15 Oct 2026:** the current plan is `../../PROJECT_PLAN.md` (Minor 1 = next-month CPI inflation forecasting with evidence and revision). The Yes/No benchmark design in `MINOR1_DESIGN.md`, `PILOT_PROTOCOL.md` and `MILESTONE_1.md` is the earlier plan; parts may be reused for Minor 2 (policy decisions). These files will be updated after the plan is discussed.
 
 Research direction (authoritative): `../../NEW_DIRECTION.md`. The direction is chosen by the student; **formal M.Tech guide approval is pending**.
 The old Reflica benchmark (`reflica_bench`) was removed on 14 Oct 2026 and is kept in branch `archive/old-reflica-2026-10-14`.
