@@ -96,7 +96,7 @@ If one paper already does most of E1–E6, the contribution must be narrowed or 
 | # | Paper | Country | Text method | Revision? | Result *(abstract)* | Gap left for Reflica |
 |---|---|---|---|---|---|---|
 | C1 | **Allard, Teiletche, Zinebi (2024)**, "Enhancing Inflation Nowcasting with LLM: Sentiment Analysis on News" (InflaBERT, arXiv 2410.20198) | US | Fine-tuned BERT gives a monthly inflation-sentiment **index** added to the Cleveland Fed nowcast | ❌ | marginal gain during the pandemic | aggregate index; no claim provenance; no revision rule |
-| C2 | **BIS Papers working paper (2026)**, LLM news index, emerging economies | non-English EMEs | LLM-based news index plus autoregressive benchmarks | ❌ | RMSE down up to 32% (headline) | **check if India is included**; aggregate index |
+| C2 | **PIER (Thailand) Discussion Paper 252 (2026)**, LLM news-based inflation expectations (corrected 15 Oct: not a BIS paper) | Thailand | LLM-based news index plus autoregressive benchmarks | ❌ | RMSE down up to 32% (headline) | not India; aggregate index |
 | C3 | **Bangko Sentral ng Pilipinas** news indices | Philippines | Lexicon + RL + LSTM sentiment indices as features | ❌ | useful for nowcasting | aggregate; no provenance |
 | C4 | **RJMF (2025)**, "Forecasting Inflation Using News Indices" | Russia | News sentiment indices with ML (LSTM best), 1–6 months | ❌ | LSTM + news best | aggregate |
 | C5 | **PROPOR 2026**, LLM sentiment from central-bank minutes | Brazil | LLM sentiment (bias-corrected) into ARIMA and LSTM | ❌ | improved accuracy | official text only; aggregate |
@@ -156,7 +156,7 @@ If one paper already does most of E1–E6, the contribution must be narrowed or 
 
 ## Next reading steps
 
-1. **Full text, highest priority:** B1 Das & Das; B2 RBI Bulletin 2025; C1 InflaBERT; C2 BIS 2026 (is India included?); C9 ChatMacro; E-1 lookahead bias test.
+1. **Full text, highest priority:** B1 Das & Das; B2 RBI Bulletin 2025; C1 InflaBERT; RBI Occasional Paper 2021 on food inflation from news sentiment; Pratap & Sengupta 2019 (RBI WP 04/2019); C9 ChatMacro; E-1 lookahead bias test.
 2. On IEEE Xplore, run the user's 7 searches (below) and add every hit to section B or C with the 9 fields.
 3. For B1 and C2, follow citing papers forward (Google Scholar "Cited by") to check whether anyone has added a revision rule since.
 
