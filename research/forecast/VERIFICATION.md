@@ -92,13 +92,13 @@ The research gap is **not established** until Level 2 is done for the closest st
 
 | Priority | Paper | Level 1 | Level 2 | Full-text link (open in a browser; blocked from the cloud) |
 |---|---|---|---|---|
-| 1 | Pratap, Ranjan, Kishore, Bhoi (2021), RBI food-inflation news sentiment | ✅ | ⏳ | RBI PDF (see section B); ResearchGate record "Catching up on the TOP News: Text-mining for Food Inflation Outlook in India" (pub. 361346038); SSRN 4125337. **Check whether the RG/SSRN title is the same study or an earlier version.** |
-| 2 | Wang et al. (2024), From News to Forecast, NeurIPS | ✅ | ⏳ | proceedings.nips.cc …/6aef8bffb372096ee73d98da30119f89-Paper-Conference.pdf |
+| 1 | Pratap, Ranjan, Kishore, Bhoi (2021), RBI food-inflation news sentiment | ✅ | ✅ see `LEVEL2_READINGS.md` | RBI PDF (see section B); ResearchGate record "Catching up on the TOP News: Text-mining for Food Inflation Outlook in India" (pub. 361346038); SSRN 4125337. **Check whether the RG/SSRN title is the same study or an earlier version.** |
+| 2 | Wang et al. (2024), From News to Forecast, NeurIPS | ✅ | ✅ see `LEVEL2_READINGS.md` | proceedings.nips.cc …/6aef8bffb372096ee73d98da30119f89-Paper-Conference.pdf |
 | 3 | Mohan et al. (2025), RBI Bulletin | ✅ | ⏳ | RBI Bulletin, 25 Jun 2025 (PredictingCPIInflation25062025.pdf) |
-| 4a | Pratap & Sengupta (2019), RBI WP 04/2019 | ✅ | ⏳ | isid.ac.in/~epu/acegd2019/papers/BhanuPratap.pdf; RBI WP PDF |
-| 4b | Singh & Bhoi (2022), RBI Occasional Papers 43(2) | ✅ | ⏳ | RBI bs_viewcontent Id=4345; ResearchGate 378023944 |
+| 4a | Pratap & Sengupta (2019), RBI WP 04/2019 | ✅ | ✅ see `LEVEL2_READINGS.md` | isid.ac.in/~epu/acegd2019/papers/BhanuPratap.pdf; RBI WP PDF |
+| 4b | Singh & Bhoi (2022), RBI Occasional Papers 43(2) | ✅ | ✅ see `LEVEL2_READINGS.md` | RBI bs_viewcontent Id=4345; ResearchGate 378023944 |
 | 5 | O'Connor, Remus, Griggs (2000), IJF | ✅ | ⏳ | ScienceDirect (paywalled; try GLA library access) |
-| 6 | Gao, Jiang, Yan (2025), lookahead bias | ✅ | ⏳ | arxiv.org/pdf/2512.23847 |
+| 6 | Gao, Jiang, Yan (2025), lookahead bias | ✅ | ✅ see `LEVEL2_READINGS.md` | arxiv.org/pdf/2512.23847 |
 
 ### Level-2 extraction checklist (fill one per paper)
 
