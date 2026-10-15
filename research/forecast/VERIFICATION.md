@@ -80,3 +80,40 @@
 6. **Added:** Singh & Bhoi (2022), RBI.
 
 **Effect on the research gap:** no verified paper changes it. The India news papers (#3, #4, #5) all build **indices**, and none decides **when to revise**. But #3, #5 and #19 must be read in **full text** before we call the gap verified.
+
+---
+
+## F. Two levels of verification (added 15 Oct 2026, after review)
+
+**Level 1, bibliographic:** the title, authors, venue and year exist and are correct. This is done for most of the papers above.
+**Level 2, content:** the method, update mechanism, baselines, evaluation protocol and limitations, checked from the **full text**. This is **not done** for any of the priority papers below.
+
+The research gap is **not established** until Level 2 is done for the closest studies. The fact that the Indian news studies use **aggregate indices** does not, by itself, show that no study uses claim-level evidence or selective revision. That has to be checked directly.
+
+| Priority | Paper | Level 1 | Level 2 | Full-text link (open in a browser; blocked from the cloud) |
+|---|---|---|---|---|
+| 1 | Pratap, Ranjan, Kishore, Bhoi (2021), RBI food-inflation news sentiment | ✅ | ⏳ | RBI PDF (see section B); ResearchGate record "Catching up on the TOP News: Text-mining for Food Inflation Outlook in India" (pub. 361346038); SSRN 4125337. **Check whether the RG/SSRN title is the same study or an earlier version.** |
+| 2 | Wang et al. (2024), From News to Forecast, NeurIPS | ✅ | ⏳ | proceedings.nips.cc …/6aef8bffb372096ee73d98da30119f89-Paper-Conference.pdf |
+| 3 | Mohan et al. (2025), RBI Bulletin | ✅ | ⏳ | RBI Bulletin, 25 Jun 2025 (PredictingCPIInflation25062025.pdf) |
+| 4a | Pratap & Sengupta (2019), RBI WP 04/2019 | ✅ | ⏳ | isid.ac.in/~epu/acegd2019/papers/BhanuPratap.pdf; RBI WP PDF |
+| 4b | Singh & Bhoi (2022), RBI Occasional Papers 43(2) | ✅ | ⏳ | RBI bs_viewcontent Id=4345; ResearchGate 378023944 |
+| 5 | O'Connor, Remus, Griggs (2000), IJF | ✅ | ⏳ | ScienceDirect (paywalled; try GLA library access) |
+| 6 | Gao, Jiang, Yan (2025), lookahead bias | ✅ | ⏳ | arxiv.org/pdf/2512.23847 |
+
+### Level-2 extraction checklist (fill one per paper)
+
+1. **Target and data:** which series, country, frequency, period, and the source of the text.
+2. **How new information enters:** as an index, as features, as retrieved documents, or as separate claims? At what unit (day, article, claim)?
+3. **Update or revision mechanism:**
+   - Is there one? When does it trigger?
+   - Does it change the *forecast*, the *model*, or the *news-selection logic*?
+   - Is it applied at training time or at forecast time?
+   - Does it decide **whether** to revise a specific forecast?
+4. **Evidence properties used:** novelty, source reliability, relevance, strength, or conflict between sources?
+5. **Baselines:** naive, ARIMA, ML; never-update or always-update strategies?
+6. **Evaluation protocol:** walk-forward or fixed split; test length; horizons; significance tests.
+7. **Leakage control:** point-in-time text, vintage data, LLM training-cutoff issues.
+8. **Uncertainty:** intervals or density forecasts, and coverage.
+9. **Explainability:** can a forecast change be traced to specific news?
+10. **Limitations:** as stated by the authors, and as we see them.
+11. **Overlap with Reflica:** which of E1–E6 it already covers, with quotes and page numbers.
