@@ -1,7 +1,7 @@
 ---
 title: "Evidence-Aware Forecast Revision for India's CPI Inflation: A Review of Numeric, News-Based and LLM Forecasting, and a Proposed Framework"
 author: "Sundram Awasthi, M.Tech CSE, GLA University, Mathura, India (supervisor: to be added)"
-date: "Draft v0.1, 15 October 2026"
+date: "Draft v0.2, 15 October 2026 (references verified, see VERIFICATION.md)"
 ---
 
 > **Draft status.** This is a review and proposal paper. It reports **no experimental results**, because the experiments have not been run yet. Sources marked *[A]* in the reference list were read at abstract or summary level only. References marked *[verify]* need their authors, pages or venue checked against the original before submission. The direction is provisional until the supervisor approves it.
@@ -107,7 +107,7 @@ ChatMacro [16] showed the practical effect: LLM inflation forecasts that looked 
 - **Results:** ML models generally did better. Simple-average combinations beat every individual model, and simple weights beat complex ones. Forecasting headline inflation directly was as good as building it from components.
 - **For us:** a simple-average combination is a strong, cheap baseline.
 
-**Other India numeric work** reports mixed results. One IEEE conference study found statistical models beating LSTM on a small CPI sample [A], and a CAFRAL study found deep networks weakest at the one-month horizon [21] *[A]*. Recent RBI work combines statistical, ML and deep models with performance weights [6] *[A]*.
+**Other India numeric work** reports mixed results. One IEEE conference study found statistical models beating LSTM on a small CPI sample [A], and a CAFRAL study found that deep networks cut India's forecast error by about 44–63% at every horizon *except* one month ahead [21] *[A]*. Recent RBI work combines statistical, ML and deep models with performance weights [6] *[A]*.
 
 **Karthick et al. [8]** used an LSTM to estimate India's monthly per-capita expenditure (MPCE) from quarterly CPI inflation, GDP growth and unemployment (2011–2023).
 
@@ -149,7 +149,7 @@ ChatMacro [16] showed the practical effect: LLM inflation forecasts that looked 
 
 This supports the design choice of *not* using an LLM as the numeric forecaster.
 
-**TimeRAG [14]** *[A]* retrieves similar historical segments (by dynamic time warping) to guide an LLM, reporting about 3% improvement. **From News to Forecast [15]** *[A]* uses LLM agents to select relevant news, reason about it and *reflect* on forecast errors, then fine-tunes a model on news plus series. Its reflection loop is the closest prior idea to evidence-driven revision. **ChatMacro [16]** *[A]* evaluated ChatGPT's US inflation forecasts and found them reasonable in pseudo-out-of-sample tests but inaccurate and stale in real time.
+**TimeRAG [14]** *[A]* (arXiv preprint) retrieves similar historical segments (by dynamic time warping) to guide an LLM, reporting about 3% improvement. **From News to Forecast [15]** *[A]* uses LLM agents to select relevant news, reason about it and *reflect* on forecast errors, then fine-tunes a model on news plus series. Its reflection loop is the closest prior idea to evidence-driven revision. **ChatMacro [16]** *[A]* evaluated ChatGPT's US inflation forecasts and found them reasonable in pseudo-out-of-sample tests but inaccurate and stale in real time.
 
 **Li et al. [11]** (STCInterLLM, read in full) address spurious spatial links and LLM hallucination in power-load and taxi-flow forecasting.
 
@@ -297,13 +297,13 @@ Research on forecasting India's inflation has moved from numeric models to text-
 
 [2] B. Pratap and S. Sengupta, "Macroeconomic forecasting in India: Does machine learning hold the key to better forecasts?" Reserve Bank of India, Working Paper No. 04/2019, 2019. [A]
 
-[3] B. Pratap, A. Ranjan, V. Kishore and B. B. Bhoi, "Forecasting food inflation using news-based sentiment indicators," *RBI Occasional Papers*, vol. 42, no. 2, 2021. [A] [verify]
+[3] B. Pratap, A. Ranjan, V. Kishore and B. B. Bhoi, "Forecasting food inflation using news-based sentiment indicators," *RBI Occasional Papers*, vol. 42, no. 2, 2021 (published Oct. 2022). [A]
 
 [4] A. Banerjee, A. Kanodia and P. Ray, "Deciphering Indian inflationary expectations through text mining: An exploratory approach," *Indian Economic Review*, vol. 56, pp. 49–66, 2021, doi: 10.1007/s41775-021-00106-9. [A]
 
-[5] P. K. Das and P. K. Das, "Improvement in inflation forecasting: Ensembling text mining with macro data in machine learning models," *Int. J. Economics and Finance*, vol. 16, no. 6, pp. 92–100, 2024. [A] [verify authors]
+[5] P. K. Das and P. K. Das, "Improvement in inflation forecasting: Ensembling text mining with macro data in machine learning models," *Int. J. Economics and Finance*, vol. 16, no. 6, pp. 92–100, 2024, doi: 10.5539/ijef.v16n6p92. [A] [verify that the data is Indian]
 
-[6] Reserve Bank of India, article on combining statistical, ML and deep-learning models for inflation forecasting, *RBI Bulletin*, Jun. 2025. [A] [verify title and authors]
+[6] R. Mohan, S. Hasan, S. Roy, S. Sarkar and J. John, "Predicting CPI inflation in India: Combining forecasts from a 'suite' of statistical and machine learning models," *RBI Bulletin*, Jun. 2025. [A]
 
 [7] N. Kang, D. Min, Y. Cho, D.-W. Ko, H. H. Kim, J. Y. Choeh and J. Im, "Online news-based economic sentiment index," *IEEE Trans. Big Data*, vol. 11, no. 3, pp. 1464–1474, 2025, doi: 10.1109/TBDATA.2024.3474211. [verify pages]
 
@@ -319,29 +319,29 @@ Research on forecasting India's inflation has moved from numeric models to text-
 
 [13] Y. Liu, G. Tian, W. Zhong, X. Qi and Y. Wang, "LLM-driven trajectory prediction at intersections with chain-of-thought reasoning," in *Proc. 9th IEEE Int. Conf. Network Intelligence and Digital Content (IC-NIDC)*, 2025, doi: 10.1109/IC-NIDC67200.2025.11390125.
 
-[14] S. Yang, D. Wang, H. Zheng and R. Jin, "TimeRAG: Boosting LLM time series forecasting via retrieval-augmented generation," in *Proc. IEEE ICASSP*, 2025. [A] [verify authors]
+[14] S. Yang, D. Wang, H. Zheng and R. Jin, "TimeRAG: Boosting LLM time series forecasting via retrieval-augmented generation," arXiv:2412.16643, 2024. [A] [ICASSP 2025 venue not confirmed]
 
 [15] X. Wang, M. Feng, J. Qiu, J. Gu and J. Zhao, "From news to forecast: Integrating event analysis in LLM-based time series forecasting with reflection," in *Advances in Neural Information Processing Systems (NeurIPS)*, 2024. [A]
 
 [16] Alam, Boyle, Li and Sekhposyan, "ChatMacro: Evaluating inflation forecasts of generative AI," Federal Reserve Bank of San Francisco, Working Paper 2026-04, 2026. [A] [verify first names]
 
-[17] Allard, Teiletche and Zinebi, "Enhancing inflation nowcasting with LLM: Sentiment analysis on news," arXiv:2410.20198, 2024. [A] [verify first names]
+[17] M.-A. Allard, P. Teiletche and A. Zinebi, "Enhancing inflation nowcasting with LLM: Sentiment analysis on news," arXiv:2410.20198, 2024. [A]
 
-[18] Puey Ungphakorn Institute for Economic Research, "News-based inflation expectations: LLM-assisted measurement and forecasting," PIER Discussion Paper No. 252, 2026. [A] [verify authors]
+[18] T. Tawichsri, S. Tuarob, N. Nookhwun and C. Sangasaeng, "News-based inflation expectations: LLM-assisted measurement and forecasting," PIER Discussion Paper No. 252, Puey Ungphakorn Institute for Economic Research, May 2026. [A]
 
-[19] Gao, Jiang and Yan, "A test of lookahead bias in LLM forecasts," arXiv:2512.23847, 2025. [A] [verify first names]
+[19] Z. Gao, W. Jiang and Y. Yan, "A test of lookahead bias in LLM forecasts" (later "Detecting lookahead bias in LLM forecasts"), arXiv:2512.23847, 2025. [A]
 
-[20] "Chronologically consistent large language models," arXiv:2502.21206, 2025. [A] [verify authors]
+[20] S. He, L. Lv, A. Manela and J. Wu, "Chronologically consistent large language models," arXiv:2502.21206, 2025. [A]
 
-[21] Mahajan and Srinivasan, study of deep learning for inflation forecasting in emerging markets, CAFRAL, 2019. [A] [verify title]
+[21] K. Mahajan and A. Srinivasan, "Inflation forecasting in emerging markets: A machine learning approach," CAFRAL, 2019/2020. [A]
 
-[22] Study on updating forecasts with new data, *Int. J. Forecasting*, 2000. [A] [verify full reference]
+[22] M. O'Connor, W. Remus and K. Griggs, "Does updating judgmental forecasts improve forecast accuracy?" *Int. J. Forecasting*, vol. 16, no. 1, pp. 101–109, 2000. [A]
 
-[23] "Beyond accuracy: A stability-aware metric for multi-horizon forecasting," arXiv:2601.10863, 2026. [A] [verify authors]
+[23] C. Ma, G. Pomazkin, G. P. Saggese and P. Smith, "Beyond accuracy: A stability-aware metric for multi-horizon forecasting," arXiv:2601.10863, 2026. [A]
 
 [24] F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy," *J. Business & Economic Statistics*, vol. 13, no. 3, pp. 253–263, 1995.
 
-[25] E. Karger et al., "ForecastBench: A dynamic benchmark of AI forecasting capabilities," in *Proc. Int. Conf. Learning Representations (ICLR)*, 2025. [A] [verify]
+[25] E. Karger, H. Bastani, C. Yueh-Han, Z. Jacobs, D. Halawi, F. Zhang and P. E. Tetlock, "ForecastBench: A dynamic benchmark of AI forecasting capabilities," in *Proc. ICLR*, 2025. [A]
 
 [26] W. R. van Hage, V. Malaisé, R. Segers, L. Hollink and G. Schreiber, "Design and use of the Simple Event Model (SEM)," *J. Web Semantics*, vol. 9, no. 2, pp. 128–136, 2011.
 
