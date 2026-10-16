@@ -1,0 +1,190 @@
+      प्रेस प्रकाशनी PRESS RELEASE
+
+
+
+
+           भारतीय �रज़वर् बैंक
+ RESERVE BANK OF INDIA
+     वेबसाइट : www.rbi.org.in/hindi            संचार �वभाग, केंद्र�य कायार्लय, शह�द भगत �संह मागर्, फोटर् , मुंबई - 400 001
+              Website : www.rbi.org.in         Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+          ई-मेल/email : helpdoc@rbi.org.in     Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                        December 6, 2024
+
+                       Statement on Developmental and Regulatory Policies
+
+    This Statement sets out various developmental and regulatory policy measures
+relating to (i) Liquidity and Financial Markets; (ii) Regulation; (iii) Communication; (iv)
+Financial Inclusion; (v) Payment Systems; and (vi) Fintech.
+
+                                      I.     Liquidity and Financial Markets
+
+1.         Reduction in Cash Reserve Ratio
+
+    It has been decided to reduce the cash reserve ratio (CRR) of all banks by 50 bps
+in two equal tranches of 25 bps each to 4.0 per cent of net demand and time liabilities
+(NDTL) with effect from the fortnight beginning December 14, 2024 and December 28,
+2024, respectively. This will restore the CRR to 4 per cent of NDTL, which was
+prevailing before the commencement of the policy tightening cycle in April 2022. This
+reduction in the CRR would release primary liquidity of about ₹1.16 lakh crore to the
+banking system.
+
+2.         Interest Rates on FCNR(B) Deposits
+
+    At present, interest rates on Foreign Currency Non-Resident Bank [FCNR(B)]
+deposits are subject to ceilings of Overnight Alternative Reference Rate (ARR) for the
+respective currency/swap, plus 250 basis points for deposits of 1 year to less than 3
+years maturity and overnight ARR plus 350 basis points for deposits of 3 years and
+above and up to 5 years maturity. In order to attract more capital inflows, it has been
+decided to increase the interest rate ceilings on FCNR(B) deposits. Accordingly, with
+effect from today (December 6, 2024), banks are permitted to raise fresh FCNR(B)
+deposits of 1 year to less than 3 years maturity at rates not exceeding ARR plus 400
+bps and deposits with maturity between 3 to 5 years at rates not exceeding ARR plus
+500 bps. This relaxation will be available till March 31, 2025.
+
+3.   Expanding reach of FX-Retail Platform through linkages with Bharat
+Connect
+
+   With the objective of bringing greater transparency and fairness in the pricing of
+foreign exchange for users, especially for individuals and the Micro, Small and Medium
+Enterprises, the Clearing Corporation of India Limited (CCIL) launched the FX-Retail
+platform in 2019. Presently, the FX-Retail platform is accessible through an internet-
+based application. To expand the reach of FX-Retail platform and enhance user
+experience, it is proposed to facilitate the linking of the FX-Retail platform with Bharat
+Connect (earlier known as Bharat Bill Payment System) operated by the NPCI Bharat
+Connect. The linkage will enable users to register and transact on the FX-Retail
+platform through the apps of banks (mobile applications, internet banking etc.) and
+non-bank payment system providers, which are integrated with Bharat Connect. In the
+first phase, it is proposed to implement a pilot facilitating purchase of US Dollar against
+the Rupee by individuals and sole proprietors. Going forward, the scope will be
+expanded to cover other FX transactions including sale of US Dollar against the Rupee
+and other categories of users. Users will continue to have the option to directly access
+the FX-Retail platform, as hitherto, and transact under the existing
+mechanism. Instructions to banks on the operational aspects of the pilot will be issued
+separately.
+
+4.   Introduction of the Secured Overnight Rupee Rate (SORR) – a benchmark
+based on the secured money markets.
+
+    The Reserve Bank had set up the Committee on the MIBOR Benchmark
+(Chairperson: Shri Ramanathan Subramanian) to review the Rupee interest rate
+benchmarks in the country, especially the usage of Mumbai Interbank Outright Rate
+(MIBOR), and to examine the need for transition to new benchmarks. The Committee
+recommended several important measures to further develop the interest rate
+derivative market and improve the credibility of interest rate benchmarks. The Report
+of the Committee was published on RBI’s website inviting comments from members
+of the public. The Reserve Bank has examined the recommendations of the
+Committee as well as the feedback received. In line with the recommendations and
+reflective of the current market dynamics, it is proposed to develop a benchmark based
+on the secured money markets (both basket repo and TREP) – the Secured Overnight
+Rupee Rate (SORR). Financial Benchmarks India Limited (FBIL) is being requested
+to take the proposal forward. The other recommendations of the Committee are under
+consideration.
+
+                                         II.      Regulation
+
+5.     ‘Connect 2 Regulate’ – An Initiative for Open Regulation.
+
+   Reserve Bank has been consistently following a multi-pronged consultative
+process with stakeholders in framing its regulations. As a further pro-active step
+towards the same, the Reserve Bank proposes to launch a programme named
+‘Connect 2 Regulate’ under the ongoing RBI@90 commemorative events. A dedicated
+section in the Reserve Bank’s website will be made available for the programme. This
+shall provide an opportunity to the stakeholders to share their ideas and inputs in the
+form of case studies/ concept notes, etc. on the topics announced by the Reserve
+Bank from time to time. A press release on the programme will be issued separately.
+
+                                  III.         Communication
+
+6.  Introduction        of   Podcast           facility   as   an   additional   medium   of
+communication
+
+  The Reserve Bank of India has been deploying traditional as well as new age
+communication techniques as a key part of its toolkit to ensure transparency and
+
+                                                  2
+greater impact of its decisions, explain the rationale behind its decisions, and
+disseminate various awareness messages to a wider audience. The Reserve Bank
+has been expanding the scope of its public awareness activities including through
+social media over the last few years. In continuance of this endeavour, the Reserve
+Bank proposes to launch podcasts for wider dissemination of information that is of
+interest to the general public.
+
+                                IV.    Financial Inclusion
+
+7.     Collateral-free Agriculture Loan –– Enhancement of Limit
+
+   At present, banks are required to extend collateral-free agriculture loans up to
+₹1.6 lakh per borrower. This limit was enhanced from ₹1 lakh, set in the year 2010 to
+₹1.6 lakh in the year 2019. Keeping in view the overall inflation and rise in agricultural
+input costs since then, it has been decided to raise the limit for collateral-free
+agriculture loans from ₹1.6 lakh to ₹2 lakh. This will enhance coverage of small and
+marginal farmers in the formal credit system. The circular to this effect will be issued
+shortly.
+
+                                V.      Payment Systems
+
+8.     Pre-sanctioned Credit Lines through UPI – Extending the scope to SFBs
+
+   In September 2023, the scope of Unified Payments Interface (UPI) was expanded
+by enabling pre-sanctioned credit lines to be linked through UPI and used as a funding
+account by Scheduled Commercial Banks excluding Payments Banks, Small Finance
+Banks (SFBs) and Regional Rural Banks.
+
+Credit line on UPI has the potential to make available low-ticket, low-tenor products to
+‘new-to-credit’ customers. SFBs leverage a high-tech, low-cost model to reach the last
+mile customer and can play an enabling role in expanding the reach of credit on UPI.
+It is, therefore, proposed to permit SFBs to extend pre-sanctioned credit lines through
+the UPI. Necessary guidelines will be issued shortly.
+
+                                      VI.       Fintech
+
+9.      Framework for Responsible and Ethical Enablement of Artificial
+Intelligence (FREE-AI) in the Financial Sector – Setting up of a Committee
+
+    The financial sector landscape is witnessing paradigm shifts with the advent of
+frontier technologies. Technologies like Artificial Intelligence (AI)/ Machine Learning
+(ML), tokenisation, Cloud Computing hold transformative potential for the financial
+sector as they can handle enormous volumes of data, automate complex processes,
+enhance decision-making, and bring in unprecedented efficiencies. While the benefits
+are many, the attendant risks like algorithmic bias, explainability of decisions, data
+privacy, etc., are also high. To harness the benefits, it is critical to address the
+attendant risks early in the adoption cycle.
+
+As a step in this direction, it is proposed to constitute a committee to develop a
+Framework for Responsible and Ethical Enablement of AI (FREE-AI) in the Financial
+
+                                            3
+Sector. The Committee will comprise of experts from diverse fields and shall
+recommend a robust, comprehensive, and adaptable AI framework for the financial
+sector. The details of the committee will be notified separately.
+
+10.   AI solutions to identify mule bank accounts - MuleHunter.AITM
+
+    The Reserve Bank has been taking various measures in coordination with banks
+and other stakeholders to prevent and mitigate digital frauds in the financial sector.
+These include RBI guidelines to regulated entities for strengthening cybersecurity,
+cyber fraud prevention and transaction monitoring. Use of money mule accounts is a
+common method adopted by fraudsters to channel proceeds of frauds. The Reserve
+Bank is currently running a hackathon on the theme “Zero Financial Frauds” which
+includes a specific problem statement on mule accounts, to encourage development
+of innovative solutions to contain the use of mule accounts. Another initiative in this
+direction is the AI / ML based model called MuleHunter.AITM, being piloted by Reserve
+Bank Innovation Hub (RBIH), a subsidiary of Reserve Bank. This model enables
+detection of mule bank accounts in an efficient manner. A pilot with two large public
+sector banks has yielded encouraging results. Banks are encouraged to collaborate
+with RBIH to further develop the MuleHunter.AITM initiative to deal with the issue of
+mule bank accounts being used for committing financial frauds.
+
+
+
+
+                                                               (Puneet Pancholy)
+Press Release: 2024-2025/1648                                 Chief General Manager
+
+
+
+
+                                          4
+

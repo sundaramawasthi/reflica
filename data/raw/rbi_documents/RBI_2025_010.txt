@@ -1,0 +1,98 @@
+  �ेस �काशनी PRESS RELEASE
+
+
+
+
+         भारतीय �रज़वर् बैंक
+RESERVE BANK OF INDIA
+
+     0   वेबसाइट : www.rbi.org.in/hindi   संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                      ं ई - 400 001
+           Website : www.rbi.org.in       Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+    ई-मेल/email : helpdoc@rbi.org.in      Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                      February 07, 2025
+
+                      Statement on Developmental and Regulatory Policies
+
+   This Statement sets out various developmental and regulatory policy measures
+relating to (i) Financial Markets ; (ii) Cybersecurity ; and (iii) Payment Systems.
+
+                                            I. Financial Markets
+1. Introduction of forward contracts in Government securities
+
+   Over the past few years, the Reserve Bank has been expanding the suite of
+interest rate derivative products available to market participants to manage their
+interest rate risks. In addition to Interest Rate Swaps, products such as Interest Rate
+Options, Interest Rate Futures, Interest Rate Swaptions, Forward Rate Agreements,
+etc. are available to market participants. We have been receiving feedback about the
+need to allow forward contracts in Government securities to enable further market
+development. Such forward contracts will enable long-term investors such as
+insurance funds to manage their interest rate risk across interest rate cycles. They
+will also enable efficient pricing of derivatives that use bonds as underlying
+instruments. Draft directions in this regard were issued in December 2023. The final
+directions, taking into account the public feedback, will be issued shortly.
+
+2. Access of SEBI-registered non-bank brokers to NDS-OM
+
+   The Negotiated Dealing System – Order Matching (NDS-OM) is an electronic
+trading platform for secondary market transactions in government securities. Access
+to NDS-OM is, at present, available to regulated entities and to the clients of banks
+and standalone primary dealers. With a view to widening access, it has been decided
+that non-bank brokers registered with SEBI can directly access NDS-OM, on behalf
+of their clients. These brokers may access NDS-OM subject to the regulations and
+conditions laid down by the Reserve Bank in this regard. Necessary instructions are
+being issued separately.
+                                           2
+
+3. Comprehensive review of trading and settlement timings across various
+market segments
+
+   Synchronized and complementary market and settlement timings across various
+financial market segments can facilitate benefits of efficient price discovery and
+optimization of the liquidity requirements. Over the last few years, there have been
+several developments including increased electronification of trading, availability of
+forex and certain interest rate derivative markets on a 24X5 basis, increased
+participation of non-residents in domestic financial markets and availability of
+payment systems on a 24X7 basis. Accordingly, it has been decided to set up a
+working group with representation from various stakeholders to undertake a
+comprehensive review of trading and settlement timing of financial markets regulated
+by the Reserve Bank. The Group is expected to submit its report by April 30, 2025.
+
+                                    II. Cybersecurity
+4. Enhancing Trust in the Financial Sector through 'bank.in' and ‘fin.in’
+domains
+
+   Increased instances of fraud in digital payments are a significant concern. To
+combat the same, the Reserve Bank of India (RBI) is introducing the 'bank.in'
+exclusive Internet Domain for Indian banks. This initiative aims to reduce cyber
+security threats and malicious activities like phishing; and, streamline secure financial
+services, thereby enhancing trust in digital banking and payment services. The
+Institute for Development and Research in Banking’ Technology (IDRBT) will act as
+the exclusive registrar. The actual registrations will commence from April 2025.
+Detailed guidelines for banks will be issued separately. Going forward, it is planned to
+have an exclusive domain viz., “fin.in” for other non-bank entities in the financial
+sector.
+
+                                  III. Payment Systems
+5. Enabling Additional Factor of authentication in cross-border Card Not
+Present transactions
+
+   Introduction of Additional Factor of Authentication (AFA) for digital payments has
+enhanced the safety of transactions which, in turn, provided confidence to customers
+to adopt digital payments. This requirement, however, is mandatory for domestic
+transactions only.
+                                           3
+
+   In order to provide a similar level of safety for online international transactions
+using cards issued in India, it is proposed to enable AFA for international card not
+present (online) transactions as well. This will provide an additional layer of security
+in cases where the overseas merchant is enabled for AFA. Draft circular will be
+issued shortly for feedback from stakeholders.
+
+
+
+                                                                 (Puneet Pancholy)
+Press Release: 2024-2025/2096                                  Chief General Manager
+

@@ -1,0 +1,134 @@
+     �ेस �काशनी PRESS RELEASE
+
+
+
+
+        भारतीय �रज़वर् ब�क
+ RESERVE BANK OF INDIA
+
+       वेबसाइट : www.rbi.org.in/hindi        संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                         ं ई - 400 001
+          Website : www.rbi.org.in           Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+      ई-मेल/email : helpdoc@rbi.org.in       Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                               June 7, 2024
+                  Statement on Developmental and Regulatory Policies
+    This Statement sets out various developmental and regulatory policy measures
+relating to (i) Regulations; and (ii) Payment Systems and FinTech.
+
+                                               I.       Regulations
+
+1.    Review of limit of Bulk Deposits for Scheduled Commercial Banks
+(excluding RRBs), Small Finance Banks and Local Area Banks
+
+   Banks have discretion to offer differential rate of interest on the bulk deposits as
+per their requirements and Asset-Liability Management (ALM) projections. The bulk
+deposits limit was enhanced in the year 2019 for Scheduled Commercial Banks
+(SCBs) (excluding Regional Rural Banks) and Small Finance Banks (SFBs) as ‘Single
+Rupee term deposits of ₹2 crore and above’. On a review, it is proposed to revise the
+definition of bulk deposits as ‘Single Rupee term deposits of ₹3 crore and above’ for
+SCBs (excluding RRBs) and SFBs. Further, it is also proposed to define the bulk
+deposit limit for Local Area Banks as ‘Single Rupee term deposits of ₹1 crore and
+above’ as applicable in case of RRBs. Necessary guidelines will be issued shortly.
+
+2.   Rationalisation of Export and Import regulations under Foreign Exchange
+Management Act (FEMA), 1999
+
+    Keeping in view the progressive liberalisation under FEMA 1999 and to impart
+greater operational flexibility to Authorized Dealer banks, Reserve Bank has decided
+to rationalise existing guidelines on export and import of goods and services in line
+with the changing dynamics of cross-border trade transactions globally. The proposed
+rationalisation aims to simplifying operational procedures thereby promoting ease of
+doing business for all the stakeholders. The draft regulations and directions would be
+placed on the Bank’s website by end June 2024, for feedback from all the stakeholders
+before finalising the same.
+
+                                     II.   Payment Systems and Fintech
+
+
+3.     Setting up a Digital Payments Intelligence Platform
+   The Reserve Bank, over the years, has undertaken a number of measures for the
+safety and security of digital payments to maintain public confidence in digital payment
+systems. Sustaining such confidence would require minimising incidence of frauds.
+Many frauds occur by influencing unsuspecting victims to make the payment or share
+credentials. While the payment ecosystem (banks, NPCI, card networks, payment
+aggregators, and payment apps) take various measures on an ongoing basis to
+protect customers from such frauds, there is a need for network-level intelligence and
+real-time data sharing across payment systems.
+
+     It is, therefore, proposed to set up a Digital Payments Intelligence Platform which
+will harness advanced technologies to mitigate payment fraud risks. To take this
+initiative forward, the Reserve Bank has constituted a committee (Chairman: Shri A.P.
+Hota, former MD & CEO, NPCI) to examine various aspects of setting up a digital
+public infrastructure for Digital Payments Intelligence Platform. The Committee is
+expected to give its recommendations within two months.
+
+4.   Inclusion of recurring payments for Fastag, National Common Mobility
+Card (NCMC), etc. with auto-replenishment facility under the e-mandate
+framework
+
+(i)    The Framework for processing of e-Mandate for recurring transactions, issued
+by RBI on January 10, 2020 currently enables recurring payments with fixed periodicity
+such as daily, weekly, monthly, etc. It is now proposed to include payments, such as
+replenishment of balances in Fastag, NCMC, etc. which are recurring in nature but
+without any fixed periodicity, into the e-mandate framework. These categories of
+payments are made as and when needed and, therefore, their replenishment is not
+time specific or amount specific. Under the e-mandate framework, it is proposed to
+introduce an automatic replenishment facility for such payments. The automatic
+replenishment will be triggered when the balance in Fastag or NCMC falls below a
+threshold amount set by the customer.
+
+(ii)   The current e-mandate framework requires a pre-debit notification at least a 24-
+hours before the actual debit from customer’s account. It is proposed to exempt this
+requirement for payments made from customer’s account for automatic replenishment
+of balances in Fastag, NCMC, etc. under the e-mandate framework.
+
+Necessary guidelines in respect of the above proposals will be issued shortly.
+
+
+5.   Introducing auto-replenishment of UPI Lite wallet - Inclusion under the e-
+mandate framework
+
+   The UPI Lite facility currently allows a customer to load his UPI Lite wallet upto
+₹2000/- and make payments upto ₹500/- from the wallet. In order to enable the
+customers to use the UPI Lite seamlessly, and based on the feedback received from
+various stakeholders, it is proposed to bring UPI Lite within the ambit of the e-mandate
+framework by introducing an auto-replenishment facility for loading the UPI Lite wallet
+by the customer, if the balance goes below a threshold amount set by him/her. Since
+the funds remain with the customer (funds move from his/her account to wallet), the
+requirement of additional authentication or pre-debit notification is proposed to be
+dispensed with. Related guidelines in respect of the above proposal will be issued
+shortly.
+
+
+
+
+                                           2
+6.    RBI Hackathon HARBINGER 2024 – Innovation for Transformation
+    RBI has been continuously working towards ensuring trust, safety, security and
+inclusivity in the financial system focusing on inclusive access and minimisation of
+frauds. Technology has opened up effective possibilities of identifying and preventing
+financial frauds as well as widening the reach of financial services, thereby ensuring
+equitable access to financial products and services.
+
+   The Bank has been encouraging innovation in identified focus areas through its
+annual Hackathons. The third edition of our global hackathon, “HaRBInger 2024 –
+Innovation for Transformation” will be launched with two overarching themes viz.,
+‘Zero Financial Frauds’ and ‘Being Divyang Friendly’. Solutions aimed at enhancing
+safety and security of digital transactions with focus on detecting, preventing and
+combating financial frauds, as also prioritising inclusivity for persons with physical
+disabilities, will be invited as part of HaRBInger 2024. Further details in this regard
+shall be released shortly.
+
+
+
+
+                                                               (Puneet Pancholy)
+Press Release: 2024-2025/454                                  Chief General Manager
+
+
+
+
+                                          3
+

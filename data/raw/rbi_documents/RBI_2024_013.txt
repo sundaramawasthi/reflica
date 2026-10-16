@@ -1,0 +1,98 @@
+     �ेस �काशनी PRESS RELEASE
+
+
+
+
+        भारतीय �रज़वर् ब�क
+ RESERVE BANK OF INDIA
+        वेबसाइट : www.rbi.org.in/hindi   संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                     ं ई - 400 001
+          Website : www.rbi.org.in       Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+      ई-मेल/email : helpdoc@rbi.org.in   Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                       August 8, 2024
+
+                   Statement on Developmental and Regulatory Policies
+
+    This Statement sets out various developmental and regulatory policy measures
+relating to (i) Regulations; and (ii) Payment Systems.
+
+                                           I.       Regulations
+
+1.     Public Repository of Digital Lending Apps
+
+    Guidelines on Digital Lending addressing protection of customers interest, data
+privacy, concerns on interest rates and recovery practices, mis-selling, etc. were
+issued on September 02, 2022. However, media reports have highlighted continued
+presence of unscrupulous players in digital lending who falsely claim their association
+with RBI regulated entities (REs). Accordingly, to aid the customers in verifying the
+claim of Digital Lending App’s (DLAs) association with REs, Reserve Bank is creating
+a public repository of DLAs deployed by the REs which will be available on RBI’s
+website. The repository will be based on data submitted by the REs (without any
+intervention by RBI) directly to the repository and will get updated as and when the
+REs report the details, i.e., addition of new DLAs or deletion of any existing DLA.
+Detailed instructions in this regard shall be issued shortly.
+
+2.  Frequency of Reporting of Credit Information to Credit Information
+Companies
+
+    At present credit institutions (CIs) are required to report the credit information of
+their borrowers to credit information companies (CICs) at monthly or such shorter
+intervals as mutually agreed between the CI and CIC. With a view to provide a more
+up-to-date picture of a borrower’s indebtedness, it has been decided to increase the
+frequency of reporting of credit information to CICs from monthly intervals to fortnightly
+basis or at such shorter intervals as mutually agreed between the CI and CIC. The
+fortnightly reporting frequency would ensure that credit information reports provided
+by CICs reflect a more recent information. This will be beneficial to both borrowers and
+lenders (CIs). Borrowers will have the benefit of faster updation of information,
+especially when they have repaid the loans. Lenders will be able to make better risk
+assessment of borrowers and also reduce the risk of over-leveraging by borrowers.
+Necessary instructions will be issued shortly.
+                                II.   Payment Systems
+
+3.     Enhancing Transaction Limits for Tax Payments through UPI
+
+    UPI has become the most-preferred mode of payments, due to its seamless
+features. Currently, the transaction limit for UPI is capped at ₹1 lakh. Based on the
+various use-cases, the Reserve Bank has periodically reviewed and enhanced the
+limits for a few categories like capital markets, IPO subscriptions, loan collections,
+insurance, medical and educational services etc.
+
+As direct and indirect tax payments are common, regular and high value, it has been
+decided to enhance the limit for tax payments through UPI from ₹1 lakh to ₹5 lakh per
+transaction. Necessary instructions will be issued separately.
+
+4.     Introduction of Delegated Payments through UPI
+
+   The Unified Payments Interface (UPI) has a very large user base of 424 million
+individuals. There is, however, potential for further expansion of the user base.
+
+It is proposed to introduce "Delegated Payments" in UPI. “Delegated Payments” would
+allow an individual (primary user) to set a UPI transaction limit for another individual
+(secondary user) on the primary user’s bank account. This product is expected to add
+to the reach and usage of digital payments across the country. Detailed instructions
+will be issued shortly.
+
+5.     Continuous Clearing of Cheques under Cheque Truncation System (CTS)
+
+   Cheque Truncation System (CTS) currently processes cheques with a clearing
+cycle of up to two working days. To improve the efficiency of cheque clearing and
+reduce settlement risk for participants, and to enhance customer experience, it is
+proposed to transition CTS from the current approach of batch processing to
+continuous clearing with 'on-realisation-settlement'. Cheques will be scanned,
+presented, and passed in a few hours and on a continuous basis during business
+hours. The clearing cycle will reduce from the present T+1 days to a few hours.
+Detailed guidelines in this regard shall be issued shortly.
+
+
+
+
+                                                                (Puneet Pancholy)
+Press Release: 2024-2025/852                                   Chief General Manager
+
+
+
+
+                                           2
+
