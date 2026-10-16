@@ -1,0 +1,23 @@
+[Source: text pasted by the user on 2026-10-16 from the PIB release page. Original URL not provided. Pasted text, not the original file.]
+
+Ministry of Statistics & Programme Implementation
+Release of the new series of GDP, CPI and IIP is scheduled for 27th February 2026, 12th February 2026 and May 2026
+
+Ministry of Statistics and Programme Implementation decides a comprehensive exercise for revision of the base year of Gross Domestic Product (GDP), Index of Industrial Production (IIP) and Consumer Price Index (CPI) to enhance their relevance, accuracy and international comparability
+Posted On: 11 FEB 2026 1:30PM by PIB Delhi
+
+Ministry of Statistics and Programme Implementation (MoSPI) has decided a comprehensive exercise for revision of the base year of Gross Domestic Product (GDP), Index of Industrial Production (IIP) and Consumer Price Index (CPI) to enhance their relevance, accuracy and international comparability. The proposed new base year for the GDP and IIP is 2022-23, and for CPI the proposed base year is 2024. Base year revision of GDP, CPI & IIP is guided by the respective Technical Advisory Committee / Expert Groups comprising of experts from Academia, Central and State Governments, RBI etc. The revision work includes methodological improvement, incorporation of new data sources including latest survey data, weight updation etc. In order to improve the survey results, MoSPI has undertaken various steps like increase in sample size; modification of sampling design, survey instruments, survey periodicity etc. Periodic Labour Force Survey (PLFS), Household Consumption expenditure Survey (HCES) and Annual Survey of Unincorporated Sector Enterprises (ASUSE) results have been used for the Base year revision exercise.
+
+The release of the new series of GDP, CPI and IIP is scheduled for 27th February 2026, 12th February 2026 and May 2026, respectively. Survey results are released from time to time. All releases are made available on the MoSPI website.
+
+In addition to Technical Advisory Committee / Expert Group comprising of experts from Academia, Central and State Governments, RBI etc., MoSPI organized Consultative Workshops/Meetings on the Base Year Revision of GDP, IIP & CPI and surveys to solicit feedback and suggestions from the stakeholders and to ensure transparency, comparability and public confidence in official statistics. The feedback received from the users are incorporated in consultation with Technical Advisory Committee / Expert Groups.
+
+(e): The MoSPI, has taken several steps for accuracy and transparency of statistical data which inter alia, include:
+(i) Utilizing digital platforms, with in-built validation mechanism, in sample surveys conducted by MoSPI for data collection. This technological advancement has facilitated simultaneous processing of data and also resulted in a drastic reduction in time lag of release of reports.
+(ii) Placed Advance Release Calendar (ARC) of its statistical products on the ministry's website (www.mospi.gov.in).
+(iii) In order to facilitate ease of Data Dissemination and Management, e-Sankhyiki portal has been launched. Unit level data of the surveys are also made available on MoSPI's website (www.mospi.gov.in) for access by various researchers, policymakers, etc.
+(iv) Regular dialogues with data users/stakeholders are also conducted in order to incorporate their feedback and enhance their understanding about the data being published by MoSPI.
+(v) Circulated a National Meta Data Structure (NMDS) among Ministries / Departments. The NDMS has been designed, inter alia, to provide clarity on the data sources, collection methods and enhance discoverability of datasets.
+
+This information was given by the Minister of State (Independent Charge) of the Ministry of Statistics and Programme Implementation; Minister of State (Independent Charge) of the Ministry of Planning and Minister of State in the Ministry of Culture Rao Inderjit Singh in a written reply to a question in the Lok Sabha today.
+*****

@@ -1,9 +1,9 @@
 # Reflica forecasting UI: specification
 
 Date: 14 October 2026. Status: **proposed; needs the user's approval before Phase 2 starts.** M.Tech guide approval of the research direction is pending.
-Authority: `../NEW_DIRECTION.md`. Architecture: `ARCHITECTURE.md`. Record formats: `../research/forecast/PILOT_PROTOCOL.md`.
+Minor 1 direction: safer merge (this spec covers Part A views; Part B views to be designed). Architecture: `ARCHITECTURE.md`. Record formats: `../research/forecast/PILOT_PROTOCOL.md`.
 
-Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`../research/forecast/PILOT_PROTOCOL.md`). UI work starts only after the clean-up edits (`CLEANUP_EDITS.md`) are done and `flutter analyze` is clean. (The stage-1 merge is cancelled.)
+Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`../research/forecast/PILOT_PROTOCOL.md`). UI work starts only after the clean-up edits (done 14 Oct 2026) are done and `flutter analyze` is clean. (The stage-1 merge is cancelled.)
 
 This describes the desired experience. It does not give permission to rebuild the app or discard existing functionality. Phase 2 extends the existing Flutter app.
 
@@ -42,7 +42,7 @@ Sidebar / drawer
 └── Settings             /settings         (existing route; becomes a real screen)
 
 Old plan routes (/plans, /plan, /new-plan, /graph, /scenarios, /documents): removed with the old plan app
-on 14 Oct 2026 (archived in branch archive/old-reflica-2026-10-14; see CLEANUP_EDITS.md).
+on 14 Oct 2026 (archived in branch archive/old-reflica-2026-10-14).
 Signed-out landing: existing HomeScreen at "/", rebuilt for forecasting
 ```
 
@@ -122,7 +122,7 @@ Shared components keep badges, cards, tables, filters, dates (IST display) and p
 |---|---|
 | **Change** | `widgets/dashboard/dashboard_sidebar.dart` (forecasting items; recent-plans list already removed in the clean-up) · `screens/dashboard_screen.dart` (body becomes the forecasting Home) · `main.dart` (add routes; keep all old ones) · `screens/home_screen.dart` + landing widgets (copy only) · `/settings` route (real screen) |
 | **Add** | `lib/forecast/models/` (question, forecast, resolution) · `lib/forecast/data/forecast_source.dart` (interface; empty source + demo source) · `lib/forecast/widgets/` (status badge, probability display, summary card, empty state, filter bar) · `lib/forecast/screens/` (question_bank, question_details, forecasts, forecast_details, history, scoreboard, insights, settings) |
-| **Untouched** | `NotificationService` (forecast-deadline kinds added later), Firestore data. Plan code was deleted on 14 Oct (`CLEANUP_EDITS.md`) |
+| **Untouched** | `NotificationService` (forecast-deadline kinds added later), Firestore data. Plan code was deleted on 14 Oct |
 
 ### Tests (run on the Mac: `flutter analyze`, `flutter test`)
 - Each new screen renders its **empty state** without demo data.

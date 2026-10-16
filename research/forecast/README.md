@@ -1,18 +1,13 @@
-# forecast: forecasting workstream (started 2026-10-13)
+# forecast: forecasting workstream
 
-> **15 Oct 2026:** the current plan is `../../PROJECT_PLAN.md` (Minor 1 = next-month CPI inflation forecasting with evidence and revision). The Yes/No benchmark design in `MINOR1_DESIGN.md`, `PILOT_PROTOCOL.md` and `MILESTONE_1.md` is the earlier plan; parts may be reused for Minor 2 (policy decisions). These files will be updated after the plan is discussed.
-
-Research direction (authoritative): `../../NEW_DIRECTION.md`. The direction is chosen by the student; **formal M.Tech guide approval is pending**.
-The old Reflica benchmark (`reflica_bench`) was removed on 14 Oct 2026 and is kept in branch `archive/old-reflica-2026-10-14`.
-Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`PILOT_PROTOCOL.md`).
+Part A (LLM benchmark) record formats and milestone, plus the research-gap matrix. No code yet; supervisor approval pending.
 
 | Document | Purpose |
 |---|---|
-| `PILOT_PROTOCOL.md` | **Single source** for record formats, hashing, timestamps, baselines, India–Western pairs and the manual December 2026 pilot |
-| `MINOR1_DESIGN.md` | Detailed Minor Project 1 design (pipeline, A2 generator, A3 past-question study, experiments, roadmap) |
-| `MILESTONE_1.md` | Backend milestone (Phase 3): minimum Python files and tests; first question |
-| `LITERATURE_FORECASTING.md` | Literature analysis and the gap-verification checklist |
-| `AUDIT.md` | Dated repository audit snapshot (14 Oct 2026) |
+| `PILOT_PROTOCOL.md` | **Single source** for Part A record formats, hashing, timestamps, baselines and the manual December 2026 pilot |
+| `MILESTONE_1.md` | First backend milestone: minimum Python files and tests; first question |
+| `RESEARCH_GAP_MATRIX.md` | Literature-review matrix (closest work, contradictory evidence, candidate gaps) |
+| `../../docs/research_archive/` | Literature record, research gaps, review paper |
 
 ## Layout (proposed; folders are created when first needed; the user writes the code)
 

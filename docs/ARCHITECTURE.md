@@ -1,7 +1,7 @@
 # Reflica architecture: current state and forecasting plan
 
 Date: 14 October 2026. Status: current-state facts checked in the repository; forward-looking parts are **proposals awaiting the user's approval**. M.Tech guide approval of the research direction is pending.
-Authority: `../NEW_DIRECTION.md`. Dated audit snapshot with full details: `../research/forecast/AUDIT.md`.
+Minor 1 direction: safer merge (Part A LLM benchmark, Part B CPI); this document currently covers Part A only. A new plan document will be written. Earlier plan, direction and audit documents were removed on 16 Oct 2026 (in git history).
 
 ## 1. Implementation order
 
@@ -11,7 +11,7 @@ Exception: the December 2026 pilot is collected by hand in the format in `resear
 | Phase | Content | Gate |
 |---|---|---|
 | 1 | Documentation (this set) | user approval |
-| 2 | Flutter UI with honest empty states / labelled demo data (`UI_SPEC.md`); **no Firestore collections or published records** | clean-up edits done and `flutter analyze` clean (`CLEANUP_EDITS.md`); user review after each UI stage |
+| 2 | Flutter UI with honest empty states / labelled demo data (`UI_SPEC.md`); **no Firestore collections or published records** | clean-up edits done and `flutter analyze` clean (done 14 Oct 2026); user review after each UI stage |
 | — | December pilot, manual (`PILOT_PROTOCOL.md`) | question set frozen before any forecast |
 | 3 | Python backend: validation → storage → runner → resolution → scoring → evaluation (`MILESTONE_1.md`) | user review at each component |
 | 4 | Connect UI to real data (Firestore display layer) | section 5.1 decided; rules versioned and emulator-tested |
@@ -23,7 +23,7 @@ On 14 Oct 2026 the user decided to delete the old plan-based Reflica and keep on
 
 - **Kept:** `main.dart` (Firebase init with offline persistence, routes), `firebase_options.dart`, `AuthService` + `AuthGate` (Google sign-in, demo mode), `AppColors`/`AppText`, `BrandMark`, `responsive.dart`, landing shell (`home_screen.dart`, `app_top_bar.dart`, `cta_footer.dart`), dashboard frame (`dashboard_screen.dart`, sidebar, top bar with search, notifications bell and user menu, `welcome_card.dart`), `placeholder_screen.dart`, notifications (model + service; to carry forecast-deadline alerts later).
 - **Deleted (in the archive):** the plan app (New Plan wizard, My Plans, plan detail and editor, plan model and repository, mind map), the old landing and dashboard sections, the `/graph`, `/scenarios` and `/documents` placeholder pages, the audience images, and the old research (`reflica_bench`, B5 engine, LLM pilot, 203 tests).
-- **Not compiling yet:** the remaining files still refer to deleted ones. The user makes the edits listed in `CLEANUP_EDITS.md`, then runs `flutter analyze` on the Mac.
+- **Not compiling yet:** the remaining files still refer to deleted ones. *(Historical: resolved on 14 Oct 2026, the app builds and runs.)*
 - **Stage-1 merge: cancelled.** The stage-1 branch is built on the deleted plan app. Its useful parts (impact analysis, `graph@1`, FastAPI service) stay in `archive/stage-1-2026-10-14`, to be restored selectively if the final project needs them.
 
 ## 3. What may be restored from the archive later
@@ -92,7 +92,7 @@ Personal account data and settings stay under `users/{uid}` and remain private i
 
 ## 8. Research integrity, evaluation and testing
 
-- Integrity rules: `NEW_DIRECTION.md` section 8. Record and pilot rules (candidates editable, definitions frozen before the first forecast, no backdating, late forecasts excluded, corrections as new records, baselines with rules fixed in advance, India–Western pairs as matched comparisons, synthetic and historical records kept apart): `PILOT_PROTOCOL.md`.
+- Integrity rules: the earlier direction document, section 8 (removed 16 Oct 2026; in git history; still applied). Record and pilot rules (candidates editable, definitions frozen before the first forecast, no backdating, late forecasts excluded, corrections as new records, baselines with rules fixed in advance, India–Western pairs as matched comparisons, synthetic and historical records kept apart): `PILOT_PROTOCOL.md`.
 - Evaluation: Brier on `yes`/`no` only; calibration with sample size and uncertainty; baselines with rules fixed in advance (base rate in the pilot; persistence only after its method is documented and validated, D2; official RBI/IMD forecasts deferred unless a defensible conversion exists, D3); primary leaderboard = latest **eligible** forecast per question, model and condition, with eligibility and selection order defined in `PILOT_PROTOCOL.md` section 7.1 (D1); question status derived by the ordered rules in its section 4.1; late forecasts kept but excluded (D9); India vs Western matched pairs (4–6, exploratory, D5); A3 past-question results reported separately.
 - Testing:
   - **Python:** the old `reflica_bench` tests were archived with it; new `research/tests/test_forecast_*.py` (schema, validator, hashing, append-only store, timeliness rule, Brier hand values, end-to-end with `TEST-` fixtures, pilot-file import without changes).
@@ -100,7 +100,7 @@ Personal account data and settings stay under `users/{uid}` and remain private i
 
 ## 9. Risks
 
-1. The app does not compile until the user's clean-up edits (`CLEANUP_EDITS.md`) are done and checked on the Mac.
+1. The app does not compile until the user's clean-up edits (done 14 Oct 2026) are done and checked on the Mac.
 2. Rules are published by hand; the repo copy must be kept identical to the console.
 3. The December deadline: the protocol and question drafts must be ready in November.
 4. Manual collection errors (wrong times, edited lines). These are mitigated by hashes, same-day stamps and the importer's checks.
@@ -113,7 +113,7 @@ Decided on 14 Oct 2026: D1–D9 (`research/forecast/PILOT_PROTOCOL.md` section 0
 
 Still open:
 1. Final content review of this documentation set.
-2. Clean-up edits (`CLEANUP_EDITS.md`) done by the user and `flutter analyze` clean on the Mac. **No UI work starts before this.** (The stage-1 merge is cancelled.)
+2. Clean-up edits (done 14 Oct 2026) done by the user and `flutter analyze` clean on the Mac. **No UI work starts before this.** (The stage-1 merge is cancelled.)
 3. Approve the UI navigation (no Legacy Plans entry: the plan app was deleted).
 4. Which 2–3 pilot models and the monthly API budget (November).
 5. Timestamping service evaluation (D7, November).

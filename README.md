@@ -1,36 +1,28 @@
 # Reflica
 
-**Reflica is being rebuilt as an AI forecasting and research platform for important Indian events**: clearly defined Yes/No questions, probability forecasts from several AI models with their evidence, an immutable forecast history, real outcomes, and transparent evaluation (Brier score, calibration, baselines).
+AI forecasting research platform for Indian economic and policy outcomes (M.Tech research, GLA University).
 
-**Current plan: `PROJECT_PLAN.md`** (15 Oct 2026): Reflica India, AI forecasting of India's economy and government policy (Minor 1: CPI inflation with evidence-aware revision; Minor 2: policy decisions with calibrated probabilities and abstention). Earlier direction: `NEW_DIRECTION.md` (history). The direction is chosen by the student; formal M.Tech guide approval is pending.
-Implementation order: Documentation → Flutter UI → Python backend → connect the UI to real data. Exception: the December 2026 pilot is recorded by hand (`research/forecast/PILOT_PROTOCOL.md`).
-
-## Status (14 Oct 2026)
-
-- **Forecasting:** documentation and Firestore rules only. No forecasting code yet.
-- **Old Reflica removed:** the plan-based app and the old thesis research were deleted from the main code on 14 Oct 2026. They are kept in branch `archive/old-reflica-2026-10-14` (and stage-1 in `archive/stage-1-2026-10-14`).
-- **The app builds and runs again** after the clean-up (confirmed on the Mac, 14 Oct 2026): sign-in, dashboard shell, forecasting welcome card.
+- **Minor Project 1 title (official, per student, 16 Oct 2026):** *IndiaEconForecast / Reflica India: Hybrid AI Forecasting of Indian Economic and Policy Outcomes*.
+- **Structure:** safer merge. Part A is an LLM forecasting benchmark of Indian yes/no events; Part B is numerical CPI forecasting with evidence-aware revision. A new plan document will be written. **Supervisor approval pending.**
+- **Research:** [`docs/research_archive/`](docs/research_archive/) contains the literature, research gaps and the review paper draft. The gap matrix is in [`research/forecast/RESEARCH_GAP_MATRIX.md`](research/forecast/RESEARCH_GAP_MATRIX.md).
+- **Status:** Flutter + Firebase app shell only. No forecasting code, data or experiments yet. Progress: [`PROGRESS.md`](PROGRESS.md).
 
 ## Layout
 
 ```
 reflica/
-├── PROJECT_PLAN.md       # current research plan and guidelines (read first)
-├── NEW_DIRECTION.md      # earlier direction documents (history)
-├── PROGRESS.md           # dated progress log
-├── firestore.rules       # Cloud Firestore rules (published 14 Oct 2026)
-├── database.rules.json   # Realtime Database rules: locked (published 14 Oct 2026)
-├── docs/                 # UI spec, architecture, Firebase (Spark) review, clean-up edits, rules tests
-├── lib/                  # Flutter app: sign-in, landing and dashboard shell, notifications
-├── android/, ios/, web/, macos/, linux/, windows/
-├── test/                 # Flutter tests
-└── research/
-    └── forecast/         # forecasting protocol, Minor 1 design, milestone plan, literature
+├── PROGRESS.md           # status and condensed decisions log
+├── firestore.rules       # Firestore rules (owner-only notifications; published)
+├── database.rules.json   # Realtime Database rules (locked)
+├── docs/                 # architecture, UI spec, Firebase (Spark) review, rules tests
+│   └── research_archive/ # literature, research gaps, review paper
+├── lib/  test/           # Flutter app and tests
+└── research/forecast/    # Part A record protocol, backend milestone, gap matrix
 ```
 
 ## Flutter app
 
-Firebase project `reflica-593b4` (free Spark plan): Firebase Auth (Google sign-in) and Cloud Firestore. Web and Android.
+Firebase project `reflica-593b4` (free Spark plan): Firebase Auth (Google sign-in) and Cloud Firestore.
 
 ```bash
 flutter pub get
@@ -38,6 +30,6 @@ flutter analyze
 flutter run -d chrome
 ```
 
-## Owner
+Old Reflica code: branch `archive/old-reflica-2026-10-14`.
 
-Sundram Awasthi · M.Tech CSE 2026–28 · GLA University.
+Owner: Sundram Awasthi · M.Tech CSE 2026–28 · GLA University.
