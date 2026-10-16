@@ -27,3 +27,13 @@ data/
 - Then audit: timestamp quality, full-text availability, number of inflation-relevant documents before each cutoff.
 
 PIB_2026_001 and PIB_2026_002 were found by the user (search "inflation", posted 29 Jan 2026). Their URL, time and full text are **still to be filled in**.
+
+## Revised CPI series (training only), added 2026-10-16
+`processed/cpi_series_revised_2026-10-16.csv`: All-India CPI General, Rural/Urban/Combined, from the
+MoSPI CPI API (login token; see `docs/CPI API User Manual.pdf`). **vintage = latest_revised: never first release.**
+- 2012=100 **Current** series: index 2013-01 → 2025-12; y-o-y 2014-01 → 2025-12.
+- 2012=100 **Back** series: 2011-01 → 2013-05 (Rural to 2012-12); y-o-y from 2012-01. Back/Current overlap Jan–May 2013 with different values: keep the `series` column.
+- 2024=100 series: index 2025-01 → 2026-09; y-o-y from 2026-01 (2025 = linking overlap year).
+- y-o-y missing for **Apr–May 2020** (COVID lockdown; not published). Not imputed.
+- Raw pages + manifest (request URL, time): `raw/cpi_api/`. Rebuild: `data/scripts/fetch_cpi_api.py` then `data/scripts/build_cpi_series.py`.
+- API quirks: page limit 100; `level=Group` (case-sensitive); All-India = `state_code=99` (base 2012) but `state_code=1` (base 2024); headline = `division_code=0` (2024); `series=Current|Back` (2012); Python ssl fails → curl. Credentials only in env `MOSPI_USER`/`MOSPI_PASS`.

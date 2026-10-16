@@ -1,0 +1,140 @@
+[
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=1&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page001.json",
+    "retrieved_at_utc": "2026-10-16T18:03:38.236852+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=2&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page002.json",
+    "retrieved_at_utc": "2026-10-16T18:03:39.067731+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=3&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page003.json",
+    "retrieved_at_utc": "2026-10-16T18:03:39.903834+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=4&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page004.json",
+    "retrieved_at_utc": "2026-10-16T18:03:40.746168+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=5&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page005.json",
+    "retrieved_at_utc": "2026-10-16T18:03:41.568481+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=6&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page006.json",
+    "retrieved_at_utc": "2026-10-16T18:03:42.415914+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=7&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page007.json",
+    "retrieved_at_utc": "2026-10-16T18:03:43.250901+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=8&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page008.json",
+    "retrieved_at_utc": "2026-10-16T18:03:44.087870+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=9&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page009.json",
+    "retrieved_at_utc": "2026-10-16T18:03:44.933368+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=10&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page010.json",
+    "retrieved_at_utc": "2026-10-16T18:03:45.775153+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2011&limit=100&page=11&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2011_page011.json",
+    "retrieved_at_utc": "2026-10-16T18:03:46.611450+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=1&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page001.json",
+    "retrieved_at_utc": "2026-10-16T18:03:46.888815+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=2&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page002.json",
+    "retrieved_at_utc": "2026-10-16T18:03:47.714045+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=3&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page003.json",
+    "retrieved_at_utc": "2026-10-16T18:03:48.544513+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=4&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page004.json",
+    "retrieved_at_utc": "2026-10-16T18:03:49.384198+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=5&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page005.json",
+    "retrieved_at_utc": "2026-10-16T18:03:50.207736+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=6&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page006.json",
+    "retrieved_at_utc": "2026-10-16T18:03:51.042518+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=7&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page007.json",
+    "retrieved_at_utc": "2026-10-16T18:03:51.886044+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=8&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page008.json",
+    "retrieved_at_utc": "2026-10-16T18:03:52.733724+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=9&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page009.json",
+    "retrieved_at_utc": "2026-10-16T18:03:53.567247+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=10&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page010.json",
+    "retrieved_at_utc": "2026-10-16T18:03:54.390218+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2012&limit=100&page=11&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2012_page011.json",
+    "retrieved_at_utc": "2026-10-16T18:03:55.223093+00:00"
+  },
+  {
+    "url": "https://api.mospi.gov.in/api/cpi/getCPIData?base_year=2012&year=2013&limit=100&page=1&level=Group&state_code=99&series=Back",
+    "status": 200,
+    "file": "2013_page001.json",
+    "retrieved_at_utc": "2026-10-16T18:03:55.516789+00:00"
+  }
+]
