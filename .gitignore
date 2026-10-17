@@ -46,3 +46,4 @@ app.*.map.json
 
 # Local-only: third-party papers + private plans (repo is public)
 docs/local_private/
+docs/Today Docs/

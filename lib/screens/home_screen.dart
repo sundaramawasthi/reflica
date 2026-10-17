@@ -28,9 +28,13 @@ Future<void> showComingSoon(BuildContext context, String what) {
     context: context,
     builder: (ctx) => AlertDialog(
       backgroundColor: Colors.white,
-      title: Text('$what: coming soon',
-          style: const TextStyle(
-              color: HomeColors.navy, fontWeight: FontWeight.w700)),
+      title: Text(
+        '$what: coming soon',
+        style: const TextStyle(
+          color: HomeColors.navy,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       content: const Text(
         'Reflica is an M.Tech research project. The first forecasting '
         'questions are being prepared, and the first forecasts will be '
@@ -75,15 +79,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _scrollToTop() {
-    _scroll.animateTo(0,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeOut);
+    _scroll.animateTo(
+      0,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
   }
 
   void _scrollToHowItWorks() {
     final ctx = _howItWorksKey.currentContext;
     if (ctx == null) return;
-    Scrollable.ensureVisible(ctx,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
@@ -99,9 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 72),
-                  _Hero(
-                    onExplore: () => showComingSoon(context, 'Forecasts'),
-                  ),
+                  _Hero(onExplore: () => showComingSoon(context, 'Forecasts')),
                   const _FeatureCards(),
                   _HowItWorks(key: _howItWorksKey),
                   const CtaFooter(),
@@ -141,7 +149,11 @@ class _Hero extends StatelessWidget {
     if (stacked) {
       return PageWrap(
         padding: const EdgeInsets.fromLTRB(
-            Breakpoints.pageGutter, 32, Breakpoints.pageGutter, 24),
+          Breakpoints.pageGutter,
+          32,
+          Breakpoints.pageGutter,
+          24,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -240,9 +252,12 @@ class _HeroCopy extends StatelessWidget {
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 18),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)),
-            textStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           child: const Text('Explore Forecasts →'),
         ),
@@ -327,44 +342,56 @@ class _IndiaGatePainter extends CustomPainter {
 
     // Steps.
     canvas.drawRect(
-        Rect.fromLTWH(left - gw * 0.08, groundY - gh * 0.04, gw * 1.16,
-            gh * 0.04),
-        shade);
+      Rect.fromLTWH(
+        left - gw * 0.08,
+        groundY - gh * 0.04,
+        gw * 1.16,
+        gh * 0.04,
+      ),
+      shade,
+    );
 
     // Main body with the arched opening cut out.
-    final body = Path()
-      ..addRect(Rect.fromLTWH(left, top, gw, gh * 0.96));
+    final body = Path()..addRect(Rect.fromLTWH(left, top, gw, gh * 0.96));
     final archW = gw * 0.42;
     final archLeft = cx - archW / 2;
     final archTop = top + gh * 0.34;
     final arch = Path()
       ..moveTo(archLeft, groundY - gh * 0.04)
       ..lineTo(archLeft, archTop + archW / 2)
-      ..arcToPoint(Offset(archLeft + archW, archTop + archW / 2),
-          radius: Radius.circular(archW / 2))
+      ..arcToPoint(
+        Offset(archLeft + archW, archTop + archW / 2),
+        radius: Radius.circular(archW / 2),
+      )
       ..lineTo(archLeft + archW, groundY - gh * 0.04)
       ..close();
-    canvas.drawPath(
-        Path.combine(PathOperation.difference, body, arch), stone);
+    canvas.drawPath(Path.combine(PathOperation.difference, body, arch), stone);
 
     // Cornice bands and the attic block on top.
     canvas.drawRect(
-        Rect.fromLTWH(left - gw * 0.04, top + gh * 0.16, gw * 1.08, gh * 0.04),
-        shade);
+      Rect.fromLTWH(left - gw * 0.04, top + gh * 0.16, gw * 1.08, gh * 0.04),
+      shade,
+    );
     canvas.drawRect(
-        Rect.fromLTWH(left - gw * 0.03, top - gh * 0.02, gw * 1.06, gh * 0.05),
-        shade);
+      Rect.fromLTWH(left - gw * 0.03, top - gh * 0.02, gw * 1.06, gh * 0.05),
+      shade,
+    );
     canvas.drawRect(
-        Rect.fromLTWH(left + gw * 0.18, top - gh * 0.14, gw * 0.64, gh * 0.12),
-        stone);
+      Rect.fromLTWH(left + gw * 0.18, top - gh * 0.14, gw * 0.64, gh * 0.12),
+      stone,
+    );
     canvas.drawRect(
-        Rect.fromLTWH(left + gw * 0.36, top - gh * 0.2, gw * 0.28, gh * 0.06),
-        stone);
+      Rect.fromLTWH(left + gw * 0.36, top - gh * 0.2, gw * 0.28, gh * 0.06),
+      stone,
+    );
 
     // Ground and soft tree lines on both sides.
-    canvas.drawRect(Rect.fromLTWH(0, groundY, w, h - groundY),
-        Paint()..color = const Color(0xFFD9B98C));
-    final trees = Paint()..color = const Color(0xFF7D8F6A).withValues(alpha: 0.55);
+    canvas.drawRect(
+      Rect.fromLTWH(0, groundY, w, h - groundY),
+      Paint()..color = const Color(0xFFD9B98C),
+    );
+    final trees = Paint()
+      ..color = const Color(0xFF7D8F6A).withValues(alpha: 0.55);
     for (var i = 0; i < 14; i++) {
       final x = w * (i / 13);
       if ((x - cx).abs() < gw * 0.75) continue;
@@ -386,21 +413,24 @@ class _FeatureCards extends StatelessWidget {
       icon: Icons.trending_up,
       color: HomeColors.blue,
       title: 'Probability Forecasts',
-      text: 'Get clear percentage forecasts for important events, from '
+      text:
+          'Get clear percentage forecasts for important events, from '
           'economy to weather.',
     ),
     _Feature(
       icon: Icons.description_outlined,
       color: HomeColors.green,
       title: 'Evidence Grounded',
-      text: 'Every forecast is backed by relevant evidence and clear '
+      text:
+          'Every forecast is backed by relevant evidence and clear '
           'reasoning.',
     ),
     _Feature(
       icon: Icons.shield_outlined,
       color: HomeColors.purple,
       title: 'Honest Uncertainty',
-      text: 'When evidence is weak, Reflica says “I don\'t know” instead of '
+      text:
+          'When evidence is weak, Reflica says “I don\'t know” instead of '
           'guessing.',
     ),
     _Feature(
@@ -423,7 +453,11 @@ class _FeatureCards extends StatelessWidget {
 
     return PageWrap(
       padding: const EdgeInsets.fromLTRB(
-          Breakpoints.pageGutter, 24, Breakpoints.pageGutter, 64),
+        Breakpoints.pageGutter,
+        24,
+        Breakpoints.pageGutter,
+        64,
+      ),
       child: LayoutBuilder(
         builder: (context, c) {
           final cardWidth = (c.maxWidth - gap * (perRow - 1)) / perRow;
@@ -432,7 +466,10 @@ class _FeatureCards extends StatelessWidget {
             runSpacing: gap,
             children: [
               for (final f in _cards)
-                SizedBox(width: cardWidth, child: _FeatureCard(feature: f)),
+                SizedBox(
+                  width: cardWidth,
+                  child: _FeatureCard(feature: f),
+                ),
             ],
           );
         },
@@ -500,7 +537,10 @@ class _FeatureCard extends StatelessWidget {
           Text(
             feature.text,
             style: const TextStyle(
-                color: HomeColors.muted, fontSize: 15, height: 1.55),
+              color: HomeColors.muted,
+              fontSize: 15,
+              height: 1.55,
+            ),
           ),
         ],
       ),
@@ -517,13 +557,15 @@ class _HowItWorks extends StatelessWidget {
     _Step(
       icon: Icons.help_outline,
       title: 'Ask a Question',
-      text: 'We define clear, testable questions about important events in '
+      text:
+          'We define clear, testable questions about important events in '
           'India.',
     ),
     _Step(
       icon: Icons.psychology_outlined,
       title: 'Get a Forecast',
-      text: 'AI models provide probabilities with evidence and uncertainty '
+      text:
+          'AI models provide probabilities with evidence and uncertainty '
           'levels.',
     ),
     _Step(
@@ -534,7 +576,8 @@ class _HowItWorks extends StatelessWidget {
     _Step(
       icon: Icons.track_changes,
       title: 'Measure Accuracy',
-      text: 'We score the forecasts and learn for better predictions in the '
+      text:
+          'We score the forecasts and learn for better predictions in the '
           'future.',
     ),
   ];
@@ -550,7 +593,7 @@ class _HowItWorks extends StatelessWidget {
       child: PageWrap(
         child: Column(
           children: [
-            const Semantics(
+            Semantics(
               header: true,
               child: Text(
                 'How It Works',
@@ -570,7 +613,10 @@ class _HowItWorks extends StatelessWidget {
                 'matters — before it happens.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: HomeColors.muted, fontSize: 17, height: 1.6),
+                  color: HomeColors.muted,
+                  fontSize: 17,
+                  height: 1.6,
+                ),
               ),
             ),
             const SizedBox(height: 48),
@@ -579,12 +625,17 @@ class _HowItWorks extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for (var i = 0; i < _steps.length; i++) ...[
-                    Expanded(child: _StepTile(step: _steps[i], number: i + 1)),
+                    Expanded(
+                      child: _StepTile(step: _steps[i], number: i + 1),
+                    ),
                     if (i < _steps.length - 1)
                       const Padding(
                         padding: EdgeInsets.only(top: 22),
-                        child: Icon(Icons.arrow_forward,
-                            color: HomeColors.blue, size: 22),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: HomeColors.blue,
+                          size: 22,
+                        ),
                       ),
                   ],
                 ],
@@ -597,8 +648,11 @@ class _HowItWorks extends StatelessWidget {
                     if (i < _steps.length - 1)
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Icon(Icons.arrow_downward,
-                            color: HomeColors.blue, size: 22),
+                        child: Icon(
+                          Icons.arrow_downward,
+                          color: HomeColors.blue,
+                          size: 22,
+                        ),
                       ),
                   ],
                 ],
@@ -655,7 +709,10 @@ class _StepTile extends StatelessWidget {
               step.text,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  color: HomeColors.muted, fontSize: 15, height: 1.55),
+                color: HomeColors.muted,
+                fontSize: 15,
+                height: 1.55,
+              ),
             ),
           ),
         ],
