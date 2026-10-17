@@ -1,0 +1,635 @@
+  Edited Transcript of the Reserve Bank of India’s Post-Monetary
+            Policy Press Conference: February 8, 2024
+
+Participants from the RBI:
+Shri Shaktikanta Das – Governor, Reserve Bank of India
+Dr. Michael D. Patra – Deputy Governor, Reserve Bank of India
+Shri M. Rajeshwar Rao – Deputy Governor, Reserve Bank of India
+Shri T. Rabi Sankar – Deputy Governor, Reserve Bank of India
+Shri Swaminathan J. – Deputy Governor, Reserve Bank of India
+Dr. O. P. Mall – Executive Director, Reserve Bank of India
+Dr. Rajiv Ranjan – Executive Director, Reserve Bank of India
+
+Moderator:
+Shri Yogesh Dayal – Chief General Manager, Reserve Bank of India
+
+Yogesh Dayal:
+Good afternoon everyone and welcome to the Post-policy Press Conference. Today,
+we have Shri Shaktikanta Das, Governor, Reserve Bank of India with us, along with
+Dr. Michael Patra, Shri M. Rajeshwar Rao, Shri T. Rabi Sankar and Shri Swaminathan
+J. We also have with us today Executive Directors, Dr. O. P. Mall and Dr. Rajiv Ranjan
+and my colleagues from the RBI.
+Sir, we have 21 media persons present here and we will first go with your opening
+remarks and then we will go for the press conference. Over to you Sir.
+Shaktikanta Das:
+Thank you for being here. Good morning. You already have heard the statement. It
+has been uploaded to the RBI website. As a part of my initial remarks, I would like to
+make nine points:
+ i) Domestic economic activity continues to be strong. We expect the real GDP to
+    grow by 7% in the next financial year 2024-25.
+ii) CPI inflation is moderating with intermittent interruptions and spikes. We have to
+    remain vigilant about the incoming data and the outlook. Our endeavour to achieve
+    4% inflation on a durable basis has to continue.
+iii) Globally, markets are front-running central banks in anticipation of policy pivots.
+     But central banks remain apprehensive and await a more durable alignment of
+     inflation with targets.
+iv) Liquidity will be actively managed by the Reserve Bank.
+v) Our multi-pronged proactive and calibrated policies have worked well to maintain
+   and strengthen macroeconomic and financial stability.
+vi) Systemic, sectoral and institution-specific signs of stress are being proactively
+    monitored and acted upon wherever necessary.
+
+
+
+                                           1
+vii) Let me reiterate that good governance, robust risk management, sound
+     compliance culture and protection of customers interests are the hallmarks of the
+     Reserve Bank's approach to the safety and stability of the financial system and
+     individual financial institutions. Regulated entities must accord the highest priority
+     to these aspects.
+viii) The external sector of the economy remains resilient. The current account deficit
+      is expected to be eminently manageable.
+ ix) The exchange rate of the Indian rupee has remained stable. Thank you.
+
+Yogesh Dayal:
+Thank you Sir, for those opening remarks. So, I will begin by inviting Latha Venkatesh
+from CNBC TV18.
+Latha Venkatesh, CNBC TV18:
+I have a little confusion about whether you are distinguishing between liquidity and
+your stance. You have mentioned in three places that the entire rate hike has not been
+fully transmitted. So, I assume you want more hikes to be transmitted. But separately
+in para 21, you have said that you will manage liquidity with a bunch of instruments.
+Should we, therefore, understand that, unlike the majority of the last five months when
+the call was closer to 6.75%, you were in the last one week where you will give long-
+term liquidity through the repo and adjust for short-term, which is to keep the call rate
+closer to 6.5%. Is that what you are trying to say that I will do that, but I want more
+interest rate hikes to happen? Sir, since you have dwelled twice on this good
+governance, are you trying to say that you will not give Paytm any further timeline to
+set them right? Does Feb 29 stand? Is that what we should understand?
+Shaktikanta Das:
+I would request Deputy Governor Michael Patra to reply to the first part of the question
+and for the second part, I would request Deputy Governor Swaminathan to reply.
+Michael D. Patra:
+As the Governor has clarified in his statement, the stance is all about the future course
+of policy rates. Now, liquidity is endogenous to the rate. When the rate is the chief
+instrument of Monetary Policy, liquidity follows the rate. You have to move liquidity to
+achieve a certain rate. Our objective is to keep the weighted average call rate around
+the repo rate. But there are times when there are temporary drivers of autonomous
+liquidity, like Government balances, which go through tectonic shifts and market
+participants take time to adjust even if they are unsure of the future direction of this.
+So, that is why sometimes the call rate goes to where it went, but you saw that we
+were nimble in our actions, and we brought it down to the repo rate. That is our
+endeavour.
+
+
+                                             2
+Latha Venkatesh, CNBC TV18:
+After five months, will you be like the previous five months?
+Michael D. Patra:
+No, that is not correct. Because at the time when the rates were up, we allowed market
+participants to take what liquidity they wanted from us through our standing facilities,
+and we did the main operation every 14th day. So, it was not that we let it go, you saw
+the reaction to the VRRR. They were unwilling to let go because they were unsure
+about how balances would move.
+Swaminathan J.:
+As a matter of policy, we do not comment on individual entities or actions that we
+initiate in such cases. Since this question is on the uppermost in mind of most of you,
+I would like to say two, or three things essentially to set the context. While we do not
+want to be discussing individual details here, because that would not be proper. In
+terms of context, as you all know this is a supervisory action against a regulated entity
+for persistent non-compliance. Second, such supervisory actions are invariably
+preceded by months and at times years of bilateral engagement where we not only
+point out the deficiencies but also provide more than adequate time for them to take
+corrective action. Third, of course, as a regulator, it is incumbent upon us to protect
+the interest of the ultimate consumer and thereby protecting the stability of the financial
+system. So, these actions have to be seen in that particular context.
+Coming to the second part of your question, what lies ahead? As part of MPC, we do
+not give a forecast in these matters. So, you will have to wait, and of course, the
+feedback we have been getting, we will work on, and as a responsible regulator,
+suitable steps will be taken to ensure that customer inconvenience, if any, is
+minimised. So, we will take care. With that, we can give a rest to this question and
+then move on to the MPC.
+Yogesh Dayal:
+Thank you, Sirs. I will move on to Mr. Govardhan Rangan from The Economic Times.
+Govardhan Rangan, The Economic Times:
+For the rates status quo, you specifically mentioned that the transmission of 250 basis
+points is still continuing. So, the bankers say that the deposit rates have already gone
+up by 200-250 basis points and the lending rates have also gone up. So, what in your
+mind is the actual transmission that has not happened and how much is that and what
+is the benchmark that you are looking at to conclude that the transmission has
+happened?
+Shaktikanta Das:
+I would request DG Swaminathan to reply to that question.
+
+
+
+                                             3
+Swaminathan J.:
+As far as the transmission is in a hiking phase as we have always seen in the past,
+the rates on the deposit side reset much faster and they get passed on, and as we
+have seen, deposit rates have almost played out. While on the lending side, it does
+take time to pass for two major reasons in our assessment. One is that the proportion
+of loans that are benchmarked externally, what we call EBLR-linked loans is still less
+than 50%. Where the transmission could be instant is only where the EBLR comes
+into play. In the case of other instruments, other benchmarks like MCLR, base rates
+or fixed rate loans, it does take time to transmit. That is the precise reason, why we
+still see that transmission is fully not in place. Secondly, in the hiking phase, we have
+seen banks anxiety to maintain their market share in the incremental credit, also adjust
+their margins so as not to lose their market share in the incremental credit and that
+also impedes the complete transmission in terms of the effective interest rate.
+Yogesh Dayal:
+I will move on to Mr. Ankur Mishra from ET NOW.
+Ankur Mishra, ET NOW:
+We understand that there have been meetings with the Paytm officials and the
+Reserve Bank. And what transpired in that, I do not want to know the exact details, but
+from the financial system point of view, the company has been claiming that they have
+taken all the remedial measures and all the efforts are being made so that there is
+minimal or no impact on customers. From that point of view, is there any remedial
+measure which has been suggested by the Reserve Bank?
+Swaminathan J.:
+This is again a matter of bilateral discussion. So, I do not think that it will be proper for
+us to discuss it in this forum. So, discussing individual entities and giving granular
+details in this matter will not be very proper. So, we are seized of the issue and as we
+take steps, we will keep the media and public certainly informed.
+Shaktikanta Das:
+As the Deputy Governor has already commented and I am again saying in a general
+sense, not specific to this case; we give sufficient time to every regulated entity, that
+is supervised by the Reserve Bank, to comply with the regulatory requirements. We
+give sufficient time and as DG pointed out, sometimes it may even look like more than
+sufficient time. We are a responsible regulator, we are a responsible supervisor. If
+everything had been complied with, I am talking about in a general sense, why should
+we act? After all, we have a responsibility and the RBI is a responsible institution. That
+is how it is.
+Yogesh Dayal:
+Now I will invite Jeevan Bhawasar from All India Radio.
+
+
+                                              4
+Jeevan Bhawasar, All India Radio:
+Over the last few months, some of the banks have reduced their lending rates but the
+benefit of a reduced rate is being given to the new customers and the old customers
+are still paying higher lending rates as per the old rates. So, to bring parity, will the RBI
+issue some instructions or will talk to the banks?
+M. Rajeshwar Rao:
+The revised interest rate which the new customers get but the existing customers also
+benefit from that. When it resets then the existing customers get the benefit of this. So
+there is no need for the policy change because based on the guidelines of the floating
+interest rate both existing customers and new customers will be benefitted from this.
+Yogesh Dayal:
+Thank you sir, I will invite now Anand Adhikari, Business Today.
+Anand Adhikari, Business Today:
+I will also make an attempt on Paytm. DG Swaminathan talked about this persistent
+non-compliance and he also said in such cases months and years of bilateral
+engagement. My question is why did the RBI not consider appointing a director on the
+Board of Paytm when you knew about this persistent non-compliance issue?
+Swaminathan J.:
+As a regulator, we have various tools in the kitty and it is not necessary that every
+single tool be deployed in every single situation. That we make our own assessment
+to the scale and proportionate of the issue, as well as the tool that we will have to use
+at different points in time. So, a one-size-fits-all kind of solution may not work in such
+situations. So, I would like to stop there rather than trying to elaborate on that. We may
+use certain tools or may not use certain tools, but it is after due consideration that we
+do. Thank you.
+Yogesh Dayal:
+Thank you Sir. I will move on to Mr. Anup Roy from Bloomberg.
+Anup Roy, Bloomberg:
+Sir, the budget was non-inflationary, and the Government really brought down the
+fiscal deficit, etc. The bond yields have fallen so the Government probably wants
+interest rates to come down. But the RBI probably is keeping interest rates high. You
+are saying the transmission is not completed etc. So, is there a lack of coordination?
+Shaktikanta Das:
+No. Has the Government said anywhere that they want the interest rates to be brought
+down. It is a very speculative proposition. So, I cannot reply to that question.
+Yogesh Dayal:
+Thank you Sir. I will invite Shyama Mishra from Doordarshan.
+
+
+                                              5
+Shyama Mishra, Doordarshan:
+Sir, it is again on Paytm. The situation as we describe it is that Paytm is known as one
+of the pioneers of fintech. Coming to this situation, do you see this as a worrisome
+situation for the entire sector? What lesson would you like to highlight for any similar
+future companies?
+Shaktikanta Das:
+Let me provide some broad guidance on this Paytm issue. There have been at least
+four or five questions till now and there could be many more questions. So, let me put
+the record straight.
+You said that you worry about the system and all that. There is no worry about the
+system at the moment. Here we are talking about a specific institution, a specific
+payment bank. As Deputy Governor Swaminathan has already explained. He has
+provided several details. Similarly, I also do not want to comment on a specific case.
+But in this context, I would like to make some general observations, not with specific
+reference to Paytm as such, but some general observations, which include all our
+regulated entities. So, all our regulated entities do not exclude Paytm, it is applicable
+to all regulated entities. I would like to make about six or seven points.
+ i) Over the last few years, as all of you are aware, we have significantly deepened
+    our supervisory systems approach and methods.
+ii) As the Deputy Governor has pointed out, our emphasis is always on bilateral
+    engagement with the regulated entity and in that engagement, we are completely
+    focused on nudging the regulated entity to take corrective action. Let me rephrase
+    it for you to make note. Our emphasis is always on bilateral engagement with the
+    regulated entities with a focus on nudging them for corrective action and sufficient
+    time is given for undertaking such corrective action.
+iii) When such constructive engagement, which we undertake, does not work or when
+     the regulated entity does not take effective action, we go for imposing supervisory
+     or business restrictions.
+iv) Such restrictions which we impose are always proportionate to the gravity of the
+    situation. Please take note that such restrictions are proportionate to the gravity of
+    the situation.
+v) Being a responsible regulator, being a responsible supervisor, all our actions are
+   in the best interest of systemic stability and protection of depositors' and
+   customers' interests. These aspects cannot be compromised. Individual entities
+   should be mindful of these aspects for their long-term success.
+vi) Over the last few days, we have received a lot of queries and clarifications from
+    various quarters including members of the public. You have raised a few questions
+
+
+                                            6
+    today. So, we have noted all these questions and clarifications which have been
+    sought from us and based on that, we will be issuing a FAQ sometime next week.
+    So, that should address all these questions and clarifications which are being
+    raised by you, and which have been raised in the public domain and raised
+    bilaterally with us from various quarters.
+vii) Finally, let me stress and let me emphatically state that the Reserve Bank is and
+     will continue to encourage and support innovation and technology in the financial
+     sector. Let there not be any doubt about the Reserve Bank’s commitment to
+     promote fintech, to promote innovation, and to promote technology in the financial
+     system. Thank you.
+Yogesh Dayal:
+Thank you Sir. I will move on to Mr. Dinesh Unnikrishnan from Moneycontrol.
+Dinesh Unnikrishnan, Moneycontrol:
+I have a very short, related question. In your remarks, you stressed about good
+governance and sound compliance, and this is not something that you are speaking
+about for the first time. You have been emphasising this part and the role of the Boards
+in regulatory entities is extremely critical, as you have pointed out. What is your view
+on the role of the Paytm Board, because it did not happen all of a sudden? Since 2021,
+the RBI has been alerting to the regulatory breaches and as for the process, the RBI
+onsite inspection report is passed on to the ACB and the Board for corrective actions.
+So probably, if they had acted on time, things would not have worsened to this level.
+So, why is the regulator silent on the role of the Board, while the reasons for this action
+are quite evident?
+Shaktikanta Das:
+Typically, we do not share such granular information. We have been engaged with the
+institution, with the entity, for quite some time. Within that, with whom we interacted
+and how it was, such granular details, it will not be appropriate on our part to share.
+Yogesh Dayal:
+Thank you Sir. I will move on to Mr. Vishwanath Nair from NDTV Profit.
+Vishwanath Nair, NDTV Profit:
+I will give you a little respite and move on to another topic. On CBDCs, you are talking
+about introducing additional programs.
+Shaktikanta Das:
+No, we do not need any respite. Go ahead. But the point is same questions are coming
+up, and also as much as we are issuing a FAQ. So, I would request if you have still
+some clarifications or something on which you want clarity, you can send it bilaterally
+to us, directly you can mail it to us, and we will see to what extent we can address that
+question.
+
+
+                                             7
+Vishwanath Nair, NDTV Profit:
+Sure. My question is with regard to the additional programmability that you are
+proposing to bring in with respect to the CBDC pilot. The question has been there
+since the beginning when DG Rabi Shankar introduced this topic. Does not this go
+against the fungibility of money, if the intent is to make CBDC equivalent paper
+currency and if you introduce specific restrictions on usage, does the fungibility factor
+not go opposite to that?
+Shaktikanta Das:
+No, we are not imposing a restriction. We are making it more flexible. But let DG Rabi
+Sankar take that question.
+T. Rabi Sankar:
+Thank you for shifting to me. I will give a more formal answer, but the best way to think
+about it is that when a family puts some currency notes in a package to be used for
+let’s say groceries during the month, does not mean that the fungibility of the currency
+is lost, it is just that until that spending happens. It can be used for no other purpose.
+I am just giving you an example, to be able to think about what we mean by fungibility.
+What we mean by programmability, is when you do programmability for a moment
+fungibility is on hold, we have to realise that it is a facility that we are providing the
+currency. Again, by way of an example, let’s suppose that a school has given some
+money to a student who won a prize to buy books in a particular shop. So, the student
+can only use this money to buy books in that shop that are intended. Supposing the
+student goes and buys that book, he cannot use it for any other purpose. As soon as
+the book is purchased, the currency goes to the bookshop owner. It again becomes
+fungible. So, it is only for that period that fungibility is limited. Supposedly he does not
+spend, it goes back to the school, and fungibility is restored. So, it is a way of
+controlling expenditure that you do not get unless it is digital and that you do not get
+unless it is a token. It is a facility that is used and the facility will typically be agreed
+upon by both the recipient as well as the person who puts that condition. So, to give a
+very short answer, programmability does not militate against fungibility, it is only a
+specific use binding, thank you.
+Shaktikanta Das:
+And to extend that reply further, imagine a situation when CBDC is fully implemented
+at a later date, if the Government wants to give some cash support to certain
+individuals for a specific purpose, programmability will be useful in such situations. So,
+the money, the cash, which is going from the Government to such persons can be
+used for specified purposes. So, it is typical for every household at the beginning of
+the month to do their budget and set aside money, one envelope for school fees, one
+envelope for electricity bills, and it happens, it is a common thing which happens in a
+large number of households.
+
+                                              8
+Yogesh Dayal:
+Thank you Sirs. I will request Manojit Saha from Business Standard to ask his
+question.
+Manojit Saha, Business Standard:
+I again go back to Para 21 on liquidity. You said, your stance is with respect to rates
+and incomplete transmission. Does that mean that you are creating elbow room to do
+liquidity operations, and OMO purchases to infuse liquidity because March is going to
+be very tight? Such liquidity operations will not be seen as out of sync with the stance.
+So, you are separating the stance from liquidity management, and you are saying it is
+only on rates. Does that give you elbow room to do OMO purchases when liquidity will
+be very tight in March?
+Shaktikanta Das:
+What we have attempted to do today is to clarify and clearly state that we do not read
+the stance of Monetary Policy in terms of excess liquidity prevailing or deficit liquidity
+prevailing. That is not the point. Liquidity plays a secondary role to support the
+Monetary Policy transmission. That is what the DG Dr. Patra explained in the beginning
+itself that we try to keep the liquidity at a level wherein the overnight call rate, which is
+the operating target of monetary policy, remains around the repo rate. In the first part
+of this year, due to various exogenous factors, there was a lot of liquidity. So, we
+conducted variable rate repo auctions, but the market took time to adjust. The market,
+banks, and individual banks also make their analysis of the liquidity situation and that
+analysis by the banks also varies within a day. You look at a couple of days back, we
+did two VRRR auctions. The response to the first one was very low, some ₹4,000 crore
+but then the same day we did one more and we got a response of ₹27,000 crore. So,
+between the morning auction when the banks offered ₹4,000 crore and a subsequent
+auction in the afternoon, where the banks offered ₹27,000 crore. So, due to various
+autonomous factors, the liquidity situation has been fluctuating in the market. Banks
+make their assessments. Banks also take their own decisions. The banks and the
+markets take time to adjust to the evolving liquidity situation. So far as the RBI is
+concerned, we will remain active. We will remain nimble in our liquidity management.
+What instrument, we will utilise, will depend on the prevailing situation, which will come
+up from time to time. I cannot say that we will use this not use this. We have several
+instruments at our disposal. Depending on the situation, we will use the most
+appropriate instrument.
+Yogesh Dayal:
+I will move on to Mr. Brajesh Kumar from Zee Business News.
+Brajesh Kumar, Zee Business News:
+Sir, you have talked about hidden costs in loans. What is your feedback on hidden
+costs? What do you want to say about hidden costs? Would you like to talk about
+
+
+                                              9
+processing fees, the charges of lawyers, the charges of architects, or the insurance
+charges when they make it mandatory? So, what are the things in hidden costs and
+will there be a uniform format which all the banks have to follow?
+Shaktikanta Das:
+I have not used the hidden cost term at all. At this time the loans, which banks sanction
+all the charges are specified in the term sheet – what will be the processing fees, what
+will be fees, what all the charges? Everything is specified but an ordinary borrower
+does not read all the terms and conditions of four to five pages. They just see that they
+are getting loans at the interest of 5% to 10%. When they take the loan, all the things
+are specified in the terms and conditions but customers do not read them properly.
+That is why, we mandated already in microfinance lending and digital lending that a
+simple fact statement in which we have said that an annualised all-inclusive rate
+should be mentioned. Suppose your interest rate could be 5% but upfront you pay a
+fee of suppose ₹1,000, so, I am paying ₹1,000 today but the loan is for five years.
+₹1,000 instead of giving in five years, I am giving it upfront so the annualised interest
+rate of that will be more. The common borrower does not understand that and that is
+for the sake of clarity and transparency, we have mandated it. It is in the interest of
+customers and still, the banks are giving that information. There is no hidden cost and
+they have not hidden anything. Let us be very clear. The banks terms and conditions
+are very transparent in the sense that all information is given. But my experience is
+that we do not read it properly, which is why we have mandated a simple term sheet
+or a key fact statement purely in customers’ interest. I am sure banks will encourage
+it because banks are long-term players, they are not short-term operators.
+M. Rajeshwar Rao:
+The Governor has explained the way we have made an effort to prescribe this to banks
+as well for the retail customers and MSMEs. The key fact sheet will be mandated and
+with this earlier also, you must have seen about the issue of credit cards when we
+have mandated the most important terms and conditions to give greater transparency
+so this policy also we have announced accordingly.
+Yogesh Dayal:
+Thank you Sirs. Piyush Shukla from The Financial Express.
+Piyush Shukla, The Financial Express:
+Sir, just taking you back to where we started. DG Sir said that there are various tools
+in the kitty with regard to Paytm. How the future course of action will be taken. Sir, very
+specifically, banks are becoming hesitant to partner with this bank – Paytm Payments
+Bank – for shifting their customers and their merchants in one go. They are saying that
+we need regulatory approval for that. So, will you provide that, and will you allow the
+sale of their wallet to other potential payment banks?
+
+
+
+                                            10
+Swaminathan J.:
+It will be very difficult to provide any hypothetical answers at this point in time. As I said
+there is still time that is provided for customers to continue to access the services that
+are provided. So, during this period, we will see what else needs to be done and as
+the Governor also said we keep the customer at the centre of what needs to be done.
+So, we will take appropriate steps.
+The second part of your question is in terms of what the other banks will have to do. It
+is a business decision. They have got to carry out the required due diligence, as per
+their laid-down board-approved policies. I am sure that they will carry out that if they
+have got to do a partnership. So, that is something which we will not comment on at
+this point in time. But what tool and shape it will take is not something which we would
+like to speculate on at this point in time. We may wait for the FAQs, which will give you
+more clarity.
+Piyush Shukla, The Financial Express:
+So, banks do not need regulatory approval for taking onboard Paytm customers. Is it?
+Swaminathan J.:
+It is very specific to a particular item. It is better to wait for the FAQs as the Governor
+said.
+Shaktikanta Das:
+Please be patient. Let the FAQs come next week.
+Yogesh Dayal:
+Thank you Sirs. I will move on to Swati Bhat Shetye from Reuters.
+Swati Bhat Shetye, Reuters:
+Today, you have said that next year's growth is projected at 7%. Nominal GDP growth
+as per the budget is projected at 10.5%. I do not know if my math is wrong, but
+effectively, that would mean inflation will be around 3.5% next year. Is that right? Are
+you being a bit too optimistic about growth or is the Government underplaying growth
+and being very modest in their projections?
+Shaktikanta Das:
+Deputy Governor Dr. Patra may take that question.
+Michael D. Patra:
+I will not venture to answer for the Government. But my understanding of this is that
+what goes into the nominal GDP is not CPI inflation. It is the GDP deflator and GDP
+deflator is always a weighted combination of CPI and WPI. Now the WPI has been in
+deflation for most part of this year. It is just emerging out of deflation. So, that must be
+the reason.
+Yogesh Dayal:
+Thank you Sirs. I will move on to Mr. Mayur Shetty from The Times of India.
+                                              11
+Mayur Shetty, The Times of India:
+Governor, in the development measures you spoke about reviewing the AEPS and
+some banks have come out with warnings on how fingerprints can be cloned using
+silicon. Is that what has caused this thing? Since OTP is also being reviewed, does it
+mean that the traditional forms of KYC are the best option for regulated entities?
+Shaktikanta Das:
+No. OTP (One Time Password) is not being reviewed. What I am saying is that over
+the years, it so happens that OTP has become the most popular and commonly used
+AFA (Additional Factor of Authentication). But with the movement of time, various other
+technologies and methods have come up. So, we want to just tell the players in the
+field that there are other methods also. The Reserve Bank will be agnostic to them. As
+long as they are sound methods, banks and institutions are free to adopt them. Let
+DG Rabi Sankar take the other part of the question with regard to the Aadhaar AEPS.
+T. Rabi Sankar:
+You gave the answer in your question itself. It is basically to ensure that since this is
+being used in rural and such areas, it is important that the safety of these transactions
+is ensured. Now over time, as in the case of AFA, we can use various technologies to
+do it. So, that is essentially the position here.
+All touchpoint operators will go through a standardised safe and secure onboarding
+process. We can also add, as we have indicated, other factors into it. For example,
+the switch on has to be done by the customer, instead of it being pre-available on the
+system, or it can have geo-limits beyond which it cannot operate, whatever is required
+for the customers.
+The idea is that the Reserve Bank has always been placing a lot of emphasis on the
+security of digital transactions, which we believe is key to ensuring customer adoption,
+especially customers who are not savvy digitally, but this is an effort in that direction
+to improve the security of transactions.
+Yogesh Dayal:
+Thank you Sirs. I will move on to Mr. Hitesh Vyas from The Indian Express.
+Hitesh Vyas, The Indian Express:
+Sir, there is an expectation that the stance would be changed to neutral. What are the
+preconditions for a stance to become neutral?
+Shaktikanta Das:
+I cannot give forward guidance on that. When such a thing happens, we will explain
+how it is. But, I will tell you the situation, the evolving situation continues to be very
+volatile and uncertain. You look at the commentaries coming out from the central
+banks, mostly of advanced countries. Sometimes they appear to be giving forward
+guidance in one particular direction. Sometimes the market interprets the next
+
+                                            12
+guidance to be in a different direction. At the moment, we are not giving any forward
+guidance with regard to stance or rate. There is a talk of when the central banks world
+over will cut rates and as I have said, markets are running ahead of the central banks.
+So, preconditions, I will not be able to specify, unless DG Michael Patra wants to
+comment anything on that. Because these are very volatile times. So, it is better to
+wait and when something like that happens, we will explain it appropriately.
+Yogesh Dayal:
+Thank you Sir. I will move on to Ms. Gopika Gopakumar from Mint.
+Gopika Gopakumar, Mint:
+Good afternoon Governor. Considering that your inflation forecast for next year is at
+4.5% and GDP at 7% and you are saying that the RBI needs to be vigilant in the last
+mile of disinflation. Does it rule out a rate cut in FY25? Secondly, on the Paytm issue,
+what is the larger issue? Is it KYC or is it something related to the ownership or
+interlinkage between a regulated and a non-regulated entity? If it is KYC, then does
+the RBI need to relook at the regulations around minimum KYC accounts?
+Shaktikanta Das:
+We would not like to spell out entity-specific details. It is a bilateral engagement
+between the RBI and the regulated entity. The regulations are there in their place. The
+regulations are robust. It is not a case where there was a regulatory deficiency or there
+was a regulatory correction required. It is an issue of compliance, compliance with
+various parameters. You mentioned KYC, but compliance with so many aspects. So,
+regulations are there, regulations are robust, and it is a situation where we are focused
+on compliance not being there with the regulatory requirements.
+Yogesh Dayal:
+Thank you Sir. The last few questions. We will invite Anurag Shah from ET NOW
+Swadesh.
+Anurag Shah, ET NOW Swadesh:
+Namaste Sir. Over the last few months when you have expressed your concern over
+the personal loans and after the risk weightage was increased. Are you still as
+concerned or has it been reduced? Sir, do you believe that the way personal loans are
+being given is also to be seen? They are giving loans to everyone whether it is small
+or big, minimum of two or three calls come in a day. The second question, which was
+in discussion mostly for the Hindi viewers and crores of customers and merchants and
+Sir, whatever you say gives confidence to the people of the country. So in future if any
+disruption comes in payment bank issues, whether the RBI will be standing with force
+in this issue and will you give some more clarity on this issue?
+Shaktikanta Das:
+I want to assure everyone that India's financial sector, the banking sector and the
+overall financial system is very strong. There is no doubt about it whether it is a banking
+
+                                            13
+or non-banking finance company, NBFC if you see the performance of any of these
+and if you see the overall parameters at the systemic level or individual level
+parameters are strong. Growth is very sound and there is good momentum for growth.
+But as a supervisor, as a regulated entity, we keep supervising it and in every
+supervision, our effort is that whatever supervised entity whether it is a bank, NBFC or
+any other financial institution, we directly engage with them. We talk to them directly
+and we say that this is where you are lacking, and here you have done regulatory
+violation and do the rightful thing. You take your banks or NBFCs in the right direction.
+According to our regulatory guidelines, there are some deviations happening, you
+correct those and take the right steps. For that, we give a lot of time as well.
+I am talking in a general sense and not about a specific to a single entity and where
+the action is not being taken in a timely manner or if we do not see an effective action
+there in the public interest, in customer interest, in depositors'' interest, and overall
+financial system’s interest it; becomes necessary to take certain measures. We take
+those measures because the Reserve Bank is the custodian of financial stability and
+financial systems. The Reserve Bank has always been committed and will be
+committed going forward and as you said, it is standing strong. So yes, the Reserve
+Bank is standing strong.
+Yogesh Dayal:
+Thank you Sir. Pratigya Bajpai from Informist Media and then Anshika Kayastha from
+The Hindu Business Line, the last two questions.
+Pratigya Bajpai, Informist Media:
+Public debt has been high for three years now because of COVID spending by
+governments across the world. So, what risk does the RBI see specifically now to raise
+this as a risk factor and what are the spillover risks for this for India?
+Shaktikanta Das:
+I was raising this issue in a global context, not in the context of India. The India part of
+the information I have given is just by the way of information. My reply was in the global
+context. You see the footnotes of my Monetary Policy Statement. All the supporting
+data is given. By the end of this decade, global debt to GDP of EMEs, and advanced
+economies all put together is expected to exceed 100%. On today's date and in future,
+very surprisingly, you will notice that the debt to GDP of the advanced economies is
+much higher than the debt to GDP levels of the EMEs. Many advanced economies,
+where the fiscal deficit is very high in the range of 7-8% of the GDP will keep on
+borrowing. When they borrow in reserve currency then what you call it a creating new
+money, printing notes. The debt has to be sustainable for the long-term stability of the
+global financial system. So, I have raised this as an issue which can become a future
+source of stress to the global financial system. As far as India is concerned, please
+look at my statement again, I have provided the data in the footnote. The IMF’s Fiscal
+
+                                             14
+Monitor gives out data for India. The debt to GDP for India had gone up to 88%,
+General Government, i.e., Centre and States together, had gone up to 88% during the
+COVID year of 2020 because of the various fiscal measures which were undertaken.
+It has already come around about 81% and by 2028, according to the IMF's Fiscal
+Monitor, it is expected to be around 80%. That is the path, which I just mentioned by
+way of information.
+Anshika Kayastha, The Hindu Business Line:
+Sir, this is not about Paytm, but about UPI. There were talks about restricting and
+capping the market share of each app in terms of UPI transaction, and volume share.
+We have seen the deadline was extended and the market share has only gone up for
+these platforms. Now we are seeing that Paytm-led migration happened to some of
+these platforms like Google Pay and PhonePe, and their market share is increasing.
+Is there a concern regarding, say, over-reliance on a few specific platforms and does
+that raise the risk of them becoming too big, could be a systemically important payment
+aggregator entity or something like that? One small clarification, you mentioned the
+overnight two VRRRs in the day, is there a specific amount or range that the RBI has
+in mind that you would prefer that banks not park their funds beyond that in SDF?
+Shaktikanta Das:
+I think DG Rabi Sankar, followed by DG Michael Patra. Two questions, but the last
+mile in the queue should always have priority.
+T. Rabi Sankar:
+Yes, since it is the last question, I will keep it very short. The limit is from the point of
+view of diffusion of risk, in case some entity does not become available for whatever
+reason at any point in time. But, to take it too big to fail is probably not appropriate
+here because they are just third-party app providers. The limit of 30% of funds does
+not go through them. The system is not threatened except that there could be a
+temporary inconvenience in terms of shifting over to an additional system. It will be for
+the market to decide, the market forces have to play out such that this percentage is
+more evenly decided. We will not be interfering with them in the market process to
+ensure that 30% or something. In any case, it is an NPCI requirement. We will have
+more players to come in. Hopefully, with technology, we will get some more players
+and that percentage can be maintained. We have time till the end of this year anyway.
+Michael D. Patra:
+We do not have any preconceived limits on how much they put in SDF. The SDF by
+its very nature is the standing facility and it is at the discretion of market participants
+as to how much they want to use. As to why we did two VRRRs during the day, we
+assessed market conditions and bidding behaviour and in the first option, we realised
+that there were like bids, which were higher than the amount we offered. We offered
+
+
+                                             15
+50, we got a lot more, so we thought that probably they would like to park more in the
+VRRRs, which is more remunerative than the SDF, so we did the second one.
+Shaktikanta Das:
+DG Swaminathan wants to add some thing.
+Swaminathan J.:
+Just one clarification on UPI because the question came around the UPI apps. See
+this particular action is against the payment bank. It is not to be confused with the
+payment app which is done right? That is okay. We will clarify this through the FAQs.
+But just to clarify in terms of your question just as supplemental information that as an
+app is not impacted by this action.
+Yogesh Dayal:
+Thank you, Sirs. With this, we come to a formal close of the press conference, the first
+press conference of the year and looking forward to more during the year.
+All the best to you. Thank you for coming. Thank you.
+
+
+
+
+                                           16
+

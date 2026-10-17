@@ -1,0 +1,192 @@
+    �ेस �काशनी PRESS RELEASE
+
+
+
+
+       भारतीय �रज़वर् ब�क
+  RESERVE BANK OF INDIA
+
+       वेबसाइट : www.rbi.org.in/hindi        संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                         ं ई - 400 001
+         Website : www.rbi.org.in            Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+     ई-मेल/email : helpdoc@rbi.org.in        Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                         August 10, 2023
+
+
+                  Statement on Developmental and Regulatory Policies
+
+
+       This Statement sets out various developmental and regulatory policy measures
+relating to (i) Financial Markets; (ii) Regulation and Supervision; (iii) Payment Systems;
+and (iv) FinTech.
+
+                                        I.        Financial Markets
+
+
+1. Review of Regulatory framework for Financial Benchmark Administrators
+
+       In June 2019, the Reserve Bank issued a regulatory framework on
+administration of ‘significant benchmarks’ by benchmark administrators in the financial
+markets regulated by the Reserve Bank such as the USD/INR Reference Rate,
+Overnight MIBOR, and valuations of government securities administered by the
+Financial Benchmarks India Private Limited (FBIL). Considering the evolution of the
+domestic financial markets since then and global best practices, the regulations for
+financial benchmarks have been reviewed and it has been decided to put in place a
+comprehensive, risk-based framework covering administration of all benchmarks
+related to foreign exchange, interest rates, money markets and government securities
+such as benchmarks on certificate of deposits (CDs) rates, repo rates, and FX Options
+Volatility Matrix as well as other benchmarks on government securities. Revised
+Directions which are being issued separately, envisage regulatory prescriptions for
+benchmark administrators, encompassing, inter alia, governance and oversight
+arrangements, conflict of interest, controls, and transparency. These Directions will
+provide greater assurance about the accuracy and integrity of benchmarks.
+                           II.   Regulation and Supervision
+
+
+2. Review of Regulatory Framework for NBFC – Infrastructure Debt Funds (IDF-
+   NBFCs)
+
+       Infrastructure Debt Fund was created as a separate category of NBFCs in 2011.
+To enable the IDFs to play a greater role in financing of the infrastructure sector and
+to move towards the regulatory objective of harmonisation of regulations applicable to
+various categories of NBFCs, a review of the extant regulatory framework for IDFs has
+been undertaken in consultation with the Government of India. The revised framework
+envisages – (i) withdrawal of the requirement of a sponsor for the IDFs; (ii) permission
+to finance Toll Operate Transfer projects (ToT) as direct lenders, (iii) access to ECBs;
+and (iv) making tri-partite agreement optional for PPP projects. Detailed guidelines
+shall be issued shortly.
+
+3. Responsible Conduct in Lending: Greater transparency in Interest Rate Reset
+   of Equated Monthly Instalments (EMI) based Floating Interest Loans
+
+       The supervisory reviews undertaken by the Reserve Bank and the feedback
+and references from members of public have revealed several instances of
+unreasonable elongation of tenor of floating rate loans by lenders without proper
+consent and communication to the borrowers. To address the issue, it is proposed to
+put in place a proper conduct framework to be implemented by all REs to address the
+issues faced by the borrowers. The framework envisages that lenders should clearly
+communicate with the borrowers for resetting the tenor and/or EMI, provide options of
+switching to fixed rate loans or foreclosure of loans, transparent disclosure of various
+charges incidental to the exercise of these options, and proper communication of key
+information to the borrowers. The detailed guidelines in this regard shall be issued
+shortly.
+
+
+4. Consolidation and harmonisation of instructions for Supervisory data
+   submission
+
+       The Reserve Bank of India has, from time to time, issued several guidelines
+and instructions to its supervised entities (SEs) viz. SCBs, NBFCs, UCBs, AIFIs etc.
+
+
+                                           2
+for submission of supervisory returns. Certain issues are being faced by SEs while
+complying with these instructions due to changes in technology platforms, modes of
+submission, and variations in the return submission timeframes.
+
+In order to consolidate and harmonise the instructions for submission of applicable
+Supervisory Returns, provide greater clarity and reduce the compliance burden, it is
+proposed to consolidate all the existing instructions on submission of data into a single
+Master Direction which will be a single point of reference for all SEs.
+
+
+                               III.   Payment Systems
+
+
+5. Conversational payments in UPI
+
+       UPI, with its ease of usage, safety and security, and real-time feature, has
+transformed the digital payment ecosystem in India. Addition of many new features
+over time have enabled UPI to facilitate diverse payment needs of the economy. As
+Artificial Intelligence (AI) is becoming increasingly integrated into the digital economy,
+conversational instructions hold immense potential in enhancing ease of use, and
+consequently reach, of the UPI system. It is, therefore, proposed to launch an
+innovative payment mode viz., “Conversational Payments” on UPI, that will enable
+users to engage in a conversation with an AI-powered system to initiate and complete
+transactions in a safe and secure environment. This channel will be made available
+in both smartphones and feature phones-based UPI channels, thereby helping in the
+deepening of digital penetration in the country. The facility will, initially, be available
+in Hindi and English and will subsequently be made available in more Indian
+languages. Instructions to NPCI will be issued shortly.
+
+
+6. Offline payments in UPI
+
+      To increase the speed of small value transactions on UPI, an on-device wallet
+called “UPI-Lite” was launched in September 2022 to optimise processing resources
+for banks, thereby reducing transaction failures. The product has gained traction and
+currently processes more than ten million transactions a month. To promote the use
+of UPI-Lite, it is proposed to facilitate offline transaction using Near Field
+
+
+                                            3
+Communication (NFC) technology. This feature will not only enable retail digital
+payments in situations where internet / telecom connectivity is weak or not available,
+it will also ensure speed, with minimal transaction declines. Instructions to NPCI will
+be issued shortly.
+
+7. Enhancing transactions limits for small value digital payments
+
+       A limit of ₹200 per transaction and an overall limit of ₹2000 per payment
+instrument has been prescribed by the Reserve Bank for small value digital payments
+in offline mode including for National Common Mobility Card (NCMC) and UPI Lite. By
+removing the need for two-factor authentication for small value transactions, these
+channels enable faster, reliable, and contactless mode of payments for everyday small
+value payments, transit payments etc. Since then, there have been demands for
+enhancing these limits. To encourage wider adoption of this mode of payments and
+bring in more use cases into this mode, it is now proposed to increase the per
+transaction limit to ₹500. The overall limit is, however, retained at ₹2000 to contain the
+risks associated with relaxation of two-factor authentication. Instructions in this regard
+will be issued shortly.
+
+
+                                     IV.    FinTech
+
+
+8. Public Tech Platform for Frictionless Credit
+
+        With rapid progress in digitalization, India has embraced the concept of digital
+public infrastructure which encourages FinTech companies and start-ups to create and
+provide innovative solutions in payments, credit, and other financial activities. For
+digital credit delivery, the data required for credit appraisal are available with different
+entities like Central and State governments, account aggregators, banks, credit
+information companies, digital identity authorities, etc. However, they are in separate
+systems, creating hindrance in frictionless and timely delivery of rule-based lending.
+
+       To address this situation, a pilot project for digitalisation of Kisan Credit Card
+(KCC) loans of less than ₹1.60 lakh was started in September 2022. The pilot tested
+end-to-end digitalisation of the lending process in a paperless and hassle-free manner.
+The KCC pilot is currently underway in select districts of Madhya Pradesh, Tamil Nadu,
+
+                                             4
+Karnataka, UP, Maharashtra and the initial results are encouraging. The pilot also
+enables doorstep disbursement of loans in assisted or self-service mode without any
+paperwork. A similar pilot is being carried out for dairy loans based on milk pouring
+data with Amul in Gujarat.
+
+       Based on the learnings from the above pilots and expand the scope to all types
+of digital loans, a digital Public Tech Platform is being developed by the Reserve Bank
+Innovation Hub (RBIH). The Platform would enable delivery of frictionless credit by
+facilitating seamless flow of required digital information to lenders. The end-to-end
+digital platform will have an open architecture, open Application Programming
+Interfaces (APIs) and standards, to which all financial sector players can connect
+seamlessly in a ‘plug and play’ model.
+
+       The Platform is intended to be rolled out as a pilot project in a calibrated fashion,
+both in terms of access to information providers and use cases. It shall bring about
+efficiency in the lending process in terms of reduction of costs, quicker disbursement,
+and scalability.
+
+
+
+
+                                                                     (Yogesh Dayal)
+Press Release: 2023-2024/724                                      Chief General Manager
+
+
+
+
+                                             5
+

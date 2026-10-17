@@ -1,0 +1,109 @@
+     �ेस �काशनी PRESS RELEASE
+
+
+
+
+        भारतीय �रज़वर् ब�क
+ RESERVE BANK OF INDIA
+
+       वेबसाइट : www.rbi.org.in/hindi    संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                     ं ई - 400 001
+          Website : www.rbi.org.in       Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+      ई-मेल/email : helpdoc@rbi.org.in   Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                    February 8, 2024
+
+                  Statement on Developmental and Regulatory Policies
+
+    This Statement sets out various developmental and regulatory policy measures
+relating to (i) Financial Markets; (ii) Regulations; and (iii) Payment Systems and
+Fintech.
+                                I.    Financial Markets
+
+1.     Review of the Regulatory Framework for Electronic Trading Platforms
+
+   In October 2018, the Reserve Bank had put in place a regulatory framework for
+electronic trading platforms (ETPs) for executing transactions in financial instruments
+regulated by it. Under the framework, which aimed to ensure fair access through
+transparent, safe, and efficient trading processes, robust trading infrastructures and
+prevent market abuse, thirteen ETPs operated by five operators have since been
+authorised. Over the last few years, there has been increased integration of the
+onshore forex market with offshore markets, notable developments in the technology
+landscape and an increase in product diversity. Market makers have also made
+requests to access offshore ETPs offering permitted Indian Rupee (INR) products. In
+view of these developments, it has been decided to review the regulatory framework
+for ETPs. The revised regulatory framework will be issued separately for public
+feedback.
+
+2.    Hedging of Gold Price Risk in the Over the Counter (OTC) Market in the
+International Financial Services Centre (IFSC)
+
+    With a view to providing flexibility to resident entities to hedge their exposures to
+gold price risk efficiently, resident entities were permitted, in December 2022, to
+access recognised exchanges in the International Financial Services Centre (IFSC).
+It has now been decided to also allow them to hedge the price of gold in the over the
+counter (OTC) segment in the IFSC. This will provide resident entities more flexibility
+and easier access to derivative products in hedging their exposure to gold prices. The
+related instructions are being issued separately.
+
+                                           II.      Regulations
+
+3.     Key Fact Statement (KFS) for Retail and MSME Loans & Advances
+
+   The Reserve Bank has announced several measures in the recent past to foster
+greater transparency and disclosure by the regulated entities (REs) in pricing of loans
+and other charges levied on the customers. One such measure is the requirement for
+lenders to provide their borrowers a Key Fact Statement (KFS) containing the key
+information regarding a loan agreement, including all-in-cost of the loan, in simple and
+easy to understand format. Currently KFS is specifically mandated in respect of loans
+by scheduled commercial banks to individual borrowers; digital lending by REs; and
+microfinance loans. Now, it has been decided to mandate all REs to provide the ‘Key
+Fact Statement’ (KFS) to the borrowers for all retail and MSME loans. Providing critical
+information about the terms of the loan agreement, including all-inclusive interest cost,
+shall greatly benefit the borrowers in making an informed decision.
+
+                         III.   Payment Systems and Fintech
+
+4.     Enhancing the Robustness of AePS
+
+    Aadhaar Enabled Payment System (AePS), operated by NPCI, enables customers
+to perform digital payment transactions in assisted mode. In 2023, more than 37 crore
+users undertook AePS transactions, which points to the important role played by AePS
+in financial inclusion. To enhance the security of AePS transactions, it is proposed to
+streamline the onboarding process, including mandatory due diligence, for AePS
+touchpoint operators, to be followed by banks. Additional fraud risk management
+requirements will also be considered. Instructions in this regard shall be issued shortly.
+
+5.    Principle-based Framework for Authentication of Digital Payment
+Transactions
+
+    Over the years, the Reserve Bank has prioritised security of digital payments, in
+particular the requirement of Additional Factor of Authentication (AFA). Though RBI
+has not prescribed any particular AFA, the payments ecosystem has largely adopted
+SMS-based One Time Password (OTP). With innovations in technology, alternative
+authentication mechanisms have emerged in recent years. To facilitate the use of such
+mechanisms for digital security, it is proposed to adopt a principle-based “Framework
+for authentication of digital payment transactions”. Instructions in this regard will be
+issued separately.
+
+6.     Introduction of Programmability and Offline Functionality in Central Bank
+Digital Currency (CBDC) Pilot
+
+    The CBDC Retail (CBDC-R) pilot currently enables Person to Person (P2P) and
+Person to Merchant (P2M) transactions using Digital Rupee wallets provided by pilot
+banks. It is now proposed to enable additional use cases using programmability and
+offline functionality. Programmability will permit users like, for instance, government
+agencies to ensure that payments are made for defined benefits. Similarly, corporates
+will be able to program specified expenditures like business travel for their employees.
+Additional features like validity period or geographical areas within which CBDC may
+be used can also be programmed. Second, it is proposed to introduce an offline
+functionality in CBDC-R for enabling transactions in areas with poor or limited internet
+connectivity. Multiple offline solutions (proximity and non-proximity based) across hilly
+areas, rural and urban locations will be tested for this purpose. These functionalities
+will be introduced through the pilots in a gradual manner.
+
+
+                                                                   (Yogesh Dayal)
+Press Release: 2023-2024/1827                                   Chief General Manager
+

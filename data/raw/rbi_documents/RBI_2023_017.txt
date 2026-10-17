@@ -1,0 +1,105 @@
+     �ेस �काशनी PRESS RELEASE
+
+
+
+
+        भारतीय �रज़व� ब�क
+RESERVE BANK OF INDIA
+        वेबसाइट : www.rbi.org.in/hindi    संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुंबई-400001
+          Website : www.rbi.org.in        Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+      ई-मेल/email : helpdoc@rbi.org.in    Mumbai-400001 फोन/Phone: 022- 22660502
+
+
+                                                                                                                   April 06, 2023
+
+                        Statement on Developmental and Regulatory Policies
+
+    This Statement sets out various developmental and regulatory policy measures
+relating to (i) Financial Markets; (ii) Regulation and Supervision; and (iii) Payment and
+Settlement Systems.
+
+                                               I. Financial Markets
+
+1.       Developing an Onshore Non-deliverable Derivatives Market
+
+   Banks in India which operate International Financial Services Centre (IFSC) Banking
+Units (IBUs) were permitted to transact in INR Non-deliverable foreign exchange
+derivative contracts (NDDCs) with non-residents and with each other with effect from
+June 1, 2020. With a view to develop the onshore INR NDDC and to provide residents
+with the flexibility to efficiently design their hedging programmes, it has been decided to
+permit banks with IBUs to offer INR NDDCs to resident users in the onshore market.
+These banks will have the flexibility of settling their NDDC transactions with non-residents
+and with each other in foreign currency or in INR while transactions with residents will be
+mandatorily settled in INR. Related directions are being issued separately.
+
+                                         II. Regulation and Supervision
+
+2.       Enhancing Efficiency of Regulatory Processes
+
+   Various entities are required to obtain license / authorization to carry out activities
+regulated by RBI. Further, regulated entities are required to seek certain regulatory
+approvals from RBI under various statutes / regulations periodically. Currently, the
+application and approval processes for the same take place in varied on-line and off-line
+modes. The Union Budget for 2023-24 has announced the need to simplify, ease and
+reduce cost of compliance by financial sector regulators within laid down time limits to
+decide the applications under various regulations. It has, therefore, been decided to
+develop a secured web based centralised portal named as ‘PRAVAAH’ (Platform for
+Regulatory Application, Validation And AutHorisation) which will gradually extend to all
+types of applications made to RBI across all functions.
+
+3.     Development of Centralised Web portal for Public to Search Unclaimed
+       Deposits
+
+   The deposits remaining unclaimed for 10 years in a bank are transferred to the
+“Depositor Education and Awareness” (DEA) Fund maintained by the Reserve Bank of
+India. Depositors’ protection being an overarching objective, RBI has been taking various
+measures to ensure that newer deposits do not turn unclaimed and existing unclaimed
+                                               2
+
+ deposits are returned to the rightful owners or beneficiaries after following due procedure.
+ On the second aspect, banks display the list of unclaimed deposits on their website. In
+ order to improve and widen the access of depositors / beneficiaries to such data, RBI has
+ decided to develop a web portal to enable search across multiple banks for possible
+ unclaimed deposits based on user inputs. The search results will be enhanced by use of
+ certain AI tools.
+
+ 4.   Grievance Redress Mechanism relating to Credit Information Reporting by
+      Credit Institutions and Credit information provided by Credit Information
+      Companies
+
+     With the increase in customer complaints regarding credit information reporting and
+ the functioning of credit information companies (CICs), it has been decided to put in place
+ a comprehensive framework for strengthening and improving the efficacy of the
+ grievance redress mechanism and customer service provided by the credit institutions
+ (CIs) and CICs. For this purpose, the CICs have been brought under the aegis of the
+ Reserve Bank Integrated Ombudsman Scheme (RB-IOS). In addition, it is also proposed
+ to put in place the following measures: a compensation mechanism for delayed
+ updation/rectification of credit information; a provision for SMS/ email alerts to customers
+ when their credit information are accessed from CICs; a timeframe for ingestion of data
+ received by CICs from Credit Institutions; and disclosures relating to number and nature
+ of customer complaints received on the website of CICs. Detailed guidelines in this
+ regard would be issued shortly.
+
+                             III. Payment and Settlement Systems
+
+ 5.     Operation of Pre-Sanctioned Credit Lines at Banks through the UPI
+
+     Unified Payments Interface (UPI) is a robust payments platform supporting an array of
+ features. Presently it handles 75% of the retail digital payments volume in India. The UPI
+ system has been leveraged to develop products and features aligned to India’s payments
+ digitisation goals. Recently, RuPay credit cards were permitted to be linked to UPI. At
+ present, UPI transactions are enabled between deposit accounts at banks, sometimes
+ intermediated by pre-paid instruments including wallets. It is now proposed to expand the
+ scope of UPI by enabling transfer to / from pre-sanctioned credit lines at banks, in
+ addition to deposit accounts. In other words, UPI network will facilitate payments financed
+ by credit from banks. This can reduce the cost of such offerings and help in development
+ of unique products for Indian markets.
+
+ Detailed instructions in this regard will be issued separately.
+
+
+
+
+                                                                      (Yogesh Dayal)
+Press Release: 2023-2024/23                                        Chief General Manager
+

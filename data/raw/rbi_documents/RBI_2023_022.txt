@@ -1,0 +1,146 @@
+    �ेस �काशनी PRESS RELEASE
+
+
+
+
+       भारतीय �रज़वर् ब�क
+ RESERVE BANK OF INDIA
+
+       वेबसाइट : www.rbi.org.in/hindi   संचार िवभाग, क� �ीय कायार्लय, शहीद भगत �संह मागर्, फोटर्, मुब
+                                                                                                    ं ई - 400 001
+         Website : www.rbi.org.in       Department of Communication, Central Office, Shahid Bhagat Singh Marg, Fort,
+     ई-मेल/email : helpdoc@rbi.org.in   Mumbai - 400 001 फोन/Phone: 022 - 2266 0502
+
+
+                                                                                                     October 6, 2023
+
+                  Statement on Developmental and Regulatory Policies
+
+        This Statement sets out various developmental and regulatory policy measures
+relating to (i) Regulation (ii) Payments Systems and (iii) Consumer Protection.
+
+                                            I. Regulation
+
+1. Prudential Framework for Income Recognition, Asset Classification and
+Provisioning pertaining to Advances - Projects Under Implementation
+
+Project finance is generally characterized by various complexities inter alia including
+long gestation periods. With a view to strengthen the extant regulatory framework
+governing the project finance and to harmonise the instructions across all regulated
+entities, the extant prudential norms for projects under implementation have been
+reviewed and a comprehensive regulatory framework applicable for all regulated
+entities is proposed to be issued. Detailed draft guidelines on the above will be issued
+separately.
+
+2. Credit Concentration Norms – Credit Risk Transfer
+
+The extant guidelines on Large Exposure Framework for Non-Banking Financial
+Company - Upper Layer (NBFC-UL) permits exposures to the original counterparty to
+be offset with certain credit risk transfer instruments. However, the extant credit
+concentration norms for NBFC in the Middle Layer (ML) and Base Layer (BL) do not
+explicitly envisage any such mechanism. With a view to harmonize the aforesaid
+norms among NBFCs, it has been decided to permit NBFCs in the ML and BL as well,
+to offset their exposures with eligible credit risk transfer instruments. The instructions
+in this regard shall be issued shortly.
+
+3. Gold Loan – Bullet Repayment Scheme – UCBs
+
+UCBs have been permitted an extended glide path for achievement of PSL targets,
+beyond March 2023. With a view to incentivising UCBs that have met the prescribed
+PSL targets as on March 31, 2023, it has been decided to increase the monetary
+ceiling of gold loans that can be granted under the bullet repayment scheme
+from ₹2.00 lakh to ₹4.00 lakh for such UCBs who have met the overall PSL target and
+sub targets as on March 31, 2023. These banks will be required to continue to meet
+the targets and sub-targets thereafter. Detailed guidelines on the matter will be issued
+separately. Incidentally, in terms of our circular, DOR.CRE.REC.18/07.10.002/2023-
+24 dated June 8, 2023, granting extension of time for achieving the Priority sector
+lending targets it was clarified that incentives to UCBs meeting the PSL targets shall
+be announced separately.
+4. Framework for recognition of SROs for Regulated Entities (REs) of Reserve
+Bank
+
+In view of the potential role of Self-Regulatory Organisations (SROs) in strengthening
+compliance culture among their members and also providing a consultative platform
+for policy making, it has been decided to issue an omnibus framework for recognising
+SROs for various Regulated Entities (REs) of the Reserve Bank. The omnibus SRO
+framework shall prescribe the broad objectives, functions, eligibility criteria,
+governance standards, etc., which will be common for all SROs, irrespective of the
+sector. The Reserve Bank may prescribe sector-specific additional conditions at the
+time of calling for applications for recognising such SROs. To begin with, a draft of the
+omnibus framework will be released for stakeholder comments.
+
+                                II. Payments Systems
+
+5. Payments Infrastructure Development Fund – Extension of Scheme and
+Inclusion of PM Vishwakarma Scheme beneficiaries
+
+The Payments Infrastructure Development Fund (PIDF) Scheme was operationalised
+by the Reserve Bank in January 2021 for a period of three years. The objective was
+to incentivise the deployment of payment acceptance infrastructure such as physical
+Point of Sale (PoS), Quick Response (QR) codes in tier-3 to tier-6 centres, north
+eastern states and Union Territories of Jammu & Kashmir and Ladakh. Beneficiaries
+of PM SVANidhi Scheme in Tier-1 and 2 centres were later included in August 2021.
+As at end-August 2023, over 2.66 crore new touch points have been deployed under
+the Scheme. It is now proposed to extend the PIDF Scheme by a further period of two
+years, i.e., upto December 31, 2025. Also, it is proposed to include beneficiaries of
+PM Vishwakarma Scheme in all centres under the PIDF Scheme. This decision to
+expand the targeted beneficiaries under the PIDF scheme will provide fillip to the
+Reserve Bank’s efforts towards promoting digital transactions at the grassroots level.
+
+Further, based on the feedback received from industry, deployment of emerging
+modes of payment acceptance, such as soundbox devices and Aadhaar-enabled
+biometric devices, are proposed to be encouraged under the PIDF Scheme. This is
+expected to further accelerate and augment the deployment of payment acceptance
+infrastructure in the targeted geographies. The amendments will be notified shortly.
+
+6. Introducing new channels for Card-on-File Tokenisation
+
+RBI introduced Card-on-File Tokenisation (CoFT) in September 2021 and began
+implementation from October 1, 2022. So far, over 56 crore tokens have been created
+on which transactions with value of over ₹5 lakh crore have been
+undertaken. Tokenisation has improved transaction security and transaction approval
+rate. At present, Card-on-File(CoF) token can only be created through merchant’s
+application or webpage. It is now proposed to introduce CoF token creation facilities
+directly at the issuer bank level. This measure will enhance convenience for
+cardholders to get tokens created and linked to their existing accounts with various e-
+commerce applications. Instructions in this regard will be issued separately.
+
+
+
+
+                                           2
+                              III. Consumer Protection
+
+7.     Master Direction on Internal Ombudsman mechanism in Regulated
+Entities
+
+The Reserve Bank of India, in 2015, introduced an Internal Ombudsman (IO)
+mechanism in select scheduled commercial banks with the objective to strengthen
+their Internal Grievance Redress (IGR) system and to ensure efficient and fair
+resolution of customer complaints by enabling an apex level review within the banks
+before their rejection. Gradually, the framework has been extended to other regulated
+entities (REs), viz. select Non-Bank System Participants (non-bank issuers of PPIs),
+select Non-Banking Financial Companies and all Credit Information Companies.
+
+The guidelines on Internal Ombudsman framework currently in operation for various
+categories of REs have similar design features but carry certain variations on
+operational matters. Based on the learnings from the implementation of the extant IO
+guidelines, it has been decided to harmonise the same and issue a consolidated
+Master Direction. The Master Direction shall bring uniformity in matters like timeline
+for escalation of complaints to IOs, exclusions, temporary absence of the Internal
+Ombudsman, minimum qualifications for appointing an Internal Ombudsman and
+updation of reporting formats, in addition to introduction of the post of Deputy Internal
+Ombudsman. These instructions are expected to further strengthen the IO mechanism
+and in turn, the grievance redress system in REs.
+
+
+
+
+                                                                   (Yogesh Dayal)
+Press Release: 2023-2024/1053                                   Chief General Manager
+
+
+
+
+                                           3
+
