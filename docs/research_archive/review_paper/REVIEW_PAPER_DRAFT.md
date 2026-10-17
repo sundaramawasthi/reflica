@@ -1,7 +1,7 @@
 ---
 title: "Evidence-Aware Forecast Revision for India's CPI Inflation: A Review of Numeric, News-Based and LLM Forecasting, and a Proposed Framework"
 author: "Sundram Awasthi, M.Tech CSE, GLA University, Mathura, India (supervisor: to be added)"
-date: "Draft v0.5, 15 October 2026 (Mohan, Forecast-Dojo, BLF, Kalamara added)"
+date: "Draft v0.6, 17 October 2026 (LiveMacroEval and LLM-CPI read; gap narrowed to v8; dataset section added)"
 ---
 
 > **Draft status.** This is a review and proposal paper. It reports **no experimental results**, because the experiments have not been run yet. Sources marked *[A]* in the reference list were read at abstract or summary level only. References marked *[verify]* need their authors, pages or venue checked against the original before submission. The direction is provisional until the supervisor approves it.
@@ -229,7 +229,7 @@ From the studies reviewed, we found **no work that, for India's CPI inflation:**
 - (c) records the reason for every revision; and
 - (d) evaluates this rule against never-update, always-update (news-decomposition-style) and small-step update policies at equal horizons, with prediction intervals, in a point-in-time (leakage-controlled) walk-forward backtest.
 
-The proposal is best framed as a **text-claim analogue of nowcasting news decomposition with an explicit, scored revision gate on a numeric forecast**. It is not the first explainable forecast revision, because model-based nowcasting already attributes revisions to numeric news [28], [29]. Nor is it the first claim-level evidence log, because LLM agents already keep dated, provenance-annotated ledgers [41]. A recent real-time evaluation of LLM macro nowcasts [44] has not yet been read and must be checked.
+The proposal is best framed as a **text-claim analogue of nowcasting news decomposition with an explicit, scored revision gate on a numeric forecast**. It is not the first explainable forecast revision, because model-based nowcasting already attributes revisions to numeric news [28], [29]. Nor is it the first claim-level evidence log, because LLM agents already keep dated, provenance-annotated ledgers [41]. A real-time evaluation of LLM macro nowcasts [44], now read in full, lets LLM agents revise US CPI nowcasts by their own judgement. It has no explicit update rule and no comparison of update policies, and the agents perform worst on inflation. An LLM-based CPI model with text-derived inputs and prediction intervals [45] also exists (China, social-media text), but it has no revision policy. News-driven updating of nowcasts is likewise established [30], [31]. Behavioural evidence that forecasters over- or under-react to news [46] motivates **bounded** rather than full revisions. Our gap is therefore narrowed to a **test-type contribution**: whether claim-level, source-linked evidence plus a pre-specified bounded revision rule adds value for Indian headline CPI y-o-y beyond strong numeric and simple text baselines.
 
 This gap is provisional. [2], [3], [5], [15], [28] and [29] were read in full. The remaining nowcasting, judgment and LLM-updating studies [30]–[43], as well as [4], [6] and [16], were assessed only at abstract or summary level and must be read in full before any claim of novelty.
 
@@ -289,6 +289,15 @@ This gap is provisional. [2], [3], [5], [15], [28] and [29] were read in full. T
 **Cost.** The design uses small open models or a free API tier for extraction and classical models for forecasting. It runs on a laptop and a free cloud database, in contrast to the multi-GPU setup of [11].
 
 ---
+
+## VII-A. Dataset Assembled (October 2026)
+
+A point-in-time dataset was assembled from official sources. Every item carries its publication time, and none is used before that time.
+
+- **CPI history:** All-India CPI (Rural, Urban, Combined), base 2012=100 for Jan 2013 – Dec 2025 and base 2024=100 for Jan 2025 – Sep 2026 (613 rows), from the MoSPI e-Sankhyiki API. These are latest revised values, used for training only.
+- **CPI first releases:** 33 monthly releases (Dec 2025; Jan 2024 – Aug 2026), with the actual release date and time, first-release value and link. Release dates shift when the 12th falls on a weekend (e.g., 13 Apr, 13 Jul, 14 Sep 2026), and values are revised later (Jan 2026: 2.75% first release, 2.74% later).
+- **Evidence documents (81):** all 22 RBI MPC resolutions (Apr 2023 – Oct 2026), MPC minutes, 8 Monetary Policy Reports, the Economic Survey 2025-26, and 14 PIB releases on food and fuel prices and supply (wheat stock limits, onion buffer releases, pulses sales, edible-oil duties, a fuel excise cut, crop estimates).
+- **Known breaks:** the CPI base change (Jan 2026; linking factor 0.5267); COVID-imputed CPI (Apr–May 2020); the WPI base change to 2022-23.
 
 ## VIII. Limitations of This Review and Threats to Validity
 
@@ -396,6 +405,10 @@ Research on forecasting India's inflation has moved from numeric models to text-
 
 [43] Y. Lu and Y. Zhang, "The corroboration illusion: When more news makes LLM forecasts less true," arXiv:2609.22246, 2026. [A]
 
-[44] X. Zhao, R. Zhang, L. Ye, R. Cao, P. Xie and S. Chava, "Can LLMs take the pulse of the economy? A real-time evaluation of LLM nowcasts on macroeconomic indicators," arXiv:2608.30110, 2026. [cited via [41]; not read]
+[44] X. Zhao, R. Zhang, L. Ye, R. Cao, P. Xie and S. Chava, "Can LLMs take the pulse of the economy? A real-time evaluation of LLM nowcasts on macroeconomic indicators," arXiv:2608.30110v1, 2026.
+
+[45] Y. Fan, J. Lv, A. Sun and Y. Wang, "LLM-powered CPI prediction inference with online text time series," arXiv:2506.09516v1, 2025.
+
+[46] P. Bordalo, N. Gennaioli, Y. Ma and A. Shleifer, "Overreaction in macroeconomic expectations," *American Economic Review*, vol. 110, no. 9, pp. 2748–2782, 2020. [A]
 
 [45] J. John, S. Singh and M. Kapur, "Inflation forecast combinations: The Indian experience," RBI Working Paper No. 11, 2020. [cited via [6]; not read]
