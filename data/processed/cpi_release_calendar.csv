@@ -24,7 +24,7 @@ reference_month,release_date,release_time_ist,source_url,base_year,status,headli
 2025-11,2025-12-12,16:00,https://www.mospi.gov.in/uploads/latestreleasesfiles/1765535702131-Press%20Release_CPI_November_2025.pdf,2012=100,provisional,197.9,0.71,2026-10-16,"Yes (original MoSPI/NSO release PDF; embargo line; values Provisional, table/sentence check: agree)"
 2025-12,2026-01-12,16:00,https://www.mospi.gov.in (MoSPI latest_release file; exact URL not recorded),2012=100,provisional,,1.33,2026-10-16,Yes (original MoSPI press release; embargoed till 4:00 PM 12 Jan 2026; OLD BASE 2012=100)
 2026-01,2026-02-12,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2227012,2024=100,provisional,,2.75,2026-10-16,Yes (original PIB press release; index not yet extracted)
-2026-02,2026-03-12,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238889,2024=100,provisional,,3.21,2026-10-16,Yes (original PIB press release; index not yet extracted)
+2026-02,2026-03-12,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238889,2024=100,provisional,104.57,3.21,2026-10-16,Yes (original PIB press release PRID 2238889; Combined index 104.57 extracted 2026-10-17)
 2026-03,2026-04-13,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2251519,2024=100,provisional,,3.40,2026-10-16,Yes (original PIB press release; released 13 Apr - 12 Apr was a Sunday)
 2026-04,2026-05-12,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2260251,2024=100,provisional,,3.48,2026-10-16,Yes (original PIB press release)
 2026-05,2026-06-12,16:00,https://www.pib.gov.in/PressReleasePage.aspx?PRID=2272112,2024=100,provisional,,3.93,2026-10-16,Yes (original PIB press release)
